@@ -1,0 +1,17 @@
+{
+  "name": "@dsh-office-profile/pdf-inspect",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p ../tsconfig.json",
+    "test": "vitest run --root .."
+  },
+  "dependencies": {
+    "@dsh-office-profile/pdf-contracts": "0.1.0",
+    "@dsh-office-profile/pdf-engines": "0.1.0"
+  }
+}

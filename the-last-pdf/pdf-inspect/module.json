@@ -1,0 +1,18 @@
+{
+  "id": "pdf-inspect",
+  "name": "pdf-inspect",
+  "version": "0.1.0",
+  "profileGroup": "PDF",
+  "entry": "src/index.ts",
+  "summary": "PDF 格式、页数、加密与活动内容探测",
+  "capabilities": [
+    "inspect",
+    "execute",
+    "verify"
+  ],
+  "implementation": "implemented",
+  "engineSelection": "user-approved",
+  "decisionIds": [
+    "D1"
+  ]
+}

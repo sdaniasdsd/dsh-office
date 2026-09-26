@@ -1,0 +1,18 @@
+{
+  "id": "pdf-render",
+  "name": "pdf-render",
+  "version": "0.1.0",
+  "profileGroup": "PDF",
+  "entry": "src/index.ts",
+  "summary": "PDF 逐页图像与视觉复核产物",
+  "capabilities": [
+    "inspect",
+    "execute",
+    "verify"
+  ],
+  "implementation": "implemented",
+  "engineSelection": "user-approved",
+  "decisionIds": [
+    "D1"
+  ]
+}

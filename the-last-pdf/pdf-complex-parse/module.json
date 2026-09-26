@@ -1,0 +1,18 @@
+{
+  "id": "pdf-complex-parse",
+  "name": "pdf-complex-parse",
+  "version": "0.1.0",
+  "profileGroup": "PDF",
+  "entry": "src/index.ts",
+  "summary": "OCR、复杂版面与表格的来源证据适配入口",
+  "capabilities": [
+    "inspect",
+    "execute",
+    "verify"
+  ],
+  "implementation": "implemented",
+  "engineSelection": "user-approved",
+  "decisionIds": [
+    "D2"
+  ]
+}

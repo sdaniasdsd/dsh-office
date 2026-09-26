@@ -1,0 +1,18 @@
+{
+  "id": "pdf-parse",
+  "name": "pdf-parse",
+  "version": "0.1.0",
+  "profileGroup": "PDF",
+  "entry": "src/index.ts",
+  "summary": "语义视图、物理观察与双向来源索引",
+  "capabilities": [
+    "inspect",
+    "execute",
+    "verify"
+  ],
+  "implementation": "implemented",
+  "engineSelection": "user-approved",
+  "decisionIds": [
+    "D1"
+  ]
+}

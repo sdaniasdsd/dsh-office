@@ -1,0 +1,18 @@
+{
+  "id": "pdf-create",
+  "name": "pdf-create",
+  "version": "0.1.0",
+  "profileGroup": "PDF",
+  "entry": "src/index.ts",
+  "summary": "结构化新建 PDF 的引擎适配入口",
+  "capabilities": [
+    "inspect",
+    "execute",
+    "verify"
+  ],
+  "implementation": "implemented",
+  "engineSelection": "user-approved",
+  "decisionIds": [
+    "D3"
+  ]
+}

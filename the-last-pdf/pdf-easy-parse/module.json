@@ -1,0 +1,18 @@
+{
+  "id": "pdf-easy-parse",
+  "name": "pdf-easy-parse",
+  "version": "0.1.0",
+  "profileGroup": "PDF",
+  "entry": "src/index.ts",
+  "summary": "按页提取原生文字，不承诺阅读顺序或编辑锚点",
+  "capabilities": [
+    "inspect",
+    "execute",
+    "verify"
+  ],
+  "implementation": "implemented",
+  "engineSelection": "user-approved",
+  "decisionIds": [
+    "D1"
+  ]
+}

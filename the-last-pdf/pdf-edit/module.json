@@ -1,0 +1,18 @@
+{
+  "id": "pdf-edit",
+  "name": "pdf-edit",
+  "version": "0.1.0",
+  "profileGroup": "PDF",
+  "entry": "src/index.ts",
+  "summary": "PDF 页面、表单与批注编辑的引擎适配入口",
+  "capabilities": [
+    "inspect",
+    "execute",
+    "verify"
+  ],
+  "implementation": "implemented",
+  "engineSelection": "user-approved",
+  "decisionIds": [
+    "D4"
+  ]
+}

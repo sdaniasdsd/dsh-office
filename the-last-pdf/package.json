@@ -1,0 +1,22 @@
+{
+  "name": "@dsh-office-profile/pdf-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": ["pdf-*"],
+  "engines": { "node": ">=22.13.0" },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:contract": "vitest run tests/framework.test.ts tests/ir.test.ts",
+    "demo": "tsx examples/real-demo.ts",
+    "demo:framework": "tsx examples/framework-demo.ts",
+    "demo:docling": "tsx examples/real-demo.ts --docling"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "tsx": "^4.20.5"
+  }
+}

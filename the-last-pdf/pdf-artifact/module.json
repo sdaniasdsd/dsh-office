@@ -1,0 +1,19 @@
+{
+  "id": "pdf-artifact",
+  "name": "pdf-artifact",
+  "version": "0.1.0",
+  "profileGroup": "PDF",
+  "entry": "src/index.ts",
+  "summary": "版本化 manifest 与来源校验交付入口",
+  "capabilities": [
+    "inspect",
+    "execute",
+    "verify"
+  ],
+  "implementation": "implemented",
+  "engineSelection": "user-approved",
+  "decisionIds": [
+    "D1",
+    "D4"
+  ]
+}
