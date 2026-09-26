@@ -1,0 +1,49 @@
+{
+  "suite_id": "workbuddy-vs-dsh-docx-v1",
+  "created_at": null,
+  "report_complete": false,
+  "render_profile": {
+    "id": "win-x64-libreoffice-26.8-poppler-26.09-dpi144",
+    "renderer": "LibreOffice 26.8.0 + Poppler 26.09.0",
+    "dpi": 144,
+    "font_environment": "same-machine-same-installed-fonts"
+  },
+  "cases": [
+    {
+      "case_id": "docx-format-preservation-v1",
+      "contract": "cases/01-format-preservation.yaml",
+      "baseline": { "artifact": "modules/docx-parse/fixtures/_generated/rich.docx", "sha256": null, "page_count": null, "images": [] },
+      "runners": [
+        { "id": "workbuddy", "status": "not_run", "version_or_revision": null, "model": null, "rounds": [], "first_pass_score": null, "final_score": null, "one_step_pass": null, "converged": null },
+        { "id": "dsh", "status": "not_run", "version_or_revision": null, "model": null, "rounds": [], "first_pass_score": null, "final_score": null, "one_step_pass": null, "converged": null }
+      ]
+    },
+    {
+      "case_id": "docx-targeted-edit-review-v2",
+      "contract": "cases/02-targeted-edit-review.yaml",
+      "baseline": { "artifact": "benchmarks/workbuddy-vs-dsh/fixtures/case-02-project-status.docx", "sha256": null, "page_count": null, "images": [] },
+      "runners": [
+        { "id": "workbuddy", "status": "not_run", "version_or_revision": null, "model": null, "rounds": [], "first_pass_score": null, "final_score": null, "one_step_pass": null, "converged": null },
+        { "id": "dsh", "status": "not_run", "version_or_revision": null, "model": null, "rounds": [], "first_pass_score": null, "final_score": null, "one_step_pass": null, "converged": null }
+      ]
+    },
+    {
+      "case_id": "docx-create-from-brief-v1",
+      "contract": "cases/03-create-from-brief.yaml",
+      "baseline": { "artifact": "modules/docx-inspect/fixtures/_generated/empty.docx", "sha256": null, "page_count": null, "images": [] },
+      "runners": [
+        { "id": "workbuddy", "status": "not_run", "version_or_revision": null, "model": null, "rounds": [], "first_pass_score": null, "final_score": null, "one_step_pass": null, "converged": null },
+        { "id": "dsh", "status": "not_run", "version_or_revision": null, "model": null, "rounds": [], "first_pass_score": null, "final_score": null, "one_step_pass": null, "converged": null }
+      ]
+    },
+    {
+      "case_id": "docx-labor-contract-amendment-v1",
+      "contract": "cases/04-labor-contract-amendment.yaml",
+      "baseline": { "artifact": "benchmarks/workbuddy-vs-dsh/fixtures/case-04-synthetic-labor-contract.docx", "sha256": "DC8E138DB5421B71DF407D294199AF3C8269597DBEE6601AA9F84DAFC69981C1", "page_count": 8, "images": [] },
+      "runners": [
+        { "id": "workbuddy", "status": "not_run", "version_or_revision": null, "model": null, "rounds": [], "first_pass_score": null, "final_score": null, "one_step_pass": null, "converged": null },
+        { "id": "dsh", "status": "not_run", "version_or_revision": null, "model": null, "rounds": [], "first_pass_score": null, "final_score": null, "one_step_pass": null, "converged": null }
+      ]
+    }
+  ]
+}

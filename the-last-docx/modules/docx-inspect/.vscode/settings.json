@@ -1,0 +1,19 @@
+{
+    "writerHelper.enabled": true,
+    "writerHelper.docs.characters.path": "d:\\开源团队作品\\docx分区\\docx-inspect\\设定\\人物设定.md",
+    "writerHelper.docs.scenes.path": "d:\\开源团队作品\\docx分区\\docx-inspect\\设定\\场景设定.md",
+    "writerHelper.docs.items.path": "d:\\开源团队作品\\docx分区\\docx-inspect\\设定\\物品设定.md",
+    "writerHelper.docs.skills.path": "d:\\开源团队作品\\docx分区\\docx-inspect\\设定\\技能设定.md",
+    "writerHelper.docs.factions.path": "d:\\开源团队作品\\docx分区\\docx-inspect\\设定\\势力设定.md",
+    "writerHelper.configPaths.world": "d:\\开源团队作品\\docx分区\\docx-inspect\\设定\\世界设定.md",
+    "writerHelper.outline.paths": [
+        "d:\\开源团队作品\\docx分区\\docx-inspect\\大纲\\大纲.md"
+    ],
+    "writerHelper.detailed.paths": [
+        "d:\\开源团队作品\\docx分区\\docx-inspect\\大纲\\细纲.md"
+    ],
+    "writerHelper.chapterSummary.dirs": [
+        "章节"
+    ],
+    "writerHelper.chapterSummary.outputDir": "章节概述"
+}

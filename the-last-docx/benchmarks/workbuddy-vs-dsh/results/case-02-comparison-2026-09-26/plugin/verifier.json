@@ -1,0 +1,37 @@
+{
+  "status": "pass_with_precision_finding",
+  "file_integrity": true,
+  "complete_render": true,
+  "page_count": 3,
+  "tracked_changes_present": true,
+  "revision_count": 10,
+  "required_text_changes": true,
+  "targeted_row_only": true,
+  "acceptance_testing_unchanged": true,
+  "new_sentence_positioned_after_runbook_paragraph": true,
+  "comments": {
+    "count": 2,
+    "anchors_valid": true,
+    "new_comment_exact_sentence_scope": false,
+    "new_comment_actual_scope": "The deployment window starts at 20:00 local time. The change coordinator will confirm the final go / no-go decision with the client before any production transfer begins."
+  },
+  "footnote_preserved": true,
+  "hyperlink_preserved": true,
+  "headers_footers_and_page_fields_preserved": true,
+  "workstream_table_rows": 15,
+  "workstream_data_rows": 13,
+  "merged_title_and_repeating_column_header_preserved": true,
+  "changed_existing_package_parts": [
+    "[Content_Types].xml",
+    "_rels/.rels",
+    "customXml/_rels/item1.xml.rels",
+    "word/_rels/document.xml.rels",
+    "word/comments.xml",
+    "word/document.xml",
+    "word/settings.xml",
+    "word/styles.xml"
+  ],
+  "missing_package_parts": [],
+  "extra_package_parts": ["word/commentsExtended.xml", "word/commentsIds.xml", "word/people.xml"],
+  "package_change_note": "The extra parts are valid modern Word comment metadata. Other non-content differences are relationship ordering, boolean lexical normalization, or comment styles and caused no rendered layout change."
+}

@@ -1,0 +1,48 @@
+{
+  "case_id": "docx-targeted-edit-review-v2",
+  "created_at": "2026-09-26T14:52:39.8810232+08:00",
+  "format": "docx",
+  "report_complete": true,
+  "primary_prompt_sha256": "68f08afd73a7cc6eebafab3b3fa27e729e36cd7dc364f80a6892f239f43a8f20",
+  "render_profile": {
+    "id": "win-x64-libreoffice-26.8.0.3-poppler-26.09.0-dpi144",
+    "dpi": 144,
+    "font_environment": "same-machine-same-installed-fonts"
+  },
+  "baseline": {
+    "artifact": "baseline/artifact.docx",
+    "sha256": "62591686f87390b0813b2e58eb6df520a199948122a742d08dfb9da5250bed44",
+    "page_count": 3,
+    "render_images": ["baseline/page-1.png", "baseline/page-2.png", "baseline/page-3.png"]
+  },
+  "runners": [
+    {
+      "id": "workbuddy",
+      "version_or_revision": "not_provided",
+      "status": "pass",
+      "rounds": 1,
+      "first_pass_score": 99,
+      "final_score": 99,
+      "repairs_used": 0,
+      "one_step_pass": true,
+      "converged": true,
+      "artifact_checksums": {"round-00": "750f6e9f80f7e2456820846ac71eea7951887f1b7c799fa9877a6feb002feb10"},
+      "render_images": ["workbuddy/page-1.png", "workbuddy/page-2.png", "workbuddy/page-3.png"],
+      "verifier_results": "workbuddy/verifier.json"
+    },
+    {
+      "id": "dsh-docx-plugin",
+      "version_or_revision": "not_provided",
+      "status": "pass",
+      "rounds": 1,
+      "first_pass_score": 90,
+      "final_score": 90,
+      "repairs_used": 0,
+      "one_step_pass": true,
+      "converged": true,
+      "artifact_checksums": {"round-00": "ba69bfade0c482e0f889eaf1c816d239304ca2ac9e0b49bd9f79248e194ce143"},
+      "render_images": ["plugin/page-1.png", "plugin/page-2.png", "plugin/page-3.png"],
+      "verifier_results": "plugin/verifier.json"
+    }
+  ]
+}

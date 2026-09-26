@@ -1,0 +1,37 @@
+case_id: docx-create-from-brief-v1
+format: docx
+mode: comparison
+source_artifact: modules/docx-inspect/fixtures/_generated/empty.docx
+initial_content: >-
+  空白 DOCX，无业务文字或表格。需要根据下方完整简报填充并排版。
+primary_prompt: |-
+  请基于这份空白 DOCX，制作一份正式、清楚、适合内部评审的《第三季度客户交付简报》，并另存为新的 DOCX。只使用以下信息，不要推测或补充事实：
+
+  日期：2026年9月30日
+  执行摘要：本季度完成 18 项交付任务，按期完成 16 项；尚有 2 项延期，其中 1 项等待客户确认，1 项进入修复。
+  汇总表列为“指标 / 数量 / 说明”，内容为：交付任务 / 18 / 本季度完成；按期完成 / 16 / 已完成交付任务；延期事项 / 2 / 1 项等待客户确认，1 项进入修复。
+  后续跟进：取得客户确认；完成 1 项修复中的延期事项。
+
+  请设置清楚的标题、章节层级和易读表格，保持简洁克制；确保表格不被截断，页面没有重叠、溢出或空白尾页。不要覆盖输入文件。
+expected_effects:
+  - 产出可打开的 DOCX，标题为第三季度客户交付简报，日期完整。
+  - 执行摘要保留 18、16、2、1、1 这些数量及其准确含义。
+  - 表格三列标题和三行数据完整、易读，数字与说明没有错位。
+  - 后续跟进包含客户确认与完成修复两项。
+  - 有清楚标题/章节层级，无裁切、重叠和空白尾页。
+invariants:
+  - 不增加简报以外的客户名、金额、原因、承诺、完成日期或预测。
+  - 18 项总任务、16 项按期、2 项延期、其中 1 项等待客户确认和 1 项进入修复，语义不变。
+  - 源空白文档不被覆盖，交付格式仍为 DOCX。
+render_profile:
+  id: win-x64-libreoffice-26.8-poppler-26.09-dpi144
+  renderer: LibreOffice 26.8.0 + Poppler 26.09.0
+  page_image: png
+  dpi: 144
+  font_environment: same-machine-same-installed-fonts
+  capture: full-page
+acceptance:
+  score_minimum: 80
+  required_gates: [file_integrity, complete_render, content_preservation, no_critical_visual_defect, intent_complete, no_fabricated_facts]
+  repair_limit: 2
+

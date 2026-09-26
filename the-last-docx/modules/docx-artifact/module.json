@@ -1,0 +1,11 @@
+{
+ "id":"docx-artifact","version":"0.1.0","profileGroup":"DOCX","entry":"src/index.ts","factory":"createDocxArtifactModule",
+ "capabilities":["inspect","execute","verify"],
+ "dependencies":[{"name":"office-core","kind":"module"},{"name":"office-safety","kind":"module"},{"name":"office-files","kind":"module"},{"name":"office-preview","kind":"module"},{"name":"office-test-kit","kind":"module"}],
+ "configSchema":{"type":"object","additionalProperties":false,"properties":{
+   "engine":{"type":"object","required":["driver"],"additionalProperties":false,"properties":{"driver":{"const":"office-files-preview"}}},
+   "timeoutMs":{"type":"integer","minimum":1,"maximum":600000,"default":30000},
+   "limits":{"type":"object","additionalProperties":false,"properties":{"maxArtifactBytes":{"type":"integer","minimum":1,"maximum":1073741824},"maxManifestBytes":{"type":"integer","minimum":1,"maximum":1073741824},"maxTotalBytes":{"type":"integer","minimum":1,"maximum":1073741824},"maxReferences":{"type":"integer","minimum":1,"maximum":1073741824},"maxPages":{"type":"integer","minimum":1,"maximum":1073741824}}},
+   "featureFlags":{"type":"object","additionalProperties":false,"properties":{"requirePreview":{"type":"boolean"},"requireVisualReview":{"type":"boolean"},"allowFailedReview":{"type":"boolean"}}}
+ }},"schemas":{"export":"DOCX_ARTIFACT_SCHEMAS","manifestVersion":"docx-delivery/v1"}
+}

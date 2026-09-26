@@ -1,0 +1,26 @@
+{
+  "status": "pass",
+  "file_integrity": true,
+  "complete_render": true,
+  "page_count": 3,
+  "tracked_changes_present": true,
+  "revision_count": 12,
+  "required_text_changes": true,
+  "targeted_row_only": true,
+  "acceptance_testing_unchanged": true,
+  "new_sentence_positioned_after_runbook_paragraph": true,
+  "comments": {
+    "count": 2,
+    "anchors_valid": true,
+    "new_comment_exact_sentence_scope": true
+  },
+  "footnote_preserved": true,
+  "hyperlink_preserved": true,
+  "headers_footers_and_page_fields_preserved": true,
+  "workstream_table_rows": 15,
+  "workstream_data_rows": 13,
+  "merged_title_and_repeating_column_header_preserved": true,
+  "changed_existing_package_parts": ["word/comments.xml", "word/document.xml"],
+  "missing_package_parts": [],
+  "extra_package_parts": []
+}

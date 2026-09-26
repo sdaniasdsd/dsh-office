@@ -1,0 +1,18 @@
+{
+  "name": "the-last-docx",
+  "version": "0.1.0",
+  "description": "Integrated DOCX inspect, dual-IR parse, complex analysis, creation, editing, rendering and versioned artifact delivery.",
+  "author": {
+    "name": "dsh-office-profile team"
+  },
+  "interface": {
+    "displayName": "The Last Docx",
+    "shortDescription": "DOCX 创建、解析、编辑、预览与版本化交付。",
+    "longDescription": "Preserves all eight module contracts and dual IR, using an immutable artifact store and explicit optional layout engines.",
+    "developerName": "dsh-office-profile team",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": ["检查 DOCX 运行环境和模块能力。", "解析文档并保留可编辑的双 IR 锚点。", "生成文档并制作带校验清单的交付版本。"]
+  },
+  "mcpServers": "./.mcp.json"
+}

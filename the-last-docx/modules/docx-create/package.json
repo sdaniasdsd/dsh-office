@@ -1,0 +1,63 @@
+{
+  "name": "@dsh-office-profile/docx-create",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "module.json",
+    "schemas",
+    "templates",
+    "README.md"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:contract": "vitest run tests/contract.test.ts",
+    "test:integration": "vitest run tests/integration.test.ts",
+    "fixtures:build": "tsx fixtures/build.ts"
+  },
+  "peerDependencies": {
+    "office-core": "*",
+    "office-safety": "*",
+    "office-files": "*",
+    "office-test-kit": "*"
+  },
+  "peerDependenciesMeta": {
+    "office-core": {
+      "optional": true
+    },
+    "office-safety": {
+      "optional": true
+    },
+    "office-files": {
+      "optional": true
+    },
+    "office-test-kit": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@docx4j/core-ts": "0.1.5",
+    "@xmldom/xmldom": "0.9.12",
+    "fflate": "0.8.3",
+    "zod": "3.25.76",
+    "zod-to-json-schema": "3.25.0"
+  },
+  "devDependencies": {
+    "@dsh-office-profile/docx-parse": "*",
+    "@dsh-office-profile/docx-edit": "*",
+    "@dsh-office-profile/docx-render": "*",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "tsx": "^4.20.5"
+  }
+}

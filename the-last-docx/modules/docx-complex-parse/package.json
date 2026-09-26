@@ -1,0 +1,54 @@
+{
+  "name": "@dsh-office-profile/docx-complex-parse",
+  "version": "0.1.0",
+  "private": true,
+  "description": "dsh-office-profile module: complex DOCX parsing with logical table grids, page relationships, floating objects, source coordinates, and per-finding confidence.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "types",
+    "module.json"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:grid": "vitest run tests/grid.test.ts",
+    "test:domain": "vitest run tests/domain.test.ts",
+    "test:mapper": "vitest run tests/mapper.test.ts",
+    "test:assembly": "vitest run tests/assembly.test.ts",
+    "test:observations": "vitest run tests/observations.test.ts"
+  },
+  "peerDependencies": {
+    "office-core": "*",
+    "office-safety": "*",
+    "office-files": "*",
+    "office-test-kit": "*"
+  },
+  "peerDependenciesMeta": {
+    "office-core": {
+      "optional": true
+    },
+    "office-safety": {
+      "optional": true
+    },
+    "office-files": {
+      "optional": true
+    },
+    "office-test-kit": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.9"
+  }
+}

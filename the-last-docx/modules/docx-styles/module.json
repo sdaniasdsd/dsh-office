@@ -1,0 +1,74 @@
+{
+  "id": "docx-styles",
+  "name": "docx-styles",
+  "version": "0.1.0",
+  "profileGroup": "DOCX",
+  "summary": "Named-style authoring and resolution over styles.xml: definition merge, built-in-aware reference audit, and ECMA-376 child-sequence validation.",
+  "entry": "src/index.ts",
+  "capabilities": ["inspect", "execute", "verify"],
+  "dependencies": [
+    { "name": "office-core", "kind": "module" },
+    { "name": "office-safety", "kind": "module" },
+    { "name": "office-files", "kind": "module" },
+    { "name": "office-test-kit", "kind": "module", "optional": true },
+    { "name": "@docx4j/core-ts", "kind": "npm", "version": "0.1.5" },
+    { "name": "@xmldom/xmldom", "kind": "npm", "version": "0.9.12" }
+  ],
+  "engines": {
+    "driver": "typescript",
+    "package": "@docx4j/core-ts",
+    "requires": ["Node.js >=18", "@docx4j/core-ts 0.1.5"]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "engine": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "driver": { "type": "string", "enum": ["docx4j-core-ts"], "default": "docx4j-core-ts" }
+        }
+      },
+      "limits": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "maxInputBytes": { "type": "integer", "minimum": 1, "default": 67108864 },
+          "maxOutputBytes": { "type": "integer", "minimum": 1, "default": 134217728 },
+          "maxStyles": { "type": "integer", "minimum": 1, "default": 500 }
+        }
+      },
+      "timeoutMs": { "type": "integer", "minimum": 1, "default": 30000 },
+      "featureFlags": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "allowStyleDefinitions": { "type": "boolean", "default": true },
+          "allowRedefineExisting": { "type": "boolean", "default": true }
+        }
+      }
+    }
+  },
+  "errorCodes": [
+    "INVALID_INPUT",
+    "ARTIFACT_NOT_FOUND",
+    "UNSUPPORTED_ARTIFACT_URI",
+    "FORMAT_MISMATCH",
+    "SAFETY_POLICY_DENIED",
+    "ARTIFACT_STORE_UNAVAILABLE",
+    "ENGINE_UNAVAILABLE",
+    "ENGINE_FAILED",
+    "ENGINE_TIMEOUT",
+    "ENGINE_PROTOCOL_ERROR",
+    "UNSUPPORTED_OPERATION",
+    "RELATIONSHIP_INTEGRITY_FAILED",
+    "LIMIT_EXCEEDED",
+    "VERIFICATION_FAILED"
+  ],
+  "warningCodes": [
+    "BUILTIN_STYLE_UNDEFINED",
+    "VERIFICATION_SKIPPED",
+    "VERIFICATION_FAILED"
+  ]
+}

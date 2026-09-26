@@ -1,0 +1,13 @@
+{
+  "id": "dsh-docx-plugin",
+  "version_or_revision": "not_provided",
+  "model": "not_provided",
+  "status": "pass",
+  "rounds": 1,
+  "repairs_used": 0,
+  "first_pass_score": 90,
+  "final_score": 90,
+  "one_step_pass": true,
+  "converged": true,
+  "artifact_sha256": "ba69bfade0c482e0f889eaf1c816d239304ca2ac9e0b49bd9f79248e194ce143"
+}

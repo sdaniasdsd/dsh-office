@@ -1,0 +1,53 @@
+{
+  "name": "@dsh-office-profile/docx-render",
+  "version": "0.1.0",
+  "private": true,
+  "description": "dsh-office-profile module: DOCX page rendering and visual QA artifacts.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "types",
+    "module.json"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:contract": "vitest run tests/contract.test.ts"
+  },
+  "peerDependencies": {
+    "office-core": "*",
+    "office-safety": "*",
+    "office-files": "*",
+    "office-test-kit": "*"
+  },
+  "peerDependenciesMeta": {
+    "office-core": {
+      "optional": true
+    },
+    "office-safety": {
+      "optional": true
+    },
+    "office-files": {
+      "optional": true
+    },
+    "office-test-kit": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@dsh-office-profile/docx-parse": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

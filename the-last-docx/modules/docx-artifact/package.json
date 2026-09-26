@@ -1,0 +1,53 @@
+{
+  "name": "@dsh-office-profile/docx-artifact",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:contract": "vitest run tests/contract.test.ts"
+  },
+  "dependencies": {
+    "zod": "3.25.76",
+    "zod-to-json-schema": "3.25.0"
+  },
+  "peerDependencies": {
+    "office-core": "*",
+    "office-safety": "*",
+    "office-files": "*",
+    "office-test-kit": "*",
+    "office-preview": "*"
+  },
+  "peerDependenciesMeta": {
+    "office-core": {
+      "optional": true
+    },
+    "office-safety": {
+      "optional": true
+    },
+    "office-files": {
+      "optional": true
+    },
+    "office-test-kit": {
+      "optional": true
+    },
+    "office-preview": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@dsh-office-profile/docx-parse": "*",
+    "@dsh-office-profile/docx-render": "*",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.9"
+  }
+}

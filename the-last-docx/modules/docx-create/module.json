@@ -1,0 +1,40 @@
+{
+  "id": "docx-create",
+  "name": "docx-create",
+  "version": "0.1.0",
+  "profileGroup": "DOCX",
+  "entry": "src/index.ts",
+  "factory": "createDocxCreateModule",
+  "capabilities": ["inspect", "execute", "verify"],
+  "dependencies": [
+    { "name": "office-core", "kind": "module" },
+    { "name": "office-safety", "kind": "module" },
+    { "name": "office-files", "kind": "module" },
+    { "name": "office-test-kit", "kind": "module" }
+  ],
+  "configSchema": {
+    "type": "object", "additionalProperties": false,
+    "properties": {
+      "engine": { "type": "object", "additionalProperties": false, "required": ["driver"], "properties": { "driver": { "const": "docx4j-core-ts" } } },
+      "timeoutMs": { "type": "integer", "minimum": 1, "maximum": 600000, "default": 30000 },
+      "limits": {
+        "type": "object", "additionalProperties": false,
+        "properties": {
+          "maxInputBytes": { "type": "integer", "minimum": 1, "maximum": 536870912, "default": 16777216 },
+          "maxOutputBytes": { "type": "integer", "minimum": 1, "maximum": 536870912, "default": 33554432 },
+          "maxExpandedBytes": { "type": "integer", "minimum": 1, "maximum": 536870912, "default": 67108864 },
+          "maxEntries": { "type": "integer", "minimum": 1, "maximum": 536870912, "default": 2048 },
+          "maxBlocks": { "type": "integer", "minimum": 1, "maximum": 536870912, "default": 2000 },
+          "maxTableCells": { "type": "integer", "minimum": 1, "maximum": 536870912, "default": 10000 },
+          "maxTextChars": { "type": "integer", "minimum": 1, "maximum": 536870912, "default": 1000000 }
+        }
+      },
+      "featureFlags": { "type": "object", "additionalProperties": false, "properties": {
+        "allowTemplateFill": { "type": "boolean", "default": true }, "allowImages": { "type": "boolean", "default": true }
+      } }
+    }
+  },
+  "schemas": { "export": "DOCX_CREATE_SCHEMAS", "source": "src/schema.ts" },
+  "engine": { "name": "@docx4j/core-ts", "version": "0.1.5" },
+  "presets": ["report", "technical", "chinese-long"]
+}

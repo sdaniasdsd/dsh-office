@@ -1,0 +1,40 @@
+case_id: docx-targeted-edit-review-v2
+format: docx
+mode: comparison
+source_artifact: benchmarks/workbuddy-vs-dsh/fixtures/case-02-project-status.docx
+initial_content: >-
+  多页项目交付报告，包含执行摘要和摘要数字表、带合并标题行和重复表头且跨页的十三行工作流表、截止日期和责任人、切换控制清单、页眉页脚及页码、外部 runbook 超链接、一个已存在的批注和一个真实脚注。工作流表中 Data migration 和 Acceptance testing 两行具有完全相同的 “Awaiting client sign-off” 状态。正文段落带稳定 paraId。
+primary_prompt: |-
+  请按以下已批准更新，局部修改这份报告并另存为新 DOCX，不要覆盖源文件：
+
+  1. 最新发布记录确认 Data migration 已于 2026 年 9 月 26 日收到客户签收。因此只把第 2 节 Workstream detail 表中 Workstream 为 “Data migration” 的状态从 “Awaiting client sign-off” 改为 “Client sign-off received · 26 Sep 2026”。“Acceptance testing” 行虽然状态文字完全相同，但仍在等待客户签收，必须保持不变。
+  2. 因这项签收，更新第 1 节正文统计为 “18 work items: 17 completed on schedule; 1 remains open.”；同时把 Status snapshot 表中 Completed on schedule 的 16 改为 17、Open items 的 2 改为 1。其他指标不变。
+  3. 在第 3 节 “The rollback package is verified and the transfer runbook is ready.” 这一段之后紧接着新增一句：“The transfer package was delivered to the client repository on 26 September and its SHA-256 matched the release manifest.”
+  4. 对 “The deployment window starts at 20:00 local time.” 添加一条 Word 批注，内容为 “Confirm the business owner has approved this window before go / no-go.”
+
+  上述文字与表格内容改动都要保留为 Word 修订，不要接受或拒绝修订。保留源文档中原有批注、脚注、超链接、页眉页脚、页码、表格合并与重复表头；不要改动未点名的段落、人员、日期、状态或表格行，不要重写整篇报告。版式可因新增内容自然分页，但必须保持清晰、无表格裁切、重叠或空白尾页。
+expected_effects:
+  - 摘要中的 16/2 更新为 17/1，18 项总数及统计含义保持一致。
+  - 只有 Data migration 行的重复状态改为新签收状态；Acceptance testing 的同字面状态保持原样。
+  - 指定的新句紧邻 rollback/runbook 段落之后，且不丢失真实 Word 修订标记。
+  - 新批注正文准确并锚定在 deployment-window 原句；旧批注、旧脚注也仍存在且关联有效。
+  - 超链接可点击；页码字段、页眉页脚、合并标题行和跨页重复表头仍完整。
+  - 各页面可读、表格不裁切，无意外空白页或无关内容变化。
+invariants:
+  - 18 项总数不变；仅按批准更新把按期完成由 16 改为 17、未关闭由 2 改为 1。
+  - Acceptance testing 状态仍为 Awaiting client sign-off，表格该行责任人、日期和说明均不变。
+  - 其余工作流、控制清单文字，全部责任人、日期、状态、证据说明不变。
+  - 原有批注 “Retain the signed receipt with the audit package.” 和脚注 “Hash values are compared as lowercase hexadecimal strings.” 不得丢失或错锚。
+  - transfer runbook 的外部 URL 及超链接关系不变；任何修订都不得被接受/拒绝。
+  - 不增加提示词和批准更新中没有的项目事实。
+render_profile:
+  id: win-x64-libreoffice-26.8-poppler-26.09-dpi144
+  renderer: LibreOffice 26.8.0 + Poppler 26.09.0
+  page_image: png
+  dpi: 144
+  font_environment: same-machine-same-installed-fonts
+  capture: full-page
+acceptance:
+  score_minimum: 85
+  required_gates: [file_integrity, complete_render, content_preservation, no_critical_visual_defect, intent_complete, targeted_row_only, tracked_changes_present, both_comment_anchors_valid, footnote_and_hyperlink_preserved, repeating_table_header_preserved]
+  repair_limit: 2

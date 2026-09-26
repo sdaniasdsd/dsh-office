@@ -1,0 +1,13 @@
+{
+  "id": "workbuddy",
+  "version_or_revision": "not_provided",
+  "model": "not_provided",
+  "status": "pass",
+  "rounds": 1,
+  "repairs_used": 0,
+  "first_pass_score": 99,
+  "final_score": 99,
+  "one_step_pass": true,
+  "converged": true,
+  "artifact_sha256": "750f6e9f80f7e2456820846ac71eea7951887f1b7c799fa9877a6feb002feb10"
+}

@@ -1,0 +1,32 @@
+case_id: docx-format-preservation-v1
+format: docx
+mode: comparison
+source_artifact: modules/docx-parse/fixtures/_generated/rich.docx
+initial_content: >-
+  小型综合 DOCX：Chapter One 标题、Intro text、带批注的 Commented paragraph、带脚注的
+  Footnote paragraph、一张 2x2 表格（A1/B1/A2/B2）、Section 子标题和 Closing line。
+  批注正文为 A review note，脚注正文为 A footnote。
+primary_prompt: |-
+  请把这份 DOCX 整理成适合正式评审的清晰版式：标题、子标题和正文层级要容易区分，段落间距自然，表格易读；同时让已有批注和脚注仍能找到并保持关联。保留每一句正文、表格单元格、批注文字和脚注文字，不改写、不增删任何事实。请另存为一个新的 DOCX，不要覆盖源文件。
+expected_effects:
+  - 标题、子标题、正文的视觉层级明确，且全篇一致。
+  - 表格单元格文字完整、可读、无裁切或意外换行造成的歧义。
+  - 段落节奏清楚，页面没有重叠、溢出或无意义空白页。
+  - 产出新的可打开 DOCX，源文件未被覆盖。
+invariants:
+  - 正文仍包含 Chapter One、Intro text、Commented paragraph、Footnote paragraph、Section、Closing line。
+  - 表格四格仍依次为 A1、B1、A2、B2。
+  - 批注 A review note 和脚注 A footnote 都保留，关系仍附着于原文位置。
+  - 不新增原文没有的事实或内容。
+render_profile:
+  id: win-x64-libreoffice-26.8-poppler-26.09-dpi144
+  renderer: LibreOffice 26.8.0 + Poppler 26.09.0
+  page_image: png
+  dpi: 144
+  font_environment: same-machine-same-installed-fonts
+  capture: full-page
+acceptance:
+  score_minimum: 80
+  required_gates: [file_integrity, complete_render, content_preservation, no_critical_visual_defect, intent_complete, comments_and_footnotes_preserved]
+  repair_limit: 2
+

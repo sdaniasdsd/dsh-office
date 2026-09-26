@@ -1,0 +1,2747 @@
+{
+  "baseline": {
+    "path": "benchmarks\\workbuddy-vs-dsh\\results\\case-02-comparison-2026-09-26\\baseline\\artifact.docx",
+    "sha256": "62591686f87390b0813b2e58eb6df520a199948122a742d08dfb9da5250bed44",
+    "zip_ok": true,
+    "parts": [
+      "[Content_Types].xml",
+      "_rels/.rels",
+      "customXml/_rels/item1.xml.rels",
+      "customXml/item1.xml",
+      "customXml/itemProps1.xml",
+      "docProps/app.xml",
+      "docProps/core.xml",
+      "docProps/thumbnail.jpeg",
+      "word/_rels/document.xml.rels",
+      "word/comments.xml",
+      "word/document.xml",
+      "word/fontTable.xml",
+      "word/footer1.xml",
+      "word/footnotes.xml",
+      "word/header1.xml",
+      "word/numbering.xml",
+      "word/settings.xml",
+      "word/styles.xml",
+      "word/stylesWithEffects.xml",
+      "word/theme/theme1.xml",
+      "word/webSettings.xml"
+    ],
+    "body_paragraphs": [
+      {
+        "para_id": "00000001",
+        "original": "Project delivery and acceptance status",
+        "final": "Project delivery and acceptance status",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000002",
+        "original": "Bluebird client platform migration  |  Q3 2026",
+        "final": "Bluebird client platform migration  |  Q3 2026",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000003",
+        "original": "Report date: 26 September 2026    |    Version: 1.4    |    Owner: Lin Zhou",
+        "final": "Report date: 26 September 2026    |    Version: 1.4    |    Owner: Lin Zhou",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000004",
+        "original": "1. Executive summary",
+        "final": "1. Executive summary",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000005",
+        "original": "The migration remains within the approved release window. Current tracking shows 18 work items: 16 completed on schedule; 2 remain open.",
+        "final": "The migration remains within the approved release window. Current tracking shows 18 work items: 16 completed on schedule; 2 remain open.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000006",
+        "original": "The data migration package is staged for client review. The acceptance-testing stream is separately awaiting client sign-off; its status is not changed by the migration receipt.",
+        "final": "The data migration package is staged for client review. The acceptance-testing stream is separately awaiting client sign-off; its status is not changed by the migration receipt.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000007",
+        "original": "Status snapshot",
+        "final": "Status snapshot",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000017",
+        "original": "Review notes",
+        "final": "Review notes",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000018",
+        "original": "The release gate remains open until client acceptance testing is complete. A receipt for one stream does not close the full acceptance gate.",
+        "final": "The release gate remains open until client acceptance testing is complete. A receipt for one stream does not close the full acceptance gate.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000019",
+        "original": "Reference: transfer runbook and the controlled release checklist.",
+        "final": "Reference: transfer runbook and the controlled release checklist.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "0000001A",
+        "original": "\n",
+        "final": "\n",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "0000001B",
+        "original": "2. Workstream detail",
+        "final": "2. Workstream detail",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "0000001C",
+        "original": "The table records current owners, due dates, status and source evidence. The same status wording may appear in separate workstreams; update only the row named in an approved change.",
+        "final": "The table records current owners, due dates, status and source evidence. The same status wording may appear in separate workstreams; update only the row named in an approved change.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000064",
+        "original": "3. Cutover and controls",
+        "final": "3. Cutover and controls",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000065",
+        "original": "The deployment window starts at 20:00 local time. The change coordinator will confirm the final go / no-go decision with the client before any production transfer begins.",
+        "final": "The deployment window starts at 20:00 local time. The change coordinator will confirm the final go / no-go decision with the client before any production transfer begins.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000066",
+        "original": "The rollback package is verified and the transfer runbook is ready.",
+        "final": "The rollback package is verified and the transfer runbook is ready.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000067",
+        "original": "All transfer files remain in the client-controlled repository; local copies are non-authoritative.",
+        "final": "All transfer files remain in the client-controlled repository; local copies are non-authoritative.",
+        "comment_start_ids": [
+          "0"
+        ],
+        "comment_end_ids": [
+          "0"
+        ],
+        "comment_ref_ids": [
+          "0"
+        ]
+      },
+      {
+        "para_id": "00000068",
+        "original": "Operations will confirm restart ownership at handover. The release coordinator will record the decision and retain the corresponding change ticket.",
+        "final": "Operations will confirm restart ownership at handover. The release coordinator will record the decision and retain the corresponding change ticket.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000078",
+        "original": "Closeout conditions",
+        "final": "Closeout conditions",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000079",
+        "original": "Client acceptance record is returned and linked to the change ticket.",
+        "final": "Client acceptance record is returned and linked to the change ticket.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "0000007A",
+        "original": "Transfer checksum is verified against the release manifest.",
+        "final": "Transfer checksum is verified against the release manifest.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "0000007B",
+        "original": "Open remediation item has an owner and an agreed completion date.",
+        "final": "Open remediation item has an owner and an agreed completion date.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      }
+    ],
+    "tables": [
+      {
+        "table": 0,
+        "rows": [
+          {
+            "row": 0,
+            "is_repeat_header": true,
+            "cells": [
+              {
+                "original": "Measure",
+                "final": "Measure"
+              },
+              {
+                "original": "Current",
+                "final": "Current"
+              },
+              {
+                "original": "Evidence",
+                "final": "Evidence"
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Total work items",
+                "final": "Total work items"
+              },
+              {
+                "original": "18",
+                "final": "18"
+              },
+              {
+                "original": "Approved delivery register",
+                "final": "Approved delivery register"
+              }
+            ]
+          },
+          {
+            "row": 2,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Completed on schedule",
+                "final": "Completed on schedule"
+              },
+              {
+                "original": "16",
+                "final": "16"
+              },
+              {
+                "original": "Daily workstream log",
+                "final": "Daily workstream log"
+              }
+            ]
+          },
+          {
+            "row": 3,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Open items",
+                "final": "Open items"
+              },
+              {
+                "original": "2",
+                "final": "2"
+              },
+              {
+                "original": "Acceptance and remediation trackers",
+                "final": "Acceptance and remediation trackers"
+              }
+            ]
+          },
+          {
+            "row": 4,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Release target",
+                "final": "Release target"
+              },
+              {
+                "original": "30 Sep 2026",
+                "final": "30 Sep 2026"
+              },
+              {
+                "original": "Approved migration plan",
+                "final": "Approved migration plan"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "table": 1,
+        "rows": [
+          {
+            "row": 0,
+            "is_repeat_header": true,
+            "cells": [
+              {
+                "original": "Delivery workstreams  ·  controlled status register",
+                "final": "Delivery workstreams  ·  controlled status register"
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "is_repeat_header": true,
+            "cells": [
+              {
+                "original": "Workstream",
+                "final": "Workstream"
+              },
+              {
+                "original": "Owner",
+                "final": "Owner"
+              },
+              {
+                "original": "Due",
+                "final": "Due"
+              },
+              {
+                "original": "Status",
+                "final": "Status"
+              },
+              {
+                "original": "Evidence / note",
+                "final": "Evidence / note"
+              }
+            ]
+          },
+          {
+            "row": 2,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Data migration",
+                "final": "Data migration"
+              },
+              {
+                "original": "Jia Lin",
+                "final": "Jia Lin"
+              },
+              {
+                "original": "26 Sep 2026",
+                "final": "26 Sep 2026"
+              },
+              {
+                "original": "Awaiting client sign-off",
+                "final": "Awaiting client sign-off"
+              },
+              {
+                "original": "The transfer package is staged in the client repository. Receipt is recorded after the client verifies the release manifest.",
+                "final": "The transfer package is staged in the client repository. Receipt is recorded after the client verifies the release manifest."
+              }
+            ]
+          },
+          {
+            "row": 3,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Acceptance testing",
+                "final": "Acceptance testing"
+              },
+              {
+                "original": "Rui Chen",
+                "final": "Rui Chen"
+              },
+              {
+                "original": "27 Sep 2026",
+                "final": "27 Sep 2026"
+              },
+              {
+                "original": "Awaiting client sign-off",
+                "final": "Awaiting client sign-off"
+              },
+              {
+                "original": "The acceptance suite is complete; the client has not yet returned the signed test record.",
+                "final": "The acceptance suite is complete; the client has not yet returned the signed test record."
+              }
+            ]
+          },
+          {
+            "row": 4,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "API integration",
+                "final": "API integration"
+              },
+              {
+                "original": "Min Zhou",
+                "final": "Min Zhou"
+              },
+              {
+                "original": "23 Sep 2026",
+                "final": "23 Sep 2026"
+              },
+              {
+                "original": "Complete",
+                "final": "Complete"
+              },
+              {
+                "original": "Health-check output and interface test evidence are retained with the build record.",
+                "final": "Health-check output and interface test evidence are retained with the build record."
+              }
+            ]
+          },
+          {
+            "row": 5,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "User training",
+                "final": "User training"
+              },
+              {
+                "original": "Anne Wu",
+                "final": "Anne Wu"
+              },
+              {
+                "original": "25 Sep 2026",
+                "final": "25 Sep 2026"
+              },
+              {
+                "original": "Complete",
+                "final": "Complete"
+              },
+              {
+                "original": "Four sessions were delivered. Attendance records are filed in the project evidence folder.",
+                "final": "Four sessions were delivered. Attendance records are filed in the project evidence folder."
+              }
+            ]
+          },
+          {
+            "row": 6,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Ledger reconciliation",
+                "final": "Ledger reconciliation"
+              },
+              {
+                "original": "Han Li",
+                "final": "Han Li"
+              },
+              {
+                "original": "28 Sep 2026",
+                "final": "28 Sep 2026"
+              },
+              {
+                "original": "In progress",
+                "final": "In progress"
+              },
+              {
+                "original": "The finance team is matching the final ledger export against the approved migration totals.",
+                "final": "The finance team is matching the final ledger export against the approved migration totals."
+              }
+            ]
+          },
+          {
+            "row": 7,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Access review",
+                "final": "Access review"
+              },
+              {
+                "original": "Jia Lin",
+                "final": "Jia Lin"
+              },
+              {
+                "original": "28 Sep 2026",
+                "final": "28 Sep 2026"
+              },
+              {
+                "original": "Complete",
+                "final": "Complete"
+              },
+              {
+                "original": "Role membership was reviewed against the client-approved access matrix.",
+                "final": "Role membership was reviewed against the client-approved access matrix."
+              }
+            ]
+          },
+          {
+            "row": 8,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Rollback rehearsal",
+                "final": "Rollback rehearsal"
+              },
+              {
+                "original": "Min Zhou",
+                "final": "Min Zhou"
+              },
+              {
+                "original": "29 Sep 2026",
+                "final": "29 Sep 2026"
+              },
+              {
+                "original": "In progress",
+                "final": "In progress"
+              },
+              {
+                "original": "The operations team is rehearsing restoration from the signed release package.",
+                "final": "The operations team is rehearsing restoration from the signed release package."
+              }
+            ]
+          },
+          {
+            "row": 9,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Operations handover",
+                "final": "Operations handover"
+              },
+              {
+                "original": "Anne Wu",
+                "final": "Anne Wu"
+              },
+              {
+                "original": "30 Sep 2026",
+                "final": "30 Sep 2026"
+              },
+              {
+                "original": "Not started",
+                "final": "Not started"
+              },
+              {
+                "original": "The handover checklist is prepared and will be completed after the release gate is approved.",
+                "final": "The handover checklist is prepared and will be completed after the release gate is approved."
+              }
+            ]
+          },
+          {
+            "row": 10,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Evidence archive",
+                "final": "Evidence archive"
+              },
+              {
+                "original": "Rui Chen",
+                "final": "Rui Chen"
+              },
+              {
+                "original": "30 Sep 2026",
+                "final": "30 Sep 2026"
+              },
+              {
+                "original": "In progress",
+                "final": "In progress"
+              },
+              {
+                "original": "Logs, approvals and transfer checksums are collected in the controlled evidence archive.",
+                "final": "Logs, approvals and transfer checksums are collected in the controlled evidence archive."
+              }
+            ]
+          },
+          {
+            "row": 11,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Security sign-off",
+                "final": "Security sign-off"
+              },
+              {
+                "original": "Han Li",
+                "final": "Han Li"
+              },
+              {
+                "original": "29 Sep 2026",
+                "final": "29 Sep 2026"
+              },
+              {
+                "original": "In progress",
+                "final": "In progress"
+              },
+              {
+                "original": "The security reviewer is checking the final access report, transfer audit trail and client-side retention settings before the release gate closes.",
+                "final": "The security reviewer is checking the final access report, transfer audit trail and client-side retention settings before the release gate closes."
+              }
+            ]
+          },
+          {
+            "row": 12,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Cutover communications",
+                "final": "Cutover communications"
+              },
+              {
+                "original": "Anne Wu",
+                "final": "Anne Wu"
+              },
+              {
+                "original": "29 Sep 2026",
+                "final": "29 Sep 2026"
+              },
+              {
+                "original": "Not started",
+                "final": "Not started"
+              },
+              {
+                "original": "The notification list and approved customer message are prepared. The coordinator will record delivery time and the client response in the release log.",
+                "final": "The notification list and approved customer message are prepared. The coordinator will record delivery time and the client response in the release log."
+              }
+            ]
+          },
+          {
+            "row": 13,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Post-release monitoring",
+                "final": "Post-release monitoring"
+              },
+              {
+                "original": "Min Zhou",
+                "final": "Min Zhou"
+              },
+              {
+                "original": "30 Sep 2026",
+                "final": "30 Sep 2026"
+              },
+              {
+                "original": "Not started",
+                "final": "Not started"
+              },
+              {
+                "original": "The team will monitor transfer completion, service health and reconciliation results during the agreed observation window and escalate exceptions through the change ticket.",
+                "final": "The team will monitor transfer completion, service health and reconciliation results during the agreed observation window and escalate exceptions through the change ticket."
+              }
+            ]
+          },
+          {
+            "row": 14,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Training evidence",
+                "final": "Training evidence"
+              },
+              {
+                "original": "Rui Chen",
+                "final": "Rui Chen"
+              },
+              {
+                "original": "30 Sep 2026",
+                "final": "30 Sep 2026"
+              },
+              {
+                "original": "Complete",
+                "final": "Complete"
+              },
+              {
+                "original": "Attendance, session materials and the approved operating guide are linked from the evidence archive for the receiving operations team.",
+                "final": "Attendance, session materials and the approved operating guide are linked from the evidence archive for the receiving operations team."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "table": 2,
+        "rows": [
+          {
+            "row": 0,
+            "is_repeat_header": true,
+            "cells": [
+              {
+                "original": "Control",
+                "final": "Control"
+              },
+              {
+                "original": "Evidence",
+                "final": "Evidence"
+              },
+              {
+                "original": "Owner",
+                "final": "Owner"
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Transfer integrity",
+                "final": "Transfer integrity"
+              },
+              {
+                "original": "Release manifest and SHA-256 record",
+                "final": "Release manifest and SHA-256 record"
+              },
+              {
+                "original": "Jia Lin",
+                "final": "Jia Lin"
+              }
+            ]
+          },
+          {
+            "row": 2,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Client authorization",
+                "final": "Client authorization"
+              },
+              {
+                "original": "Signed acceptance and change ticket",
+                "final": "Signed acceptance and change ticket"
+              },
+              {
+                "original": "Rui Chen",
+                "final": "Rui Chen"
+              }
+            ]
+          },
+          {
+            "row": 3,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Rollback readiness",
+                "final": "Rollback readiness"
+              },
+              {
+                "original": "Rehearsal log and restore checkpoint",
+                "final": "Rehearsal log and restore checkpoint"
+              },
+              {
+                "original": "Min Zhou",
+                "final": "Min Zhou"
+              }
+            ]
+          },
+          {
+            "row": 4,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Operational ownership",
+                "final": "Operational ownership"
+              },
+              {
+                "original": "Named on-call contact and handover record",
+                "final": "Named on-call contact and handover record"
+              },
+              {
+                "original": "Anne Wu",
+                "final": "Anne Wu"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "revisions": [],
+    "comments": [
+      {
+        "id": "0",
+        "author": "Release reviewer",
+        "date": "2026-09-24T09:00:00Z",
+        "text": "Retain the signed receipt with the audit package.",
+        "anchors": [
+          {
+            "para_id": "00000067",
+            "original": "All transfer files remain in the client-controlled repository; local copies are non-authoritative.",
+            "final": "All transfer files remain in the client-controlled repository; local copies are non-authoritative.",
+            "comment_start_ids": [
+              "0"
+            ],
+            "comment_end_ids": [
+              "0"
+            ],
+            "comment_ref_ids": [
+              "0"
+            ]
+          }
+        ]
+      }
+    ],
+    "footnotes": [
+      {
+        "id": "-1",
+        "text": ""
+      },
+      {
+        "id": "0",
+        "text": ""
+      },
+      {
+        "id": "1",
+        "text": "Hash values are compared as lowercase hexadecimal strings."
+      }
+    ],
+    "footnote_refs": [
+      "1"
+    ],
+    "hyperlinks": [
+      {
+        "id": "rId11",
+        "target": "https://example.com/bluebird/transfer-runbook",
+        "mode": "External"
+      }
+    ],
+    "track_revisions": true,
+    "comment_anchor_counts": {
+      "start": 1,
+      "end": 1,
+      "ref": 1
+    }
+  },
+  "workbuddy": {
+    "path": "benchmarks\\workbuddy-vs-dsh\\results\\case-02-comparison-2026-09-26\\workbuddy\\artifact.docx",
+    "sha256": "750f6e9f80f7e2456820846ac71eea7951887f1b7c799fa9877a6feb002feb10",
+    "zip_ok": true,
+    "parts": [
+      "[Content_Types].xml",
+      "_rels/.rels",
+      "customXml/_rels/item1.xml.rels",
+      "customXml/item1.xml",
+      "customXml/itemProps1.xml",
+      "docProps/app.xml",
+      "docProps/core.xml",
+      "docProps/thumbnail.jpeg",
+      "word/_rels/document.xml.rels",
+      "word/comments.xml",
+      "word/document.xml",
+      "word/fontTable.xml",
+      "word/footer1.xml",
+      "word/footnotes.xml",
+      "word/header1.xml",
+      "word/numbering.xml",
+      "word/settings.xml",
+      "word/styles.xml",
+      "word/stylesWithEffects.xml",
+      "word/theme/theme1.xml",
+      "word/webSettings.xml"
+    ],
+    "body_paragraphs": [
+      {
+        "para_id": "00000001",
+        "original": "Project delivery and acceptance status",
+        "final": "Project delivery and acceptance status",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000002",
+        "original": "Bluebird client platform migration  |  Q3 2026",
+        "final": "Bluebird client platform migration  |  Q3 2026",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000003",
+        "original": "Report date: 26 September 2026    |    Version: 1.4    |    Owner: Lin Zhou",
+        "final": "Report date: 26 September 2026    |    Version: 1.4    |    Owner: Lin Zhou",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000004",
+        "original": "1. Executive summary",
+        "final": "1. Executive summary",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000005",
+        "original": "The migration remains within the approved release window. Current tracking shows 18 work items: 16 completed on schedule; 2 remain open.",
+        "final": "The migration remains within the approved release window. Current tracking shows 18 work items: 17 completed on schedule; 1 remains open.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000006",
+        "original": "The data migration package is staged for client review. The acceptance-testing stream is separately awaiting client sign-off; its status is not changed by the migration receipt.",
+        "final": "The data migration package is staged for client review. The acceptance-testing stream is separately awaiting client sign-off; its status is not changed by the migration receipt.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000007",
+        "original": "Status snapshot",
+        "final": "Status snapshot",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000017",
+        "original": "Review notes",
+        "final": "Review notes",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000018",
+        "original": "The release gate remains open until client acceptance testing is complete. A receipt for one stream does not close the full acceptance gate.",
+        "final": "The release gate remains open until client acceptance testing is complete. A receipt for one stream does not close the full acceptance gate.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000019",
+        "original": "Reference: transfer runbook and the controlled release checklist.",
+        "final": "Reference: transfer runbook and the controlled release checklist.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "0000001A",
+        "original": "\n",
+        "final": "\n",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "0000001B",
+        "original": "2. Workstream detail",
+        "final": "2. Workstream detail",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "0000001C",
+        "original": "The table records current owners, due dates, status and source evidence. The same status wording may appear in separate workstreams; update only the row named in an approved change.",
+        "final": "The table records current owners, due dates, status and source evidence. The same status wording may appear in separate workstreams; update only the row named in an approved change.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000064",
+        "original": "3. Cutover and controls",
+        "final": "3. Cutover and controls",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000065",
+        "original": "The deployment window starts at 20:00 local time. The change coordinator will confirm the final go / no-go decision with the client before any production transfer begins.",
+        "final": "The deployment window starts at 20:00 local time. The change coordinator will confirm the final go / no-go decision with the client before any production transfer begins.",
+        "comment_start_ids": [
+          "1"
+        ],
+        "comment_end_ids": [
+          "1"
+        ],
+        "comment_ref_ids": [
+          "1"
+        ]
+      },
+      {
+        "para_id": "00000066",
+        "original": "The rollback package is verified and the transfer runbook is ready.",
+        "final": "The rollback package is verified and the transfer runbook is ready.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "3C9A1F20",
+        "original": "",
+        "final": "The transfer package was delivered to the client repository on 26 September and its SHA-256 matched the release manifest.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000067",
+        "original": "All transfer files remain in the client-controlled repository; local copies are non-authoritative.",
+        "final": "All transfer files remain in the client-controlled repository; local copies are non-authoritative.",
+        "comment_start_ids": [
+          "0"
+        ],
+        "comment_end_ids": [
+          "0"
+        ],
+        "comment_ref_ids": [
+          "0"
+        ]
+      },
+      {
+        "para_id": "00000068",
+        "original": "Operations will confirm restart ownership at handover. The release coordinator will record the decision and retain the corresponding change ticket.",
+        "final": "Operations will confirm restart ownership at handover. The release coordinator will record the decision and retain the corresponding change ticket.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000078",
+        "original": "Closeout conditions",
+        "final": "Closeout conditions",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000079",
+        "original": "Client acceptance record is returned and linked to the change ticket.",
+        "final": "Client acceptance record is returned and linked to the change ticket.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "0000007A",
+        "original": "Transfer checksum is verified against the release manifest.",
+        "final": "Transfer checksum is verified against the release manifest.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "0000007B",
+        "original": "Open remediation item has an owner and an agreed completion date.",
+        "final": "Open remediation item has an owner and an agreed completion date.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      }
+    ],
+    "tables": [
+      {
+        "table": 0,
+        "rows": [
+          {
+            "row": 0,
+            "is_repeat_header": true,
+            "cells": [
+              {
+                "original": "Measure",
+                "final": "Measure"
+              },
+              {
+                "original": "Current",
+                "final": "Current"
+              },
+              {
+                "original": "Evidence",
+                "final": "Evidence"
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Total work items",
+                "final": "Total work items"
+              },
+              {
+                "original": "18",
+                "final": "18"
+              },
+              {
+                "original": "Approved delivery register",
+                "final": "Approved delivery register"
+              }
+            ]
+          },
+          {
+            "row": 2,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Completed on schedule",
+                "final": "Completed on schedule"
+              },
+              {
+                "original": "16",
+                "final": "17"
+              },
+              {
+                "original": "Daily workstream log",
+                "final": "Daily workstream log"
+              }
+            ]
+          },
+          {
+            "row": 3,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Open items",
+                "final": "Open items"
+              },
+              {
+                "original": "2",
+                "final": "1"
+              },
+              {
+                "original": "Acceptance and remediation trackers",
+                "final": "Acceptance and remediation trackers"
+              }
+            ]
+          },
+          {
+            "row": 4,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Release target",
+                "final": "Release target"
+              },
+              {
+                "original": "30 Sep 2026",
+                "final": "30 Sep 2026"
+              },
+              {
+                "original": "Approved migration plan",
+                "final": "Approved migration plan"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "table": 1,
+        "rows": [
+          {
+            "row": 0,
+            "is_repeat_header": true,
+            "cells": [
+              {
+                "original": "Delivery workstreams  ·  controlled status register",
+                "final": "Delivery workstreams  ·  controlled status register"
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "is_repeat_header": true,
+            "cells": [
+              {
+                "original": "Workstream",
+                "final": "Workstream"
+              },
+              {
+                "original": "Owner",
+                "final": "Owner"
+              },
+              {
+                "original": "Due",
+                "final": "Due"
+              },
+              {
+                "original": "Status",
+                "final": "Status"
+              },
+              {
+                "original": "Evidence / note",
+                "final": "Evidence / note"
+              }
+            ]
+          },
+          {
+            "row": 2,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Data migration",
+                "final": "Data migration"
+              },
+              {
+                "original": "Jia Lin",
+                "final": "Jia Lin"
+              },
+              {
+                "original": "26 Sep 2026",
+                "final": "26 Sep 2026"
+              },
+              {
+                "original": "Awaiting client sign-off",
+                "final": "Client sign-off received · 26 Sep 2026"
+              },
+              {
+                "original": "The transfer package is staged in the client repository. Receipt is recorded after the client verifies the release manifest.",
+                "final": "The transfer package is staged in the client repository. Receipt is recorded after the client verifies the release manifest."
+              }
+            ]
+          },
+          {
+            "row": 3,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Acceptance testing",
+                "final": "Acceptance testing"
+              },
+              {
+                "original": "Rui Chen",
+                "final": "Rui Chen"
+              },
+              {
+                "original": "27 Sep 2026",
+                "final": "27 Sep 2026"
+              },
+              {
+                "original": "Awaiting client sign-off",
+                "final": "Awaiting client sign-off"
+              },
+              {
+                "original": "The acceptance suite is complete; the client has not yet returned the signed test record.",
+                "final": "The acceptance suite is complete; the client has not yet returned the signed test record."
+              }
+            ]
+          },
+          {
+            "row": 4,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "API integration",
+                "final": "API integration"
+              },
+              {
+                "original": "Min Zhou",
+                "final": "Min Zhou"
+              },
+              {
+                "original": "23 Sep 2026",
+                "final": "23 Sep 2026"
+              },
+              {
+                "original": "Complete",
+                "final": "Complete"
+              },
+              {
+                "original": "Health-check output and interface test evidence are retained with the build record.",
+                "final": "Health-check output and interface test evidence are retained with the build record."
+              }
+            ]
+          },
+          {
+            "row": 5,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "User training",
+                "final": "User training"
+              },
+              {
+                "original": "Anne Wu",
+                "final": "Anne Wu"
+              },
+              {
+                "original": "25 Sep 2026",
+                "final": "25 Sep 2026"
+              },
+              {
+                "original": "Complete",
+                "final": "Complete"
+              },
+              {
+                "original": "Four sessions were delivered. Attendance records are filed in the project evidence folder.",
+                "final": "Four sessions were delivered. Attendance records are filed in the project evidence folder."
+              }
+            ]
+          },
+          {
+            "row": 6,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Ledger reconciliation",
+                "final": "Ledger reconciliation"
+              },
+              {
+                "original": "Han Li",
+                "final": "Han Li"
+              },
+              {
+                "original": "28 Sep 2026",
+                "final": "28 Sep 2026"
+              },
+              {
+                "original": "In progress",
+                "final": "In progress"
+              },
+              {
+                "original": "The finance team is matching the final ledger export against the approved migration totals.",
+                "final": "The finance team is matching the final ledger export against the approved migration totals."
+              }
+            ]
+          },
+          {
+            "row": 7,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Access review",
+                "final": "Access review"
+              },
+              {
+                "original": "Jia Lin",
+                "final": "Jia Lin"
+              },
+              {
+                "original": "28 Sep 2026",
+                "final": "28 Sep 2026"
+              },
+              {
+                "original": "Complete",
+                "final": "Complete"
+              },
+              {
+                "original": "Role membership was reviewed against the client-approved access matrix.",
+                "final": "Role membership was reviewed against the client-approved access matrix."
+              }
+            ]
+          },
+          {
+            "row": 8,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Rollback rehearsal",
+                "final": "Rollback rehearsal"
+              },
+              {
+                "original": "Min Zhou",
+                "final": "Min Zhou"
+              },
+              {
+                "original": "29 Sep 2026",
+                "final": "29 Sep 2026"
+              },
+              {
+                "original": "In progress",
+                "final": "In progress"
+              },
+              {
+                "original": "The operations team is rehearsing restoration from the signed release package.",
+                "final": "The operations team is rehearsing restoration from the signed release package."
+              }
+            ]
+          },
+          {
+            "row": 9,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Operations handover",
+                "final": "Operations handover"
+              },
+              {
+                "original": "Anne Wu",
+                "final": "Anne Wu"
+              },
+              {
+                "original": "30 Sep 2026",
+                "final": "30 Sep 2026"
+              },
+              {
+                "original": "Not started",
+                "final": "Not started"
+              },
+              {
+                "original": "The handover checklist is prepared and will be completed after the release gate is approved.",
+                "final": "The handover checklist is prepared and will be completed after the release gate is approved."
+              }
+            ]
+          },
+          {
+            "row": 10,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Evidence archive",
+                "final": "Evidence archive"
+              },
+              {
+                "original": "Rui Chen",
+                "final": "Rui Chen"
+              },
+              {
+                "original": "30 Sep 2026",
+                "final": "30 Sep 2026"
+              },
+              {
+                "original": "In progress",
+                "final": "In progress"
+              },
+              {
+                "original": "Logs, approvals and transfer checksums are collected in the controlled evidence archive.",
+                "final": "Logs, approvals and transfer checksums are collected in the controlled evidence archive."
+              }
+            ]
+          },
+          {
+            "row": 11,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Security sign-off",
+                "final": "Security sign-off"
+              },
+              {
+                "original": "Han Li",
+                "final": "Han Li"
+              },
+              {
+                "original": "29 Sep 2026",
+                "final": "29 Sep 2026"
+              },
+              {
+                "original": "In progress",
+                "final": "In progress"
+              },
+              {
+                "original": "The security reviewer is checking the final access report, transfer audit trail and client-side retention settings before the release gate closes.",
+                "final": "The security reviewer is checking the final access report, transfer audit trail and client-side retention settings before the release gate closes."
+              }
+            ]
+          },
+          {
+            "row": 12,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Cutover communications",
+                "final": "Cutover communications"
+              },
+              {
+                "original": "Anne Wu",
+                "final": "Anne Wu"
+              },
+              {
+                "original": "29 Sep 2026",
+                "final": "29 Sep 2026"
+              },
+              {
+                "original": "Not started",
+                "final": "Not started"
+              },
+              {
+                "original": "The notification list and approved customer message are prepared. The coordinator will record delivery time and the client response in the release log.",
+                "final": "The notification list and approved customer message are prepared. The coordinator will record delivery time and the client response in the release log."
+              }
+            ]
+          },
+          {
+            "row": 13,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Post-release monitoring",
+                "final": "Post-release monitoring"
+              },
+              {
+                "original": "Min Zhou",
+                "final": "Min Zhou"
+              },
+              {
+                "original": "30 Sep 2026",
+                "final": "30 Sep 2026"
+              },
+              {
+                "original": "Not started",
+                "final": "Not started"
+              },
+              {
+                "original": "The team will monitor transfer completion, service health and reconciliation results during the agreed observation window and escalate exceptions through the change ticket.",
+                "final": "The team will monitor transfer completion, service health and reconciliation results during the agreed observation window and escalate exceptions through the change ticket."
+              }
+            ]
+          },
+          {
+            "row": 14,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Training evidence",
+                "final": "Training evidence"
+              },
+              {
+                "original": "Rui Chen",
+                "final": "Rui Chen"
+              },
+              {
+                "original": "30 Sep 2026",
+                "final": "30 Sep 2026"
+              },
+              {
+                "original": "Complete",
+                "final": "Complete"
+              },
+              {
+                "original": "Attendance, session materials and the approved operating guide are linked from the evidence archive for the receiving operations team.",
+                "final": "Attendance, session materials and the approved operating guide are linked from the evidence archive for the receiving operations team."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "table": 2,
+        "rows": [
+          {
+            "row": 0,
+            "is_repeat_header": true,
+            "cells": [
+              {
+                "original": "Control",
+                "final": "Control"
+              },
+              {
+                "original": "Evidence",
+                "final": "Evidence"
+              },
+              {
+                "original": "Owner",
+                "final": "Owner"
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Transfer integrity",
+                "final": "Transfer integrity"
+              },
+              {
+                "original": "Release manifest and SHA-256 record",
+                "final": "Release manifest and SHA-256 record"
+              },
+              {
+                "original": "Jia Lin",
+                "final": "Jia Lin"
+              }
+            ]
+          },
+          {
+            "row": 2,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Client authorization",
+                "final": "Client authorization"
+              },
+              {
+                "original": "Signed acceptance and change ticket",
+                "final": "Signed acceptance and change ticket"
+              },
+              {
+                "original": "Rui Chen",
+                "final": "Rui Chen"
+              }
+            ]
+          },
+          {
+            "row": 3,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Rollback readiness",
+                "final": "Rollback readiness"
+              },
+              {
+                "original": "Rehearsal log and restore checkpoint",
+                "final": "Rehearsal log and restore checkpoint"
+              },
+              {
+                "original": "Min Zhou",
+                "final": "Min Zhou"
+              }
+            ]
+          },
+          {
+            "row": 4,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Operational ownership",
+                "final": "Operational ownership"
+              },
+              {
+                "original": "Named on-call contact and handover record",
+                "final": "Named on-call contact and handover record"
+              },
+              {
+                "original": "Anne Wu",
+                "final": "Anne Wu"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "revisions": [
+      {
+        "kind": "del",
+        "id": "9001",
+        "author": "Lin Zhou",
+        "date": "2026-09-26T12:00:00Z",
+        "text": "16"
+      },
+      {
+        "kind": "del",
+        "id": "9003",
+        "author": "Lin Zhou",
+        "date": "2026-09-26T12:00:00Z",
+        "text": "2 remain"
+      },
+      {
+        "kind": "del",
+        "id": "9005",
+        "author": "Lin Zhou",
+        "date": "2026-09-26T12:00:00Z",
+        "text": "16"
+      },
+      {
+        "kind": "del",
+        "id": "9007",
+        "author": "Lin Zhou",
+        "date": "2026-09-26T12:00:00Z",
+        "text": "2"
+      },
+      {
+        "kind": "del",
+        "id": "9009",
+        "author": "Lin Zhou",
+        "date": "2026-09-26T12:00:00Z",
+        "text": "Awaiting client sign-off"
+      },
+      {
+        "kind": "ins",
+        "id": "9002",
+        "author": "Lin Zhou",
+        "date": "2026-09-26T12:00:00Z",
+        "text": "17"
+      },
+      {
+        "kind": "ins",
+        "id": "9004",
+        "author": "Lin Zhou",
+        "date": "2026-09-26T12:00:00Z",
+        "text": "1 remains"
+      },
+      {
+        "kind": "ins",
+        "id": "9006",
+        "author": "Lin Zhou",
+        "date": "2026-09-26T12:00:00Z",
+        "text": "17"
+      },
+      {
+        "kind": "ins",
+        "id": "9008",
+        "author": "Lin Zhou",
+        "date": "2026-09-26T12:00:00Z",
+        "text": "1"
+      },
+      {
+        "kind": "ins",
+        "id": "9010",
+        "author": "Lin Zhou",
+        "date": "2026-09-26T12:00:00Z",
+        "text": "Client sign-off received · 26 Sep 2026"
+      },
+      {
+        "kind": "ins",
+        "id": "9011",
+        "author": "Lin Zhou",
+        "date": "2026-09-26T12:00:00Z",
+        "text": ""
+      },
+      {
+        "kind": "ins",
+        "id": "9012",
+        "author": "Lin Zhou",
+        "date": "2026-09-26T12:00:00Z",
+        "text": "The transfer package was delivered to the client repository on 26 September and its SHA-256 matched the release manifest."
+      }
+    ],
+    "comments": [
+      {
+        "id": "0",
+        "author": "Release reviewer",
+        "date": "2026-09-24T09:00:00Z",
+        "text": "Retain the signed receipt with the audit package.",
+        "anchors": [
+          {
+            "para_id": "00000067",
+            "original": "All transfer files remain in the client-controlled repository; local copies are non-authoritative.",
+            "final": "All transfer files remain in the client-controlled repository; local copies are non-authoritative.",
+            "comment_start_ids": [
+              "0"
+            ],
+            "comment_end_ids": [
+              "0"
+            ],
+            "comment_ref_ids": [
+              "0"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1",
+        "author": "Release reviewer",
+        "date": "2026-09-26T12:00:00Z",
+        "text": "Confirm the business owner has approved this window before go / no-go.",
+        "anchors": [
+          {
+            "para_id": "00000065",
+            "original": "The deployment window starts at 20:00 local time. The change coordinator will confirm the final go / no-go decision with the client before any production transfer begins.",
+            "final": "The deployment window starts at 20:00 local time. The change coordinator will confirm the final go / no-go decision with the client before any production transfer begins.",
+            "comment_start_ids": [
+              "1"
+            ],
+            "comment_end_ids": [
+              "1"
+            ],
+            "comment_ref_ids": [
+              "1"
+            ]
+          }
+        ]
+      }
+    ],
+    "footnotes": [
+      {
+        "id": "-1",
+        "text": ""
+      },
+      {
+        "id": "0",
+        "text": ""
+      },
+      {
+        "id": "1",
+        "text": "Hash values are compared as lowercase hexadecimal strings."
+      }
+    ],
+    "footnote_refs": [
+      "1"
+    ],
+    "hyperlinks": [
+      {
+        "id": "rId11",
+        "target": "https://example.com/bluebird/transfer-runbook",
+        "mode": "External"
+      }
+    ],
+    "track_revisions": true,
+    "comment_anchor_counts": {
+      "start": 2,
+      "end": 2,
+      "ref": 2
+    }
+  },
+  "plugin": {
+    "path": "benchmarks\\workbuddy-vs-dsh\\results\\case-02-comparison-2026-09-26\\plugin\\artifact.docx",
+    "sha256": "ba69bfade0c482e0f889eaf1c816d239304ca2ac9e0b49bd9f79248e194ce143",
+    "zip_ok": true,
+    "parts": [
+      "[Content_Types].xml",
+      "_rels/.rels",
+      "customXml/_rels/item1.xml.rels",
+      "customXml/item1.xml",
+      "customXml/itemProps1.xml",
+      "docProps/app.xml",
+      "docProps/core.xml",
+      "docProps/thumbnail.jpeg",
+      "word/_rels/document.xml.rels",
+      "word/comments.xml",
+      "word/commentsExtended.xml",
+      "word/commentsIds.xml",
+      "word/document.xml",
+      "word/fontTable.xml",
+      "word/footer1.xml",
+      "word/footnotes.xml",
+      "word/header1.xml",
+      "word/numbering.xml",
+      "word/people.xml",
+      "word/settings.xml",
+      "word/styles.xml",
+      "word/stylesWithEffects.xml",
+      "word/theme/theme1.xml",
+      "word/webSettings.xml"
+    ],
+    "body_paragraphs": [
+      {
+        "para_id": "00000001",
+        "original": "Project delivery and acceptance status",
+        "final": "Project delivery and acceptance status",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000002",
+        "original": "Bluebird client platform migration  |  Q3 2026",
+        "final": "Bluebird client platform migration  |  Q3 2026",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000003",
+        "original": "Report date: 26 September 2026    |    Version: 1.4    |    Owner: Lin Zhou",
+        "final": "Report date: 26 September 2026    |    Version: 1.4    |    Owner: Lin Zhou",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000004",
+        "original": "1. Executive summary",
+        "final": "1. Executive summary",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000005",
+        "original": "The migration remains within the approved release window. Current tracking shows 18 work items: 16 completed on schedule; 2 remain open.",
+        "final": "The migration remains within the approved release window. Current tracking shows 18 work items: 17 completed on schedule; 1 remains open.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000006",
+        "original": "The data migration package is staged for client review. The acceptance-testing stream is separately awaiting client sign-off; its status is not changed by the migration receipt.",
+        "final": "The data migration package is staged for client review. The acceptance-testing stream is separately awaiting client sign-off; its status is not changed by the migration receipt.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000007",
+        "original": "Status snapshot",
+        "final": "Status snapshot",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000017",
+        "original": "Review notes",
+        "final": "Review notes",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000018",
+        "original": "The release gate remains open until client acceptance testing is complete. A receipt for one stream does not close the full acceptance gate.",
+        "final": "The release gate remains open until client acceptance testing is complete. A receipt for one stream does not close the full acceptance gate.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000019",
+        "original": "Reference: transfer runbook and the controlled release checklist.",
+        "final": "Reference: transfer runbook and the controlled release checklist.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "0000001A",
+        "original": "\n",
+        "final": "\n",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "0000001B",
+        "original": "2. Workstream detail",
+        "final": "2. Workstream detail",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "0000001C",
+        "original": "The table records current owners, due dates, status and source evidence. The same status wording may appear in separate workstreams; update only the row named in an approved change.",
+        "final": "The table records current owners, due dates, status and source evidence. The same status wording may appear in separate workstreams; update only the row named in an approved change.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000064",
+        "original": "3. Cutover and controls",
+        "final": "3. Cutover and controls",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000065",
+        "original": "The deployment window starts at 20:00 local time. The change coordinator will confirm the final go / no-go decision with the client before any production transfer begins.",
+        "final": "The deployment window starts at 20:00 local time. The change coordinator will confirm the final go / no-go decision with the client before any production transfer begins.",
+        "comment_start_ids": [
+          "1"
+        ],
+        "comment_end_ids": [
+          "1"
+        ],
+        "comment_ref_ids": [
+          "1"
+        ]
+      },
+      {
+        "para_id": "00000066",
+        "original": "The rollback package is verified and the transfer runbook is ready.",
+        "final": "The rollback package is verified and the transfer runbook is ready.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "77CDD490",
+        "original": "",
+        "final": "The transfer package was delivered to the client repository on 26 September and its SHA-256 matched the release manifest.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000067",
+        "original": "All transfer files remain in the client-controlled repository; local copies are non-authoritative.",
+        "final": "All transfer files remain in the client-controlled repository; local copies are non-authoritative.",
+        "comment_start_ids": [
+          "0"
+        ],
+        "comment_end_ids": [
+          "0"
+        ],
+        "comment_ref_ids": [
+          "0"
+        ]
+      },
+      {
+        "para_id": "00000068",
+        "original": "Operations will confirm restart ownership at handover. The release coordinator will record the decision and retain the corresponding change ticket.",
+        "final": "Operations will confirm restart ownership at handover. The release coordinator will record the decision and retain the corresponding change ticket.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000078",
+        "original": "Closeout conditions",
+        "final": "Closeout conditions",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "00000079",
+        "original": "Client acceptance record is returned and linked to the change ticket.",
+        "final": "Client acceptance record is returned and linked to the change ticket.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "0000007A",
+        "original": "Transfer checksum is verified against the release manifest.",
+        "final": "Transfer checksum is verified against the release manifest.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      },
+      {
+        "para_id": "0000007B",
+        "original": "Open remediation item has an owner and an agreed completion date.",
+        "final": "Open remediation item has an owner and an agreed completion date.",
+        "comment_start_ids": [],
+        "comment_end_ids": [],
+        "comment_ref_ids": []
+      }
+    ],
+    "tables": [
+      {
+        "table": 0,
+        "rows": [
+          {
+            "row": 0,
+            "is_repeat_header": true,
+            "cells": [
+              {
+                "original": "Measure",
+                "final": "Measure"
+              },
+              {
+                "original": "Current",
+                "final": "Current"
+              },
+              {
+                "original": "Evidence",
+                "final": "Evidence"
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Total work items",
+                "final": "Total work items"
+              },
+              {
+                "original": "18",
+                "final": "18"
+              },
+              {
+                "original": "Approved delivery register",
+                "final": "Approved delivery register"
+              }
+            ]
+          },
+          {
+            "row": 2,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Completed on schedule",
+                "final": "Completed on schedule"
+              },
+              {
+                "original": "16",
+                "final": "17"
+              },
+              {
+                "original": "Daily workstream log",
+                "final": "Daily workstream log"
+              }
+            ]
+          },
+          {
+            "row": 3,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Open items",
+                "final": "Open items"
+              },
+              {
+                "original": "2",
+                "final": "1"
+              },
+              {
+                "original": "Acceptance and remediation trackers",
+                "final": "Acceptance and remediation trackers"
+              }
+            ]
+          },
+          {
+            "row": 4,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Release target",
+                "final": "Release target"
+              },
+              {
+                "original": "30 Sep 2026",
+                "final": "30 Sep 2026"
+              },
+              {
+                "original": "Approved migration plan",
+                "final": "Approved migration plan"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "table": 1,
+        "rows": [
+          {
+            "row": 0,
+            "is_repeat_header": true,
+            "cells": [
+              {
+                "original": "Delivery workstreams  ·  controlled status register",
+                "final": "Delivery workstreams  ·  controlled status register"
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "is_repeat_header": true,
+            "cells": [
+              {
+                "original": "Workstream",
+                "final": "Workstream"
+              },
+              {
+                "original": "Owner",
+                "final": "Owner"
+              },
+              {
+                "original": "Due",
+                "final": "Due"
+              },
+              {
+                "original": "Status",
+                "final": "Status"
+              },
+              {
+                "original": "Evidence / note",
+                "final": "Evidence / note"
+              }
+            ]
+          },
+          {
+            "row": 2,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Data migration",
+                "final": "Data migration"
+              },
+              {
+                "original": "Jia Lin",
+                "final": "Jia Lin"
+              },
+              {
+                "original": "26 Sep 2026",
+                "final": "26 Sep 2026"
+              },
+              {
+                "original": "Awaiting client sign-off",
+                "final": "Client sign-off received · 26 Sep 2026"
+              },
+              {
+                "original": "The transfer package is staged in the client repository. Receipt is recorded after the client verifies the release manifest.",
+                "final": "The transfer package is staged in the client repository. Receipt is recorded after the client verifies the release manifest."
+              }
+            ]
+          },
+          {
+            "row": 3,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Acceptance testing",
+                "final": "Acceptance testing"
+              },
+              {
+                "original": "Rui Chen",
+                "final": "Rui Chen"
+              },
+              {
+                "original": "27 Sep 2026",
+                "final": "27 Sep 2026"
+              },
+              {
+                "original": "Awaiting client sign-off",
+                "final": "Awaiting client sign-off"
+              },
+              {
+                "original": "The acceptance suite is complete; the client has not yet returned the signed test record.",
+                "final": "The acceptance suite is complete; the client has not yet returned the signed test record."
+              }
+            ]
+          },
+          {
+            "row": 4,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "API integration",
+                "final": "API integration"
+              },
+              {
+                "original": "Min Zhou",
+                "final": "Min Zhou"
+              },
+              {
+                "original": "23 Sep 2026",
+                "final": "23 Sep 2026"
+              },
+              {
+                "original": "Complete",
+                "final": "Complete"
+              },
+              {
+                "original": "Health-check output and interface test evidence are retained with the build record.",
+                "final": "Health-check output and interface test evidence are retained with the build record."
+              }
+            ]
+          },
+          {
+            "row": 5,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "User training",
+                "final": "User training"
+              },
+              {
+                "original": "Anne Wu",
+                "final": "Anne Wu"
+              },
+              {
+                "original": "25 Sep 2026",
+                "final": "25 Sep 2026"
+              },
+              {
+                "original": "Complete",
+                "final": "Complete"
+              },
+              {
+                "original": "Four sessions were delivered. Attendance records are filed in the project evidence folder.",
+                "final": "Four sessions were delivered. Attendance records are filed in the project evidence folder."
+              }
+            ]
+          },
+          {
+            "row": 6,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Ledger reconciliation",
+                "final": "Ledger reconciliation"
+              },
+              {
+                "original": "Han Li",
+                "final": "Han Li"
+              },
+              {
+                "original": "28 Sep 2026",
+                "final": "28 Sep 2026"
+              },
+              {
+                "original": "In progress",
+                "final": "In progress"
+              },
+              {
+                "original": "The finance team is matching the final ledger export against the approved migration totals.",
+                "final": "The finance team is matching the final ledger export against the approved migration totals."
+              }
+            ]
+          },
+          {
+            "row": 7,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Access review",
+                "final": "Access review"
+              },
+              {
+                "original": "Jia Lin",
+                "final": "Jia Lin"
+              },
+              {
+                "original": "28 Sep 2026",
+                "final": "28 Sep 2026"
+              },
+              {
+                "original": "Complete",
+                "final": "Complete"
+              },
+              {
+                "original": "Role membership was reviewed against the client-approved access matrix.",
+                "final": "Role membership was reviewed against the client-approved access matrix."
+              }
+            ]
+          },
+          {
+            "row": 8,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Rollback rehearsal",
+                "final": "Rollback rehearsal"
+              },
+              {
+                "original": "Min Zhou",
+                "final": "Min Zhou"
+              },
+              {
+                "original": "29 Sep 2026",
+                "final": "29 Sep 2026"
+              },
+              {
+                "original": "In progress",
+                "final": "In progress"
+              },
+              {
+                "original": "The operations team is rehearsing restoration from the signed release package.",
+                "final": "The operations team is rehearsing restoration from the signed release package."
+              }
+            ]
+          },
+          {
+            "row": 9,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Operations handover",
+                "final": "Operations handover"
+              },
+              {
+                "original": "Anne Wu",
+                "final": "Anne Wu"
+              },
+              {
+                "original": "30 Sep 2026",
+                "final": "30 Sep 2026"
+              },
+              {
+                "original": "Not started",
+                "final": "Not started"
+              },
+              {
+                "original": "The handover checklist is prepared and will be completed after the release gate is approved.",
+                "final": "The handover checklist is prepared and will be completed after the release gate is approved."
+              }
+            ]
+          },
+          {
+            "row": 10,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Evidence archive",
+                "final": "Evidence archive"
+              },
+              {
+                "original": "Rui Chen",
+                "final": "Rui Chen"
+              },
+              {
+                "original": "30 Sep 2026",
+                "final": "30 Sep 2026"
+              },
+              {
+                "original": "In progress",
+                "final": "In progress"
+              },
+              {
+                "original": "Logs, approvals and transfer checksums are collected in the controlled evidence archive.",
+                "final": "Logs, approvals and transfer checksums are collected in the controlled evidence archive."
+              }
+            ]
+          },
+          {
+            "row": 11,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Security sign-off",
+                "final": "Security sign-off"
+              },
+              {
+                "original": "Han Li",
+                "final": "Han Li"
+              },
+              {
+                "original": "29 Sep 2026",
+                "final": "29 Sep 2026"
+              },
+              {
+                "original": "In progress",
+                "final": "In progress"
+              },
+              {
+                "original": "The security reviewer is checking the final access report, transfer audit trail and client-side retention settings before the release gate closes.",
+                "final": "The security reviewer is checking the final access report, transfer audit trail and client-side retention settings before the release gate closes."
+              }
+            ]
+          },
+          {
+            "row": 12,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Cutover communications",
+                "final": "Cutover communications"
+              },
+              {
+                "original": "Anne Wu",
+                "final": "Anne Wu"
+              },
+              {
+                "original": "29 Sep 2026",
+                "final": "29 Sep 2026"
+              },
+              {
+                "original": "Not started",
+                "final": "Not started"
+              },
+              {
+                "original": "The notification list and approved customer message are prepared. The coordinator will record delivery time and the client response in the release log.",
+                "final": "The notification list and approved customer message are prepared. The coordinator will record delivery time and the client response in the release log."
+              }
+            ]
+          },
+          {
+            "row": 13,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Post-release monitoring",
+                "final": "Post-release monitoring"
+              },
+              {
+                "original": "Min Zhou",
+                "final": "Min Zhou"
+              },
+              {
+                "original": "30 Sep 2026",
+                "final": "30 Sep 2026"
+              },
+              {
+                "original": "Not started",
+                "final": "Not started"
+              },
+              {
+                "original": "The team will monitor transfer completion, service health and reconciliation results during the agreed observation window and escalate exceptions through the change ticket.",
+                "final": "The team will monitor transfer completion, service health and reconciliation results during the agreed observation window and escalate exceptions through the change ticket."
+              }
+            ]
+          },
+          {
+            "row": 14,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Training evidence",
+                "final": "Training evidence"
+              },
+              {
+                "original": "Rui Chen",
+                "final": "Rui Chen"
+              },
+              {
+                "original": "30 Sep 2026",
+                "final": "30 Sep 2026"
+              },
+              {
+                "original": "Complete",
+                "final": "Complete"
+              },
+              {
+                "original": "Attendance, session materials and the approved operating guide are linked from the evidence archive for the receiving operations team.",
+                "final": "Attendance, session materials and the approved operating guide are linked from the evidence archive for the receiving operations team."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "table": 2,
+        "rows": [
+          {
+            "row": 0,
+            "is_repeat_header": true,
+            "cells": [
+              {
+                "original": "Control",
+                "final": "Control"
+              },
+              {
+                "original": "Evidence",
+                "final": "Evidence"
+              },
+              {
+                "original": "Owner",
+                "final": "Owner"
+              }
+            ]
+          },
+          {
+            "row": 1,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Transfer integrity",
+                "final": "Transfer integrity"
+              },
+              {
+                "original": "Release manifest and SHA-256 record",
+                "final": "Release manifest and SHA-256 record"
+              },
+              {
+                "original": "Jia Lin",
+                "final": "Jia Lin"
+              }
+            ]
+          },
+          {
+            "row": 2,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Client authorization",
+                "final": "Client authorization"
+              },
+              {
+                "original": "Signed acceptance and change ticket",
+                "final": "Signed acceptance and change ticket"
+              },
+              {
+                "original": "Rui Chen",
+                "final": "Rui Chen"
+              }
+            ]
+          },
+          {
+            "row": 3,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Rollback readiness",
+                "final": "Rollback readiness"
+              },
+              {
+                "original": "Rehearsal log and restore checkpoint",
+                "final": "Rehearsal log and restore checkpoint"
+              },
+              {
+                "original": "Min Zhou",
+                "final": "Min Zhou"
+              }
+            ]
+          },
+          {
+            "row": 4,
+            "is_repeat_header": false,
+            "cells": [
+              {
+                "original": "Operational ownership",
+                "final": "Operational ownership"
+              },
+              {
+                "original": "Named on-call contact and handover record",
+                "final": "Named on-call contact and handover record"
+              },
+              {
+                "original": "Anne Wu",
+                "final": "Anne Wu"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "revisions": [
+      {
+        "kind": "del",
+        "id": "1",
+        "author": "Reviewer",
+        "date": "2026-09-26T06:40:17Z",
+        "text": "16 completed on schedule; 2 remain open."
+      },
+      {
+        "kind": "del",
+        "id": "3",
+        "author": "Reviewer",
+        "date": "2026-09-26T06:40:17Z",
+        "text": "16"
+      },
+      {
+        "kind": "del",
+        "id": "5",
+        "author": "Reviewer",
+        "date": "2026-09-26T06:40:17Z",
+        "text": "2"
+      },
+      {
+        "kind": "del",
+        "id": "7",
+        "author": "Reviewer",
+        "date": "2026-09-26T06:40:17Z",
+        "text": "Awaiting client sign-off"
+      },
+      {
+        "kind": "ins",
+        "id": "2",
+        "author": "Reviewer",
+        "date": "2026-09-26T06:40:17Z",
+        "text": "17 completed on schedule; 1 remains open."
+      },
+      {
+        "kind": "ins",
+        "id": "4",
+        "author": "Reviewer",
+        "date": "2026-09-26T06:40:17Z",
+        "text": "17"
+      },
+      {
+        "kind": "ins",
+        "id": "6",
+        "author": "Reviewer",
+        "date": "2026-09-26T06:40:17Z",
+        "text": "1"
+      },
+      {
+        "kind": "ins",
+        "id": "8",
+        "author": "Reviewer",
+        "date": "2026-09-26T06:40:17Z",
+        "text": "Client sign-off received · 26 Sep 2026"
+      },
+      {
+        "kind": "ins",
+        "id": "9",
+        "author": "Reviewer",
+        "date": "2026-09-26T06:40:17Z",
+        "text": ""
+      },
+      {
+        "kind": "ins",
+        "id": "10",
+        "author": "Reviewer",
+        "date": "2026-09-26T06:40:17Z",
+        "text": "The transfer package was delivered to the client repository on 26 September and its SHA-256 matched the release manifest."
+      }
+    ],
+    "comments": [
+      {
+        "id": "0",
+        "author": "Release reviewer",
+        "date": "2026-09-24T09:00:00Z",
+        "text": "Retain the signed receipt with the audit package.",
+        "anchors": [
+          {
+            "para_id": "00000067",
+            "original": "All transfer files remain in the client-controlled repository; local copies are non-authoritative.",
+            "final": "All transfer files remain in the client-controlled repository; local copies are non-authoritative.",
+            "comment_start_ids": [
+              "0"
+            ],
+            "comment_end_ids": [
+              "0"
+            ],
+            "comment_ref_ids": [
+              "0"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "1",
+        "author": "Reviewer",
+        "date": "2026-09-26T06:40:17Z",
+        "text": "Confirm the business owner has approved this window before go / no-go.",
+        "anchors": [
+          {
+            "para_id": "00000065",
+            "original": "The deployment window starts at 20:00 local time. The change coordinator will confirm the final go / no-go decision with the client before any production transfer begins.",
+            "final": "The deployment window starts at 20:00 local time. The change coordinator will confirm the final go / no-go decision with the client before any production transfer begins.",
+            "comment_start_ids": [
+              "1"
+            ],
+            "comment_end_ids": [
+              "1"
+            ],
+            "comment_ref_ids": [
+              "1"
+            ]
+          }
+        ]
+      }
+    ],
+    "footnotes": [
+      {
+        "id": "-1",
+        "text": ""
+      },
+      {
+        "id": "0",
+        "text": ""
+      },
+      {
+        "id": "1",
+        "text": "Hash values are compared as lowercase hexadecimal strings."
+      }
+    ],
+    "footnote_refs": [
+      "1"
+    ],
+    "hyperlinks": [
+      {
+        "id": "rId11",
+        "target": "https://example.com/bluebird/transfer-runbook",
+        "mode": "External"
+      }
+    ],
+    "track_revisions": true,
+    "comment_anchor_counts": {
+      "start": 2,
+      "end": 2,
+      "ref": 2
+    }
+  }
+}

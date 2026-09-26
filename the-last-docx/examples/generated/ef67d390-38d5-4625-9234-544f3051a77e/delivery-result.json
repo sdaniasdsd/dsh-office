@@ -1,0 +1,159 @@
+{
+  "result": {
+    "manifestRef": {
+      "id": "sha256:9568842c96ca8f4c6b18cd354214bbbb05e1daa50ef9fbfd6a360f629942b07e",
+      "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/the-last-docx/examples/generated/ef67d390-38d5-4625-9234-544f3051a77e/store/versions/doc-integration-demo/1.json",
+      "mediaType": "application/vnd.dsh.docx-delivery+json",
+      "sizeBytes": 4048,
+      "sha256": "9568842c96ca8f4c6b18cd354214bbbb05e1daa50ef9fbfd6a360f629942b07e",
+      "label": "integration-demo.v1.manifest.json"
+    },
+    "documentRef": {
+      "id": "sha256:ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269",
+      "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/the-last-docx/examples/generated/ef67d390-38d5-4625-9234-544f3051a77e/store/objects/ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269/artifact.docx",
+      "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "sizeBytes": 6839,
+      "sha256": "ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269",
+      "label": "document.docx"
+    },
+    "manifest": {
+      "schema": "docx-delivery/v1",
+      "documentId": "integration-demo",
+      "revision": 1,
+      "document": {
+        "id": "sha256:ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269",
+        "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/the-last-docx/examples/generated/ef67d390-38d5-4625-9234-544f3051a77e/store/objects/ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269/artifact.docx",
+        "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "sizeBytes": 6839,
+        "sha256": "ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269",
+        "label": "document.docx"
+      },
+      "bridges": [
+        {
+          "kind": "inspection",
+          "artifactRef": {
+            "id": "sha256:58039f24eadf810961c37cab6784dbf9e9f310c9dfa648231823399a4b0b4e6a",
+            "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/the-last-docx/examples/generated/ef67d390-38d5-4625-9234-544f3051a77e/store/objects/58039f24eadf810961c37cab6784dbf9e9f310c9dfa648231823399a4b0b4e6a/artifact.json",
+            "mediaType": "application/json",
+            "sizeBytes": 3953,
+            "sha256": "58039f24eadf810961c37cab6784dbf9e9f310c9dfa648231823399a4b0b4e6a",
+            "label": "inspection.json"
+          },
+          "sourceArtifactId": "sha256:ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269",
+          "sourceSha256": "ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269"
+        },
+        {
+          "kind": "dual-ir",
+          "artifactRef": {
+            "id": "sha256:6976d94dad31690144cbb226e0dd2d039ecd4ffeb676bf044d8f028a0f3337e6",
+            "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/the-last-docx/examples/generated/ef67d390-38d5-4625-9234-544f3051a77e/store/objects/6976d94dad31690144cbb226e0dd2d039ecd4ffeb676bf044d8f028a0f3337e6/artifact.json",
+            "mediaType": "application/json",
+            "sizeBytes": 23617,
+            "sha256": "6976d94dad31690144cbb226e0dd2d039ecd4ffeb676bf044d8f028a0f3337e6",
+            "label": "dual-ir.json"
+          },
+          "sourceArtifactId": "sha256:ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269",
+          "sourceSha256": "ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269"
+        },
+        {
+          "kind": "easy-ir",
+          "artifactRef": {
+            "id": "sha256:e93c81fb94e679f696a70fdd0ce629bff88f917ec96f70a2c359ce81e5befa1e",
+            "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/the-last-docx/examples/generated/ef67d390-38d5-4625-9234-544f3051a77e/store/objects/e93c81fb94e679f696a70fdd0ce629bff88f917ec96f70a2c359ce81e5befa1e/artifact.json",
+            "mediaType": "application/json",
+            "sizeBytes": 6277,
+            "sha256": "e93c81fb94e679f696a70fdd0ce629bff88f917ec96f70a2c359ce81e5befa1e",
+            "label": "easy-ir.json"
+          },
+          "sourceArtifactId": "sha256:ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269",
+          "sourceSha256": "ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269"
+        },
+        {
+          "kind": "complex-ir",
+          "artifactRef": {
+            "id": "sha256:b3c7d67eab0e498bf8f78d9a40eb5ead56c9dd92ebbd18f801901091cefb3ae7",
+            "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/the-last-docx/examples/generated/ef67d390-38d5-4625-9234-544f3051a77e/store/objects/b3c7d67eab0e498bf8f78d9a40eb5ead56c9dd92ebbd18f801901091cefb3ae7/artifact.json",
+            "mediaType": "application/json",
+            "sizeBytes": 9582,
+            "sha256": "b3c7d67eab0e498bf8f78d9a40eb5ead56c9dd92ebbd18f801901091cefb3ae7",
+            "label": "complex-ir.json"
+          },
+          "sourceArtifactId": "sha256:ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269",
+          "sourceSha256": "ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269"
+        },
+        {
+          "kind": "node-bridge",
+          "artifactRef": {
+            "id": "sha256:8570d95ccd7c158566dfb03e221b26ae31003d59701e4a0168a251da87b01a2e",
+            "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/the-last-docx/examples/generated/ef67d390-38d5-4625-9234-544f3051a77e/store/objects/8570d95ccd7c158566dfb03e221b26ae31003d59701e4a0168a251da87b01a2e/artifact.json",
+            "mediaType": "application/json",
+            "sizeBytes": 1197,
+            "sha256": "8570d95ccd7c158566dfb03e221b26ae31003d59701e4a0168a251da87b01a2e",
+            "label": "node-bridge.json"
+          },
+          "sourceArtifactId": "sha256:ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269",
+          "sourceSha256": "ae3bab27f47999537b5db88ec9c9fef61fb19b3feb72acec4134d53bd9d31269"
+        }
+      ],
+      "review": {
+        "state": "pending",
+        "basis": "none"
+      }
+    }
+  },
+  "verification": {
+    "moduleId": "docx-artifact",
+    "operation": "verify",
+    "requestId": "demo-verify",
+    "result": {
+      "ok": true,
+      "partial": true,
+      "checks": [
+        {
+          "id": "references",
+          "status": "pass",
+          "severity": "info",
+          "message": "File digests, sizes, version parent and source bindings verified."
+        },
+        {
+          "id": "visual-review",
+          "status": "skip",
+          "severity": "info",
+          "message": "Visual status comes from caller-provided docx-render findings; delivery does not perform visual analysis."
+        }
+      ],
+      "summary": {
+        "total": 2,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 1
+      }
+    },
+    "artifacts": [],
+    "warnings": [],
+    "verification": {
+      "ok": true,
+      "partial": true,
+      "checks": [
+        {
+          "id": "references",
+          "status": "pass",
+          "severity": "info",
+          "message": "File digests, sizes, version parent and source bindings verified."
+        },
+        {
+          "id": "visual-review",
+          "status": "skip",
+          "severity": "info",
+          "message": "Visual status comes from caller-provided docx-render findings; delivery does not perform visual analysis."
+        }
+      ],
+      "summary": {
+        "total": 2,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 1
+      }
+    }
+  }
+}
