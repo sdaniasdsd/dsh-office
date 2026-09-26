@@ -207,6 +207,14 @@ export interface FeatureFlags {
   resolveAnchors: boolean;
   /** 为 false 时，引擎只上报超限但不中止（用于「尽力而为」的宽限场景）。 */
   enforceLimits: boolean;
+  /**
+   * 是否额外收集**表现层观察**：段落对齐与逐 run 字符格式。
+   *
+   * 默认关闭，因为语义视图刻意只承载「这一段说的是什么、它是谁」；字体、字号、
+   * 加粗与对齐回答的是「它长什么样」，而 run 级数据会显著放大 IR。需要按参照文档
+   * 重建版面的消费方（如参照生成）打开它，其它消费方不为此付费。
+   */
+  parseFormatting: boolean;
 }
 
 /** 模块完整配置：由 Profile 注入，模块不读全局配置。 */
@@ -420,6 +428,29 @@ export interface DocxDualIR {
   semantic: SemanticDocument;
   physical: PhysicalDocument;
   sourceMap: SourceMap;
+  /**
+   * 表现层观察，按段落锚点索引；`parseFormatting` 关闭时整个字段缺席。
+   *
+   * 单独成节而不是塞进 `semantic.blocks`：语义视图回答「这一段说的是什么、
+   * 它是谁」，本节回答「它长什么样」。需要按参照文档重建版面的消费方读这里，
+   * 不读的消费方不为 run 级数据付费。`blockId` 是同一段的语义 id，可直接 join。
+   */
+  formatting?: {
+    view: 'formatting';
+    paragraphs: {
+      blockId: string;
+      pointer: string;
+      alignment: string | null;
+      /**
+       * 有效首行缩进，**已解析样式链**：段落直接声明优先，否则沿 basedOn 找样式，
+       * 再退到 docDefaults；谁都没声明就是 0（样式表读不到时整项缺席，因为那时
+       * 「不知道」和「没有」不是一回事）。twips 与「百分之一字符」原样保留，由
+       * 消费方按自己的字号口径换算。悬挂缩进不上报，它属于列表标记的排布。
+       */
+      indent?: { firstLineTwips?: number; firstLineChars?: number };
+      runs: { text: string; bold?: boolean; size?: number; eastAsia?: string; color?: string }[];
+    }[];
+  };
 }
 
 /**

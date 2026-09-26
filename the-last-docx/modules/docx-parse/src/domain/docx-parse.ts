@@ -57,6 +57,40 @@ export interface RawListInfo {
 }
 
 /**
+ * 一个 run 的字符格式观察。
+ *
+ * 只有**直接观测到**的项才出现：OOXML 里「没有 `<w:b>`」表示继承，与
+ * 「`<w:b w:val="0"/>`」明确不加粗是两件事，因此缺省一律留空而不是写 false。
+ */
+export interface RawRunFormatting {
+  text: string;
+  bold?: boolean;
+  /** 磅（引擎把 `w:sz` 的半磅换算过来）。 */
+  size?: number;
+  /** `w:rFonts` 的东亚字体。 */
+  eastAsia?: string;
+  color?: string;
+}
+
+/**
+ * 段落的表现层观察：对齐与逐 run 格式。
+ *
+ * 与 `RawParagraph` 的其余字段分开，是因为它们回答的问题不同：那些字段说
+ * 「这一段写了什么」，本字段说「它长什么样」。默认不收集，见
+ * `FeatureFlags.parseFormatting`。
+ */
+export interface RawParagraphFormatting {
+  alignment: string | null;
+  /**
+   * 有效首行缩进（样式链已解析）：twips 与「百分之一字符」原样保留。
+   * 值为 0 是「确实没有缩进」，字段缺席是「不知道」——两份文件都能排出来的
+   * 差别就在这里，所以不能拿 0 当缺省值。
+   */
+  indent?: { firstLineTwips?: number; firstLineChars?: number };
+  runs: RawRunFormatting[];
+}
+
+/**
  * 引擎观察到的原始段落。
  *
  * 所有字段都是「所见即所得」：引擎不判断它是不是标题、级别该算几级，
@@ -87,6 +121,8 @@ export interface RawParagraph {
   /** 本段内出现的脚注/尾注引用 id。 */
   footnoteRefs: string[];
   endnoteRefs: string[];
+  /** 表现层观察；`parseFormatting` 关闭时缺席（或为 null）。 */
+  formatting?: RawParagraphFormatting | null;
 }
 
 /** 引擎观察到的原始单元格。 */
@@ -313,6 +349,41 @@ function asListInfo(value: unknown, pointer: string): RawListInfo | null {
 }
 
 /** 解析一个原始段落。 */
+/** 表现层观察：关闭时为 null，开启时逐项校验。 */
+function asFormatting(value: unknown, pointer: string): RawParagraphFormatting | null {
+  if (value === null || value === undefined) return null;
+  const record = asRecord(value, pointer);
+  const runs = asArray(record.runs, `${pointer}.runs`).map((entry, index) => {
+    const raw = asRecord(entry, `${pointer}.runs[${index}]`);
+    const run: RawRunFormatting = { text: asString(raw.text, `${pointer}.runs[${index}].text`) };
+    const bold = asOptionalBoolean(raw.bold, `${pointer}.runs[${index}].bold`);
+    if (bold !== null) run.bold = bold;
+    const size = asOptionalNumber(raw.size, `${pointer}.runs[${index}].size`);
+    if (size !== null) run.size = size;
+    const eastAsia = asOptionalString(raw.eastAsia, `${pointer}.runs[${index}].eastAsia`);
+    if (eastAsia) run.eastAsia = eastAsia;
+    const color = asOptionalString(raw.color, `${pointer}.runs[${index}].color`);
+    if (color) run.color = color;
+    return run;
+  });
+  const formatting: RawParagraphFormatting = { alignment: asOptionalString(record.alignment, `${pointer}.alignment`), runs };
+  const indent = asOptionalIndent(record.indent, `${pointer}.indent`);
+  if (indent) formatting.indent = indent;
+  return formatting;
+}
+
+/** 首行缩进：两个字段都按可选数字校验，一个都没有就不算观察到了缩进。 */
+function asOptionalIndent(value: unknown, pointer: string): { firstLineTwips?: number; firstLineChars?: number } | null {
+  if (value === null || value === undefined) return null;
+  const record = asRecord(value, pointer);
+  const indent: { firstLineTwips?: number; firstLineChars?: number } = {};
+  const twips = asOptionalNumber(record.firstLineTwips, `${pointer}.firstLineTwips`);
+  if (twips !== null) indent.firstLineTwips = twips;
+  const chars = asOptionalNumber(record.firstLineChars, `${pointer}.firstLineChars`);
+  if (chars !== null) indent.firstLineChars = chars;
+  return Object.keys(indent).length > 0 ? indent : null;
+}
+
 function asParagraph(value: unknown, pointer: string): RawParagraph {
   const record = asRecord(value, pointer);
   return {
@@ -331,6 +402,7 @@ function asParagraph(value: unknown, pointer: string): RawParagraph {
     commentRefs: asStringArray(record.commentRefs, `${pointer}.commentRefs`),
     footnoteRefs: asStringArray(record.footnoteRefs, `${pointer}.footnoteRefs`),
     endnoteRefs: asStringArray(record.endnoteRefs, `${pointer}.endnoteRefs`),
+    formatting: asFormatting(record.formatting, `${pointer}.formatting`),
   };
 }
 

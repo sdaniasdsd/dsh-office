@@ -43,6 +43,7 @@ import type {
   RawAnnotation,
   RawBlock,
   RawParagraph,
+  RawParagraphFormatting,
 } from './domain/docx-parse';
 import { DocxParseError } from './errors';
 import {
@@ -678,6 +679,56 @@ function toPhysicalNode(anchor: NodeAnchor, pointer: string, text: string): Phys
  * 步骤：投影正文块（同时登记 + 建物理视图）→ 投影注释 → 组装对应表。
  * 所有输出都按稳定键排序，保证同一份文档得到完全一致的 IR。
  */
+/**
+ * 把段落的表现层观察汇总成一节，按语义块 id 索引。
+ *
+ * 两侧都从同一份 XML 推导锚点，因此按 `<part>!<structuralPath>` 这个指针 join，
+ * 而不是复用投影过程中间产物——后者对表格单元格内的段落并不成立。
+ *
+ * 只有**确实带了观察**的段落才进来：开关关闭时引擎不上报，这里也就不会凭空
+ * 造一节空数据。
+ */
+function collectFormatting(
+  blocks: SemanticBlock[],
+  rawBlocks: ParseResult['blocks'],
+): DocxDualIR['formatting'] {
+  const byPointer = new Map<string, RawParagraphFormatting>();
+  const remember = (raw: RawParagraph): void => {
+    if (raw.formatting) byPointer.set(raw.pointer, raw.formatting);
+  };
+  for (const raw of rawBlocks) {
+    if (raw.kind === 'paragraph') {
+      remember(raw);
+      continue;
+    }
+    for (const row of raw.rows) {
+      for (const cell of row.cells) {
+        for (const paragraph of cell.paragraphs) remember(paragraph);
+      }
+    }
+  }
+
+  const paragraphs: NonNullable<DocxDualIR['formatting']>['paragraphs'] = [];
+  const visit = (id: string, anchor: SemanticBlock['anchor']): void => {
+    const pointer = `${anchor.part}!${anchor.structuralPath}`;
+    const format = byPointer.get(pointer);
+    if (!format) return;
+    paragraphs.push({ blockId: id, pointer, alignment: format.alignment, ...(format.indent ? { indent: format.indent } : {}), runs: format.runs });
+  };
+  for (const block of blocks) {
+    if (block.kind !== 'table') {
+      visit(block.id, block.anchor);
+      continue;
+    }
+    for (const row of block.rows) {
+      for (const cell of row.cells) {
+        for (const paragraph of cell.paragraphs) visit(paragraph.id, paragraph.anchor);
+      }
+    }
+  }
+  return paragraphs.length > 0 ? { view: 'formatting', paragraphs } : undefined;
+}
+
 export function toContentIR(result: ParseResult, config: ModuleConfig): DocxDualIR {
   const builder = new SourceMapBuilder();
   const physicalNodes: PhysicalNode[] = [];
@@ -734,12 +785,18 @@ export function toContentIR(result: ParseResult, config: ModuleConfig): DocxDual
     nodes: [...physicalNodes].sort((left, right) => compareStrings(left.pointer, right.pointer)),
   };
 
+  // 表现层观察按锚点指针 join，因此在块循环之后收集。
+  const formatting = config.featureFlags.parseFormatting
+    ? collectFormatting(blocks, result.blocks)
+    : undefined;
+
   return {
     viewCount: DUAL_VIEW_COUNT,
     scheme: SOURCE_MAP_SCHEME,
     semantic: { view: 'semantic', blocks, annotations },
     physical,
     sourceMap,
+    ...(formatting ? { formatting } : {}),
   };
 }
 

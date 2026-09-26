@@ -46,6 +46,8 @@ export const DEFAULT_FEATURE_FLAGS: FeatureFlags = {
   // 身份锚点是双 IR 的意义所在，默认开启。
   resolveAnchors: true,
   enforceLimits: true,
+  // 表现层观察默认关闭：语义视图不承载格式，需要的调用方显式打开。
+  parseFormatting: false,
 };
 
 /** 默认超时：30 秒。解析比探测更重，预算相应放大。 */
@@ -233,6 +235,7 @@ export function configSchema(): JsonObject {
           parseFootnotes: { type: 'boolean', default: DEFAULT_FEATURE_FLAGS.parseFootnotes },
           resolveAnchors: { type: 'boolean', default: DEFAULT_FEATURE_FLAGS.resolveAnchors },
           enforceLimits: { type: 'boolean', default: DEFAULT_FEATURE_FLAGS.enforceLimits },
+          parseFormatting: { type: 'boolean', default: DEFAULT_FEATURE_FLAGS.parseFormatting },
         },
       },
     },

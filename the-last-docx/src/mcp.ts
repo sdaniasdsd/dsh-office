@@ -7,8 +7,19 @@ import { canonicalJson } from '@dsh-office-profile/docx-artifact';
 import { designRegisterSchema, presetSchema, scenarioSchema } from '@dsh-office-profile/docx-create';
 import { planFromContent } from './reference';
 const artifactRef=z.object({id:z.string(),uri:z.string(),sha256:z.string().optional(),sizeBytes:z.number().int().nonnegative().optional(),mediaType:z.string().optional(),label:z.string().optional(),tags:z.record(z.string()).optional()}).strict();
+/**
+ * The version this server reports in the MCP handshake.
+ *
+ * The packaging script (`scripts/build-dsh.mjs`) defines it from the version it
+ * stamps into the published manifest, so the handshake can no longer drift from
+ * the package it came out of — which it did: an installed 0.6.0 package still
+ * announced itself as 0.5.0. Running from TypeScript sources, where nothing
+ * defines it, says so instead of guessing.
+ */
+declare const __DSH_DOCX_VERSION__: string | undefined;
+const VERSION = typeof __DSH_DOCX_VERSION__ === 'string' ? __DSH_DOCX_VERSION__ : '0.0.0-dev';
 export function createMcpServer(profile:DocxProfile){
-  const server=new McpServer({name:'the-last-docx',version:'0.5.0'});
+  const server=new McpServer({name:'the-last-docx',version:VERSION});
   const result=async(task:()=>Promise<unknown>)=>{
     try{
       const value=await task(),text=canonicalJson(value);
@@ -40,7 +51,7 @@ export function createMcpServer(profile:DocxProfile){
       return {content:[{type:'text' as const,text:JSON.stringify({text:new TextDecoder().decode(chunk),offset:args.offset,nextOffset:args.offset+chunk.length,totalBytes:bytes.length,complete:args.offset+chunk.length>=bytes.length})}]};
     }catch(error){return {isError:true,content:[{type:'text' as const,text:JSON.stringify({code:(error as {code?:string}).code??'READ_FAILED',message:error instanceof Error?error.message:'Read failed'})}]};}
   });
-  server.registerTool('docx_from_reference',{description:'Build a NEW document from a reference document: parse the reference, translate its structure and text into a creation plan, then create the result. Not a lossless reformat - a plan-built document has no expression for comments, footnotes, hyperlinks, bookmarks, revision marks, images or field codes, and the returned report lists what was carried, what was skipped and what a plan cannot carry at all. To restyle a document that carries annotations, edit that document with docx-edit instead.',inputSchema:{referenceRef:artifactRef,requestId:z.string().min(1),options:z.object({preset:presetSchema.optional(),scenario:scenarioSchema.optional(),register:designRegisterSchema.optional(),page:z.object({size:z.enum(['A4','Letter']).optional(),marginsMm:z.object({top:z.number().min(0).max(100).optional(),right:z.number().min(0).max(100).optional(),bottom:z.number().min(0).max(100).optional(),left:z.number().min(0).max(100).optional()}).strict().optional()}).strict().optional(),pageNumberStyle:z.enum(['page','pageOfTotal']).optional(),header:z.string().optional(),footer:z.string().optional(),pageNumbers:z.boolean().optional(),tableWidthMm:z.number().positive().max(160).optional(),headerRows:z.boolean().optional()}).strict().optional()},annotations:{destructiveHint:false}},args=>result(async()=>{
+  server.registerTool('docx_from_reference',{description:'Build a NEW document from a reference document: parse the reference, translate its structure and text into a creation plan, then create the result. Not a lossless reformat - a plan-built document has no expression for comments, footnotes, hyperlinks, bookmarks, revision marks, images or field codes, and the returned report lists what was carried, what was skipped and what a plan cannot carry at all. Set options.carryFormatting to also read the reference\'s own presentational facts (paragraph alignment, direct run size and East Asian face) and carry them into the plan; without it only text and structure are translated, and the report says so. To restyle a document that carries annotations, edit that document with docx-edit instead.',inputSchema:{referenceRef:artifactRef,requestId:z.string().min(1),options:z.object({preset:presetSchema.optional(),scenario:scenarioSchema.optional(),register:designRegisterSchema.optional(),page:z.object({size:z.enum(['A4','Letter']).optional(),marginsMm:z.object({top:z.number().min(0).max(100).optional(),right:z.number().min(0).max(100).optional(),bottom:z.number().min(0).max(100).optional(),left:z.number().min(0).max(100).optional()}).strict().optional()}).strict().optional(),pageNumberStyle:z.enum(['page','pageOfTotal']).optional(),header:z.string().optional(),footer:z.string().optional(),pageNumbers:z.boolean().optional(),tableWidthMm:z.number().positive().max(160).optional(),headerRows:z.boolean().optional()}).strict().optional()},annotations:{destructiveHint:false}},args=>result(async()=>{
     const parsed=await profile.call('docx-parse','execute',{artifactRef:args.referenceRef,requestId:`${args.requestId}:parse`}) as {result:{ir:{content:unknown}}};
     const {plan,report}=planFromContent(parsed.result.ir.content as never, (args.options??{}) as never);
     const created=await profile.call('docx-create','execute',{requestId:args.requestId,plan});

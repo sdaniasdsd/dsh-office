@@ -292,11 +292,13 @@ def empty_result() -> dict[str, Any]:
 
 
 class StyleTable:
-    """styles.xml 的样式表，负责把 pStyle 解析为「可读名 + outlineLvl」。"""
+    """styles.xml 的样式表，负责把 pStyle 解析为「可读名 + outlineLvl + 首行缩进」。"""
 
     def __init__(self) -> None:
         self.by_id: dict[str, dict[str, Any]] = {}
         self.readable = True
+        self.default_style_id: str | None = None
+        self.default_indent: dict[str, Any] | None = None
 
     def load(self, archive: zipfile.ZipFile, name: str, tracker: LimitTracker, result: dict[str, Any]) -> None:
         data = read_entry(archive, name, tracker, result)
@@ -331,7 +333,37 @@ class StyleTable:
                 "name": attr_local(name_node, "val") if name_node is not None else None,
                 "basedOn": attr_local(based_on, "val") if based_on is not None else None,
                 "outlineLevel": outline,
+                "indent": read_indent(outline_node),
             }
+            if attr_local(style, "default") in ("1", "true", "on") and attr_local(style, "type") in (None, "paragraph"):
+                self.default_style_id = style_id
+
+        # docDefaults 是样式链的终点：任何样式都没声明缩进时，由它决定。
+        for defaults in descendants(root, "docDefaults"):
+            for default in descendants(defaults, "pPrDefault"):
+                self.default_indent = read_indent(direct_child(default, "pPr"))
+
+    def indent_for(self, style_id: str | None) -> dict[str, Any] | None:
+        """沿 basedOn 解析有效首行缩进。
+
+        样式表可读时「谁都没声明」是一个确定的事实：有效缩进为 0。样式表读不到时
+        返回 None —— 那才是「不知道」，调用方不能把不知道当成没有。
+        """
+        if not self.readable:
+            return None
+        seen: set[str] = set()
+        current = style_id or self.default_style_id
+        while current and current not in seen:
+            seen.add(current)
+            entry = self.by_id.get(current)
+            if entry is None:
+                break
+            if entry["indent"] is not None:
+                return entry["indent"]
+            current = entry["basedOn"]
+        if self.default_indent is not None:
+            return self.default_indent
+        return {"firstLineTwips": 0, "firstLineChars": 0}
 
     def resolve_outline(self, style_id: str | None) -> int | None:
         """沿 basedOn 继承链解析 outlineLvl（带环检测）。"""
@@ -387,6 +419,89 @@ class StyleTable:
 def build_path(parent_path: str, local: str, index: int) -> str:
     """构造 XPath 风格的结构路径片段。"""
     return f"{parent_path}/w:{local}[{index}]"
+
+
+def read_indent(ppr: Any) -> dict[str, Any] | None:
+    """一个 pPr 里**直接声明**的首行缩进，原样上报（twips 与百分之一字符）。
+
+    只上报首行缩进：悬挂缩进（`w:hanging`）属于列表标记的排布，创建计划用编号定义
+    重建它，因此这里遇到悬挂缩进就不上报，而不是把负数硬写成 0。
+    """
+    if ppr is None:
+        return None
+    ind = direct_child(ppr, "ind")
+    if ind is None:
+        return None
+    if attr_local(ind, "hanging") is not None or attr_local(ind, "hangingChars") is not None:
+        return None
+    entry: dict[str, Any] = {}
+    twips = attr_local(ind, "firstLine")
+    chars = attr_local(ind, "firstLineChars")
+    if twips is not None:
+        entry["firstLineTwips"] = parse_int(twips, 0)
+    if chars is not None:
+        entry["firstLineChars"] = parse_int(chars, 0)
+    return entry or None
+
+
+def run_formatting(run: Any) -> dict[str, Any]:
+    """一个 run 的字符格式观察。
+
+    只记录**直接可观测**的事实；缺省一律不写，而不是写成 False——OOXML 里
+    「没有 w:b」表示继承，与「w:b w:val="0"」明确不加粗不是一回事。
+    """
+    entry: dict[str, Any] = {"text": text_of(run)}
+    rpr = direct_child(run, "rPr")
+    if rpr is None:
+        return entry
+    bold = direct_child(rpr, "b")
+    if bold is not None:
+        entry["bold"] = attr_local(bold, "val") not in ("0", "false", "off")
+    size = direct_child(rpr, "sz")
+    if size is not None:
+        half_points = parse_int(attr_local(size, "val"), 0)
+        if half_points > 0:
+            # 以磅为单位对外暴露，与其它模块的长度口径一致。
+            entry["size"] = half_points / 2
+    fonts = direct_child(rpr, "rFonts")
+    if fonts is not None:
+        east = attr_local(fonts, "eastAsia")
+        if east:
+            entry["eastAsia"] = east
+    color = direct_child(rpr, "color")
+    if color is not None:
+        value = attr_local(color, "val")
+        if value and value != "auto":
+            entry["color"] = value
+    return entry
+
+
+def paragraph_formatting(
+    element: Any, ppr: Any, styles: "StyleTable", style_id: str | None
+) -> dict[str, Any]:
+    """段落对齐 + 首行缩进 + 逐 run 格式。仅在调用方开启 parseFormatting 时收集。
+
+    缩进上报的是**解析过样式链之后**的有效值，而不是只看段落自己声明了什么：一份
+    把缩进写在 Normal 样式里的文档，和一份逐段声明缩进的文档，段落上看到的字符串
+    完全不同，但排出来是一样的，调用方要的是后者。
+    """
+    alignment = None
+    if ppr is not None:
+        jc = direct_child(ppr, "jc")
+        if jc is not None:
+            alignment = attr_local(jc, "val")
+    runs = [
+        run_formatting(child)
+        for child in children(element)
+        if local_name(child.tag) == "r"
+    ]
+    entry: dict[str, Any] = {"alignment": alignment, "runs": runs}
+    indent = read_indent(ppr)
+    if indent is None:
+        indent = styles.indent_for(style_id)
+    if indent is not None:
+        entry["indent"] = indent
+    return entry
 
 
 def parse_paragraph(
@@ -467,6 +582,10 @@ def parse_paragraph(
         "styleNameLevel": style_name_level,
         "headingStyle": heading_style,
         "list": {"numId": num_id, "level": num_level or 0} if num_id is not None else None,
+        # 表现层观察：默认不收集，因为语义视图刻意不承载「长什么样」。
+        "formatting": paragraph_formatting(element, ppr, styles, style_id)
+        if flags.get("parseFormatting")
+        else None,
         "commentRefs": comment_refs,
         "footnoteRefs": footnote_refs,
         "endnoteRefs": endnote_refs,

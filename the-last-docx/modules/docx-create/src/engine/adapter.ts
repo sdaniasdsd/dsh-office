@@ -11,6 +11,41 @@ import { REGISTERS, resolveDesign, eighths, twips } from './design';
 import { numberingXml, numPrXml } from './numbering';
 import { fillTemplate } from './template';
 
+/**
+ * A paragraph's own first-line indent, or nothing when it does not state one.
+ *
+ * Both attributes are written together on purpose: Word gives
+ * `w:firstLineChars` precedence over `w:firstLine`, so a paragraph that only
+ * overrode the absolute length would silently keep the style's character count.
+ * The character count is derived from the size this paragraph actually renders
+ * at, which is why the run size is consulted first.
+ */
+function firstLineIndent(block: { runs: { size?: number }[]; firstLineIndentPt?: number }, preset: keyof typeof PRESETS): string {
+  const points = block.firstLineIndentPt;
+  if (points === undefined) return '';
+  const sizePt = block.runs.find(run => run.size !== undefined)?.size ?? PRESETS[preset].bodySize / 2;
+  const chars = points === 0 ? 0 : Math.round((points / sizePt) * 100);
+  return `<w:ind w:firstLineChars="${chars}" w:firstLine="${Math.round(points * 20)}"/>`;
+}
+
+/**
+ * The character properties of one plan run, in the sequence ECMA-376 declares:
+ * `w:rFonts` first, then the on/off toggles, then colour, then size.
+ *
+ * `w:sz` counts half-points while the plan states points. A run that declares no
+ * size writes none, so the paragraph style keeps deciding — which is what every
+ * caller did before the field existed.
+ */
+function runProperties(run: { bold?: boolean; italic?: boolean; color?: string; size?: number; font?: string; eastAsia?: string }): string {
+  const fonts = (run.font !== undefined || run.eastAsia !== undefined)
+    ? `<w:rFonts${run.font !== undefined ? ` w:ascii="${xml(run.font)}" w:hAnsi="${xml(run.font)}"` : ''}${run.eastAsia !== undefined ? ` w:eastAsia="${xml(run.eastAsia)}"` : ''}/>`
+    : '';
+  const size = run.size !== undefined
+    ? `<w:sz w:val="${Math.round(run.size * 2)}"/><w:szCs w:val="${Math.round(run.size * 2)}"/>`
+    : '';
+  return `${fonts}${run.bold ? '<w:b/>' : ''}${run.italic ? '<w:i/>' : ''}${run.color ? `<w:color w:val="${run.color}"/>` : ''}${size}`;
+}
+
 export class Docx4jCreateEngine implements CreateEngine {
   readonly name = 'docx4j-core-ts';
   async execute(input: EngineRequest): Promise<EngineResult> {
@@ -85,8 +120,8 @@ export class Docx4jCreateEngine implements CreateEngine {
       const key = `block:${block.id}`;
       switch (block.kind) {
         case 'paragraph':
-          blocks.push(para(key, block.runs.map(r => textRun(r.text, `${r.bold ? '<w:b/>' : ''}${r.italic ? '<w:i/>' : ''}${r.color ? `<w:color w:val="${r.color}"/>` : ''}`)).join(''),
-            `<w:pStyle w:val="${block.style ?? 'Normal'}"/>${block.keepWithNext ? '<w:keepNext/>' : ''}${block.pageBreakBefore ? '<w:pageBreakBefore/>' : ''}${block.alignment ? `<w:jc w:val="${block.alignment}"/>` : ''}`));
+          blocks.push(para(key, block.runs.map(r => textRun(r.text, runProperties(r))).join(''),
+            `<w:pStyle w:val="${block.style ?? 'Normal'}"/>${block.keepWithNext ? '<w:keepNext/>' : ''}${block.pageBreakBefore ? '<w:pageBreakBefore/>' : ''}${firstLineIndent(block, document.preset)}${block.alignment ? `<w:jc w:val="${block.alignment}"/>` : ''}`));
           break;
         case 'list':
           // One paragraph per item, each naming the numbering definition. The
@@ -118,11 +153,13 @@ export class Docx4jCreateEngine implements CreateEngine {
           const margins = (['top', 'left', 'bottom', 'right'] as const)
             .map(side => `<w:${side} w:w="${twips(t.cellMargins[side])}" w:type="dxa"/>`).join('');
           const fill = headFillColor(document.preset, tokens);
-          const headRun = `<w:b/>${t.headTextColor ? `<w:color w:val="${t.headTextColor}"/>` : ''}`;
           // Table text sits one step below body text in the registers that say
           // so; `w:sz` is half-points, so a point delta is twice as many units.
+          // A cell that states its own size overrides the register's step, and
+          // the header's bold/colour is folded into the same run so `w:rPr`
+          // children stay in schema order (rFonts → b → i → color → sz).
           const sizeDelta = t.fontSizeDelta * 2;
-          const bodyRun = sizeDelta === 0 ? '' : `<w:sz w:val="${PRESETS[document.preset].bodySize + sizeDelta}"/>`;
+          const inheritedSize = sizeDelta === 0 ? undefined : (PRESETS[document.preset].bodySize + sizeDelta) / 2;
           // A document-wide first-line indent is inherited by cell paragraphs,
           // where it is not what "two characters of body indent" means: it eats
           // a cell's width and wraps the label. Reset it — but only when the
@@ -139,7 +176,19 @@ export class Docx4jCreateEngine implements CreateEngine {
               ? `<w:tcBorders><w:bottom w:val="single" w:sz="${eighths(t.headRule.size)}" w:space="0" w:color="${t.headRule.color}"/></w:tcBorders>`
               : '';
             const vAlign = t.cellVerticalAlignment !== 'top' ? `<w:vAlign w:val="${t.cellVerticalAlignment}"/>` : '';
-            return `<w:tr><w:trPr>${head ? '<w:tblHeader/>' : ''}</w:trPr>${row.map((cell, ci) => `<w:tc><w:tcPr><w:tcW w:w="${gridWidths[ci]}" w:type="dxa"/>${headRule}${head && fill ? `<w:shd w:fill="${fill}"/>` : ''}${vAlign}</w:tcPr>${para(`${key}:${ri}:${ci}`, textRun(cell, head ? headRun : bodyRun), `${cellSpacing}${cellIndent}`)}</w:tc>`).join('')}</w:tr>`;
+            return `<w:tr><w:trPr>${head ? '<w:tblHeader/>' : ''}</w:trPr>${row.map((cell, ci) => {
+              const stated = block.cellFormats?.[ri]?.[ci] ?? undefined;
+              // The first row is bold because a table's first row is usually its
+              // heading — an assumption the plan states by omission. A cell that
+              // states its own emphasis has looked at the document and wins.
+              const cellRun = runProperties({
+                ...(head && stated?.bold === undefined ? { bold: true } : {}),
+                ...(head && t.headTextColor && stated?.color === undefined ? { color: t.headTextColor } : {}),
+                ...(stated ?? {}),
+                ...(stated?.size === undefined && inheritedSize !== undefined && !head ? { size: inheritedSize } : {}),
+              });
+              return `<w:tc><w:tcPr><w:tcW w:w="${gridWidths[ci]}" w:type="dxa"/>${headRule}${head && fill ? `<w:shd w:fill="${fill}"/>` : ''}${vAlign}</w:tcPr>${para(`${key}:${ri}:${ci}`, textRun(cell, cellRun), `${cellSpacing}${cellIndent}`)}</w:tc>`;
+            }).join('')}</w:tr>`;
           }).join('')}</w:tbl>`);
           break;
         }

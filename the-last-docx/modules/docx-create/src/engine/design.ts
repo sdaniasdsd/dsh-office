@@ -136,7 +136,9 @@ export const REGISTERS: Record<DesignRegister, DesignTokens> = {
       borders: { top: edge(0.5, '000000'), left: edge(0.5, '000000'), bottom: edge(0.5, '000000'), right: edge(0.5, '000000'), insideH: edge(0.5, '000000'), insideV: edge(0.5, '000000') },
       cellMargins: { top: 4.5, left: 5, bottom: 4.5, right: 5 },
       cellVerticalAlignment: 'top',
-      fontSizeDelta: -0.5,
+      // 正式文书（plain）的表格承载的是签署栏与附件记录，正文尺寸即为表格尺寸：
+      // 缩到 11.5pt 会与正文 12pt 形成非标准字号，参照样例里签署单元格是 12pt。
+      fontSizeDelta: 0,
       look: '0000',
       cellLineSpacing: 240,
     },

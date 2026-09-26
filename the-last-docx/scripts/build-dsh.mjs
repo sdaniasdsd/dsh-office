@@ -3,6 +3,7 @@ import { readFile,writeFile,mkdir,cp,readdir,rm } from 'node:fs/promises';
 import { resolve,join,relative,dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root=fileURLToPath(new URL('..',import.meta.url));
+const VERSION='0.7.0';
 const out=resolve(root,'dist','dsh-docx');
 await mkdir(join(out,'lib'),{recursive:true});
 const bundledPackages=new Map();
@@ -18,7 +19,7 @@ const engines={name:'python-engine-assets',setup(builder){builder.onLoad({filter
   for(const entry of await readdir(dirname(args.path)))if(entry.endsWith('.py'))await cp(join(dirname(args.path),entry),join(out,'lib','engines',name,entry));
   return {contents,loader:'ts',resolveDir:dirname(args.path)};
 });}};
-for(const entry of ['server','index'])await build({entryPoints:[join(root,'src',`${entry}.ts`)],outfile:join(out,'lib',`${entry}.mjs`),bundle:true,platform:'node',format:'esm',target:'node22',plugins:[engines],banner:{js:"import { createRequire as __createRequire } from 'node:module'; const require = __createRequire(import.meta.url);"},metafile:true}).then(async result=>{
+for(const entry of ['server','index'])await build({entryPoints:[join(root,'src',`${entry}.ts`)],outfile:join(out,'lib',`${entry}.mjs`),bundle:true,platform:'node',format:'esm',target:'node22',plugins:[engines],define:{__DSH_DOCX_VERSION__:JSON.stringify(VERSION)},banner:{js:"import { createRequire as __createRequire } from 'node:module'; const require = __createRequire(import.meta.url);"},metafile:true}).then(async result=>{
   await writeFile(join(out,'lib',`${entry}.build.json`),JSON.stringify(result.metafile,null,2));
   for(const input of Object.keys(result.metafile.inputs)){
     let directory=dirname(resolve(root,input));
@@ -47,7 +48,7 @@ await cp(join(root,'dsh'),join(out,'dsh'),{recursive:true});
 await cp(join(root,'dsh','cordis.patch.yml'),join(out,'cordis.patch.yml'));
 await cp(join(root,'runtime'),join(out,'runtime'),{recursive:true});
 for(const name of ['ARCHITECTURE.md','THIRD_PARTY.md','modules.lock.json'])await cp(join(root,name),join(out,name));
-const manifest={name:'@deepseek-ai/dsh-docx',version:'0.5.0',type:'module',license:'UNLICENSED',description:'Nine DOCX modules with dual IR, style authoring, editing, rendering and versioned delivery for DSH.',main:'dsh/index.mjs',exports:{'.':'./dsh/index.mjs','./core':'./lib/index.mjs','./package.json':'./package.json'},files:['dsh','lib','runtime','third-party-licenses','cordis.patch.yml','README.md','ARCHITECTURE.md','THIRD_PARTY.md','modules.lock.json'],engines:{node:'^22.19.0 || >=24.0.0'},os:['win32'],cpu:['x64'],dsh:{bundle:{patch:'./cordis.patch.yml'}},dependencies:{'@deepseek-ai/dsh-mcp-client':'>=0.1.0-rc.8 <1'},peerDependencies:{'@deepseek-ai/cordis':'^4.0.1'}};
+const manifest={name:'@deepseek-ai/dsh-docx',version:VERSION,type:'module',license:'UNLICENSED',description:'Nine DOCX modules with dual IR, style authoring, editing, rendering and versioned delivery for DSH.',main:'dsh/index.mjs',exports:{'.':'./dsh/index.mjs','./core':'./lib/index.mjs','./package.json':'./package.json'},files:['dsh','lib','runtime','third-party-licenses','cordis.patch.yml','README.md','ARCHITECTURE.md','THIRD_PARTY.md','modules.lock.json'],engines:{node:'^22.19.0 || >=24.0.0'},os:['win32'],cpu:['x64'],dsh:{bundle:{patch:'./cordis.patch.yml'}},dependencies:{'@deepseek-ai/dsh-mcp-client':'>=0.1.0-rc.8 <1'},peerDependencies:{'@deepseek-ai/cordis':'^4.0.1'}};
 await writeFile(join(out,'package.json'),JSON.stringify(manifest,null,2)+'\n');
 await cp(join(root,'dsh','README.md'),join(out,'README.md'));
 console.log(`DSH package built: ${out}`);

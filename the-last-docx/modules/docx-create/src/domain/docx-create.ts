@@ -26,12 +26,45 @@ export const designRegisterSchema = z.enum(['legacy', 'report', 'academic', 'pla
 export const runSchema = z.object({
   text: textSchema, bold: z.boolean().optional(), italic: z.boolean().optional(),
   color: z.string().regex(/^[0-9a-fA-F]{6}$/).optional(),
+  /**
+   * Direct character size in points, the unit every other length in this plan
+   * uses. Omitted means the paragraph style decides — the normal case; a
+   * reference that sets 五号 on its 编号 line alone needs this to say so.
+   */
+  size: z.number().positive().max(200).optional(),
+  /** Latin face, written as `w:ascii`/`w:hAnsi`. */
+  font: z.string().min(1).max(120).optional(),
+  /** East-Asian face, which OOXML stores separately from the Latin one. */
+  eastAsia: z.string().min(1).max(120).optional(),
 }).strict();
 const paragraph = z.object({
   kind: z.literal('paragraph'), id, runs: z.array(runSchema).min(1).max(1000),
   style: z.enum(['Normal', 'Title', 'Subtitle', 'Heading1', 'Heading2', 'Heading3', 'Caption', 'Code']).optional(),
   alignment: z.enum(['left', 'center', 'right', 'both']).optional(),
   keepWithNext: z.boolean().optional(), pageBreakBefore: z.boolean().optional(),
+  /**
+   * 首行缩进（磅）。省略＝由样式决定；`0` 是**明确的陈述**：这一段的样式带着
+   * 两字符首行缩进，而它不该有——署名栏、页眉式信息行、居中短行都是这种段落。
+   * 所以这里不能把 0 当成「没写」。
+   */
+  firstLineIndentPt: z.number().min(0).max(48).optional(),
+}).strict();
+/**
+ * Per-cell character formatting.
+ *
+ * A table's cells are plain text — that is what a table is made of — so a cell
+ * that sits one size below the body, or in the East Asian face its label needs,
+ * has no way to say so. This is that way, and it is deliberately the same shape
+ * as the other per-cell array the plan already has (`columnWidthsMm`): sparse,
+ * index-aligned with `rows`, `null` where the register's table scheme decides.
+ */
+export const cellFormatSchema = z.object({
+  size: z.number().positive().max(200).optional(),
+  font: z.string().min(1).max(120).optional(),
+  eastAsia: z.string().min(1).max(120).optional(),
+  bold: z.boolean().optional(),
+  italic: z.boolean().optional(),
+  color: z.string().regex(/^[0-9a-fA-F]{6}$/).optional(),
 }).strict();
 const table = z.object({
   kind: z.literal('table'), id, rows: z.array(z.array(textSchema).min(1).max(20)).min(1).max(1000),
@@ -42,8 +75,12 @@ const table = z.object({
    * block, a two-column split — needs: it is a grid of positions, not of data.
    */
   borders: z.enum(['register', 'none']).optional(),
+  /** Index-aligned with `rows`; shorter is fine, a `null` entry means "not stated". */
+  cellFormats: z.array(z.array(cellFormatSchema.nullable()).max(20)).max(1000).optional(),
 }).strict().refine(t => t.rows.every(r => r.length === t.rows[0]!.length) &&
-  (!t.columnWidthsMm || t.columnWidthsMm.length === t.rows[0]!.length), 'Table must be rectangular.');
+  (!t.columnWidthsMm || t.columnWidthsMm.length === t.rows[0]!.length) &&
+  (!t.cellFormats || t.cellFormats.every((row, index) => index < t.rows.length && row.length <= t.rows[index]!.length)),
+  'Table must be rectangular, and its per-column and per-cell arrays must not address a cell that does not exist.');
 const image = z.object({
   kind: z.literal('image'), id, artifactRef: artifactRefSchema,
   widthMm: z.number().positive().max(160), heightMm: z.number().positive().max(235),
