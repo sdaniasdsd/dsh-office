@@ -1,3 +1,10 @@
+# 从上游逐件下载并校验运行时（Windows x64）。
+#
+# 注意：这份**配方的家已经搬到 sdaniasdsd/dsh-toolchain**（scripts/fetch-runtime.ps1）。
+# 本仓库的常规路径是 `npm run fetch:toolchain` —— 按 toolchain.lock.json 钉住的
+# 工具链工件下载解包，不直接打上游。
+# 这个脚本保留给"要从上游重建一份运行时"的场合（例如工具链仓库自己发新版时）。
+# 它按旧布局写到 dist/dsh-docx/runtime/win32-x64，build-dsh.mjs 仍认这个位置（会改名搬进运行时包）。
 $ErrorActionPreference = 'Stop'
 $pluginRoot = Split-Path $PSScriptRoot -Parent
 $cache = Join-Path $pluginRoot '.build-cache'

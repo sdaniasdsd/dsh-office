@@ -98,29 +98,37 @@ esbuild 的平台二进制由可选依赖 `@esbuild/win32-x64` 提供（实测�
 
 ---
 
-## 三、外部运行时（单独一个包，不再是硬依赖）
+## 三、外部运行时（由 dsh-toolchain 提供，本仓库只消费）
 
-由 `dsh-office/scripts/fetch-dsh-runtime.ps1` 下载并校验，装到 `runtime/win32-x64/`：
+运行时（Windows x64 的 Python 3.13 + LibreOffice 26.8.0 + poppler 26.09.0）**不再是本仓库的产物**，
+而是 [`sdaniasdsd/dsh-toolchain`](https://github.com/sdaniasdsd/dsh-toolchain) 发布的工件。
+本仓库用 `dsh-office/toolchain.lock.json` **钉住**它测过的那一版：
 
-| 组件 | 版本 | 来源 |
+```json
+{ "repo": "sdaniasdsd/dsh-toolchain", "tag": "v0.9.0",
+  "asset": "deepseek-ai-dsh-docx-runtime-0.9.0.tgz",
+  "sha256": "5e128b92c9e8a391dddf2e519d63f4c1497b1c7b5538ce095798e8a186df2b36",
+  "bytes": 572864213, "platform": "win32-x64" }
+```
+
+`npm run fetch:toolchain` 按它下载 → 校验 sha256 与字节数 → 解包到 `runtime/win32-x64/` → 自检三件二进制；
+`--check-only` 只做自检。之后 `build:dsh` 把它按 `<pkg>/runtime/<platform>` 布局装进运行时包，并在
+`runtime.json` 里记下产地（`toolchain.repo/tag/asset/sha256`）。换版本只改那一个文件。
+
+**发布形态：三个包**（`npm run build:dsh` + `npm run pack:dsh` 一次产出）：
+
+| 包 | 内容 | 体积（0.9.1 实测） |
 | --- | --- | --- |
-| Python | 3.13.15（embed amd64） | python.org 官方 zip |
-| LibreOffice | 26.8.0 | 官方 MSI，管理式解包取 `program/soffice.com` |
-| poppler | 26.09.0 | `oschwartz10612/poppler-windows` release（取 `pdftoppm`） |
-
-**发布形态已经从"一个包"拆成三个**（`npm run build:dsh` + `npm run pack:dsh` 一次产出）：
-
-| 包 | 内容 | 体积（实测 0.9.0） |
-| --- | --- | --- |
-| `@deepseek-ai/dsh-docx` | 核心：`dsh/`、`lib/`（bundle）、第三方许可、文档 | tarball **2.2 MB**（解压 14 MB） |
-| `@deepseek-ai/dsh-docx-runtime` | `runtime/win32-x64/**` + `runtime.json` 清单 | tarball **546 MB**（解压 1.67 GB） |
-| `@deepseek-ai/dsh-docx-full` | 只写依赖的元包（核心 + 运行时，同版本） | tarball **651 B** |
+| `@deepseek-ai/dsh-docx` | 核心：`dsh/`、`lib/`（bundle）、第三方许可、文档 | tarball **2.2 MB** |
+| `@deepseek-ai/dsh-docx-runtime` | `runtime/win32-x64/**` + `runtime.json` 清单 | tarball **546 MB** |
+| `@deepseek-ai/dsh-docx-full` | 元包：依赖写成 release 直链 URL（两个子包都没上 npm），**先传子包再传它** | ~1 KB |
 
 核心包找运行时的顺序（`dsh/runtime-config.mjs`）：插件配置 `runtimeRoot` → 环境变量 `DSH_OFFICE_RUNTIME_ROOT`（或 `DOCX_PYTHON/DOCX_SOFFICE/DOCX_PDFTOPPM`）→ **兄弟运行时包**（向上找 `node_modules/@deepseek-ai/dsh-docx-runtime`，读 `runtime.json`）→ 自带 `runtime/win32-x64`。
 缺运行时**不再是启动失败**：只把存在的路径注入子进程，缺什么写进 stderr 与 `DSH_DOCX_RUNTIME_MISSING`，相关能力在调用时返回 `ENGINE_UNAVAILABLE`，`docx_doctor` 逐项给结论。
 
-- 发布包解压后约 1.7 GB，其中 LibreOffice 占 1504 MB、poppler 121 MB、python 47 MB（实测）。
-- **仓库里的 `dsh-office/runtime/win32-x64` 是空的**（实测只有 1 个条目）——新克隆必须先跑一次 fetch 脚本，否则 `build:dsh` 会**跳过**运行时包并打印原因（不再像旧版那样在最后一步 `ENOENT` 崩掉）。
+- 运行时解压后约 1.67 GB，其中 LibreOffice 1504 MB、poppler 121 MB、python 47 MB（实测）。
+- 要**从上游重建**一份运行时（例如工具链发新版）：工具链仓库的 `scripts/fetch-runtime.ps1` 是正式配方；
+  本仓库同名脚本只是本地重建用的副本，正常路径是 `npm run fetch:toolchain`。
 
 ---
 

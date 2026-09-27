@@ -22,6 +22,7 @@
     "start": "tsx src/server.ts",
     "cli": "tsx src/cli.ts",
     "assemble": "node scripts/assemble.mjs",
+    "fetch:toolchain": "node scripts/fetch-toolchain.mjs",
     "configure": "node scripts/configure.mjs",
     "build": "tsc --noEmit",
     "build:dsh": "node scripts/build-dsh.mjs",

@@ -1,0 +1,12 @@
+{
+  "schema": "dsh-office-toolchain-pin/v1",
+  "note": "本仓库构建运行时包时使用的工具链工件。运行时不再是本仓库的产物，而是 sdaniasdsd/dsh-toolchain 发布的资产；这里钉住它测过的那一版，脚本 scripts/fetch-toolchain.mjs 按此下载并校验。换版本 = 改这个文件（tag/asset/sha256/bytes）。",
+  "repo": "sdaniasdsd/dsh-toolchain",
+  "tag": "v0.9.0",
+  "asset": "deepseek-ai-dsh-docx-runtime-0.9.0.tgz",
+  "sha256": "5e128b92c9e8a391dddf2e519d63f4c1497b1c7b5538ce095798e8a186df2b36",
+  "bytes": 572864213,
+  "platform": "win32-x64",
+  "runtimeVersion": "0.9.0",
+  "contract": "https://github.com/sdaniasdsd/dsh-toolchain/blob/main/docs/CONTRACT.md"
+}

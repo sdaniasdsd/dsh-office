@@ -3,7 +3,10 @@ import { readFile,writeFile,mkdir,cp,readdir,rm,rename,stat,access } from 'node:
 import { resolve,join,relative,dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root=fileURLToPath(new URL('..',import.meta.url));
-const VERSION='0.9.0';
+const VERSION='0.9.1';
+// 工具链（运行时）的产地与版本：运行时不再是本仓库的产物，见 toolchain.lock.json。
+const toolchainPin=JSON.parse(await readFile(join(root,'toolchain.lock.json'),'utf8'));
+const releaseBase='https://github.com/sdaniasdsd/dsh-office/releases/download';
 const platformDir='win32-x64';
 const coreOut=resolve(root,'dist','dsh-docx');
 const runtimeOut=resolve(root,'dist','dsh-docx-runtime');
@@ -104,6 +107,7 @@ for(const [name,relativePath] of Object.entries({python:join('python','python.ex
   components[name]={present,entry:present?relativePath:null,bytes:here.bytes,files:here.files};
 }
 const runtimeManifest={schema:'dsh-office-runtime/v1',version:VERSION,platform:platformDir,components,
+  toolchain:{repo:toolchainPin.repo,tag:toolchainPin.tag,asset:toolchainPin.asset,sha256:toolchainPin.sha256,note:'运行时的产地：按 dsh-office/toolchain.lock.json 钉住的工具链工件取出；本包只是把它按 <pkg>/runtime/<platform> 布局重新装好。'},
   note:'Core package finds this by walking up node_modules for @deepseek-ai/dsh-docx-runtime and reading runtime.json; explicit runtimeRoot/DSH_OFFICE_RUNTIME_ROOT overrides it.'};
 await writeFile(join(runtimeOut,'runtime.json'),JSON.stringify(runtimeManifest,null,2)+'\n');
 const runtimePackage={name:'@deepseek-ai/dsh-docx-runtime',version:VERSION,type:'module',license:'UNLICENSED',description:'Bundled offline runtime for the DSH office plugin: private Python 3.13, LibreOffice and Poppler for Windows x64. No install scripts, no downloads at run time.',files:['runtime','runtime.json','README.md'],os:['win32'],cpu:['x64']};
@@ -122,16 +126,27 @@ LibreOffice、Poppler。没有安装脚本，也不在运行时下载任何东�
 console.log(`runtime package built: ${runtimeOut}  (source ${runtimeSource})`);
 
 // ---------------------------------------------------------------------------
-// 3. 元包：一步装好 = 核心 + 运行时
+// 3. 元包：一步装好 = 核心 + 运行时。
+//    两个子包都没发布到公共 npm，所以依赖写成 release 的直链 URL——这样从 tarball 装元包
+//    时 npm/pnpm 能直接把两个包拉下来，不需要 registry。先传子包再传元包。
 // ---------------------------------------------------------------------------
 await mkdir(fullOut,{recursive:true});
-const fullPackage={name:'@deepseek-ai/dsh-docx-full',version:VERSION,type:'module',license:'UNLICENSED',description:'Meta package: the DSH office plugin core plus its Windows x64 runtime, for a one-step install.',private:false,dependencies:{'@deepseek-ai/dsh-docx':VERSION,'@deepseek-ai/dsh-docx-runtime':VERSION}};
+const fullPackage={name:'@deepseek-ai/dsh-docx-full',version:VERSION,type:'module',license:'UNLICENSED',description:'Meta package: the DSH office plugin core plus its Windows x64 runtime, for a one-step install.',private:false,dependencies:{
+  '@deepseek-ai/dsh-docx':`${releaseBase}/v${VERSION}/deepseek-ai-dsh-docx-${VERSION}.tgz`,
+  '@deepseek-ai/dsh-docx-runtime':`${releaseBase}/v${VERSION}/deepseek-ai-dsh-docx-runtime-${VERSION}.tgz`,
+}};
 await writeFile(join(fullOut,'package.json'),JSON.stringify(fullPackage,null,2)+'\n');
 await writeFile(join(fullOut,'README.md'),`# @deepseek-ai/dsh-docx-full ${VERSION}
 
-只写依赖的元包：\`@deepseek-ai/dsh-docx\`（核心，约 15 MB）+ \`@deepseek-ai/dsh-docx-runtime\`（Windows x64 运行时，约 1.6 GB）。
+只写依赖的元包：\`@deepseek-ai/dsh-docx\`（核心，约 15 MB）+ \`@deepseek-ai/dsh-docx-runtime\`（Windows x64 运行时）。
 
-想一步装好就用它；想省体积、或已经有自己的一份 LibreOffice/Python，就只装核心再指定
-\`runtimeRoot\` / \`DSH_OFFICE_RUNTIME_ROOT\`。两个子包版本号与它保持一致。
+两个子包没有发布到公共 npm，所以这里的依赖是本仓库 release 的直链：
+
+- \`${releaseBase}/v${VERSION}/deepseek-ai-dsh-docx-${VERSION}.tgz\`
+- \`${releaseBase}/v${VERSION}/deepseek-ai-dsh-docx-runtime-${VERSION}.tgz\`
+
+**先传子包、再传本包**，否则直链会 404。想省体积、或已经有自己的一份 LibreOffice/Python，
+就只装核心再指定 \`runtimeRoot\` / \`DSH_OFFICE_RUNTIME_ROOT\`。运行时的产地是
+\`${toolchainPin.repo} ${toolchainPin.tag}\`（摘要钉在 dsh-office 的 \`toolchain.lock.json\`）。
 `);
 console.log(`full package built:    ${fullOut}`);
