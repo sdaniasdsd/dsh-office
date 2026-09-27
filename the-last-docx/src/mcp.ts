@@ -7,8 +7,21 @@ import { canonicalJson } from '@dsh-office-profile/docx-artifact';
 import { designRegisterSchema, presetSchema, scenarioSchema } from '@dsh-office-profile/docx-create';
 import { planFromContent } from './reference';
 const artifactRef=z.object({id:z.string(),uri:z.string(),sha256:z.string().optional(),sizeBytes:z.number().int().nonnegative().optional(),mediaType:z.string().optional(),label:z.string().optional(),tags:z.record(z.string()).optional()}).strict();
+/**
+ * The version this server reports in the MCP handshake.
+ *
+ * `scripts/build-dsh.mjs` defines it from the version it stamps into the
+ * published manifest, so the handshake cannot drift from the package it came out
+ * of — which it did twice: an installed 0.6.0 announced itself as 0.5.0, and the
+ * 0.8.0 build injected the define while this line still hardcoded the string, so
+ * it announced 0.5.0 again. Running from TypeScript sources, where nothing
+ * defines it, says so instead of guessing.
+ */
+declare const __DSH_DOCX_VERSION__: string | undefined;
+const VERSION = typeof __DSH_DOCX_VERSION__ === 'string' ? __DSH_DOCX_VERSION__ : '0.0.0-dev';
+
 export function createMcpServer(profile:DocxProfile){
-  const server=new McpServer({name:'the-last-docx',version:'0.5.0'});
+  const server=new McpServer({name:'the-last-docx',version:VERSION});
   const result=async(task:()=>Promise<unknown>)=>{
     try{
       const value=await task(),text=canonicalJson(value);

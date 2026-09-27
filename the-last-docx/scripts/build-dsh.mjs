@@ -3,7 +3,7 @@ import { readFile,writeFile,mkdir,cp,readdir,rm } from 'node:fs/promises';
 import { resolve,join,relative,dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root=fileURLToPath(new URL('..',import.meta.url));
-const VERSION='0.8.0';
+const VERSION='0.8.1';
 const out=resolve(root,'dist','dsh-docx');
 await mkdir(join(out,'lib'),{recursive:true});
 const bundledPackages=new Map();
