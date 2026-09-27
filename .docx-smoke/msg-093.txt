@@ -1,0 +1,33 @@
+修复 docx-complex-parse 在随包运行时下必然崩溃（0.9.3）
+
+现象：装好的插件里调用 docx-complex-parse（以及 docx_analyze 的 complex=structure）
+只得到 ENGINE_FAILED「Parse process exited with an error」，没有任何可诊断信息。
+
+实测根因（不是猜测）：随包发布的解释器是 Python embeddable 版，目录里带
+python313._pth，等价于 isolated 模式——脚本所在目录不会自动进入 sys.path，
+PYTHONPATH 也被忽略。引擎 docx_complex_parse.py 第 40 行 from observations import
+read_observations 因此抛 ModuleNotFoundError，进程以非零码退出，连失败信封都没机会发出。
+
+._pth 里那条 ../../../lib/engines/docx-complex-parse 从来指不中：它相对
+python.exe 所在目录解析，而引擎随核心包走、运行时是另一棵树，换一种安装布局就失效。
+两个仓库都删掉这条，并写明「引擎目录不进 ._pth，需要时由引擎自己 sys.path.insert」。
+
+改动（全部加性、向后兼容，不再依赖任何写死的相对路径）：
+- the-last-docx/docx-complex-parse 引擎：import observations 之前显式把自己的目录
+  插进 sys.path。
+- the-last-docx/docx-easy-parse docling 驱动：同样处理 import docx_parse。
+- dsh-office/scripts/fetch-dsh-runtime.ps1 与 dsh-toolchain/scripts/fetch-runtime.ps1：
+  ._pth 只留解释器自身路径。
+
+验证回执（用的都是装好的 embeddable python 3.13 + 装好的引擎目录）：
+- 修复前（git HEAD 版本、无 BOM）：exit 1，ModuleNotFoundError: No module named 'observations'。
+- 修复后 structure 模式：exit 0，stdout 32192 字节合法 JSON。
+- 修复后带版面模式：exit 0，stdout 是 {"failure":{"reason":"runtime_missing", ... rdocx ...}}
+  —— 从「崩溃」变成可诊断的稳定错误码。
+- docx_parse_docling import：exit 0（兄弟模块已解析）。
+- 引擎单测 test_observations.py：5 passed，exit 0。
+- scripts/check-modules.mjs：exit 0。
+- assemble + provenance：4 families / 110 files / 0 changedSources。
+
+注意：check-modules 只跑 tsc + vitest，不跑 python 引擎单测——python 侧目前不在
+自动检查里，这是本次靠手工执行才发现该崩溃的原因之一。

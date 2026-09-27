@@ -1,0 +1,28 @@
+dsh-office: 适配工具链交接——运行时改为从 dsh-toolchain 取（0.9.1）
+
+工具链已经有家（sdaniasdsd/dsh-toolchain），本仓库不再自己拿上游拼运行时，改成消费它的工件：
+
+- `dsh-office/toolchain.lock.json`（新）：钉住工具链那一版——repo / tag / 资产名 / sha256 / 字节数 /
+  platform / runtimeVersion / 契约地址。换运行时版本 = 改这一个文件。
+- `dsh-office/scripts/fetch-toolchain.mjs`（新，`npm run fetch:toolchain`）：按 pin 从工具链 release 下载
+  → 校验 sha256 与字节数（不一致就拒绝解包）→ 解到 `runtime/win32-x64/` → 逐项自检三件二进制；
+  `--check-only` 只自检。用 Node 而不是 PS 脚本，因为资产名与路径可能有非 ASCII，命令行传参会出问题。
+- `scripts/build-dsh.mjs`：版本 0.9.1；运行时包的 `runtime.json` 增加 `toolchain` 产地记录
+  （repo/tag/asset/sha256）；元包 `-full` 的依赖改成 release 直链 URL——两个子包都没上公共 npm，
+  用直链才能让"一步装"真的成立（并写明：先传子包再传元包，否则直链 404）。
+- `scripts/fetch-dsh-runtime.ps1`：加抬头说明——这份配方的家已搬到 dsh-toolchain，本仓库保留它只用于
+  从上游重建（工具链发新版时）。
+- `.gitignore`：`runtime/` 不入库（1.67 GB）。
+- README / DEPENDENCIES：运行时一节改为"由 dsh-toolchain 提供、本仓库只消费"，补上 fetch:toolchain 步骤。
+
+验证（本地实跑）：
+- `npm run fetch:toolchain`：从 dsh-toolchain v0.9.0 下载 572,864,213 B、sha256 与 pin 一致 → 解包 →
+  自检 python 3.13.15 / LibreOffice 26.8.0.3 / pdftoppm 26.09.0 全部通过，退出码 0。
+- build + pack：core 2,346,401 B、runtime 572,865,006 B、full 846 B；runtime.json 里
+  components 的字节/文件数与工具链那份**逐项相同**（python 50013265/665、libreoffice 1577413569/19456、
+  poppler 126544679/561），说明装的还是同一份内容（tgz 本身不是逐字节可复现，所以摘要不同，这是预期的）。
+- `tsc --noEmit` 0；根测试 32 passed；12 模块 check-modules 退出码 0（510 passed / 2 skipped）；
+  provenance 4 家族 / 110 文件 / 0 处不一致。
+- 拆包行为三组真实调用复跑：只有核心包（宿主 PATH）create ✓ / parse ✓ / pptx ✓ / render ✗ ENOENT；
+  只有核心包（PATH 收窄）create ✓ / parse ✗ / pptx ✗ / render ✗，且 doctor 报 parse:false pptx:false；
+  核心 + 运行时包四项全 ✓（渲染产出 PDF）；doctor 在第三组报 render:true、nativePdf:true。

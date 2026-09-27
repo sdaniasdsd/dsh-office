@@ -1,0 +1,27 @@
+修 doctor 的两处假阴性（0.9.2）：能力报告不再无端偏低
+
+doctor 会把"可用"报成"不可用"，两类原因都出在**探测方法**而不是能力本身：
+
+1. `xlsx` 恒为 false。exceljs 是 esbuild **inline 进 lib/server.mjs** 的，磁盘上没有单独安装，
+   子进程 `import("exceljs")` 必然失败。这是探测方法的假阴性——xlsx-office 一直可用。
+   修法：构建时把"哪些 npm 包被打进 bundle"写成 `lib/bundled.json`（本次记录 85 个包，含 exceljs 4.4.0），
+   doctor 读它，命中时把能力判为可用，并在 detail 里写明来路：
+   `bundled into the server bundle (exceljs 4.4.0); not installed separately, so a child-process import cannot see it`。
+   从源码直接跑（没有该文件）时表为空，行为退回原样。
+
+2. `pptx` 偶发 false。八条探测是并发起的，`import pptx`（连带 PIL/lxml）在冷启动加并发时会超过
+   原来的 5 秒预算 —— 实测出现过一次 `pptx:false`，而单独用工具链验收脚本跑同一个运行时是 1.0.2 正常。
+   修法：python 侧五条探测的预算 5s → 15s（soffice 早在上一版已改成 20s）。
+
+另外 `scripts/fetch-toolchain.mjs` 补一处：解包时除了 `package/runtime/win32-x64/**`，也把包根的
+`package/runtime.json` 取到 `<repo>/runtime.json` —— 之前漏了它，解出来的运行时不自描述，
+工具链的 `scripts/verify-runtime.mjs` 会因"没找到清单"报一项失败（其他 11 项本来就过）。
+取回后该脚本 12/12 全过、退出码 0。
+
+验证：
+- `tsc --noEmit` 0；根测试 32 passed；12 模块 check-modules 退出码 0；provenance 4 家族 / 110 文件 / 0 处不一致。
+- 构建产物（0.9.2）doctor：`artifact/parse/pptx/xlsx/render/nativePdf/create/edit/complexStructure` 全 true，
+  只有真缺的 `complexLayout`(rdocx) 与 `deepEasyParse`(docling) 为 false。
+- **bundled 事实那条路径**在夹具（临时目录里的核心包，解析不到 exceljs）里实测：原始探测
+  `exceljs.available=false`，但上报 `xlsx: true` 且 detail 写明"bundled into the server bundle (exceljs 4.4.0)"。
+- 用工具链的验收脚本跑刚解出来的运行时（含补取的 runtime.json）：12 项全过、退出码 0。

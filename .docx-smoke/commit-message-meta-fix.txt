@@ -1,0 +1,10 @@
+元包依赖改回版本号：直链方案被 pnpm 的 blockExoticSubdeps 拒绝
+
+给 -full 元包写的 release 直链依赖当成测试跑了一遍：pnpm 11 默认拒绝子依赖里的 URL 依赖。
+
+  [ERR_PNPM_EXOTIC_SUBDEP] Exotic dependency "@deepseek-ai/dsh-docx" (resolved via url)
+  is not allowed in subdependencies when blockExoticSubdeps is enabled
+
+所以"一步装好"不成立。改回版本号依赖（只在两个子包进 registry 之后可用），并在元包自己的 README、
+仓库 README 与 DEPENDENCIES 里写明：当前发布形态是**分别装核心与运行时两个 tgz**。
+v0.9.1 release 里已把 -full 资产撤下，Release 说明也同步更正（把实测报错原文写进去）。

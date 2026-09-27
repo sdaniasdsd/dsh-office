@@ -1,0 +1,12 @@
+@docx4j/core-ts
+Copyright 2026 Plutext Pty Ltd
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This package is a TypeScript counterpart of docx4j's docx4j-core module
+(https://github.com/plutext/docx4j, Apache License 2.0): the Open Packaging Conventions layer
+(packages, parts, relationships, content types), the typed parts, and the style, numbering and font
+resolution utilities follow docx4j's design and names. It depends on @docx4j/generated-objects-ts
+(https://github.com/plutext/docx4j-generated-objects-ts) for the Office Open XML object model and on
+@docx4j/jsonix (https://github.com/plutext/jsonix) for XML binding; see their NOTICE files for the
+material they derive from (ECMA-376, Microsoft Open Specifications, Jsonix).

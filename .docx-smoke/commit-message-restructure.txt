@@ -1,0 +1,28 @@
+dsh-office: 源码位置整理成「四个家族 + 一个外壳」
+
+顶层原来只有 the-last-docx（其实是包含四个家族的插件外壳）和 the-last-pdf（pdf 家族工作区），
+pptx-office 与 xlsx-office 只存在于外壳的 modules/ 里，顶层看不出来。现在四个家族各自有家：
+
+  the-last-docx/   DOCX 家族：9 个模块
+  the-last-pdf/    PDF 家族：pdf-* 工作区 + 被插件注册的 pdf-office
+  the-last-pptx/   PPTX 家族：pptx-office
+  the-last-xlsx/   XLSX（表格）家族：xlsx-office
+  dsh-office/      外壳：src/、dsh/、packages/、tests/、scripts/、runtime/，
+                   以及由四个家族装配出来的 modules/
+
+- 家族目录是源码的家；dsh-office/modules/ 是 `scripts/assemble.mjs` 从四个家族复制出来的装配产物，
+  `scripts/provenance.mjs` 逐文件比对两边一致（重跑回执：4 个家族、110 个文件、0 处不一致）。
+- assemble/provenance 支持 `--source <家族>=<路径>` 覆盖，docx 仍可在仓库外的 docx分区 里开发
+  （外壳里留了 `assemble:docx-partition` 脚本）外壳内部的 modules/<name>/src/... 布局未变，
+  因此构建脚本、Python 引擎脚本拷贝与 workspace 链接都不受影响。
+- 外壳清单改名 dsh-office，并补上 description；插件包名仍为 @deepseek-ai/dsh-docx（历史名，
+  改它会动到已安装 profile 的依赖键）。
+- 三个家族各补 package.json（workspace 清单）、README.md、.gitignore（原先只忽略外壳内的
+  modules/**/node_modules，家族目录下的 node_modules 会被误提交）。
+- 顶层 README 重写成新的布局说明与动手步骤；外壳与 dsh/README 里过时的路径已更正。
+  历史报告里记录的绝对路径（reports/**、benchmarks/**）保持原样，那是当时的证据记录。
+
+验证：pnpm/npm 链接重建后 tsc --noEmit 退出码 0；12 个模块 check-modules 全过
+（docx 9 个 469 passed / 2 skipped，pptx 3、xlsx 5、pdf 3）；外壳根测试 32 passed；
+provenance 0 处不一致；重建 dist/dsh-docx 后冒烟：握手 0.8.1、10 个工具、
+注册表 12 个模块（DOCX 9 / PPTX 1 / XLSX 1 / PDF 1）。

@@ -1,0 +1,3 @@
+- insert:
+    - id: docx
+      name: '@deepseek-ai/dsh-docx'

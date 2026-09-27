@@ -1,0 +1,18 @@
+Chapter One
+
+
+
+Intro text
+Commented paragraph
+Footnote paragraph1
+ A1                   B1
+ A2                   B2
+
+Section
+Closing line
+
+
+
+
+1A footnote
+

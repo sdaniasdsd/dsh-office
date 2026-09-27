@@ -1,0 +1,41 @@
+dsh-office: 拆包——运行时独立成包，缺运行时不再弄死 profile（0.9.0）
+
+一个 548 MB 的包拆成三个（`npm run build:dsh` 一次产出，`npm run pack:dsh` 一次打包）：
+
+  @deepseek-ai/dsh-docx          核心：JS bundle + dsh 清单 + 文档      tarball 2.2 MB（解压 14 MB）
+  @deepseek-ai/dsh-docx-runtime  Windows x64 运行时 + runtime.json 清单  tarball 546 MB（解压 1.67 GB）
+  @deepseek-ai/dsh-docx-full     只写依赖的元包（核心 + 运行时）         tarball 651 B
+
+拆包前 `dsh/runtime-config.mjs` 把运行时位置写死在自己包里，并对三个二进制做 `access()` 检查，
+配合 `failOnStartupError: true`：缺任何一个二进制，**整个 DSH profile 起不来**——而模块注册表里
+docx-render 的 LibreOffice/Poppler 本来就标着 optional，两层语义本来就矛盾。
+
+- `dsh/runtime-config.mjs`：运行时根目录改为按「插件配置 runtimeRoot → 环境变量
+  DSH_OFFICE_RUNTIME_ROOT / DOCX_PYTHON|SOFFICE|PDFTOPPM → 兄弟运行时包（向上找
+  node_modules/@deepseek-ai/dsh-docx-runtime 读 runtime.json）→ 自带 runtime/」解析；只有核心包
+  自己的 lib/server.mjs 缺失才算包不完整。运行时不全时照常启动，只注入存在的路径，并在 stderr
+  与 DSH_DOCX_RUNTIME_MISSING 里列明缺什么；平台检查从抛错改为告警（核心包本身跨平台）。
+- `scripts/build-dsh.mjs`：三个包各自的清单与体积统计；运行时不存在的构建改为**跳过并打印原因**，
+  不再在最后一步 `ENOENT` 崩掉；`--runtime=<dir>` 可指向外部一份运行时；旧布局里 core 自带的
+  runtime/ 直接改名搬走，不复制 1.6 GB。版本 0.8.1 → 0.9.0。
+- `scripts/pack-dsh.mjs`（新）：按存在的构建目录打包，缺运行时只打核心包。
+- `src/doctor.ts`：修两处让能力报告**低估**的探测——soffice 的 5 秒预算改成 20 秒（LibreOffice
+  冷启动常超时，会把 render 报成不可用）；exceljs / pdfjs 两条 node 探测改用插件包目录做 cwd
+  （原先从服务端工作目录解析，看不到装在包里的依赖）。实测修复后 render 与 nativePdf 由 false 变 true；
+  **xlsx 仍报 false 且是已知假阴性**：exceljs 被打进 bundle、没有单独安装，探测不到——这需要一次
+  依赖模型的取舍（声明为运行时依赖并 external，或改由打包事实推导能力），本次未动。
+
+验证（本地实跑）：
+- `tsc --noEmit` 退出码 0；根测试 32 passed；12 个模块 check-modules 退出码 0（510 passed / 2 skipped）；
+  provenance 仍是 4 个家族 / 110 个文件 / 0 处不一致。
+- 拆包行为用「真实拷贝核心包 + 兄弟运行时包软链接」的夹具验证（`split-check.mjs`）：
+  ① 只有核心包：解析不抛错，列出三处缺失，不注入任何运行时的路径；
+  ② 核心 + 运行时包：source=runtime-package，三处路径齐全；
+  ③ 真实调用三组——只有核心包（保留宿主 PATH）：create ✓ / parse ✓ / pptx ✓ / render ✗
+     `ENGINE_UNAVAILABLE spawn soffice ENOENT`；只有核心包（PATH 收成 System32，模拟干净机器）：
+     create ✓ / parse ✗ `Unable to launch the parse interpreter "python"` / pptx ✗ / render ✗；
+     核心 + 运行时包：create ✓ / parse ✓ / pptx ✓ / render ✓（产出 PDF）。
+- 打包回执：core 2.2 MB、runtime 546.3 MB、full 651 B（三个 tgz 都在 dist/，dist 不入库）。
+
+回滚：`git revert <本提交>` 即可回到「单包 + 运行时硬依赖」的 0.8.1 布局；0.9.0 的 tgz 不作废，
+两者互不影响。发布包（dist/*.tgz）不在版本库里，需要时重新 `build:dsh` + `pack:dsh`。

@@ -1,0 +1,23 @@
+the-last-docx: carry a reference's run, cell and indent formatting
+
+The reference path kept text and structure but dropped every presentational fact,
+so a labour contract rebuilt from the approved sample came back with 11.5 pt
+signature cells, 12 pt appendix table headers where the sample has 10.5 pt, and a
+two-character first-line indent on lines the sample sets flush left. Rendering
+both with the same LibreOffice build, our sizes were 11.5/12/22 pt against the
+sample's 10.5/12/14/22 pt, and nine address lines sat 8.5 mm to the right.
+
+- docx-parse observes a paragraph's effective first-line indent, resolving the
+  basedOn chain and docDefaults: zero is reported as zero, and only an unreadable
+  style table is reported as "no observation".
+- docx-create gains `cellFormats` (per-cell size, own face, emphasis, with a
+  stated `bold: false` overriding the first-row default) and `firstLineIndentPt`
+  (0 is a statement, not a missing value). The `plain` register keeps table text
+  at body size instead of one step below it.
+- the reference mapper carries run size and East Asian face, per-cell formatting
+  and the first-line indent, and its report says what it approximated: one size
+  per paragraph, the dominant run's, and no colour.
+- the MCP handshake version is now defined by the packaging script from the
+  version it stamps into the manifest; an installed 0.6.0 used to announce 0.5.0.
+- tests: nine more across docx-create, docx-parse and the reference path; nine
+  module suites 495 passed / 1 skipped, root suite 32 passed.
