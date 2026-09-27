@@ -1,4 +1,5 @@
 import ExcelJS from 'exceljs';
+import { applyPrintLayout } from './print-layout';
 import { spawn } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { mkdtemp, rm, writeFile } from 'node:fs/promises';
@@ -13,8 +14,8 @@ export const XLSX_OFFICE_MODULE_ID = 'xlsx-office' as const;
 export const XLSX_OFFICE_CAPABILITIES = ['inspect', 'execute', 'verify'] as const;
 export const XLSX_OFFICE_DEFINITION = Object.freeze({
   id: XLSX_OFFICE_MODULE_ID, version: '0.1.0', profileGroup: 'XLSX', capabilities: XLSX_OFFICE_CAPABILITIES,
-  summary: 'Inspect XLSX workbooks, read ranges, write guarded literal cells, and create workbooks with ExcelJS.',
-  dependencies: [{ name: 'exceljs', kind: 'runtime' }, { name: 'office-core', kind: 'module' }, { name: 'office-files', kind: 'module' }, { name: 'office-safety', kind: 'module' }],
+  summary: 'Inspect XLSX workbooks, read ranges, write guarded literal cells, set print layout with package-scoped OOXML edits, and create workbooks.',
+  dependencies: [{ name: '@xmldom/xmldom', kind: 'runtime' }, { name: 'exceljs', kind: 'runtime' }, { name: 'fflate', kind: 'runtime' }, { name: 'office-core', kind: 'module' }, { name: 'office-files', kind: 'module' }, { name: 'office-safety', kind: 'module' }],
   configSchema: { type: 'object', properties: { engine: { type: 'object', properties: { pythonPath: { type: 'string', default: 'python' } } } } },
 });
 const LIMITS = Object.freeze({ maxInputBytes: 64 * 1024 * 1024, maxOutputBytes: 64 * 1024 * 1024,
@@ -101,7 +102,7 @@ export function createXlsxOfficeModule(options: XlsxOfficeOptions) {
     const input = parsed.data, payload = input.payload ?? {};
     if (disposed) throw new XlsxOfficeError('MODULE_DISPOSED', 'XLSX module has been disposed.');
     const action = operation === 'inspect' ? 'inspect' : operation === 'verify' ? 'verify' : String(payload.action ?? '');
-    if (operation === 'execute' && !['readRange', 'setCells', 'createWorkbook'].includes(action)) throw new XlsxOfficeError('INVALID_INPUT', 'execute payload.action must be readRange, setCells, or createWorkbook.');
+    if (operation === 'execute' && !['readRange', 'setCells', 'setPrintLayout', 'createWorkbook'].includes(action)) throw new XlsxOfficeError('INVALID_INPUT', 'execute payload.action must be readRange, setCells, setPrintLayout, or createWorkbook.');
     const create = action === 'createWorkbook';
     if (!create && !input.artifactRef) throw new XlsxOfficeError('INVALID_INPUT', 'artifactRef is required for this XLSX operation.');
     if (input.artifactRef) assertRef(input.artifactRef);
@@ -133,6 +134,54 @@ export function createXlsxOfficeModule(options: XlsxOfficeOptions) {
         try { unsupportedFeatures = z.object({ unsupportedFeatures: z.array(z.string()) }).parse(JSON.parse(probe.stdout)).unsupportedFeatures; }
         catch { throw new XlsxOfficeError('ENGINE_PROTOCOL_ERROR', 'XLSX preflight returned invalid feature metadata.'); }
         if (action === 'setCells' && unsupportedFeatures.length) throw new XlsxOfficeError('UNSUPPORTED_OPERATION', `ExcelJS may not preserve workbook features on write: ${unsupportedFeatures.join(', ')}.`);
+      }
+      if (action === 'setPrintLayout') {
+        const request = z.object({
+          action: z.literal('setPrintLayout'),
+          sheets: z.array(z.object({
+            sheet: z.string().min(1).max(255),
+            orientation: z.enum(['portrait', 'landscape']).optional(),
+            fitToWidth: z.number().int().min(1).max(32_767).optional(),
+            fitToHeight: z.number().int().min(0).max(32_767).optional(),
+          }).strict()).min(1).max(LIMITS.maxSheets),
+        }).strict().safeParse(payload);
+        if (!request.success) throw new XlsxOfficeError('INVALID_INPUT', request.error.message);
+        const names = new Set<string>();
+        for (const item of request.data.sheets) {
+          if (names.has(item.sheet)) throw new XlsxOfficeError('INVALID_INPUT', `Worksheet ${item.sheet} may only be configured once.`);
+          names.add(item.sheet);
+        }
+        if (unsupportedFeatures.includes('digitalSignatures')) throw new XlsxOfficeError('UNSUPPORTED_OPERATION', 'Signed workbooks cannot be changed because any package edit invalidates their signatures.');
+        let patched: ReturnType<typeof applyPrintLayout>;
+        try { patched = applyPrintLayout(bytes, request.data.sheets); }
+        catch (error) { throw new XlsxOfficeError('UNSUPPORTED_OPERATION', error instanceof Error ? error.message : 'Could not safely update XLSX print settings.'); }
+        if (!patched.bytes.length || patched.bytes.length > LIMITS.maxOutputBytes) throw new XlsxOfficeError('LIMIT_EXCEEDED', 'Generated XLSX is empty or exceeds the output byte budget.');
+        const reopened = await loadWorkbook(patched.bytes);
+        const artifactRef = await options.artifactStore.write({
+          bytes: patched.bytes,
+          requestId: input.requestId,
+          sources: [{ ...input.artifactRef!, sha256: digest, sizeBytes: bytes.length }],
+          suggestedName: 'print-layout.xlsx',
+        });
+        return {
+          moduleId: XLSX_OFFICE_MODULE_ID, requestId: input.requestId, operation,
+          result: {
+            artifactRef,
+            sources: [{ id: input.artifactRef!.id, sha256: digest }],
+            ...workbookSummary(reopened),
+            changedPackageParts: patched.changedSheets.map(({ sheet, part, afterBytes }) => ({ sheet, part, afterBytes })),
+            packageScopedWrite: true,
+            untouchedPackagePartsPreservedByteForByte: true,
+            sheetContentPreserved: patched.sheetContentPreserved,
+            unsupportedFeatures,
+            visualReview: 'pending',
+          },
+          artifacts: [artifactRef],
+          warnings: [
+            ...unsupportedFeatures.map(feature => ({ code: 'UNSUPPORTED_WORKBOOK_FEATURE', severity: 'info' as const, message: `${feature} was left byte-for-byte untouched by the package-scoped print-layout edit.` })),
+            { code: 'VISUAL_REVIEW_PENDING', severity: 'info', message: 'Print settings were written and the workbook reopened; render every affected sheet before relying on appearance.' },
+          ] as Warning[],
+        };
       }
       let workbook: ExcelJS.Workbook;
       if (create) {

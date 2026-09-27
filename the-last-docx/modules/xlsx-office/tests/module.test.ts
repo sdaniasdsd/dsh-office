@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import ExcelJS from 'exceljs';
+import { strFromU8, unzipSync } from 'fflate';
 import { canonicalJson } from '@dsh-office-profile/docx-artifact';
 import { describe, expect, it } from 'vitest';
 import { createXlsxOfficeModule } from '../src/index';
@@ -40,5 +41,37 @@ describe('xlsx-office', () => {
     const edited = await module.handlers.execute({ requestId: 'write-test', operation: 'execute', artifactRef: source, payload: { action: 'setCells', changes: [{ sheet: 'Data', address: 'A1', value: '=not-a-formula' }] } }) as { result: { artifactRef: { uri: string } } };
     const out = new ExcelJS.Workbook(); await out.xlsx.load(Buffer.from(artifacts.objects.get(edited.result.artifactRef.uri)!) as unknown as Parameters<typeof out.xlsx.load>[0]);
     expect(out.getWorksheet('Data')!.getCell('A1').value).toBe('=not-a-formula');
+  });
+
+  it('changes only selected worksheet print setup and preserves other OOXML parts', async () => {
+    const artifacts = store(), wb = new ExcelJS.Workbook(), ws = wb.addWorksheet('Data');
+    ws.getCell('A1').value = 'kept';
+    wb.addWorksheet('Other').getCell('A1').value = 'untouched';
+    const bytes = new Uint8Array(await wb.xlsx.writeBuffer());
+    const sourceHash = createHash('sha256').update(bytes).digest('hex');
+    const source = { id: `sha256:${sourceHash}`, uri: 'file:///managed/print-source/source.xlsx', sha256: sourceHash, sizeBytes: bytes.length, label: 'source.xlsx' };
+    artifacts.objects.set(source.uri, bytes);
+    const module = createXlsxOfficeModule({ artifactStore: artifacts, pythonPath: 'python' });
+    const output = await module.handlers.execute({ requestId: 'print-layout-test', operation: 'execute', artifactRef: source, payload: {
+      action: 'setPrintLayout', sheets: [{ sheet: 'Data', orientation: 'landscape', fitToWidth: 1, fitToHeight: 0 }],
+    } }) as { result: { artifactRef: { uri: string }; packageScopedWrite: boolean; untouchedPackagePartsPreservedByteForByte: boolean; sheetContentPreserved: boolean; changedPackageParts: { part: string }[] } };
+    expect(output.result.packageScopedWrite).toBe(true);
+    expect(output.result.untouchedPackagePartsPreservedByteForByte).toBe(true);
+    expect(output.result.sheetContentPreserved).toBe(true);
+    expect(output.result.changedPackageParts.map((item) => item.part)).toEqual(['xl/worksheets/sheet1.xml']);
+    const withoutDirectories = { filter: (entry: { name: string }) => !entry.name.endsWith('/') };
+    const before = unzipSync(bytes, withoutDirectories), after = unzipSync(artifacts.objects.get(output.result.artifactRef.uri)!, withoutDirectories);
+    for (const [part, original] of Object.entries(before)) {
+      if (part === 'xl/worksheets/sheet1.xml') continue;
+      expect(after[part]).toEqual(original);
+    }
+    const sheetXml = strFromU8(after['xl/worksheets/sheet1.xml']!);
+    expect(sheetXml).toContain('<pageSetUpPr fitToPage="1"/>');
+    expect(sheetXml).toMatch(/<pageSetup\b[^>]*orientation="landscape"[^>]*fitToWidth="1"[^>]*fitToHeight="0"[^>]*\/>/);
+    expect(sheetXml).not.toContain('scale=');
+    const out = new ExcelJS.Workbook();
+    await out.xlsx.load(Buffer.from(artifacts.objects.get(output.result.artifactRef.uri)!) as unknown as Parameters<typeof out.xlsx.load>[0]);
+    expect(out.getWorksheet('Data')!.getCell('A1').value).toBe('kept');
+    expect(out.getWorksheet('Other')!.getCell('A1').value).toBe('untouched');
   });
 });

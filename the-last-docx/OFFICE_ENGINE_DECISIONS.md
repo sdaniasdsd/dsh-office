@@ -18,6 +18,8 @@ It is a mature TypeScript/Node workbook library with workbook, worksheet, cell, 
 
 ExcelJS is pinned in the workspace package manifest and lockfile. Structural verification does not certify visual layout or formula freshness; use Excel/LibreOffice when those matter.
 
+For print pagination, `xlsx-office` also offers an opt-in `setPrintLayout` action implemented as a narrow SpreadsheetML package patch with `fflate` and `@xmldom/xmldom`. It only changes `pageSetUpPr/@fitToPage` and `pageSetup` on named sheets; it does not serialize workbook objects through ExcelJS, since doing so could drop unsupported features that the cell-write path correctly refuses. Other ZIP parts are checked byte-for-byte, and target worksheet XML must be identical outside print-setup attributes. Signed workbooks are refused. Layout acceptance still requires visual rendering; the operation does not infer print areas or suppress worksheets. This follows the OOXML placement of the fit flag and page constraints ([`pageSetUpPr`](https://learn.microsoft.com/en-us/dotnet/api/documentformat.openxml.spreadsheet.pagesetupproperties?view=openxml-3.0.1), [`pageSetup`](https://learn.microsoft.com/en-us/openspecs/office_standards/ms-oi29500/7d79dcce-d8fb-43da-a189-f0e46658da62)).
+
 ## Native PDF read — Mozilla PDF.js 6.3.289
 
 Selected: [Mozilla PDF.js](https://github.com/mozilla/pdf.js), distributed as [`pdfjs-dist`](https://www.npmjs.com/package/pdfjs-dist), Apache-2.0. This is the same engine already used by the sibling `D:\开源团队作品\pdf分区` implementation.

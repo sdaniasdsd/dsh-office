@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "exports": "./src/index.ts",
-  "dependencies": { "exceljs": "4.4.0" },
+ "dependencies": { "@xmldom/xmldom": "0.9.12", "exceljs": "4.4.0", "fflate": "0.8.3" },
   "peerDependencies": { "office-core": "*", "office-files": "*", "office-safety": "*" },
   "peerDependenciesMeta": { "office-core": { "optional": true }, "office-files": { "optional": true }, "office-safety": { "optional": true } },
   "scripts": { "typecheck": "tsc --noEmit", "test": "vitest run" }

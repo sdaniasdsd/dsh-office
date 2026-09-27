@@ -1,16 +1,20 @@
 {
   "schema": "docx-module-provenance/v1",
   "sourceRootHint": "../../docx分区",
-  "scope": "DOCX module src files are compared to sourceRootHint; local DSH Office adapters are hashed but intentionally have no mirrored upstream module.",
+  "scope": "DOCX module src files are compared to sourceRootHint; DSH-only modules and explicitly enumerated DSH integration files are recorded as local extensions.",
   "localExtensionModules": [
     "modules/pptx-office",
     "modules/xlsx-office",
     "modules/pdf-office"
   ],
-  "allModuleSourcesMatch": false,
-  "changedSources": [
+  "localExtensionFiles": [
+    "modules/docx-edit/src/domain/docx-edit.ts",
+    "modules/docx-edit/src/engine/adapter.ts",
+    "modules/docx-edit/src/engine/table-xml.ts",
     "modules/docx-render/src/engine/adapter.ts"
   ],
+  "allModuleSourcesMatch": true,
+  "changedSources": [],
   "sha256": {
     "modules/docx-artifact/src/config.ts": "d3f7b018237b78bea71a710b62a324a359ae2d4661af752a5d45e82428c7c140",
     "modules/docx-artifact/src/contract.ts": "8f6bafccdbc67dc19f413f4d60d1e9fbeab6587ac4c7d520361072b79e55b68f",
@@ -62,9 +66,9 @@
     "modules/docx-easy-parse/src/verifier.ts": "33bbbf150e52ba57ad5819e0c46d69d703df02154e3d19ccf5ce358ef8fb5952",
     "modules/docx-edit/src/config.ts": "025f7ab6e8624431b5624e1794bb892f4d9ec19fcfcea8935dcea25966ad5c0e",
     "modules/docx-edit/src/contract.ts": "7791461a6bcde8da46beb68249e88f1548513d18861686c456d565d29e881b85",
-    "modules/docx-edit/src/domain/docx-edit.ts": "a3107aaa7485ceda67c262e8f3520a83918d46c9197232eb8b48535a43daedff",
-    "modules/docx-edit/src/engine/adapter.ts": "0e09f0e69e7f9ed3dd5dbcf5756c260edd7e36b5988cfe20b5eb465ab1c33ce8",
-    "modules/docx-edit/src/engine/table-xml.ts": "eb0f30eb6eb4a4a90bfd0fd118e8b7e51d0c9dd9abb763100bbe68d500095842",
+    "modules/docx-edit/src/domain/docx-edit.ts": "471c04ebd32829b9af8aaddc42a2ee6303007da742cea29e3ef56c1517f8ef16",
+    "modules/docx-edit/src/engine/adapter.ts": "9bc907c530fa7bc8b5cda23bb249ae09ac6417687c939b311faaec647145874f",
+    "modules/docx-edit/src/engine/table-xml.ts": "6cda38d29be7e8bf2e83e731b68b3e47df7b41388cff9edfd3e1b72f18d436a2",
     "modules/docx-edit/src/errors.ts": "918ae9bd74daeef83f3604c125ffa73f472ad08c67ec99a6f117130d980a98eb",
     "modules/docx-edit/src/index.ts": "6c9d6a42af73a395c996dab456e58a839a6bca7574e4a739e35abecdd2b66847",
     "modules/docx-edit/src/mapper.ts": "13c54e9042cc5835d365b9a904064fe5071bacde2251647b4e0b25e9ea942179",
@@ -120,6 +124,7 @@
     "modules/pptx-office/src/engine/pptx_bridge.py": "fc952007a732fed07522140b8f92bcbc1fbf8be1c8814d3d95f539941833706f",
     "modules/pptx-office/src/index.ts": "acebbadccf9cee21e4ed53f7209536388511585919fa66695f1ccca343e1a636",
     "modules/xlsx-office/src/engine/zip_probe.py": "e3451bc268134d4bc8beefc8f7dcd92492a5a07c9f4de6532d688510059bc12d",
-    "modules/xlsx-office/src/index.ts": "0038507035c874ceebb85cbd966c761c19a123a71f09d261a381b6235f2ae22c"
+    "modules/xlsx-office/src/index.ts": "33a9fda2598a464a41218215126d0b185218e9697ac0941f60f55248ecd25429",
+    "modules/xlsx-office/src/print-layout.ts": "81d7286565071eb94c31a19a90a2d64ee34cd09ad1523a948fc4baa4bc6ed7bd"
   }
 }
