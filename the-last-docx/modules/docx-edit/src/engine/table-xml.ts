@@ -161,6 +161,17 @@ export function applyTableGeometry(mainXml: string, index: number, geometry: Tab
   // The grid carries the preferred column widths; without them a renderer sizes
   // the table to its content and long cell text wraps.
   const rows = children(table).filter((child) => localName(child) === 'tr');
+  const rowPagination = geometry.rowPagination ?? [];
+  const rowPaginationIndices = new Set<number>();
+  for (const item of rowPagination) {
+    if (!Number.isInteger(item.rowIndex) || item.rowIndex < 0 || item.rowIndex >= rows.length) {
+      throw new DocxEditError('INVALID_INPUT', `rowPagination.rowIndex must name an existing zero-based row (0-${Math.max(0, rows.length - 1)}).`);
+    }
+    if (rowPaginationIndices.has(item.rowIndex)) {
+      throw new DocxEditError('INVALID_INPUT', `rowPagination contains duplicate rowIndex ${item.rowIndex}.`);
+    }
+    rowPaginationIndices.add(item.rowIndex);
+  }
   const firstRowCells = rows[0] ? children(rows[0]).filter((child) => localName(child) === 'tc') : [];
   const columnCount = firstRowCells.length;
   if (geometry.columnWidths !== undefined) {
@@ -179,8 +190,19 @@ export function applyTableGeometry(mainXml: string, index: number, geometry: Tab
     applied.push('columnWidths');
   }
 
-  if (geometry.headerRow !== undefined || geometry.cellVerticalAlignment !== undefined) {
+  if (geometry.headerRow !== undefined || geometry.cellVerticalAlignment !== undefined || geometry.rowPagination !== undefined) {
     for (const [rowIndex, row] of rows.entries()) {
+      const rowOptions = geometry.rowPagination?.find((item) => item.rowIndex === rowIndex);
+      if (rowOptions) {
+        const trPr = ensureChild(document, row, 'trPr', true);
+        let cantSplit = childNamed(trPr, 'cantSplit');
+        if (rowOptions.cantSplit && !cantSplit) {
+          cantSplit = document.createElementNS(W, 'w:cantSplit');
+          trPr.insertBefore(cantSplit, trPr.firstChild);
+        } else if (!rowOptions.cantSplit && cantSplit) {
+          trPr.removeChild(cantSplit);
+        }
+      }
       if (geometry.headerRow !== undefined && rowIndex === 0) {
         const trPr = ensureChild(document, row, 'trPr', true);
         const existing = childNamed(trPr, 'tblHeader');
@@ -201,6 +223,7 @@ export function applyTableGeometry(mainXml: string, index: number, geometry: Tab
       }
     }
     if (geometry.cellVerticalAlignment !== undefined) applied.push('cellVerticalAlignment');
+    if (geometry.rowPagination !== undefined) applied.push('rowPagination');
   }
 
   if (geometry.columnWidths !== undefined) {
@@ -238,6 +261,7 @@ export interface TableGeometryReading {
   hasCellMargins: boolean;
   hasBorders: boolean;
   headerRow: boolean;
+  rowCantSplit: boolean[];
   cellWidthsTwips: number[];
 }
 
@@ -253,7 +277,7 @@ export function readTableGeometry(mainXml: string, index: number): TableGeometry
   const root = document.documentElement as Element | null;
   const table = root ? tablesIn(root)[index] : undefined;
   if (!table) {
-    return { present: false, columnCount: 0, rowCount: 0, gridWidthsTwips: [], hasCellMargins: false, hasBorders: false, headerRow: false, cellWidthsTwips: [] };
+    return { present: false, columnCount: 0, rowCount: 0, gridWidthsTwips: [], hasCellMargins: false, hasBorders: false, headerRow: false, rowCantSplit: [], cellWidthsTwips: [] };
   }
   const tblPr = childNamed(table, 'tblPr');
   const readTwips = (element: Element | undefined, attribute: string): number => {
@@ -273,6 +297,7 @@ export function readTableGeometry(mainXml: string, index: number): TableGeometry
     hasCellMargins: tblPr ? childNamed(tblPr, 'tblCellMar') !== undefined : false,
     hasBorders: tblPr ? childNamed(tblPr, 'tblBorders') !== undefined : false,
     headerRow: trPr ? childNamed(trPr, 'tblHeader') !== undefined : false,
+    rowCantSplit: rows.map((row) => childNamed(childNamed(row, 'trPr') ?? row, 'cantSplit') !== undefined),
     cellWidthsTwips: rows.flatMap((row) => children(row)
       .filter((child) => localName(child) === 'tc')
       .map((cell) => readTwips(childNamed(cell, 'tcPr') ? childNamed(childNamed(cell, 'tcPr')!, 'tcW') : undefined, 'w:w'))),
@@ -312,6 +337,9 @@ export function assertTableGeometry(geometry: TableGeometry): void {
   }
   if (geometry.styleId !== undefined && geometry.styleId.trim() === '') {
     throw new DocxEditError('INVALID_INPUT', 'styleId must be a non-empty string.');
+  }
+  if (geometry.rowPagination !== undefined && geometry.rowPagination.length === 0) {
+    throw new DocxEditError('INVALID_INPUT', 'rowPagination must contain at least one row setting.');
   }
   for (const [edge, spec] of Object.entries(geometry.borders ?? {})) {
     if (spec?.color !== undefined && !/^(#[0-9a-fA-F]{6}|auto)$/.test(spec.color)) {

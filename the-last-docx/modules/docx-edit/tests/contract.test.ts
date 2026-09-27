@@ -297,6 +297,7 @@ describe('docx-edit table instance geometry', () => {
         },
         headerRow: true,
         cellVerticalAlignment: 'center',
+        rowPagination: [{ rowIndex: 1, cantSplit: true }],
       }],
     }, DEFAULT_LIMITS);
 
@@ -311,6 +312,7 @@ describe('docx-edit table instance geometry', () => {
     expect(after.hasCellMargins).toBe(true);
     expect(after.hasBorders).toBe(true);
     expect(after.headerRow).toBe(true);
+    expect(after.rowCantSplit).toEqual([false, true]);
 
     const verification = await engine.verify(result.bytes, DEFAULT_LIMITS, { tables: result.expectedTableFormats });
     expect(verification.checks.find((check) => check.id === 'table.1.grid')?.ok).toBe(true);
@@ -331,6 +333,17 @@ describe('docx-edit table instance geometry', () => {
     expect(verification.ok).toBe(false);
     expect(verification.checks.find((check) => check.id === 'table.1.grid')?.ok).toBe(false);
     expect(verification.checks.find((check) => check.id === 'table.1.geometry')?.ok).toBe(false);
+  });
+
+  it('rejects row pagination settings that do not identify one existing table row', async () => {
+    const { parser, content, blocks } = await richBlocks();
+    const table = blocks.find((block) => block.kind === 'table');
+    if (!table) throw new Error('Expected the rich fixture table.');
+    const engine = new Docx4jCoreTsEngine();
+    await expect(engine.execute(await richFixture(), {
+      edits: [{ kind: 'formatTable', target: tableTargetFromDualIR(content, table.id), rowPagination: [{ rowIndex: 2, cantSplit: true }] }],
+    }, DEFAULT_LIMITS)).rejects.toMatchObject({ code: 'INVALID_INPUT' });
+    await parser.dispose();
   });
 
   it('refuses a grid that disagrees with the table width, before touching the document', async () => {

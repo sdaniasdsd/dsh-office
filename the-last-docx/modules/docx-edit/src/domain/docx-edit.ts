@@ -137,6 +137,8 @@ export interface TableGeometry {
   /** Repeat the first row as a header across page breaks (`w:tblHeader`). */
   headerRow?: boolean;
   cellVerticalAlignment?: TableCellVerticalAlignment;
+  /** Row pagination controls (`w:cantSplit`); rowIndex is zero-based. */
+  rowPagination?: Array<{ rowIndex: number; cantSplit: boolean }>;
 }
 
 export interface FormatTableEdit extends TableGeometry {
@@ -214,6 +216,7 @@ export interface ExpectedTableFormat {
   layout?: 'fixed' | 'autofit';
   columnWidthsPt?: number[];
   headerRow?: boolean;
+  rowPagination?: Array<{ rowIndex: number; cantSplit: boolean }>;
 }
 
 /**

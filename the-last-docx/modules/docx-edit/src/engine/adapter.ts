@@ -371,6 +371,7 @@ export class Docx4jCoreTsEngine {
         if (edit.layout !== undefined) expected.layout = edit.layout;
         if (edit.columnWidths !== undefined) expected.columnWidthsPt = edit.columnWidths;
         if (edit.headerRow !== undefined) expected.headerRow = edit.headerRow;
+        if (edit.rowPagination !== undefined) expected.rowPagination = edit.rowPagination;
         expectedTableFormats.push(expected);
       }
       main.setXml(mainXml);
@@ -790,6 +791,9 @@ function tableChecks(
     if (expected.widthPt !== undefined && reading.widthTwips !== twipsOf(expected.widthPt)) missing.push('width');
     if (expected.layout !== undefined && reading.layout !== expected.layout) missing.push('layout');
     if (expected.headerRow !== undefined && reading.headerRow !== expected.headerRow) missing.push('headerRow');
+    for (const row of expected.rowPagination ?? []) {
+      if (reading.rowCantSplit[row.rowIndex] !== row.cantSplit) missing.push(`rowPagination[${row.rowIndex}]`);
+    }
     if (expected.columnWidthsPt !== undefined) {
       const wanted = expected.columnWidthsPt.map(twipsOf);
       const gridMatches = reading.gridWidthsTwips.length === wanted.length

@@ -111,7 +111,7 @@ const formatted = await docxEdit.handlers.execute({
 });
 ```
 
-Supported: `styleId`, `width`, `layout`, `alignment`, `columnWidths`, `cellMargins`, `borders`, `headerRow`, `cellVerticalAlignment`. Units are points. When both `width` and `columnWidths` are given they must agree, because a fixed-layout grid that does not add up to the table width is not a layout Word will honour.
+Supported: `styleId`, `width`, `layout`, `alignment`, `columnWidths`, `cellMargins`, `borders`, `headerRow`, `cellVerticalAlignment`, and `rowPagination` (`{rowIndex, cantSplit}`; zero-based). `rowPagination` writes and verifies row-level `w:cantSplit`, allowing an intentional table row to move as a unit rather than leave a fragment on the next page. Units are points. When both `width` and `columnWidths` are given they must agree, because a fixed-layout grid that does not add up to the table width is not a layout Word will honour.
 
 A table target names a body-level table (`/w:document/w:body/w:tbl[n]`) and is resolved through `tableTargetFromDualIR`; `targetFromDualIR` keeps refusing non-paragraph anchors, so a paragraph edit can never be quietly aimed at a table.
 
