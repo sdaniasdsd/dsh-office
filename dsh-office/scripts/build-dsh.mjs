@@ -6,7 +6,6 @@ const root=fileURLToPath(new URL('..',import.meta.url));
 const VERSION='0.9.1';
 // 工具链（运行时）的产地与版本：运行时不再是本仓库的产物，见 toolchain.lock.json。
 const toolchainPin=JSON.parse(await readFile(join(root,'toolchain.lock.json'),'utf8'));
-const releaseBase='https://github.com/sdaniasdsd/dsh-office/releases/download';
 const platformDir='win32-x64';
 const coreOut=resolve(root,'dist','dsh-docx');
 const runtimeOut=resolve(root,'dist','dsh-docx-runtime');
@@ -127,26 +126,33 @@ console.log(`runtime package built: ${runtimeOut}  (source ${runtimeSource})`);
 
 // ---------------------------------------------------------------------------
 // 3. 元包：一步装好 = 核心 + 运行时。
-//    两个子包都没发布到公共 npm，所以依赖写成 release 的直链 URL——这样从 tarball 装元包
-//    时 npm/pnpm 能直接把两个包拉下来，不需要 registry。先传子包再传元包。
+//    依赖写**版本号**而不是 release 直链：pnpm 默认开 blockExoticSubdeps，子依赖里的 URL 依赖会被拒
+//    （实测 ERR_PNPM_EXOTIC_SUBDEP），所以直链方案装不上。没有 registry 时这个元包装不起来——
+//    发布形态因此是"分别装核心与运行时"，元包留着给"两个子包都发到 registry"的那天用。
 // ---------------------------------------------------------------------------
 await mkdir(fullOut,{recursive:true});
 const fullPackage={name:'@deepseek-ai/dsh-docx-full',version:VERSION,type:'module',license:'UNLICENSED',description:'Meta package: the DSH office plugin core plus its Windows x64 runtime, for a one-step install.',private:false,dependencies:{
-  '@deepseek-ai/dsh-docx':`${releaseBase}/v${VERSION}/deepseek-ai-dsh-docx-${VERSION}.tgz`,
-  '@deepseek-ai/dsh-docx-runtime':`${releaseBase}/v${VERSION}/deepseek-ai-dsh-docx-runtime-${VERSION}.tgz`,
+  '@deepseek-ai/dsh-docx':VERSION,
+  '@deepseek-ai/dsh-docx-runtime':VERSION,
 }};
 await writeFile(join(fullOut,'package.json'),JSON.stringify(fullPackage,null,2)+'\n');
 await writeFile(join(fullOut,'README.md'),`# @deepseek-ai/dsh-docx-full ${VERSION}
 
-只写依赖的元包：\`@deepseek-ai/dsh-docx\`（核心，约 15 MB）+ \`@deepseek-ai/dsh-docx-runtime\`（Windows x64 运行时）。
+只写依赖的元包：\`@deepseek-ai/dsh-docx\`（核心）+ \`@deepseek-ai/dsh-docx-runtime\`（Windows x64 运行时）。
 
-两个子包没有发布到公共 npm，所以这里的依赖是本仓库 release 的直链：
+**它需要 registry**：依赖写的是版本号 ${VERSION}，两个子包目前只以 tarball 形式发布在本仓库的 Release 里，
+没有被 registry 收录，所以从 tarball 装这个元包会解析不到依赖。试过把依赖改成 release 直链 URL，
+但 pnpm 默认开 \`blockExoticSubdeps\`，会直接报 \`ERR_PNPM_EXOTIC_SUBDEP\`（子依赖不允许 URL 依赖）。
 
-- \`${releaseBase}/v${VERSION}/deepseek-ai-dsh-docx-${VERSION}.tgz\`
-- \`${releaseBase}/v${VERSION}/deepseek-ai-dsh-docx-runtime-${VERSION}.tgz\`
+所以现在的装法是**分别装两个包**：
 
-**先传子包、再传本包**，否则直链会 404。想省体积、或已经有自己的一份 LibreOffice/Python，
-就只装核心再指定 \`runtimeRoot\` / \`DSH_OFFICE_RUNTIME_ROOT\`。运行时的产地是
+\`\`\`powershell
+dsh plugin --profile web add '<核心>.tgz'
+dsh plugin --profile web add '<运行时>.tgz'
+\`\`\`
+
+或者只装核心，用 \`runtimeRoot\` / \`DSH_OFFICE_RUNTIME_ROOT\` 指向你自己那份 LibreOffice/Python。
+子包一旦发到 registry，这个元包就能直接当"一步装好"用。运行时的产地是
 \`${toolchainPin.repo} ${toolchainPin.tag}\`（摘要钉在 dsh-office 的 \`toolchain.lock.json\`）。
 `);
 console.log(`full package built:    ${fullOut}`);

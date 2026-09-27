@@ -46,7 +46,7 @@ npm run pack:dsh       # 打成三个 tgz（运行时不存在的构建只打核
 | --- | --- | --- |
 | `@deepseek-ai/dsh-docx` | 核心：JS bundle + dsh 清单 + 文档，**不含运行时** | tarball 2.2 MB |
 | `@deepseek-ai/dsh-docx-runtime` | Windows x64 运行时：私有 Python 3.13 + LibreOffice + Poppler，带 `runtime.json` 清单 | tarball 546 MB |
-| `@deepseek-ai/dsh-docx-full` | 元包：依赖指向本仓库 release 的两个子包直链，想一步装好就用它 | tarball ~1 KB |
+| `@deepseek-ai/dsh-docx-full` | 元包：只写依赖（版本号）。**需要 registry**——两个子包目前只以 tarball 发布，所以现在请分别装两个包；直链依赖方案被 pnpm 的 `blockExoticSubdeps` 拒掉（实测 `ERR_PNPM_EXOTIC_SUBDEP`） | ~1 KB |
 
 **运行时的产地不是本仓库**，而是 [`sdaniasdsd/dsh-toolchain`](https://github.com/sdaniasdsd/dsh-toolchain)：
 `toolchain.lock.json` 钉住那一版工件的 tag / 资产名 / sha256 / 字节数，`npm run fetch:toolchain` 按它下载、

@@ -121,7 +121,7 @@ esbuild 的平台二进制由可选依赖 `@esbuild/win32-x64` 提供（实测�
 | --- | --- | --- |
 | `@deepseek-ai/dsh-docx` | 核心：`dsh/`、`lib/`（bundle）、第三方许可、文档 | tarball **2.2 MB** |
 | `@deepseek-ai/dsh-docx-runtime` | `runtime/win32-x64/**` + `runtime.json` 清单 | tarball **546 MB** |
-| `@deepseek-ai/dsh-docx-full` | 元包：依赖写成 release 直链 URL（两个子包都没上 npm），**先传子包再传它** | ~1 KB |
+| `@deepseek-ai/dsh-docx-full` | 元包：只写依赖（版本号）。**需要 registry 才装得上**；两个子包现在只以 tarball 发布，所以发布形态是"分别装核心与运行时"。曾试过把依赖写成 release 直链，但 pnpm 默认 `blockExoticSubdeps` 会拒绝子依赖里的 URL 依赖（实测 `ERR_PNPM_EXOTIC_SUBDEP`） | ~1 KB |
 
 核心包找运行时的顺序（`dsh/runtime-config.mjs`）：插件配置 `runtimeRoot` → 环境变量 `DSH_OFFICE_RUNTIME_ROOT`（或 `DOCX_PYTHON/DOCX_SOFFICE/DOCX_PDFTOPPM`）→ **兄弟运行时包**（向上找 `node_modules/@deepseek-ai/dsh-docx-runtime`，读 `runtime.json`）→ 自带 `runtime/win32-x64`。
 缺运行时**不再是启动失败**：只把存在的路径注入子进程，缺什么写进 stderr 与 `DSH_DOCX_RUNTIME_MISSING`，相关能力在调用时返回 `ENGINE_UNAVAILABLE`，`docx_doctor` 逐项给结论。
