@@ -13,8 +13,9 @@ const workspace = join(root, 'workspace');
 const data = join(root, 'data');
 const reportPath = join(root, 'report.json');
 const manifestPath = join(root, 'manifest.json');
-const pkg = 'C:/Users/AA/AppData/Roaming/com.yeagoo.dsh-desktop/harness/profiles/web/node_modules/@deepseek-ai/dsh-docx';
-const runtime = 'C:/Users/AA/AppData/Local/DSH Desktop/runtime';
+const pkg = process.env.DSH_DOCX_PROFILE_ROOT ?? 'C:/Users/AA/AppData/Roaming/com.yeagoo.dsh-desktop/harness/profiles/web/node_modules/@deepseek-ai/dsh-docx';
+const runtime = process.env.DSH_RUNTIME_ROOT ?? 'C:/Users/AA/AppData/Local/DSH Desktop/runtime';
+const profileLabel = process.env.DSH_PROFILE_LABEL ?? `@deepseek-ai/dsh-docx at ${pkg}`;
 const bundleRuntime = `${pkg}/runtime/win32-x64`;
 
 const specimens = [
@@ -138,7 +139,7 @@ for (const specimen of specimens) {
   specimen.workspaceSha256 = createHash('sha256').update(await readFile(dest)).digest('hex');
   specimen.sizeBytes = (await readFile(dest)).byteLength;
 }
-await atomicJson(manifestPath, { createdAt: new Date().toISOString(), profile: '@deepseek-ai/dsh-docx@0.8.0', formats: ['docx', 'pdf', 'pptx', 'xlsx'], perFormat: 5, rounds, totalMaterialRounds: 20 * rounds, specimens,
+await atomicJson(manifestPath, { createdAt: new Date().toISOString(), profile: profileLabel, profileRoot: pkg, formats: ['docx', 'pdf', 'pptx', 'xlsx'], perFormat: 5, rounds, totalMaterialRounds: 20 * rounds, specimens,
   pdfSamples: specimens.filter(s => s.format === 'docx').map(s => ({ sourceDocx: s.file, kind: 'DSH docx-render PDF output', derived: true })) });
 
 const env = Object.fromEntries(Object.entries(process.env).filter(([, value]) => typeof value === 'string'));
@@ -151,7 +152,7 @@ Object.assign(env, {
 });
 const client = new Client({ name: 'dsh-office-stress', version: '1.0.0' });
 const transport = new StdioClientTransport({ command: `${runtime}/node.exe`, args: [`${pkg}/lib/server.mjs`], cwd: workspace, env, stderr: 'pipe' });
-const report = { startedAt: new Date().toISOString(), finishedAt: null, profile: '@deepseek-ai/dsh-docx@0.8.0', backend: 'installed DSH profile MCP stdio server', roundsPerMaterial: rounds, plannedMaterialRounds: 20 * rounds, actualCalls: 0, imports: [], preflights: [], records: [], failures: [], pdfCoverageNote: 'DSH exposes DOCX-to-PDF rendering; no native PDF import/parse module is registered. PDF stress cases are actual PDF artifacts emitted by the DSH render module from five official DOCX office materials.', visualReview: 'pending; page PNG artifacts are recorded for follow-up inspection.' };
+const report = { startedAt: new Date().toISOString(), finishedAt: null, profile: profileLabel, backend: 'DSH profile MCP stdio server', roundsPerMaterial: rounds, plannedMaterialRounds: 20 * rounds, actualCalls: 0, imports: [], preflights: [], records: [], failures: [], pdfCoverageNote: 'This run exercises DOCX-to-PDF output rendering; native PDF input parsing is covered by the separate pdf-office replay. PDF stress artifacts are emitted by the DSH render module from the five official DOCX office materials.', visualReview: 'pending; page PNG artifacts are recorded for follow-up inspection.' };
 const serverStderr = [];
 transport.stderr?.on('data', chunk => serverStderr.push(Buffer.isBuffer(chunk) ? chunk.toString('utf8') : String(chunk)));
 const refs = new Map();

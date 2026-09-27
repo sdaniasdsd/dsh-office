@@ -82,6 +82,8 @@ Copy-Item -LiteralPath (Join-Path $fullRoot 'sources') -Destination (Join-Path $
 
 The runner emits 200 operation records (50 per DOCX, PDF-output, PPTX and XLSX path); imports, preflights and Doctor are counted separately. A full run is sequential; it is not a concurrency or semantic-correctness certification.
 
+To exercise an explicitly selected source-built or local Profile rather than the default installed Profile, set `DSH_DOCX_PROFILE_ROOT`, `DSH_RUNTIME_ROOT` and optionally `DSH_PROFILE_LABEL` in the process environment before launching the runner. The manifest records both the profile label and root. Native PDF input reading is a separate capability and is covered by the `pdf-office` replay, not by the DOCX-to-PDF output lane here.
+
 ## B0 acceptance checklist
 
 - [x] Corpus verifier exits 0 with exactly 15 specimens and all source/workspace hashes matching.
