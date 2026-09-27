@@ -3,7 +3,7 @@ import { readFile,writeFile,mkdir,cp,readdir,rm,rename,stat,access } from 'node:
 import { resolve,join,relative,dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root=fileURLToPath(new URL('..',import.meta.url));
-const VERSION='0.9.2';
+const VERSION='0.9.3';
 // 工具链（运行时）的产地与版本：运行时不再是本仓库的产物，见 toolchain.lock.json。
 const toolchainPin=JSON.parse(await readFile(join(root,'toolchain.lock.json'),'utf8'));
 const platformDir='win32-x64';

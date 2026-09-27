@@ -67,6 +67,10 @@ foreach ($item in $pptxWheels) {
     Expand-Wheel $wheelPath
 }
 if (!(Test-Path -LiteralPath (Join-Path $runtime 'python/python313._pth'))) { throw 'Python embeddable path file is missing.' }
-$pth=@('python313.zip','.','Lib/site-packages','../../../lib/engines/docx-complex-parse','import site')
+# 只列解释器自身的搜索路径。引擎目录【不能】写在这里：._pth 的相对路径是相对
+# python.exe 所在目录解析的，而引擎随「核心包」走（node_modules/@deepseek-ai/dsh-docx/lib/engines），
+# 与「运行时包」是两棵不同的树，任何写死的相对路径都会在换一种安装布局后失效。
+# 引擎需要同目录的兄弟模块时，由引擎自己 sys.path.insert。
+$pth=@('python313.zip','.','Lib/site-packages','import site')
 Set-Content -LiteralPath (Join-Path $runtime 'python/python313._pth') -Value $pth -Encoding ascii
 Write-Host "Offline runtimes are hash-verified and extracted under $runtime"

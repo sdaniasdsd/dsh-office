@@ -36,10 +36,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from typing import Any
 
-import docx_parse as base
+# 同 docx_complex_parse.py：embeddable Python 的 python313._pth 关掉了脚本目录的
+# 自动入路径，同目录的 docx_parse 需要显式插入才能 import。
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import docx_parse as base  # noqa: E402  — 必须在 sys.path 修正之后
 
 # Docling 中代表「标题」的标签值。
 DOCLING_HEADING_LABELS = frozenset({"title", "section_header"})

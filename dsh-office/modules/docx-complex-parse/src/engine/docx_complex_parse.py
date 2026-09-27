@@ -33,11 +33,19 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import xml.etree.ElementTree as ET
 import zipfile
 from typing import Any
-from observations import read_observations
+
+# 随包发布的解释器是 Python embeddable 版，目录里带 python313._pth——那等价于
+# isolated 模式：脚本所在目录【不会】自动进入 sys.path，PYTHONPATH 也会被忽略。
+# observations 就在脚本旁边，只能靠显式插入；否则整个进程以 ModuleNotFoundError
+# 非零退出，上层只看到一个没有失败信封的 ENGINE_FAILED。
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from observations import read_observations  # noqa: E402  — 必须在 sys.path 修正之后
 
 PARSE_VERSION = 1
 W_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
