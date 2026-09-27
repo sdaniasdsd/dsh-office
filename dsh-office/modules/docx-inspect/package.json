@@ -1,0 +1,53 @@
+{
+  "name": "@dsh-office-profile/docx-inspect",
+  "version": "0.1.0",
+  "private": true,
+  "description": "dsh-office-profile module: input probing and safe reading for DOCX/OOXML artifacts.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "types",
+    "module.json"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:contract": "vitest run tests/contract.test.ts",
+    "test:edge": "vitest run tests/edge-cases.test.ts",
+    "test:regression": "vitest run tests/regression.test.ts",
+    "fixtures:build": "python fixtures/generate_fixtures.py --out fixtures/_generated"
+  },
+  "peerDependencies": {
+    "office-core": "*",
+    "office-files": "*",
+    "office-safety": "*",
+    "office-test-kit": "*"
+  },
+  "peerDependenciesMeta": {
+    "office-core": {
+      "optional": true
+    },
+    "office-files": {
+      "optional": true
+    },
+    "office-safety": {
+      "optional": true
+    },
+    "office-test-kit": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

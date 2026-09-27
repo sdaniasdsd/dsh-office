@@ -1,0 +1,9 @@
+node_modules/
+.build-cache/
+.docx-data/
+modules/**/node_modules/
+modules/**/fixtures/_generated/
+modules/**/__pycache__/
+coverage/
+.mcp.json
+dist/

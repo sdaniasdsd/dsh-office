@@ -1,0 +1,13 @@
+{
+  "name": "@dsh-office-profile/pptx-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "pptx-*"
+  ],
+  "scripts": {
+    "assemble": "node ../dsh-office/scripts/assemble.mjs",
+    "test:modules": "node ../dsh-office/scripts/check-modules.mjs"
+  }
+}

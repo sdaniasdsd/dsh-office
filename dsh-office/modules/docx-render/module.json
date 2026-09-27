@@ -1,0 +1,69 @@
+{
+  "id": "docx-render",
+  "name": "docx-render",
+  "version": "0.1.0",
+  "profileGroup": "DOCX",
+  "summary": "DOCX page rendering into PDF and page images for agent visual review.",
+  "entry": "src/index.ts",
+  "capabilities": ["inspect", "execute", "verify"],
+  "dependencies": [
+    { "name": "office-core", "kind": "module" },
+    { "name": "office-safety", "kind": "module" },
+    { "name": "office-files", "kind": "module" },
+    { "name": "docx-parse", "kind": "module" },
+    { "name": "office-test-kit", "kind": "module", "optional": true },
+    { "name": "LibreOffice soffice", "kind": "runtime", "optional": true },
+    { "name": "Poppler pdftoppm", "kind": "runtime", "optional": true }
+  ],
+  "engines": {
+    "driver": "libreoffice-poppler",
+    "requires": ["LibreOffice soffice", "Poppler pdftoppm"],
+    "notes": "External executables are resolved in the Agent runtime, not installed or invoked on end-user machines implicitly. Inject an alternate RenderEngine to use a Profile preview service."
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "engine": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "driver": { "type": "string", "enum": ["libreoffice-poppler"], "default": "libreoffice-poppler" },
+          "sofficePath": { "type": "string", "default": "soffice" },
+          "pdftoppmPath": { "type": "string", "default": "pdftoppm" },
+          "tempRoot": { "type": "string" }
+        }
+      },
+      "limits": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "maxInputBytes": { "type": "integer", "minimum": 1, "default": 67108864 },
+          "maxPdfBytes": { "type": "integer", "minimum": 1, "default": 134217728 },
+          "maxTotalImageBytes": { "type": "integer", "minimum": 1, "default": 268435456 },
+          "maxPages": { "type": "integer", "minimum": 1, "default": 200 },
+          "dpi": { "type": "integer", "minimum": 36, "maximum": 300, "default": 120 },
+          "thumbnailMaxEdge": { "type": "integer", "minimum": 64, "maximum": 2048, "default": 480 }
+        }
+      },
+      "timeoutMs": { "type": "integer", "minimum": 1, "default": 120000 },
+      "featureFlags": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "emitPdf": { "type": "boolean", "default": true },
+          "emitThumbnails": { "type": "boolean", "default": true },
+          "requireVisualReview": { "type": "boolean", "default": true }
+        }
+      }
+    }
+  },
+  "errorCodes": [
+    "INVALID_INPUT", "ARTIFACT_NOT_FOUND", "UNSUPPORTED_ARTIFACT_URI", "FORMAT_MISMATCH",
+    "SAFETY_POLICY_DENIED", "ARTIFACT_STORE_UNAVAILABLE", "ENGINE_UNAVAILABLE", "ENGINE_FAILED",
+    "ENGINE_TIMEOUT", "ENGINE_PROTOCOL_ERROR", "LIMIT_EXCEEDED",
+    "SOURCE_MAP_REQUIRED", "SOURCE_MAP_MISMATCH", "STALE_RENDER_RESULT",
+    "VERIFICATION_FAILED"
+  ],
+  "warningCodes": ["VISUAL_REVIEW_PENDING", "VISUAL_FINDINGS_PRESENT", "FONT_SUBSTITUTION_POSSIBLE"]
+}

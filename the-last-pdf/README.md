@@ -47,3 +47,8 @@ PDF.js/Node/C++ PDFium 等组件同步处理可能超过通用 AbortSignal 的�
 加密文件只按空密码尝试读取；不询问或持久化口令。签名文档、XFA 和需要保留字段层级的裁页操作明确停止。输出通过新摘要引用，不覆盖源文档。
 
 详细的迁移依据、开源上游、依赖版本、验证结果及尚未覆盖的 PDF 类别： [迁移说明](docs/MIGRATION.md)、[开源社区记录](docs/COMMUNITY-SOURCES.md)、[验证记录](VALIDATION.md)、[验收语料计划](docs/ACCEPTANCE.md)。
+
+## DSH 集成模块
+
+`pdf-office/` 是插件里被注册的那个 PDF 模块（`@dsh-office-profile/pdf-office`）：只读检查与文本抽取，
+基于 `pdfjs-dist`。其余 `pdf-*` 目录是本家族自己的实现与文档工作区；两者都由 `../dsh-office` 统一装配与打包。

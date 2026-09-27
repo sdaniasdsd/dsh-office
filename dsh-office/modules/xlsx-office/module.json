@@ -1,0 +1,12 @@
+{
+  "id": "xlsx-office",
+  "name": "xlsx-office",
+  "version": "0.1.0",
+  "profileGroup": "XLSX",
+  "entry": "src/index.ts",
+  "summary": "Inspect workbooks, read/write guarded ranges, apply bounded cell styles, set print layout, and create XLSX workbooks.",
+  "capabilities": ["inspect", "execute", "verify"],
+  "implementation": "implemented",
+  "engineSelection": "user-approved",
+  "decisionIds": ["XLSX-EXCELJS"]
+}

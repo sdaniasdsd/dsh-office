@@ -1,0 +1,12 @@
+{
+  "id": "pdf-office",
+  "name": "pdf-office",
+  "version": "0.1.0",
+  "profileGroup": "PDF",
+  "entry": "src/index.ts",
+  "summary": "Inspect native PDF metadata and extract bounded native text and page geometry; OCR and layout interpretation are not inferred.",
+  "capabilities": ["inspect", "execute", "verify"],
+  "implementation": "implemented",
+  "engineSelection": "user-approved",
+  "decisionIds": ["PDFJS-NATIVE-READ"]
+}

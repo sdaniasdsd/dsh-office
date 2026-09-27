@@ -1,0 +1,12 @@
+{
+  "id": "pptx-office",
+  "name": "pptx-office",
+  "version": "0.1.0",
+  "profileGroup": "PPTX",
+  "entry": "src/index.ts",
+  "summary": "Inspect/extract PPTX, replace addressed text runs, and apply bounded slide title/body typography.",
+  "capabilities": ["inspect", "execute", "verify"],
+  "implementation": "implemented",
+  "engineSelection": "user-approved",
+  "decisionIds": ["PPTX-PYTHON-PPTX"]
+}

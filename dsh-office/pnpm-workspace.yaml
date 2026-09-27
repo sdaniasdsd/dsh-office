@@ -1,0 +1,9 @@
+# DSH Office 外壳的 pnpm 配置。
+#
+# 为什么需要这一条：外壳的打包脚本（scripts/build-dsh.mjs）用 esbuild，而 esbuild 依赖
+# postinstall 放置它的平台二进制。pnpm 默认不执行依赖的构建脚本，之前的写法
+# （allowBuilds: esbuild: set this to true or false）是个占位符，构建脚本因此被跳过。
+#
+# workspace 的成员仍由 package.json 的 workspaces 声明（modules/* 与 packages/*）。
+onlyBuiltDependencies:
+  - esbuild

@@ -1,0 +1,86 @@
+{
+  "id": "docx-edit",
+  "name": "docx-edit",
+  "version": "0.2.0",
+  "profileGroup": "DOCX",
+  "summary": "Structured DOCX editing with node targeting, in-place paragraph formatting, comments, tracked-change policies, and relationship-safe package updates.",
+  "entry": "src/index.ts",
+  "capabilities": ["inspect", "execute", "verify"],
+  "dependencies": [
+    { "name": "office-core", "kind": "module" },
+    { "name": "office-safety", "kind": "module" },
+    { "name": "office-files", "kind": "module" },
+    { "name": "docx-parse", "kind": "module" },
+    { "name": "office-test-kit", "kind": "module", "optional": true },
+    { "name": "@docx4j/core-ts", "kind": "npm", "version": "0.1.5" }
+  ],
+  "engines": {
+    "driver": "typescript",
+    "package": "@docx4j/core-ts",
+    "requires": ["Node.js >=18", "@docx4j/core-ts 0.1.5", "docx-parse semantic anchors"]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "engine": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "driver": { "type": "string", "enum": ["docx4j-core-ts"], "default": "docx4j-core-ts" }
+        }
+      },
+      "limits": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "maxInputBytes": { "type": "integer", "minimum": 1, "default": 67108864 },
+          "maxOutputBytes": { "type": "integer", "minimum": 1, "default": 134217728 },
+          "maxOperations": { "type": "integer", "minimum": 1, "default": 1000 }
+        }
+      },
+      "timeoutMs": { "type": "integer", "minimum": 1, "default": 30000 },
+      "featureFlags": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "allowTextReplacement": { "type": "boolean", "default": true },
+          "allowComments": { "type": "boolean", "default": true },
+          "allowTrackedChanges": { "type": "boolean", "default": true },
+          "allowAcceptReject": { "type": "boolean", "default": false },
+          "requireExpectedDigest": { "type": "boolean", "default": true },
+          "allowFormatting": { "type": "boolean", "default": true },
+          "allowTableFormatting": { "type": "boolean", "default": true }
+        }
+      }
+    }
+  },
+  "errorCodes": [
+    "INVALID_INPUT",
+    "ARTIFACT_NOT_FOUND",
+    "UNSUPPORTED_ARTIFACT_URI",
+    "FORMAT_MISMATCH",
+    "SAFETY_POLICY_DENIED",
+    "ARTIFACT_STORE_UNAVAILABLE",
+    "ENGINE_UNAVAILABLE",
+    "ENGINE_FAILED",
+    "ENGINE_TIMEOUT",
+    "ENGINE_PROTOCOL_ERROR",
+    "TARGET_NOT_FOUND",
+    "TARGET_AMBIGUOUS",
+    "STALE_TARGET",
+    "TEXT_NOT_FOUND",
+    "TEXT_AMBIGUOUS",
+    "UNSUPPORTED_OPERATION",
+    "RELATIONSHIP_INTEGRITY_FAILED",
+    "LIMIT_EXCEEDED",
+    "VERIFICATION_FAILED"
+  ],
+  "warningCodes": [
+    "PARTIAL_EDIT",
+    "UNSUPPORTED_CONTENT_PRESERVED",
+    "WEAK_ANCHOR",
+    "VERIFICATION_SKIPPED",
+    "VERIFICATION_FAILED"
+  ]
+}

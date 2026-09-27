@@ -1,0 +1,117 @@
+{
+  "id": "docx-parse",
+  "name": "docx-parse",
+  "version": "0.2.0",
+  "profileGroup": "DOCX",
+  "summary": "Structural parsing of DOCX: paragraphs, headings, tables, styles, relationships, comments, footnotes mapped to a normalized IR.",
+  "entry": "src/index.ts",
+  "capabilities": ["inspect", "execute", "verify"],
+  "dependencies": [
+    { "name": "office-core", "kind": "module" },
+    { "name": "office-safety", "kind": "module" },
+    { "name": "office-files", "kind": "module", "optional": true },
+    { "name": "office-test-kit", "kind": "module", "optional": true },
+    { "name": "python", "kind": "runtime" }
+  ],
+  "engines": {
+    "driver": "python",
+    "script": "src/engine/docx_parse.py",
+    "requires": ["zipfile", "lxml (recommended, falls back to stdlib xml.etree)"],
+    "optionalRequires": [],
+    "deep": {
+      "driver": "docling",
+      "script": "src/engine/docx_parse_docling.py",
+      "appliesTo": ["execute", "verify"],
+      "requires": ["docling"],
+      "note": "Optional high-quality body-structure backend. inspect always uses the lightweight engine."
+    }
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "engine": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "driver": { "type": "string", "enum": ["python"], "default": "python" },
+          "pythonPath": { "type": "string", "default": "python" },
+          "scriptPath": { "type": "string" },
+          "env": { "type": "object", "additionalProperties": { "type": "string" } },
+          "deep": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "driver": { "type": "string", "enum": ["docling"] },
+              "pythonPath": { "type": "string" },
+              "scriptPath": { "type": "string" },
+              "env": { "type": "object", "additionalProperties": { "type": "string" } },
+              "timeoutMs": { "type": "integer", "minimum": 1, "default": 120000 }
+            },
+            "required": ["driver"]
+          }
+        }
+      },
+      "limits": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "maxArchiveEntries": { "type": "integer", "minimum": 1, "default": 4096 },
+          "maxEntryUncompressedBytes": { "type": "integer", "minimum": 1, "default": 33554432 },
+          "maxTotalUncompressedBytes": { "type": "integer", "minimum": 1, "default": 268435456 },
+          "maxRelationships": { "type": "integer", "minimum": 1, "default": 4096 },
+          "maxBlocks": { "type": "integer", "minimum": 1, "default": 20000 },
+          "maxTableCells": { "type": "integer", "minimum": 1, "default": 20000 },
+          "maxStyles": { "type": "integer", "minimum": 1, "default": 2000 },
+          "maxComments": { "type": "integer", "minimum": 1, "default": 2000 },
+          "maxFootnotes": { "type": "integer", "minimum": 1, "default": 2000 }
+        }
+      },
+      "timeoutMs": { "type": "integer", "minimum": 1, "default": 20000 },
+      "featureFlags": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "parseParagraphs": { "type": "boolean", "default": true },
+          "parseHeadings": { "type": "boolean", "default": true },
+          "parseTables": { "type": "boolean", "default": true },
+          "parseStyles": { "type": "boolean", "default": true },
+          "parseRelationships": { "type": "boolean", "default": true },
+          "parseComments": { "type": "boolean", "default": true },
+          "parseFootnotes": { "type": "boolean", "default": true },
+          "extractMetadata": { "type": "boolean", "default": true },
+          "enforceLimits": { "type": "boolean", "default": true }
+        }
+      }
+    }
+  },
+  "errorCodes": [
+    "INVALID_INPUT",
+    "ARTIFACT_NOT_FOUND",
+    "UNSUPPORTED_ARTIFACT_URI",
+    "FORMAT_MISMATCH",
+    "UNSUPPORTED_CONTAINER",
+    "SAFETY_POLICY_DENIED",
+    "ENGINE_UNAVAILABLE",
+    "ENGINE_FAILED",
+    "ENGINE_TIMEOUT",
+    "ENGINE_PROTOCOL_ERROR",
+    "PARSE_FAILED",
+    "LIMIT_EXCEEDED",
+    "VERIFICATION_FAILED"
+  ],
+  "warningCodes": [
+    "EMPTY_DOCUMENT",
+    "NO_HEADINGS",
+    "STYLES_MISSING",
+    "BROKEN_STYLE_REFERENCE",
+    "DANGLING_RELATIONSHIP",
+    "COMMENTS_PRESENT",
+    "FOOTNOTES_PRESENT",
+    "UNKNOWN_BLOCK_SKIPPED",
+    "DECLARED_HINT_MISMATCH",
+    "LIMIT_APPLIED",
+    "PARTIALLY_PARSED",
+    "XML_BACKEND_FALLBACK"
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "id": "docx-inspect",
+  "name": "docx-inspect",
+  "version": "0.1.0",
+  "profileGroup": "DOCX",
+  "summary": "Input probing and safe read for DOCX: extension/MIME, OOXML structure, macros, external references, embedded objects.",
+  "entry": "src/index.ts",
+  "capabilities": ["inspect", "execute", "verify"],
+  "dependencies": [
+    { "name": "office-core", "kind": "module" },
+    { "name": "office-safety", "kind": "module" },
+    { "name": "office-files", "kind": "module", "optional": true },
+    { "name": "office-test-kit", "kind": "module", "optional": true },
+    { "name": "python", "kind": "runtime" }
+  ],
+  "engines": {
+    "driver": "python",
+    "script": "src/engine/docx_probe.py",
+    "requires": ["zipfile", "lxml (recommended, falls back to stdlib xml.etree)"],
+    "optionalRequires": [
+      "oletools (enables featureFlags.analyzeMacroCode for macro code semantics; when absent the probe degrades gracefully instead of failing)"
+    ]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "engine": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "driver": { "type": "string", "enum": ["python"], "default": "python" },
+          "pythonPath": { "type": "string", "default": "python" },
+          "scriptPath": { "type": "string" },
+          "env": { "type": "object", "additionalProperties": { "type": "string" } }
+        }
+      },
+      "limits": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "maxArchiveEntries": { "type": "integer", "minimum": 1, "default": 4096 },
+          "maxEntryUncompressedBytes": { "type": "integer", "minimum": 1, "default": 33554432 },
+          "maxTotalUncompressedBytes": { "type": "integer", "minimum": 1, "default": 268435456 },
+          "maxRelationships": { "type": "integer", "minimum": 1, "default": 4096 },
+          "maxExternalTargets": { "type": "integer", "minimum": 1, "default": 512 }
+        }
+      },
+      "timeoutMs": { "type": "integer", "minimum": 1, "default": 20000 },
+      "featureFlags": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "detectMacros": { "type": "boolean", "default": true },
+          "detectExternalLinks": { "type": "boolean", "default": true },
+          "detectEmbeddedObjects": { "type": "boolean", "default": true },
+          "detectAltChunks": { "type": "boolean", "default": true },
+          "detectActiveX": { "type": "boolean", "default": true },
+          "detectDdeFields": { "type": "boolean", "default": true },
+          "enforceLimits": { "type": "boolean", "default": true }
+        }
+      }
+    }
+  },
+  "errorCodes": [
+    "INVALID_INPUT",
+    "ARTIFACT_NOT_FOUND",
+    "UNSUPPORTED_ARTIFACT_URI",
+    "FORMAT_MISMATCH",
+    "UNSUPPORTED_CONTAINER",
+    "SAFETY_POLICY_DENIED",
+    "ENGINE_UNAVAILABLE",
+    "ENGINE_FAILED",
+    "ENGINE_TIMEOUT",
+    "ENGINE_PROTOCOL_ERROR",
+    "PARSE_FAILED",
+    "LIMIT_EXCEEDED",
+    "VERIFICATION_FAILED"
+  ],
+  "warningCodes": [
+    "MACROS_PRESENT",
+    "EXTERNAL_REFERENCES_PRESENT",
+    "EMBEDDED_OBJECTS_PRESENT",
+    "ALT_CHUNKS_PRESENT",
+    "ACTIVE_X_PRESENT",
+    "DDE_FIELDS_PRESENT",
+    "ENCRYPTED_ARTIFACT",
+    "LEGACY_CONTAINER",
+    "DECLARED_HINT_MISMATCH",
+    "LIMIT_APPLIED",
+    "PARTIALLY_INSPECTED",
+    "XML_BACKEND_FALLBACK",
+    "UNEXPECTED_PARTS",
+    "EMPTY_DOCUMENT",
+    "VERIFICATION_FAILED"
+  ]
+}

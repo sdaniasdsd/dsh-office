@@ -1,0 +1,93 @@
+{
+  "id": "docx-parse",
+  "name": "docx-parse",
+  "version": "0.1.0",
+  "profileGroup": "DOCX",
+  "summary": "Structural parsing for DOCX with a dual IR: a semantic view, a physical view, and a stable source map between them.",
+  "entry": "src/index.ts",
+  "capabilities": ["inspect", "execute", "verify"],
+  "dependencies": [
+    { "name": "office-core", "kind": "module" },
+    { "name": "office-safety", "kind": "module" },
+    { "name": "office-files", "kind": "module", "optional": true },
+    { "name": "office-test-kit", "kind": "module", "optional": true },
+    { "name": "python", "kind": "runtime" }
+  ],
+  "engines": {
+    "driver": "python",
+    "script": "src/engine/docx_parse.py",
+    "requires": ["zipfile", "lxml (recommended, falls back to stdlib xml.etree)"]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "engine": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "driver": { "type": "string", "enum": ["python"], "default": "python" },
+          "pythonPath": { "type": "string", "default": "python" },
+          "scriptPath": { "type": "string" },
+          "env": { "type": "object", "additionalProperties": { "type": "string" } }
+        }
+      },
+      "limits": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "maxArchiveEntries": { "type": "integer", "minimum": 1, "default": 4096 },
+          "maxEntryUncompressedBytes": { "type": "integer", "minimum": 1, "default": 33554432 },
+          "maxTotalUncompressedBytes": { "type": "integer", "minimum": 1, "default": 268435456 },
+          "maxRelationships": { "type": "integer", "minimum": 1, "default": 4096 },
+          "maxBlocks": { "type": "integer", "minimum": 1, "default": 50000 },
+          "maxTableCells": { "type": "integer", "minimum": 1, "default": 200000 },
+          "maxAnnotations": { "type": "integer", "minimum": 1, "default": 10000 }
+        }
+      },
+      "timeoutMs": { "type": "integer", "minimum": 1, "default": 30000 },
+      "featureFlags": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "parseHeadings": { "type": "boolean", "default": true },
+          "parseTables": { "type": "boolean", "default": true },
+          "parseStyles": { "type": "boolean", "default": true },
+          "parseComments": { "type": "boolean", "default": true },
+          "parseFootnotes": { "type": "boolean", "default": true },
+          "resolveAnchors": { "type": "boolean", "default": true },
+          "enforceLimits": { "type": "boolean", "default": true }
+        }
+      }
+    }
+  },
+  "errorCodes": [
+    "INVALID_INPUT",
+    "ARTIFACT_NOT_FOUND",
+    "UNSUPPORTED_ARTIFACT_URI",
+    "FORMAT_MISMATCH",
+    "UNSUPPORTED_CONTAINER",
+    "SAFETY_POLICY_DENIED",
+    "ENGINE_UNAVAILABLE",
+    "ENGINE_FAILED",
+    "ENGINE_TIMEOUT",
+    "ENGINE_PROTOCOL_ERROR",
+    "PARSE_FAILED",
+    "LIMIT_EXCEEDED",
+    "SOURCEMAP_INCOMPLETE",
+    "VERIFICATION_FAILED"
+  ],
+  "warningCodes": [
+    "EMPTY_DOCUMENT",
+    "PARTIALLY_PARSED",
+    "UNSUPPORTED_CONTENT",
+    "LIMIT_APPLIED",
+    "STYLE_FALLBACK",
+    "HEADING_LEVEL_INFERRED",
+    "ANCHOR_INCOMPLETE",
+    "COMMENT_ORPHANED",
+    "NOTE_ORPHANED",
+    "ENCRYPTED_ARTIFACT",
+    "VERIFICATION_FAILED"
+  ]
+}

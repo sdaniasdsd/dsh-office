@@ -1,0 +1,55 @@
+{
+  "name": "@dsh-office-profile/docx-edit",
+  "version": "0.2.0",
+  "private": true,
+  "description": "dsh-office-profile module: structured DOCX editing backed by @docx4j/core-ts.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "types",
+    "module.json"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:contract": "vitest run tests/contract.test.ts"
+  },
+  "peerDependencies": {
+    "office-core": "*",
+    "office-safety": "*",
+    "office-files": "*",
+    "office-test-kit": "*"
+  },
+  "peerDependenciesMeta": {
+    "office-core": {
+      "optional": true
+    },
+    "office-safety": {
+      "optional": true
+    },
+    "office-files": {
+      "optional": true
+    },
+    "office-test-kit": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@docx4j/core-ts": "0.1.5",
+    "@dsh-office-profile/docx-parse": "*",
+    "@xmldom/xmldom": "0.9.12"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

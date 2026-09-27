@@ -1,0 +1,36 @@
+{
+  "name": "@dsh-office-profile/xlsx-office",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.ts",
+  "dependencies": {
+    "@xmldom/xmldom": "0.9.12",
+    "exceljs": "4.4.0",
+    "fflate": "0.8.3"
+  },
+  "peerDependencies": {
+    "office-core": "*",
+    "office-files": "*",
+    "office-safety": "*",
+    "office-test-kit": "*"
+  },
+  "peerDependenciesMeta": {
+    "office-core": {
+      "optional": true
+    },
+    "office-files": {
+      "optional": true
+    },
+    "office-safety": {
+      "optional": true
+    },
+    "office-test-kit": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  }
+}

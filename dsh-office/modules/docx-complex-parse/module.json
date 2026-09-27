@@ -1,0 +1,100 @@
+{
+  "id": "docx-complex-parse",
+  "name": "docx-complex-parse",
+  "version": "0.1.0",
+  "profileGroup": "DOCX",
+  "summary": "Complex DOCX parsing: logical table grids, page relationships, floating objects, source coordinates, and per-finding confidence.",
+  "entry": "src/index.ts",
+  "capabilities": ["inspect", "execute", "verify"],
+  "dependencies": [
+    { "name": "office-core", "kind": "module" },
+    { "name": "office-safety", "kind": "module" },
+    { "name": "office-files", "kind": "module", "optional": true },
+    { "name": "office-test-kit", "kind": "module", "optional": true },
+    { "name": "python", "kind": "runtime" }
+  ],
+  "engines": {
+    "driver": "rdocx",
+    "candidates": ["rdocx", "docling", "mammoth", "markitdown"],
+    "script": "src/engine/adapter.ts",
+    "requires": ["rdocx (page geometry + block-level layout)", "python (runtime)"],
+    "notes": "Only the rdocx driver is implemented. Raw OOXML grid structure is read by the bundled stdlib parser (src/engine/docx_complex_parse.py); rdocx supplies page geometry only."
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "engine": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "driver": { "type": "string", "enum": ["rdocx", "docling", "mammoth", "markitdown"], "default": "rdocx" },
+          "pythonPath": { "type": "string", "default": "python" },
+          "scriptPath": { "type": "string" },
+          "env": { "type": "object", "additionalProperties": { "type": "string" } }
+        }
+      },
+      "limits": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "maxArchiveEntries": { "type": "integer", "minimum": 1, "default": 4096 },
+          "maxEntryUncompressedBytes": { "type": "integer", "minimum": 1, "default": 33554432 },
+          "maxTotalUncompressedBytes": { "type": "integer", "minimum": 1, "default": 268435456 },
+          "maxRelationships": { "type": "integer", "minimum": 1, "default": 4096 },
+          "maxBlocks": { "type": "integer", "minimum": 1, "default": 50000 },
+          "maxTableCells": { "type": "integer", "minimum": 1, "default": 200000 },
+          "maxFloatingObjects": { "type": "integer", "minimum": 1, "default": 20000 },
+          "maxPages": { "type": "integer", "minimum": 1, "default": 5000 }
+        }
+      },
+      "timeoutMs": { "type": "integer", "minimum": 1, "default": 60000 },
+      "confidenceFloor": { "type": "number", "minimum": 0, "maximum": 1, "default": 0.5 },
+      "featureFlags": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "parseTables": { "type": "boolean", "default": true },
+          "parseMerges": { "type": "boolean", "default": true },
+          "parsePageBreaks": { "type": "boolean", "default": true },
+          "parseSections": { "type": "boolean", "default": true },
+          "parseFloatingObjects": { "type": "boolean", "default": true },
+          "parsePageGeometry": { "type": "boolean", "default": true },
+          "computeConfidence": { "type": "boolean", "default": true },
+          "requirePageGeometry": { "type": "boolean", "default": false },
+          "enforceLimits": { "type": "boolean", "default": true }
+        }
+      }
+    }
+  },
+  "errorCodes": [
+    "INVALID_INPUT",
+    "ARTIFACT_NOT_FOUND",
+    "UNSUPPORTED_ARTIFACT_URI",
+    "FORMAT_MISMATCH",
+    "UNSUPPORTED_CONTAINER",
+    "SAFETY_POLICY_DENIED",
+    "ENGINE_UNAVAILABLE",
+    "ENGINE_FAILED",
+    "ENGINE_TIMEOUT",
+    "ENGINE_PROTOCOL_ERROR",
+    "PARSE_FAILED",
+    "LIMIT_EXCEEDED",
+    "LAYOUT_UNAVAILABLE",
+    "VERIFICATION_FAILED"
+  ],
+  "warningCodes": [
+    "EMPTY_DOCUMENT",
+    "PARTIALLY_PARSED",
+    "UNSUPPORTED_CONTENT",
+    "LIMIT_APPLIED",
+    "NESTED_TABLE_FLATTENED",
+    "MERGE_INCONSISTENT",
+    "PAGE_GEOMETRY_UNAVAILABLE",
+    "PAGE_BREAK_ESTIMATED",
+    "FLOAT_ANCHOR_APPROXIMATED",
+    "LOW_CONFIDENCE",
+    "ENCRYPTED_ARTIFACT",
+    "VERIFICATION_FAILED"
+  ]
+}
