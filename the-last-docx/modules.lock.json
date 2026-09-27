@@ -4,10 +4,13 @@
   "scope": "DOCX module src files are compared to sourceRootHint; local DSH Office adapters are hashed but intentionally have no mirrored upstream module.",
   "localExtensionModules": [
     "modules/pptx-office",
-    "modules/xlsx-office"
+    "modules/xlsx-office",
+    "modules/pdf-office"
   ],
-  "allModuleSourcesMatch": true,
-  "changedSources": [],
+  "allModuleSourcesMatch": false,
+  "changedSources": [
+    "modules/docx-render/src/engine/adapter.ts"
+  ],
   "sha256": {
     "modules/docx-artifact/src/config.ts": "d3f7b018237b78bea71a710b62a324a359ae2d4661af752a5d45e82428c7c140",
     "modules/docx-artifact/src/contract.ts": "8f6bafccdbc67dc19f413f4d60d1e9fbeab6587ac4c7d520361072b79e55b68f",
@@ -98,7 +101,7 @@
     "modules/docx-render/src/config.ts": "0e085e5a0ac1212bcb43e5eb3940f1e9a321b110edbaf5ec8c71e684c4370d85",
     "modules/docx-render/src/contract.ts": "99622cb9b191088d4651581b5d25fc5e614347df877ac1da4c00048e6e7bbae2",
     "modules/docx-render/src/domain/docx-render.ts": "678a5f8644f714d05c973478dbb08e2dbeb4205ca19f5dc2de6e6c486e92a567",
-    "modules/docx-render/src/engine/adapter.ts": "1e50ae04c70bea63511264121bd7e0d67813aa68de7587d9842d7f8ea092254d",
+    "modules/docx-render/src/engine/adapter.ts": "a612c09ab39025aa0f829df833db1b7cb7e19b4d8118ead8e053657904d94a83",
     "modules/docx-render/src/errors.ts": "43d5e18046a5e618ea6af158e516a972ef6b59b88aca948f5b1974834e95dbaf",
     "modules/docx-render/src/index.ts": "7fd53d671d81f581d5bc498f26c10cd2d9abcab98934b711547252c69f105acd",
     "modules/docx-render/src/mapper.ts": "9c2434c1244f83d188c7802971699eac61d9a2812a720a26111f794ea945fbe8",
@@ -113,8 +116,9 @@
     "modules/docx-styles/src/errors.ts": "b83838181efaab92345450b5f97a772636958371ef9e8378959ed5ed7bb6b159",
     "modules/docx-styles/src/index.ts": "0ea0d127852cef571e7216d779559e5236159b76a742efc91f2fa9293d271593",
     "modules/docx-styles/src/verifier.ts": "b226f013c0d40a4372ea6153f61a845e81985ab1bd3e88250d3fb28b77187d5c",
+    "modules/pdf-office/src/index.ts": "4f615b23ef7a22699c2b84b83db8ad9fb98b8876319c296af51ffe3256780c18",
     "modules/pptx-office/src/engine/pptx_bridge.py": "fc952007a732fed07522140b8f92bcbc1fbf8be1c8814d3d95f539941833706f",
-    "modules/pptx-office/src/index.ts": "6fe2ddd664d04220a940a0fd0f25227ed7c2146317dcca274dd7635255ac7fe3",
+    "modules/pptx-office/src/index.ts": "acebbadccf9cee21e4ed53f7209536388511585919fa66695f1ccca343e1a636",
     "modules/xlsx-office/src/engine/zip_probe.py": "e3451bc268134d4bc8beefc8f7dcd92492a5a07c9f4de6532d688510059bc12d",
     "modules/xlsx-office/src/index.ts": "0038507035c874ceebb85cbd966c761c19a123a71f09d261a381b6235f2ae22c"
   }

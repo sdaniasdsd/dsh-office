@@ -1,6 +1,6 @@
 # DSH Office 插件
 
-单个 `@deepseek-ai/dsh-docx` bundle，包含 11 个 DOCX、PPTX、XLSX 模块：检查、轻量/双 IR/复杂解析、创建、样式、编辑、渲染、版本交付、幻灯片提取与文本编辑、工作簿范围读取和单元格编辑。用户只安装一个 profile 包。使用 DSH 原生 MCP bridge 注册工具、审批及管理生命周期，不修改 DSH 主程序。
+单个 `@deepseek-ai/dsh-docx` bundle，包含 DOCX、PPTX、XLSX 和原生 PDF 模块：检查、轻量/双 IR/复杂解析、创建、样式、编辑、DOCX 渲染、版本交付、幻灯片提取与文本编辑、工作簿读取/编辑，以及 PDF.js 元数据与原生文字抽取。用户只安装一个 profile 包。使用 DSH 原生 MCP bridge 注册工具、审批及管理生命周期，不修改 DSH 主程序。
 
 目标平台：Windows x64。DSH 已运行的 Node 作为子进程运行时，不要求另外安装 Node。私有 Python、LibreOffice、Poppler 随包携带；无需配置 PATH，不执行安装脚本，不在运行时下载依赖。Docling 深度模型和 rdocx 页坐标后端仍属于额外能力，不在本基础离线包中；原接口保留，不冒充可用。
 
@@ -12,7 +12,7 @@ dsh plugin --profile web add 'D:\交付目录\deepseek-ai-dsh-docx-0.8.0.tgz'
 
 维护者从源码构建安装包：先在工程根目录运行 `npm run build:dsh`，再运行 `pwsh -NoProfile -File scripts/fetch-dsh-runtime.ps1` 获取并校验固定版本的离线运行时，最后运行 `npm run pack:dsh`。产物为 `dist/deepseek-ai-dsh-docx-0.8.0.tgz`。公开发布二进制前，先完成 `THIRD_PARTY.md` 要求的许可证与再分发义务审核。
 
-重新加载 Profile 后使用 `mcp__docx__*` 工具访问 DOCX、PPTX、XLSX 能力。默认只导入 DSH 启动工作目录内的文件，产物放在该目录 `.dsh-docx` 中，不覆盖原件。不能默认给插件整个硬盘权限。宿主部署者可通过 `docx` 行的 config 设置 workspaceRoot、dataRoot、toolCallTimeoutMs、serverName；一般用户无需填写引擎路径。
+重新加载 Profile 后使用 `mcp__docx__*` 工具访问 DOCX、PPTX、XLSX 和原生 PDF 能力。`pdf_call` 读取现有 PDF 的元数据及原生文字；它与 `docx-render` 的 DOCX→PDF 输出不同，不做 OCR、编辑或视觉合格声明。默认只导入 DSH 启动工作目录内的文件，产物放在该目录 `.dsh-docx` 中，不覆盖原件。不能默认给插件整个硬盘权限。宿主部署者可通过 `docx` 行的 config 设置 workspaceRoot、dataRoot、toolCallTimeoutMs、serverName；一般用户无需填写引擎路径。
 
 带批注或脚注的文档要改版式时，用 `docx-edit` 的 `plan.edits[].kind='formatParagraph'`（原地格式化：styleId / outlineLevel / alignment / 间距 / 字体直接格式），它只改目标段落的 `w:pPr` 与该段各 run 的直接格式，`comments.xml`、`footnotes.xml` 等未被触碰的部件保持原始字节。`docx-create` 是按 plan 造新包，包里没有源文档的批注与脚注可带过去，因此不能用它给带批注的文档改版式。执行与校验是两步：`execute` 记录请求到 `expectedFormats`，`verify` 回读保存后的包逐项断言格式确实落上（`format.paragraph.N`），落不上的判失败而不是静默通过。
 

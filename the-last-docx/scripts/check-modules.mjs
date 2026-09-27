@@ -2,7 +2,7 @@ import { spawnSync } from 'node:child_process';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root=fileURLToPath(new URL('..',import.meta.url));
-const modules=['docx-inspect','docx-easy-parse','docx-parse','docx-complex-parse','docx-create','docx-styles','docx-edit','docx-render','docx-artifact','pptx-office','xlsx-office'];
+const modules=['docx-inspect','docx-easy-parse','docx-parse','docx-complex-parse','docx-create','docx-styles','docx-edit','docx-render','docx-artifact','pptx-office','xlsx-office','pdf-office'];
 const tsc=join(root,'node_modules/typescript/bin/tsc'),vitest=join(root,'node_modules/vitest/vitest.mjs');
 let failed=false;
 for(const name of modules){

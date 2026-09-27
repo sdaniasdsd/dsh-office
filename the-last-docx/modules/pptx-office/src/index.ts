@@ -46,7 +46,12 @@ function assertRef(ref: ArtifactRef) {
 }
 function runPython(command: string, script: string, operation: string, inputPath: string, outputPath: string, request: unknown, timeoutMs: number) {
   return new Promise<{ code: number; stdout: string; stderr: string }>((resolve, reject) => {
-    const child = spawn(command, [script, operation, inputPath, outputPath], { windowsHide: true, shell: false, stdio: ['pipe', 'pipe', 'pipe'] });
+    const child = spawn(command, [script, operation, inputPath, outputPath], {
+      windowsHide: true, shell: false, stdio: ['pipe', 'pipe', 'pipe'],
+      // The bridge emits JSON with ensure_ascii=False; make the subprocess protocol
+      // independent of the Windows user's legacy ANSI code page (commonly GBK).
+      env: { ...process.env, PYTHONIOENCODING: 'utf-8' },
+    });
     let stdout = '', stderr = '', size = 0, settled = false;
     const finish = (error?: unknown, result?: { code: number; stdout: string; stderr: string }) => {
       if (settled) return; settled = true; clearTimeout(timer);

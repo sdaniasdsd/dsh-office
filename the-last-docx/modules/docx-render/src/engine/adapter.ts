@@ -21,6 +21,8 @@ function extensionFor(ref: ArtifactRef): string | null {
 function run(command: string, args: string[], timeoutMs: number, cwd: string): Promise<void> {
   return new Promise((resolve, reject) => {
     let settled = false;
+    let timedOut = false;
+    let killGrace: ReturnType<typeof setTimeout> | undefined;
     const child = spawn(command, args, { cwd, windowsHide: true, shell: false, stdio: ['ignore', 'ignore', 'pipe'] });
     let stderr = '';
     child.stderr.setEncoding('utf8');
@@ -29,14 +31,17 @@ function run(command: string, args: string[], timeoutMs: number, cwd: string): P
       if (settled) return;
       settled = true;
       clearTimeout(timer);
+      if (killGrace) clearTimeout(killGrace);
       if (error) reject(error); else resolve();
     };
     const timer = setTimeout(() => {
+      timedOut = true;
       child.kill();
-      finish(new DocxRenderError('ENGINE_TIMEOUT', `Renderer process exceeded timeoutMs (${timeoutMs}).`));
+      killGrace = setTimeout(() => finish(new DocxRenderError('ENGINE_TIMEOUT', `Renderer process exceeded timeoutMs (${timeoutMs}).`)), 2000);
     }, timeoutMs);
     child.once('error', (error) => finish(new DocxRenderError('ENGINE_UNAVAILABLE', `Could not start renderer executable: ${error.message}`)));
     child.once('close', (code) => {
+      if (timedOut) return finish(new DocxRenderError('ENGINE_TIMEOUT', `Renderer process exceeded timeoutMs (${timeoutMs}).`));
       if (code === 0) return finish();
       const detail = stderr.trim();
       finish(new DocxRenderError('ENGINE_FAILED', `Renderer exited with code ${code}${detail ? `: ${detail}` : '.'}`));
@@ -55,7 +60,35 @@ async function listPageImages(directory: string, prefix: string): Promise<string
 
 export class LibreOfficePopplerEngine implements RenderEngine {
   readonly name = 'libreoffice-poppler';
+  private profilePromise: Promise<{ root: string; directory: string }> | undefined;
+  private readonly profileRoots = new Set<string>();
+  private conversionQueue: Promise<void> = Promise.resolve();
+  private disposed = false;
   constructor(private readonly baseConfig: ModuleConfig['engine']) {}
+
+  private async profile(): Promise<{ root: string; directory: string }> {
+    if (!this.profilePromise) {
+      this.profilePromise = (async () => {
+        const base = this.baseConfig.tempRoot ?? tmpdir();
+        await mkdir(base, { recursive: true });
+        const root = await mkdtemp(join(base, 'docx-render-profile-'));
+        const directory = join(root, 'lo-profile');
+        await mkdir(directory, { recursive: false });
+        this.profileRoots.add(root);
+        return { root, directory };
+      })();
+    }
+    return this.profilePromise;
+  }
+
+  private async serializeConversion<T>(work: () => Promise<T>): Promise<T> {
+    const previous = this.conversionQueue;
+    let release!: () => void;
+    const gate = new Promise<void>((resolve) => { release = resolve; });
+    this.conversionQueue = previous.then(() => gate);
+    await previous;
+    try { return await work(); } finally { release(); }
+  }
 
   async inspect(bytes: Uint8Array, artifactRef: ArtifactRef): Promise<{ extension: string | null; mediaType: string | null }> {
     const extension = extensionFor(artifactRef);
@@ -84,18 +117,27 @@ export class LibreOfficePopplerEngine implements RenderEngine {
       const inputName = `source${inputExtension}`;
       const inputPath = join(workDir, inputName);
       const pdfPath = join(workDir, 'source.pdf');
-      const profileDir = join(workDir, 'lo-profile');
       const imagePrefix = 'page';
       await writeFile(inputPath, bytes);
-      await mkdir(profileDir, { recursive: true });
       const soffice = config.engine.sofficePath || this.baseConfig.sofficePath;
       const pdftoppm = config.engine.pdftoppmPath || this.baseConfig.pdftoppmPath;
-      const profileUri = pathToFileURL(profileDir).href;
-      await runWithinBudget(soffice, [
-        '--headless', '--nologo', '--nodefault', '--norestore',
-        `-env:UserInstallation=${profileUri}`,
-        '--convert-to', 'pdf', '--outdir', workDir, inputPath,
-      ], workDir);
+      if (this.disposed) throw new DocxRenderError('ENGINE_UNAVAILABLE', 'The renderer has been disposed.');
+      await this.serializeConversion(async () => {
+        const profile = await this.profile();
+        const profileUri = pathToFileURL(profile.directory).href;
+        try {
+          await runWithinBudget(soffice, [
+            '--headless', '--nologo', '--nodefault', '--norestore',
+            `-env:UserInstallation=${profileUri}`,
+            '--convert-to', 'pdf', '--outdir', workDir, inputPath,
+          ], workDir);
+        } catch (error) {
+          // A crashed or timed-out office process may leave a locked/corrupt profile.
+          // Retire it; the next serialized conversion receives a fresh isolated one.
+          this.profilePromise = undefined;
+          throw error;
+        }
+      });
       const pdfInfo = await stat(pdfPath).catch(() => undefined);
       if (!pdfInfo || pdfInfo.size === 0) throw new DocxRenderError('ENGINE_PROTOCOL_ERROR', 'LibreOffice reported success but did not produce a PDF.');
       if (pdfInfo.size > config.limits.maxPdfBytes) throw new DocxRenderError('LIMIT_EXCEEDED', 'The rendered PDF exceeds maxPdfBytes.');
@@ -140,7 +182,14 @@ export class LibreOfficePopplerEngine implements RenderEngine {
     }
   }
 
-  async dispose(): Promise<void> {}
+  async dispose(): Promise<void> {
+    this.disposed = true;
+    await this.serializeConversion(async () => {
+      await Promise.all([...this.profileRoots].map(root => rm(root, { recursive: true, force: true }).catch(() => undefined)));
+      this.profileRoots.clear();
+      this.profilePromise = undefined;
+    });
+  }
 }
 
 export function suggestedStem(ref: ArtifactRef): string {

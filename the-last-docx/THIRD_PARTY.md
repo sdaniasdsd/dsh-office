@@ -14,6 +14,7 @@
 | zod | 3.25.76 | MIT | 输入与配置校验 |
 | zod-to-json-schema | 3.25.0 | ISC | 公共 schema |
 | exceljs | 4.4.0 | MIT | XLSX workbook/range/cell operations (`xlsx-office`) |
+| pdfjs-dist | 6.3.289 | Apache-2.0 | Native PDF metadata/text/page geometry (`pdf-office`; loaded as an exact Profile dependency) |
 
 精确传递依赖以 package-lock.json 为准。构建脚本会从实际打入 JS bundle 的 Node 包中收集顶层 LICENSE、LICENCE、NOTICE 与 COPYING 文件至 `third-party-licenses/`；仍需结合本表核对传递依赖和许可证。类型检查与测试另外使用 TypeScript、Vitest 和 Node 类型声明。npm audit 的零漏洞结果只代表查询时数据库未报告已知项，不是供应链或运行安全保证。
 

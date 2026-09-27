@@ -9,15 +9,16 @@ export async function probe(command:string,args:string[],timeout=5000):Promise<{
 }
 export async function doctor(config:{pythonPath?:string;sofficePath?:string;pdftoppmPath?:string}={}){
   const python=config.pythonPath??'python';
-  const [runtime,xml,pptx,rdocx,docling,exceljs,libreoffice,poppler]=await Promise.all([
+  const [runtime,xml,pptx,rdocx,docling,exceljs,pdfjs,libreoffice,poppler]=await Promise.all([
     probe(python,['--version']),probe(python,['-c','import lxml; print(lxml.__version__)']),
     probe(python,['-c','import pptx; print(pptx.__version__)']),
     probe(python,['-c','import importlib.util; print("rdocx found" if importlib.util.find_spec("rdocx") else "missing"); raise SystemExit(0 if importlib.util.find_spec("rdocx") else 1)']),
     probe(python,['-c','import importlib.util; print("docling found" if importlib.util.find_spec("docling") else "missing"); raise SystemExit(0 if importlib.util.find_spec("docling") else 1)']),
     probe(process.execPath,['-e','import("exceljs").then(m=>console.log(m.default?.Workbook ? "ExcelJS available" : "ExcelJS unavailable")).catch(()=>process.exit(1))']),
+    probe(process.execPath,['-e','import("pdfjs-dist/legacy/build/pdf.mjs").then(m=>console.log(m.version ? `PDF.js ${m.version}` : "PDF.js unavailable")).catch(()=>process.exit(1))']),
     probe(config.sofficePath??'soffice',['--version']),probe(config.pdftoppmPath??'pdftoppm',['-v']),
   ]);
-  return {node:process.version,python:runtime,lxml:xml,pythonPptx:pptx,rdocx,docling,exceljs,libreoffice,poppler,
-    capabilities:{create:true,edit:true,artifact:runtime.available,parse:runtime.available,complexStructure:runtime.available,complexLayout:runtime.available&&rdocx.available,deepEasyParse:runtime.available&&docling.available,pptx:runtime.available&&pptx.available,xlsx:runtime.available&&exceljs.available,render:libreoffice.available&&poppler.available},
+  return {node:process.version,python:runtime,lxml:xml,pythonPptx:pptx,rdocx,docling,exceljs,pdfjs,libreoffice,poppler,
+    capabilities:{create:true,edit:true,artifact:runtime.available,parse:runtime.available,complexStructure:runtime.available,complexLayout:runtime.available&&rdocx.available,deepEasyParse:runtime.available&&docling.available,pptx:runtime.available&&pptx.available,xlsx:runtime.available&&exceljs.available,nativePdf:pdfjs.available,render:libreoffice.available&&poppler.available},
     note:'Availability is not an accuracy benchmark. Optional layout engines are never silently substituted.'};
 }

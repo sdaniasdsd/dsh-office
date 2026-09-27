@@ -9,11 +9,12 @@ import { createDocxRenderModule } from '@dsh-office-profile/docx-render';
 import { createDocxArtifactModule,canonicalJson,DocxArtifactError } from '@dsh-office-profile/docx-artifact';
 import { createPptxOfficeModule } from '@dsh-office-profile/pptx-office';
 import { createXlsxOfficeModule } from '@dsh-office-profile/xlsx-office';
+import { createPdfOfficeModule } from '@dsh-office-profile/pdf-office';
 import type { BridgeKind,BridgeReference } from '@dsh-office-profile/docx-artifact';
 import type { ArtifactRef } from 'office-core';
 import { LocalArtifactFiles } from './files';
 import { bridgeComplexToDual } from './source-bridge';
-export const MODULE_IDS=['docx-inspect','docx-easy-parse','docx-parse','docx-complex-parse','docx-create','docx-styles','docx-edit','docx-render','docx-artifact','pptx-office','xlsx-office'] as const;
+export const MODULE_IDS=['docx-inspect','docx-easy-parse','docx-parse','docx-complex-parse','docx-create','docx-styles','docx-edit','docx-render','docx-artifact','pptx-office','xlsx-office','pdf-office'] as const;
 export type ModuleId=typeof MODULE_IDS[number];
 /** The modules whose execute path is gated by a pre-flight policy. */
 export type PolicyGatedModuleId='docx-edit'|'docx-render'|'docx-artifact';
@@ -74,6 +75,7 @@ export class DocxProfile {
       }}});break;
       case 'pptx-office':instance=createPptxOfficeModule({artifactStore:this.files,pythonPath:this.options.pythonPath??String((config.engine as JsonRecord|undefined)?.pythonPath??'python')});break;
       case 'xlsx-office':instance=createXlsxOfficeModule({artifactStore:this.files,pythonPath:this.options.pythonPath??String((config.engine as JsonRecord|undefined)?.pythonPath??'python')});break;
+      case 'pdf-office':instance=createPdfOfficeModule({artifactStore:this.files,limits:config.limits as Record<string,number>|undefined});break;
     }
     const port=instance as ModulePort;this.instances.set(id,port);return port;
   }

@@ -4,7 +4,7 @@ import { join,resolve,relative,sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root=fileURLToPath(new URL('..',import.meta.url)),source=resolve(process.argv[2]??join(root,'..','..','docx分区'));
 const hashes={},changes=[];
-const localExtensions=['modules/pptx-office','modules/xlsx-office'];
+const localExtensions=['modules/pptx-office','modules/xlsx-office','modules/pdf-office'];
 async function scan(path,base){for(const entry of await readdir(path,{withFileTypes:true})){const file=join(path,entry.name);if(entry.isDirectory())await scan(file,base);else if(entry.isFile()&&!entry.name.endsWith('.pyc')){
   const key=relative(base,file).split(sep).join('/'),bytes=await readFile(file),hash=createHash('sha256').update(bytes).digest('hex');hashes[key]=hash;
   const original=join(source,key.replace(/^modules\//,''));let sourceHash;
