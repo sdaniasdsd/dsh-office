@@ -1,5 +1,6 @@
 node_modules/
 coverage/
+artifacts/
 dist/
 __pycache__/
 fixtures/_generated/
