@@ -1,7 +1,7 @@
 # Post-push Office DSH backend regression — 200 operations
 
-Date: 2026-09-27  
-Repository revision under test: `ee973b5` (test harness); Office Profile implementation: source-built `dist/dsh-docx` from the pushed Office module changes.  
+Date: 2026-09-27
+Repository revision under test: `ee973b5` (test harness); Office Profile implementation: source-built `dist/dsh-docx` from the pushed Office module changes.
 Runner: DSH Profile MCP stdio server; no separate installed Profile was used.
 
 ## Verdict
