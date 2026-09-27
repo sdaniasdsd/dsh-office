@@ -1,0 +1,29 @@
+{
+  "case_id": "X12",
+  "format": "xlsx",
+  "mode": "first-pass-and-repair",
+  "source_artifact": "xlsx/qa-assumptions-log.xlsx",
+  "source_sha256": "d82d9e0ce5f9d58e98f5d877eb94d2e53de7c08c635994fb666a062c4de60dcf",
+  "initial_content": "assumptions log from the frozen official-source office corpus.",
+  "primary_prompt": "能不能把assumptions log的表头做成更清楚的深色底白字，加细边框和统一字体？只动工作表外观，任何数值、公式、链接、名称和分页内容都要原封不动。",
+  "expected_effects": [
+    "Headers gain a coherent high-contrast font/fill/border treatment.",
+    "All values, formulas, links, names, and print content remain unchanged."
+  ],
+  "invariants": [
+    "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+    "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+    "Produce a separate immutable candidate and visually inspect every printed page."
+  ],
+  "acceptance": {
+    "score_minimum": 85,
+    "required_gates": [
+      "file_integrity",
+      "complete_render",
+      "content_preservation",
+      "no_critical_visual_defect",
+      "intent_complete"
+    ],
+    "repair_limit": 5
+  }
+}

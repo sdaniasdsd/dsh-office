@@ -1,0 +1,29 @@
+{
+  "case_id": "P11",
+  "format": "pptx",
+  "mode": "first-pass-and-repair",
+  "source_artifact": "pptx/qualifications-reform.pptx",
+  "source_sha256": "040a0eeb7421cc68ecbf9816f7f964bb1db7e561aef8f0ee8fad70a78e6219ca",
+  "initial_content": "qualifications reform deck from the frozen official-source office corpus.",
+  "primary_prompt": "这份qualifications reform deck目录页扫起来有点费劲，帮我把目录标题和一两个导航词改得短、直白一点；内容顺序、意思、字号和现有主题都保持原样。",
+  "expected_effects": [
+    "Requested cover/navigation labels become shorter and scan more cleanly.",
+    "Existing slide theme, layout, shapes, and unrequested wording are preserved."
+  ],
+  "invariants": [
+    "Do not alter legal/policy references, figures, charts, or slide order.",
+    "Keep all slides; no clipped or missing content.",
+    "Every replacement must use an exact source-revision run address."
+  ],
+  "acceptance": {
+    "score_minimum": 85,
+    "required_gates": [
+      "file_integrity",
+      "complete_render",
+      "content_preservation",
+      "no_critical_visual_defect",
+      "intent_complete"
+    ],
+    "repair_limit": 5
+  }
+}

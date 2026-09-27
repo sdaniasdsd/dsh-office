@@ -1,0 +1,43 @@
+{
+  "caseId": "D10",
+  "createdAt": "2026-09-27T10:10:50.655Z",
+  "format": "docx",
+  "primaryPromptSha256": "d4df9c272bd83b34e23c9dc1d59e0ea1b2febe7f3fed1daf5b3db21b474c3a57",
+  "runner": "dsh",
+  "runnerRevision": "workspace source at run",
+  "status": "fail",
+  "rounds": 2,
+  "firstPassScore": 20,
+  "finalScore": 20,
+  "oneStepPass": false,
+  "converged": false,
+  "artifactChecksums": {
+    "round-00": "53e04952c2c9b0b48063e70ad8f586b40e004a36957a0b898f2b4d0fefe43cff",
+    "round-01": "53e04952c2c9b0b48063e70ad8f586b40e004a36957a0b898f2b4d0fefe43cff"
+  },
+  "renderImages": [
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-00\\render\\pages\\page-001.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-00\\render\\pages\\page-002.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-00\\render\\pages\\page-003.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-00\\render\\pages\\page-004.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-00\\render\\pages\\page-005.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-00\\render\\pages\\page-006.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-00\\render\\pages\\page-007.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-00\\render\\pages\\page-008.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-00\\render\\pages\\page-009.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-00\\render\\pages\\page-010.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-01\\render\\pages\\page-001.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-01\\render\\pages\\page-002.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-01\\render\\pages\\page-003.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-01\\render\\pages\\page-004.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-01\\render\\pages\\page-005.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-01\\render\\pages\\page-006.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-01\\render\\pages\\page-007.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-01\\render\\pages\\page-008.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-01\\render\\pages\\page-009.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-01\\render\\pages\\page-010.png"
+  ],
+  "verifierResults": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D10\\dsh\\round-00\\manifest.json",
+  "reportComplete": true,
+  "caseReport": "report.md"
+}

@@ -1,0 +1,245 @@
+{
+  "caseId": "D01",
+  "format": "docx",
+  "file": "asbestos-management-plan.docx",
+  "primaryPrompt": "这份asbestos management plan下周要给主管过目，现在标题和章节看起来像一整块。帮我把主标题、主要小节做出清楚但克制的层级，留白舒服一点，用稳重的蓝灰色；正文、条文、页码和表格里的字一个都别改。",
+  "operationFamily": "heading-hierarchy",
+  "operationPlan": {
+    "edits": [
+      {
+        "kind": "formatParagraph",
+        "target": {
+          "semanticId": "cc61a732047e84ba4f9c912738771f1e",
+          "anchor": {
+            "kind": "p",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:p[8]",
+            "ordinal": 7,
+            "paraId": "0968C764",
+            "quote": "Asbestos management plan – a template",
+            "digest": "2790266f8d414cca42e5bbb8e57cae6589cbaff6beb7e24f471f785fe80e8bf4"
+          }
+        },
+        "alignment": "Centered",
+        "spaceAfter": 12,
+        "font": {
+          "bold": true,
+          "size": 21,
+          "color": "#244A67",
+          "name": "Arial"
+        }
+      }
+    ]
+  },
+  "dshCall": {
+    "moduleId": "docx-edit",
+    "operation": "execute",
+    "requestId": "aesthetic50-D01-execute",
+    "edits": [
+      {
+        "kind": "formatParagraph",
+        "semanticId": "cc61a732047e84ba4f9c912738771f1e",
+        "changed": 6,
+        "details": {
+          "applied": "alignment,spaceAfter,font.bold,font.size,font.color,font.name"
+        }
+      }
+    ],
+    "verification": {
+      "ok": true,
+      "partial": false,
+      "checks": [
+        {
+          "id": "package.reopens",
+          "status": "pass",
+          "severity": "info",
+          "message": "The output reopens as a WordprocessingML package."
+        },
+        {
+          "id": "relationships.resolve",
+          "status": "pass",
+          "severity": "info",
+          "message": "All internal relationships resolve."
+        },
+        {
+          "id": "edit.paragraph.1",
+          "status": "pass",
+          "severity": "info",
+          "message": "The edited paragraph is present."
+        },
+        {
+          "id": "format.paragraph.1",
+          "status": "pass",
+          "severity": "info",
+          "message": "The requested paragraph formatting is present in the saved output."
+        }
+      ],
+      "summary": {
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "source": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-stress-20260927-visual-confirm-200\\workspace\\docx\\asbestos-management-plan.docx",
+    "sha256": "ad7f12a9b9193362ebb9437afe9dcb373bb83a10c1d4a5d3056d9879cc2700ab",
+    "unchanged": true
+  },
+  "baseline": {
+    "engine": "libreoffice-poppler",
+    "pageCount": 9,
+    "pages": [
+      {
+        "pageNumber": 1,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\asbestos-management-plan\\render\\pages\\page-001.png",
+        "sha256": "b2d560eba7c5d29cae0cf3818fcae045283936a77db827cb00bbe2ea6066c70d",
+        "bytes": 156035
+      },
+      {
+        "pageNumber": 2,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\asbestos-management-plan\\render\\pages\\page-002.png",
+        "sha256": "c75370fe52c458d2a485c34f8c5df134335f88da8e37858ebc296da779b27594",
+        "bytes": 205581
+      },
+      {
+        "pageNumber": 3,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\asbestos-management-plan\\render\\pages\\page-003.png",
+        "sha256": "2cf16c2bde8ed2a587d62aba251e6ddc54aff6379bbea90d21e2cb0bc819abfb",
+        "bytes": 182007
+      },
+      {
+        "pageNumber": 4,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\asbestos-management-plan\\render\\pages\\page-004.png",
+        "sha256": "8e8b6b15504567c9505949a0ee24b8579c37d2bd0652a025c2bf335dc7a020eb",
+        "bytes": 185509
+      },
+      {
+        "pageNumber": 5,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\asbestos-management-plan\\render\\pages\\page-005.png",
+        "sha256": "869fdfae9989b685d5e21c9d6be52199f071d14e8949d6ed857a0c5edcbd4dd0",
+        "bytes": 192882
+      },
+      {
+        "pageNumber": 6,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\asbestos-management-plan\\render\\pages\\page-006.png",
+        "sha256": "8f116834e259f22b995964eb963ef1ea1ecb5489e0072c0eb7f336378033c730",
+        "bytes": 167503
+      },
+      {
+        "pageNumber": 7,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\asbestos-management-plan\\render\\pages\\page-007.png",
+        "sha256": "18a17d7faf7fdfe6d710cde5044ac225a8e8a8adca243f896d6af1d4e95c09f2",
+        "bytes": 30206
+      },
+      {
+        "pageNumber": 8,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\asbestos-management-plan\\render\\pages\\page-008.png",
+        "sha256": "23e894eda5f69d2e6ea13941aaa0fce25768ae9738df692c0b6b616a4b6262ba",
+        "bytes": 216651
+      },
+      {
+        "pageNumber": 9,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\asbestos-management-plan\\render\\pages\\page-009.png",
+        "sha256": "c9e1fbd8293146473558687e64cabf39da626fef839d6d7909bc47ade605d54e",
+        "bytes": 9075
+      }
+    ],
+    "pdf": {
+      "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\asbestos-management-plan\\render\\artifact.pdf",
+      "sha256": "3c0b0b37af06438eb007531d1e6eae2ffbbff0bc096b9e9b6e284855481f1c0c",
+      "bytes": 243470
+    },
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\asbestos-management-plan\\render\\contact-01.png"
+  },
+  "candidate": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D01\\dsh\\round-00\\artifact.docx",
+    "sha256": "4a10640f70c871cfef346d9a2ba17964e76c606500666306c9698ebeb0ea272c",
+    "bytes": 38654,
+    "pageCount": 9
+  },
+  "renderProfile": {
+    "engine": "DSH docx-render / bundled LibreOffice",
+    "dpi": 120,
+    "sameRendererAsBaseline": true
+  },
+  "round": 0,
+  "status": "pass",
+  "verifier": {
+    "ok": true,
+    "partial": false,
+    "checks": [
+      {
+        "id": "package.reopens",
+        "status": "pass",
+        "severity": "info",
+        "message": "The output reopens as a WordprocessingML package."
+      },
+      {
+        "id": "relationships.resolve",
+        "status": "pass",
+        "severity": "info",
+        "message": "All internal relationships resolve."
+      },
+      {
+        "id": "edit.paragraph.1",
+        "status": "pass",
+        "severity": "info",
+        "message": "The edited paragraph is present."
+      },
+      {
+        "id": "format.paragraph.1",
+        "status": "pass",
+        "severity": "info",
+        "message": "The requested paragraph formatting is present in the saved output."
+      }
+    ],
+    "summary": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "visualReview": {
+    "status": "reviewed",
+    "method": "every rendered page inspected in the complete contact sheet; full-resolution page images retained",
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D01\\dsh\\round-00\\render\\contact-01.png",
+    "pages": [
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D01\\dsh\\round-00\\render\\pages\\page-001.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D01\\dsh\\round-00\\render\\pages\\page-002.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D01\\dsh\\round-00\\render\\pages\\page-003.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D01\\dsh\\round-00\\render\\pages\\page-004.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D01\\dsh\\round-00\\render\\pages\\page-005.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D01\\dsh\\round-00\\render\\pages\\page-006.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D01\\dsh\\round-00\\render\\pages\\page-007.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D01\\dsh\\round-00\\render\\pages\\page-008.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D01\\dsh\\round-00\\render\\pages\\page-009.png"
+    ]
+  },
+  "repairsUsed": 0,
+  "repairLimit": 5,
+  "scores": {
+    "round": 0,
+    "hardGates": {
+      "fileIntegrity": true,
+      "completeRender": true,
+      "contentPreservation": true,
+      "noCriticalVisualDefect": true,
+      "intentComplete": true
+    },
+    "dimensions": {
+      "oneStep": 30,
+      "intent": 23,
+      "craft": 17,
+      "thoroughness": 15,
+      "strength": 8
+    },
+    "total": 93,
+    "threshold": 85,
+    "verdict": "PASS",
+    "failedGates": [],
+    "scoringNote": "Single typed DSH call completed, verifier passed and rendered visual review found no critical defect."
+  }
+}

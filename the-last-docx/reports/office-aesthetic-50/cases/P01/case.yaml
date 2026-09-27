@@ -1,0 +1,29 @@
+{
+  "case_id": "P01",
+  "format": "pptx",
+  "mode": "first-pass-and-repair",
+  "source_artifact": "pptx/civil-service-line-management.pptx",
+  "source_sha256": "139d2201569c39b84fb5299208e944809566dda33d6e4128623eb990430eece8",
+  "initial_content": "line management standards deck from the frozen official-source office corpus.",
+  "primary_prompt": "这份line management standards deck首页文字有点压画面，开场和封面能不能收紧一点？保留核心名称和必要信息，别碰政策/法律名称、数字、后面页面、配色或版式。",
+  "expected_effects": [
+    "Requested cover/navigation labels become shorter and scan more cleanly.",
+    "Existing slide theme, layout, shapes, and unrequested wording are preserved."
+  ],
+  "invariants": [
+    "Do not alter legal/policy references, figures, charts, or slide order.",
+    "Keep all slides; no clipped or missing content.",
+    "Every replacement must use an exact source-revision run address."
+  ],
+  "acceptance": {
+    "score_minimum": 85,
+    "required_gates": [
+      "file_integrity",
+      "complete_render",
+      "content_preservation",
+      "no_critical_visual_defect",
+      "intent_complete"
+    ],
+    "repair_limit": 5
+  }
+}

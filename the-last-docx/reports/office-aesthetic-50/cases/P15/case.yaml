@@ -1,0 +1,29 @@
+{
+  "case_id": "P15",
+  "format": "pptx",
+  "mode": "first-pass-and-repair",
+  "source_artifact": "pptx/timms-workshop.pptx",
+  "source_sha256": "c315e2db44d202b0541aa230eaee281612ed452ae1295e9fa9b042a4821c78bd",
+  "initial_content": "Timms Review workshop deck from the frozen official-source office corpus.",
+  "primary_prompt": "这份Timms Review workshop deck要在会议室投屏，整体看着偏旧。请统一主题字体，拉开标题和正文的字号层次，增加重点的视觉对比；不要改任何文字、图表和政策信息。",
+  "expected_effects": [
+    "Theme font and title/body hierarchy visibly improve at presentation scale.",
+    "All slide text, chart/table contents, and policy facts remain unchanged."
+  ],
+  "invariants": [
+    "Do not alter legal/policy references, figures, charts, or slide order.",
+    "Keep all slides; no clipped or missing content.",
+    "Every replacement must use an exact source-revision run address."
+  ],
+  "acceptance": {
+    "score_minimum": 85,
+    "required_gates": [
+      "file_integrity",
+      "complete_render",
+      "content_preservation",
+      "no_critical_visual_defect",
+      "intent_complete"
+    ],
+    "repair_limit": 5
+  }
+}

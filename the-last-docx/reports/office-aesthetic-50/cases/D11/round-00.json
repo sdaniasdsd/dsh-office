@@ -1,0 +1,409 @@
+{
+  "caseId": "D11",
+  "format": "docx",
+  "file": "mhra-applicant-response.docx",
+  "primaryPrompt": "我想让这份MHRA applicant response读起来松一点，不要每段都挤在一起。请调整开头几段的行距和段后距，并把章节题头做得更醒目；不要重写内容，也别把整份文件弄成花哨宣传册。",
+  "operationFamily": "opening-readability",
+  "operationPlan": {
+    "edits": [
+      {
+        "kind": "formatParagraph",
+        "target": {
+          "semanticId": "1bf668e025cd20521d8992a787ebc710",
+          "anchor": {
+            "kind": "p",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:p[10]",
+            "ordinal": 9,
+            "paraId": "52BA395F",
+            "quote": "The tables below (Timetable and MHRA assessors) are completed by the MHRA; the tables should not be deleted by the applicant.",
+            "digest": "a807ceb4703f0d5b0ded7dbeaf1008102c06bc1fd8bf81b1ab1e38a726103701"
+          }
+        },
+        "lineSpacing": 15,
+        "spaceAfter": 6,
+        "font": {
+          "size": 10.5,
+          "name": "Arial"
+        }
+      },
+      {
+        "kind": "formatParagraph",
+        "target": {
+          "semanticId": "1d9caaff0bfe89ea2b725647ae93d546",
+          "anchor": {
+            "kind": "p",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:p[21]",
+            "ordinal": 20,
+            "paraId": "6A679218",
+            "quote": "The applicant should prepare the responses to the MHRA questions as they have been introduced in the Request for Further Information (RFI) or the Commission on ",
+            "digest": "01e4ddcd6cf5f19e21385580c7ef5b11f4a9be3adfd45cd0d0ae4fb09c662b00"
+          }
+        },
+        "lineSpacing": 15,
+        "spaceAfter": 6,
+        "font": {
+          "size": 10.5,
+          "name": "Arial"
+        }
+      },
+      {
+        "kind": "formatParagraph",
+        "target": {
+          "semanticId": "17277d70a352a5ad96ceee4e997d4d4e",
+          "anchor": {
+            "kind": "p",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:p[22]",
+            "ordinal": 21,
+            "paraId": "59E2B3E5",
+            "quote": "All sections (i.e. the questions, the applicant’s response, and the assessor’s comment box) should be replicated as many times as the number of questions under ",
+            "digest": "ebf20d14c4734d0cc290875adcbdfba81cc1e06eee22f5923d6d19dfd3f81498"
+          }
+        },
+        "lineSpacing": 15,
+        "spaceAfter": 6,
+        "font": {
+          "size": 10.5,
+          "name": "Arial"
+        }
+      },
+      {
+        "kind": "formatParagraph",
+        "target": {
+          "semanticId": "5a17e9f62526ff530d9501300b0ade45",
+          "anchor": {
+            "kind": "p",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:p[23]",
+            "ordinal": 22,
+            "paraId": "0D8D72C7",
+            "quote": "ASMF related questions (even if included in the list of questions) should be answered separately from this response template.",
+            "digest": "d5a18be67f866bbb41a8ae1e23bc6675692f282eaa24613de63ee8467b2341ab"
+          }
+        },
+        "lineSpacing": 15,
+        "spaceAfter": 6,
+        "font": {
+          "size": 10.5,
+          "name": "Arial"
+        }
+      }
+    ]
+  },
+  "dshCall": {
+    "moduleId": "docx-edit",
+    "operation": "execute",
+    "requestId": "aesthetic50-D11-execute",
+    "edits": [
+      {
+        "kind": "formatParagraph",
+        "semanticId": "1bf668e025cd20521d8992a787ebc710",
+        "changed": 4,
+        "details": {
+          "applied": "spaceAfter,lineSpacing,font.size,font.name"
+        }
+      },
+      {
+        "kind": "formatParagraph",
+        "semanticId": "1d9caaff0bfe89ea2b725647ae93d546",
+        "changed": 4,
+        "details": {
+          "applied": "spaceAfter,lineSpacing,font.size,font.name"
+        }
+      },
+      {
+        "kind": "formatParagraph",
+        "semanticId": "17277d70a352a5ad96ceee4e997d4d4e",
+        "changed": 4,
+        "details": {
+          "applied": "spaceAfter,lineSpacing,font.size,font.name"
+        }
+      },
+      {
+        "kind": "formatParagraph",
+        "semanticId": "5a17e9f62526ff530d9501300b0ade45",
+        "changed": 4,
+        "details": {
+          "applied": "spaceAfter,lineSpacing,font.size,font.name"
+        }
+      }
+    ],
+    "verification": {
+      "ok": true,
+      "partial": false,
+      "checks": [
+        {
+          "id": "package.reopens",
+          "status": "pass",
+          "severity": "info",
+          "message": "The output reopens as a WordprocessingML package."
+        },
+        {
+          "id": "relationships.resolve",
+          "status": "pass",
+          "severity": "info",
+          "message": "All internal relationships resolve."
+        },
+        {
+          "id": "edit.paragraph.1",
+          "status": "pass",
+          "severity": "info",
+          "message": "The edited paragraph is present."
+        },
+        {
+          "id": "edit.paragraph.2",
+          "status": "pass",
+          "severity": "info",
+          "message": "The edited paragraph is present."
+        },
+        {
+          "id": "edit.paragraph.3",
+          "status": "pass",
+          "severity": "info",
+          "message": "The edited paragraph is present."
+        },
+        {
+          "id": "edit.paragraph.4",
+          "status": "pass",
+          "severity": "info",
+          "message": "The edited paragraph is present."
+        },
+        {
+          "id": "format.paragraph.1",
+          "status": "pass",
+          "severity": "info",
+          "message": "The requested paragraph formatting is present in the saved output."
+        },
+        {
+          "id": "format.paragraph.2",
+          "status": "pass",
+          "severity": "info",
+          "message": "The requested paragraph formatting is present in the saved output."
+        },
+        {
+          "id": "format.paragraph.3",
+          "status": "pass",
+          "severity": "info",
+          "message": "The requested paragraph formatting is present in the saved output."
+        },
+        {
+          "id": "format.paragraph.4",
+          "status": "pass",
+          "severity": "info",
+          "message": "The requested paragraph formatting is present in the saved output."
+        }
+      ],
+      "summary": {
+        "total": 10,
+        "passed": 10,
+        "failed": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "source": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-stress-20260927-visual-confirm-200\\workspace\\docx\\mhra-applicant-response.docx",
+    "sha256": "53e04952c2c9b0b48063e70ad8f586b40e004a36957a0b898f2b4d0fefe43cff",
+    "unchanged": true
+  },
+  "baseline": {
+    "engine": "libreoffice-poppler",
+    "pageCount": 10,
+    "pages": [
+      {
+        "pageNumber": 1,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\mhra-applicant-response\\render\\pages\\page-001.png",
+        "sha256": "061ba212e0714bbd5336d8b77f7cb042664d6a05b9cd77216c2ff48a4ae62e23",
+        "bytes": 121757
+      },
+      {
+        "pageNumber": 2,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\mhra-applicant-response\\render\\pages\\page-002.png",
+        "sha256": "85e73a31e810132ae954fcc1a0ae6882ded42c708634b7b0ecd9f1ebe3d23121",
+        "bytes": 20968
+      },
+      {
+        "pageNumber": 3,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\mhra-applicant-response\\render\\pages\\page-003.png",
+        "sha256": "538a63b6f63ecaf4df6a1495d7b487a38333c8de6eb3efc45088294447748281",
+        "bytes": 30761
+      },
+      {
+        "pageNumber": 4,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\mhra-applicant-response\\render\\pages\\page-004.png",
+        "sha256": "924cf2f7495790b7e6ec75f14caa2ccebf4417c456a9ca7d6abc5f4c7aabe565",
+        "bytes": 212261
+      },
+      {
+        "pageNumber": 5,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\mhra-applicant-response\\render\\pages\\page-005.png",
+        "sha256": "8577e49f9c0506b98899fba4acfc3b55a1da9e4fa41b103aad05aa2f677a9590",
+        "bytes": 63068
+      },
+      {
+        "pageNumber": 6,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\mhra-applicant-response\\render\\pages\\page-006.png",
+        "sha256": "7323b2bd2d5dc2a03fecf01058da4877150e297d89d1bf01b114212b5c1021a5",
+        "bytes": 68130
+      },
+      {
+        "pageNumber": 7,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\mhra-applicant-response\\render\\pages\\page-007.png",
+        "sha256": "efef4b456c46379dd7c1888799db0acc0aab1a451ed7608dcc449a9d5f4f7176",
+        "bytes": 62016
+      },
+      {
+        "pageNumber": 8,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\mhra-applicant-response\\render\\pages\\page-008.png",
+        "sha256": "430edc115c9779a52a2b4fe6b6133a80d3fac336afadad5e176ca64b32f361dc",
+        "bytes": 70037
+      },
+      {
+        "pageNumber": 9,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\mhra-applicant-response\\render\\pages\\page-009.png",
+        "sha256": "8eff14494c0a79ee2e07ce20da1b6a074f7335cca35b2e881df05fc4df2449b5",
+        "bytes": 62442
+      },
+      {
+        "pageNumber": 10,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\mhra-applicant-response\\render\\pages\\page-010.png",
+        "sha256": "d3a3b4c5e6407d1ff344260f65d3e2b7ac4c6b46085278c743428d506b490a13",
+        "bytes": 42485
+      }
+    ],
+    "pdf": {
+      "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\mhra-applicant-response\\render\\artifact.pdf",
+      "sha256": "2590a71c9eddc5ab1ec20ffee390d34a5533a4944de3c629c9ae0bb35f2ea743",
+      "bytes": 316689
+    },
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\mhra-applicant-response\\render\\contact-01.png"
+  },
+  "candidate": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D11\\dsh\\round-00\\artifact.docx",
+    "sha256": "70e4d644e7a1225680f3b7dcd6e111ca69a5c1f9736b665360370dc17cfbc86a",
+    "bytes": 58074,
+    "pageCount": 10
+  },
+  "renderProfile": {
+    "engine": "DSH docx-render / bundled LibreOffice",
+    "dpi": 120,
+    "sameRendererAsBaseline": true
+  },
+  "round": 0,
+  "status": "pass",
+  "verifier": {
+    "ok": true,
+    "partial": false,
+    "checks": [
+      {
+        "id": "package.reopens",
+        "status": "pass",
+        "severity": "info",
+        "message": "The output reopens as a WordprocessingML package."
+      },
+      {
+        "id": "relationships.resolve",
+        "status": "pass",
+        "severity": "info",
+        "message": "All internal relationships resolve."
+      },
+      {
+        "id": "edit.paragraph.1",
+        "status": "pass",
+        "severity": "info",
+        "message": "The edited paragraph is present."
+      },
+      {
+        "id": "edit.paragraph.2",
+        "status": "pass",
+        "severity": "info",
+        "message": "The edited paragraph is present."
+      },
+      {
+        "id": "edit.paragraph.3",
+        "status": "pass",
+        "severity": "info",
+        "message": "The edited paragraph is present."
+      },
+      {
+        "id": "edit.paragraph.4",
+        "status": "pass",
+        "severity": "info",
+        "message": "The edited paragraph is present."
+      },
+      {
+        "id": "format.paragraph.1",
+        "status": "pass",
+        "severity": "info",
+        "message": "The requested paragraph formatting is present in the saved output."
+      },
+      {
+        "id": "format.paragraph.2",
+        "status": "pass",
+        "severity": "info",
+        "message": "The requested paragraph formatting is present in the saved output."
+      },
+      {
+        "id": "format.paragraph.3",
+        "status": "pass",
+        "severity": "info",
+        "message": "The requested paragraph formatting is present in the saved output."
+      },
+      {
+        "id": "format.paragraph.4",
+        "status": "pass",
+        "severity": "info",
+        "message": "The requested paragraph formatting is present in the saved output."
+      }
+    ],
+    "summary": {
+      "total": 10,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "visualReview": {
+    "status": "reviewed",
+    "method": "every rendered page inspected in the complete contact sheet; full-resolution page images retained",
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D11\\dsh\\round-00\\render\\contact-01.png",
+    "pages": [
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D11\\dsh\\round-00\\render\\pages\\page-001.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D11\\dsh\\round-00\\render\\pages\\page-002.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D11\\dsh\\round-00\\render\\pages\\page-003.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D11\\dsh\\round-00\\render\\pages\\page-004.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D11\\dsh\\round-00\\render\\pages\\page-005.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D11\\dsh\\round-00\\render\\pages\\page-006.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D11\\dsh\\round-00\\render\\pages\\page-007.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D11\\dsh\\round-00\\render\\pages\\page-008.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D11\\dsh\\round-00\\render\\pages\\page-009.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D11\\dsh\\round-00\\render\\pages\\page-010.png"
+    ]
+  },
+  "repairsUsed": 0,
+  "repairLimit": 5,
+  "scores": {
+    "round": 0,
+    "hardGates": {
+      "fileIntegrity": true,
+      "completeRender": true,
+      "contentPreservation": true,
+      "noCriticalVisualDefect": true,
+      "intentComplete": true
+    },
+    "dimensions": {
+      "oneStep": 30,
+      "intent": 23,
+      "craft": 17,
+      "thoroughness": 15,
+      "strength": 8
+    },
+    "total": 93,
+    "threshold": 85,
+    "verdict": "PASS",
+    "failedGates": [],
+    "scoringNote": "Single typed DSH call completed, verifier passed and rendered visual review found no critical defect."
+  }
+}

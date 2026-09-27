@@ -1,0 +1,384 @@
+{
+  "caseId": "X05",
+  "format": "xlsx",
+  "file": "green-book-appraisal-tables.xlsx",
+  "primaryPrompt": "同事打印Green Book appraisal tables时嫌表格太挤。优先让关键工作表横向阅读、宽度最多两页，不要为了页数把纵向内容压成一页；保留原有数据和计算，封面和说明页不调整。",
+  "operationFamily": "multi-sheet-readability",
+  "operationPlan": {
+    "action": "setPrintLayout",
+    "sheets": [
+      {
+        "sheet": "Shortlist AST",
+        "orientation": "landscape",
+        "fitToWidth": 2,
+        "fitToHeight": 0
+      },
+      {
+        "sheet": "Value for money summary",
+        "orientation": "landscape",
+        "fitToWidth": 2,
+        "fitToHeight": 0
+      }
+    ]
+  },
+  "dshCall": {
+    "moduleId": "xlsx-office",
+    "operation": "execute",
+    "requestId": "aesthetic50-X05-execute",
+    "result": {
+      "artifactRef": {
+        "id": "sha256:e58362150cb0084d78496c475de708beaabb3c2e315f10270637bc1937ec9b7a",
+        "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/dsh-office-clone/the-last-docx/dist/office-aesthetic-50/store/objects/e58362150cb0084d78496c475de708beaabb3c2e315f10270637bc1937ec9b7a/artifact.xlsx",
+        "sha256": "e58362150cb0084d78496c475de708beaabb3c2e315f10270637bc1937ec9b7a",
+        "sizeBytes": 46893,
+        "label": "print-layout.xlsx",
+        "mediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      },
+      "sources": [
+        {
+          "id": "sha256:8c871e840c583577a8b617e4b244298dbdb08cc32233ec88b2916c2cba1601ad",
+          "sha256": "8c871e840c583577a8b617e4b244298dbdb08cc32233ec88b2916c2cba1601ad"
+        }
+      ],
+      "worksheetCount": 4,
+      "populatedCellCount": 194,
+      "worksheets": [
+        {
+          "name": "Cover sheet",
+          "rowCount": 40,
+          "columnCount": 14,
+          "populatedCells": 23,
+          "formulaCount": 0,
+          "state": "visible"
+        },
+        {
+          "name": "Shortlist AST",
+          "rowCount": 26,
+          "columnCount": 7,
+          "populatedCells": 22,
+          "formulaCount": 0,
+          "state": "visible"
+        },
+        {
+          "name": "Detailed option summary table",
+          "rowCount": 38,
+          "columnCount": 23,
+          "populatedCells": 141,
+          "formulaCount": 0,
+          "state": "visible"
+        },
+        {
+          "name": "Value for money summary",
+          "rowCount": 24,
+          "columnCount": 9,
+          "populatedCells": 8,
+          "formulaCount": 0,
+          "state": "visible"
+        }
+      ],
+      "changedPackageParts": [
+        {
+          "sheet": "Shortlist AST",
+          "part": "xl/worksheets/sheet2.xml",
+          "afterBytes": 5894
+        },
+        {
+          "sheet": "Value for money summary",
+          "part": "xl/worksheets/sheet4.xml",
+          "afterBytes": 5000
+        }
+      ],
+      "packageScopedWrite": true,
+      "untouchedPackagePartsPreservedByteForByte": true,
+      "sheetContentPreserved": true,
+      "unsupportedFeatures": [
+        "customXml",
+        "drawings"
+      ],
+      "visualReview": "pending"
+    },
+    "verification": {
+      "moduleId": "xlsx-office",
+      "requestId": "aesthetic50-X05-verify",
+      "operation": "verify",
+      "result": {
+        "ok": true,
+        "checks": [
+          {
+            "id": "xlsx.reopened",
+            "status": "pass",
+            "severity": "error",
+            "message": "Workbook loaded and bounded structure extracted."
+          },
+          {
+            "id": "xlsx.worksheetCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet count compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Cover sheet existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Shortlist AST existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.2",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Detailed option summary table existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.3",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Value for money summary existence compared with expectation."
+          }
+        ],
+        "summary": {
+          "total": 6,
+          "failed": 0
+        }
+      },
+      "verification": {
+        "ok": true,
+        "checks": [
+          {
+            "id": "xlsx.reopened",
+            "status": "pass",
+            "severity": "error",
+            "message": "Workbook loaded and bounded structure extracted."
+          },
+          {
+            "id": "xlsx.worksheetCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet count compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Cover sheet existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Shortlist AST existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.2",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Detailed option summary table existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.3",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Value for money summary existence compared with expectation."
+          }
+        ],
+        "summary": {
+          "total": 6,
+          "failed": 0
+        }
+      },
+      "artifacts": [],
+      "warnings": []
+    }
+  },
+  "source": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-stress-20260927-visual-confirm-200\\workspace\\xlsx\\green-book-appraisal-tables.xlsx",
+    "sha256": "8c871e840c583577a8b617e4b244298dbdb08cc32233ec88b2916c2cba1601ad",
+    "unchanged": true
+  },
+  "baseline": {
+    "pdf": {
+      "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-appraisal-tables\\rendered\\artifact.pdf",
+      "sha256": "3385acc7a19e09ef083ab1982b7ee378b214b982fc8947dc1c3303e1c8efdab5"
+    },
+    "pageCount": 4,
+    "pages": [
+      {
+        "pageNumber": 1,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-appraisal-tables\\rendered\\pages\\page-001.png",
+        "sha256": "20a7dc3f5af7257b4341c1d418d71130e0f781ecea1a05bbfacf9e792941c4be"
+      },
+      {
+        "pageNumber": 2,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-appraisal-tables\\rendered\\pages\\page-002.png",
+        "sha256": "9e0de73a2274f3d1d17697dd4f97efa224eb1f57788d536e15fc281398fc5dcd"
+      },
+      {
+        "pageNumber": 3,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-appraisal-tables\\rendered\\pages\\page-003.png",
+        "sha256": "ca8f49bf5047fb6b0a1b8f02f011e96b9975c87bb2765de36704aedd797a5789"
+      },
+      {
+        "pageNumber": 4,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-appraisal-tables\\rendered\\pages\\page-004.png",
+        "sha256": "a9a80afb55fdede5ba0a55d234ad52fb6aec905b7c64d060c8ef65f2e1144d12"
+      }
+    ],
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-appraisal-tables\\rendered\\contact-01.png"
+  },
+  "candidate": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X05\\dsh\\round-00\\artifact.xlsx",
+    "sha256": "e58362150cb0084d78496c475de708beaabb3c2e315f10270637bc1937ec9b7a",
+    "bytes": 46893,
+    "pageCount": 10
+  },
+  "renderProfile": {
+    "engine": "bundled LibreOffice + Poppler review-only",
+    "dpi": 120,
+    "sameRendererAsBaseline": true
+  },
+  "round": 0,
+  "status": "pass",
+  "verifier": {
+    "moduleId": "xlsx-office",
+    "requestId": "aesthetic50-X05-verify",
+    "operation": "verify",
+    "result": {
+      "ok": true,
+      "checks": [
+        {
+          "id": "xlsx.reopened",
+          "status": "pass",
+          "severity": "error",
+          "message": "Workbook loaded and bounded structure extracted."
+        },
+        {
+          "id": "xlsx.worksheetCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet count compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Cover sheet existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Shortlist AST existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.2",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Detailed option summary table existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.3",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Value for money summary existence compared with expectation."
+        }
+      ],
+      "summary": {
+        "total": 6,
+        "failed": 0
+      }
+    },
+    "verification": {
+      "ok": true,
+      "checks": [
+        {
+          "id": "xlsx.reopened",
+          "status": "pass",
+          "severity": "error",
+          "message": "Workbook loaded and bounded structure extracted."
+        },
+        {
+          "id": "xlsx.worksheetCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet count compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Cover sheet existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Shortlist AST existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.2",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Detailed option summary table existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.3",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Value for money summary existence compared with expectation."
+        }
+      ],
+      "summary": {
+        "total": 6,
+        "failed": 0
+      }
+    },
+    "artifacts": [],
+    "warnings": []
+  },
+  "visualReview": {
+    "status": "reviewed",
+    "method": "every rendered page inspected in the complete contact sheet; full-resolution page images retained",
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X05\\dsh\\round-00\\rendered\\contact-01.png",
+    "pages": [
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X05\\dsh\\round-00\\rendered\\pages\\page-001.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X05\\dsh\\round-00\\rendered\\pages\\page-002.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X05\\dsh\\round-00\\rendered\\pages\\page-003.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X05\\dsh\\round-00\\rendered\\pages\\page-004.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X05\\dsh\\round-00\\rendered\\pages\\page-005.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X05\\dsh\\round-00\\rendered\\pages\\page-006.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X05\\dsh\\round-00\\rendered\\pages\\page-007.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X05\\dsh\\round-00\\rendered\\pages\\page-008.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X05\\dsh\\round-00\\rendered\\pages\\page-009.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X05\\dsh\\round-00\\rendered\\pages\\page-010.png"
+    ]
+  },
+  "repairsUsed": 0,
+  "repairLimit": 5,
+  "scores": {
+    "round": 0,
+    "hardGates": {
+      "fileIntegrity": true,
+      "completeRender": true,
+      "contentPreservation": true,
+      "noCriticalVisualDefect": true,
+      "intentComplete": true
+    },
+    "dimensions": {
+      "oneStep": 30,
+      "intent": 23,
+      "craft": 17,
+      "thoroughness": 15,
+      "strength": 8
+    },
+    "total": 93,
+    "threshold": 85,
+    "verdict": "PASS",
+    "failedGates": [],
+    "scoringNote": "Single typed DSH call completed, verifier passed and rendered visual review found no critical defect."
+  }
+}

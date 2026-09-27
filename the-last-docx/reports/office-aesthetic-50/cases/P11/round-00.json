@@ -1,0 +1,413 @@
+{
+  "caseId": "P11",
+  "format": "pptx",
+  "file": "qualifications-reform.pptx",
+  "primaryPrompt": "这份qualifications reform deck目录页扫起来有点费劲，帮我把目录标题和一两个导航词改得短、直白一点；内容顺序、意思、字号和现有主题都保持原样。",
+  "operationFamily": "navigation-copy-trim",
+  "operationPlan": {
+    "action": "replaceText",
+    "changes": [
+      {
+        "slideNumber": 2,
+        "shapeId": 3,
+        "paragraphIndex": 0,
+        "runIndex": 0,
+        "expectedText": "Contents",
+        "replaceWith": "At a glance"
+      },
+      {
+        "slideNumber": 2,
+        "shapeId": 2,
+        "paragraphIndex": 0,
+        "runIndex": 0,
+        "expectedText": "What is happening, when?",
+        "replaceWith": "Timeline"
+      }
+    ]
+  },
+  "dshCall": {
+    "moduleId": "pptx-office",
+    "operation": "execute",
+    "requestId": "aesthetic50-P11-execute",
+    "result": {
+      "artifactRef": {
+        "id": "sha256:2653ec479fab4e16f72ffa4ac68df6ca1b2c330878526673052dcd54591c2844",
+        "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/dsh-office-clone/the-last-docx/dist/office-aesthetic-50/store/objects/2653ec479fab4e16f72ffa4ac68df6ca1b2c330878526673052dcd54591c2844/artifact.pptx",
+        "sha256": "2653ec479fab4e16f72ffa4ac68df6ca1b2c330878526673052dcd54591c2844",
+        "sizeBytes": 2123843,
+        "label": "edited.pptx",
+        "mediaType": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      },
+      "sources": [
+        {
+          "id": "sha256:040a0eeb7421cc68ecbf9816f7f964bb1db7e561aef8f0ee8fad70a78e6219ca",
+          "sha256": "040a0eeb7421cc68ecbf9816f7f964bb1db7e561aef8f0ee8fad70a78e6219ca"
+        }
+      ],
+      "changedRuns": 2,
+      "slideCount": 28,
+      "visualReview": "pending"
+    },
+    "verification": {
+      "moduleId": "pptx-office",
+      "requestId": "aesthetic50-P11-verify",
+      "operation": "verify",
+      "result": {
+        "ok": true,
+        "partial": false,
+        "checks": [
+          {
+            "id": "pptx.slideCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Reopened slide count compared with expectation."
+          },
+          {
+            "id": "pptx.text.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          },
+          {
+            "id": "pptx.text.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          }
+        ],
+        "summary": {
+          "total": 3,
+          "passed": 3,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "verification": {
+        "ok": true,
+        "partial": false,
+        "checks": [
+          {
+            "id": "pptx.slideCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Reopened slide count compared with expectation."
+          },
+          {
+            "id": "pptx.text.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          },
+          {
+            "id": "pptx.text.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          }
+        ],
+        "summary": {
+          "total": 3,
+          "passed": 3,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "artifacts": [],
+      "warnings": []
+    }
+  },
+  "source": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-stress-20260927-visual-confirm-200\\workspace\\pptx\\qualifications-reform.pptx",
+    "sha256": "040a0eeb7421cc68ecbf9816f7f964bb1db7e561aef8f0ee8fad70a78e6219ca",
+    "unchanged": true
+  },
+  "baseline": {
+    "pdf": {
+      "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\artifact.pdf",
+      "sha256": "579fe3c773a0063072fbb2d628b95d31ec950061dce39763dbbefbcd74a4a7df"
+    },
+    "pageCount": 28,
+    "pages": [
+      {
+        "pageNumber": 1,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-001.png",
+        "sha256": "25b448f44c93ad78f9385f97a5c942fcb5ad05c1555be46d0786ee4b9b74ebb1"
+      },
+      {
+        "pageNumber": 2,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-002.png",
+        "sha256": "560c7a20a5726d6134202e617b2812810531ffad98ef27e836a625ac5d2291ac"
+      },
+      {
+        "pageNumber": 3,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-003.png",
+        "sha256": "49b198ba5fc6044a0f16f45dfa8770c5a0d74d8cb8d197ae2f140512c83cc7a6"
+      },
+      {
+        "pageNumber": 4,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-004.png",
+        "sha256": "52aa8ae80eb69c3d5698b919fc248a1d9161ba2229b63ff48342fe0f9d4431f5"
+      },
+      {
+        "pageNumber": 5,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-005.png",
+        "sha256": "7d1261b431db0d6355e7444feb5e8bb119530e7a1c42281c9949fcab370c4759"
+      },
+      {
+        "pageNumber": 6,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-006.png",
+        "sha256": "de191ecee3baf5418e28fc4377c6513b1671e70beb3dc4580fcbc0125e1e8075"
+      },
+      {
+        "pageNumber": 7,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-007.png",
+        "sha256": "f48750399bdfc13a4f43d6241f7facc310d2ca1d0516ac3dcaef7112069f3186"
+      },
+      {
+        "pageNumber": 8,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-008.png",
+        "sha256": "20b0ac8976cdd4fb09d0737500e330854c4db0b12c3f59bb9576b142543a7baa"
+      },
+      {
+        "pageNumber": 9,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-009.png",
+        "sha256": "040a8307680073857bfa2306d6d11d4e6e87d2b4bd1e99557227a77d6efbc27c"
+      },
+      {
+        "pageNumber": 10,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-010.png",
+        "sha256": "31507e89b29890e3f8814cbea0c336a2bbfb51e66116f14ca45d2eb73b2cd841"
+      },
+      {
+        "pageNumber": 11,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-011.png",
+        "sha256": "be0a71b7fdf993fd08c26d7075a2e77b4614920fc03eb1ed2eb3f9b204d127c9"
+      },
+      {
+        "pageNumber": 12,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-012.png",
+        "sha256": "d86977c6ca718fc8e0ed8ef55b7548d6b656d3e53ef99b7f215c45c8c1c83e79"
+      },
+      {
+        "pageNumber": 13,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-013.png",
+        "sha256": "67f87b9a23af43462a52c2d57520b3528cf130d3cf8d02621f7f22483445cb14"
+      },
+      {
+        "pageNumber": 14,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-014.png",
+        "sha256": "086c63bf8055f7c08b5a8ff74a747a06a18fffd0da53888b3976ff1780802a7b"
+      },
+      {
+        "pageNumber": 15,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-015.png",
+        "sha256": "840c54d9dcb532ac7f8090d4d274e301db67fa550b157f4dd46313b0b608169b"
+      },
+      {
+        "pageNumber": 16,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-016.png",
+        "sha256": "4273ad593860f532e3dfd48245cec7253b8a1831dd281825ece7e946a9fa6b98"
+      },
+      {
+        "pageNumber": 17,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-017.png",
+        "sha256": "e1a47926c6cb1ebbcc36ec91431aeb76180132f080ab93d54510a963954675cb"
+      },
+      {
+        "pageNumber": 18,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-018.png",
+        "sha256": "242f9da54b830201624b39e8f27fc70f1091ae77b20388087591961169821514"
+      },
+      {
+        "pageNumber": 19,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-019.png",
+        "sha256": "e1f3a20f6450eb2a6ee8870f15e1c8f9f6da6b9359f1e102e79649af67816da9"
+      },
+      {
+        "pageNumber": 20,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-020.png",
+        "sha256": "d198326acbaa3ef843189a2001371fd21390eb84edf2663ad92fb0f4407ee218"
+      },
+      {
+        "pageNumber": 21,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-021.png",
+        "sha256": "f071e950ae6b9121a3bf9a31d163dcfd6a1d930fd3cb86f7481b4a910abebef5"
+      },
+      {
+        "pageNumber": 22,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-022.png",
+        "sha256": "6dda42b75fb273476f031bdc62ec270e5f0dd39c305229c85af78d2b026c0e64"
+      },
+      {
+        "pageNumber": 23,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-023.png",
+        "sha256": "a29623e372d950971eed52d1ba96cc9c46bfa0e12eef25e17d20c5697d68b855"
+      },
+      {
+        "pageNumber": 24,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-024.png",
+        "sha256": "bddf7f8aadbaf4341131f74acbe98c858cb3e7ddf467b09d9edc0614bf1284bc"
+      },
+      {
+        "pageNumber": 25,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-025.png",
+        "sha256": "574e60974f170180e71d36bf1289a5f91b58c58eaadd0408b06b9d9c86e1f639"
+      },
+      {
+        "pageNumber": 26,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-026.png",
+        "sha256": "decb296956c22c4de4860cf88327b95aae8506134faa7ad268c24e467ab0f7ae"
+      },
+      {
+        "pageNumber": 27,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-027.png",
+        "sha256": "276c11686f04417ac71cd8d1dac6918343516d1d344f2096f41344e91a452ff9"
+      },
+      {
+        "pageNumber": 28,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\pages\\page-028.png",
+        "sha256": "16797745fe1df052ce1f22ebe55d27ee21da44d461ae393e7354edcccaeb04ad"
+      }
+    ],
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\qualifications-reform\\rendered\\contact-01.png"
+  },
+  "candidate": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\artifact.pptx",
+    "sha256": "2653ec479fab4e16f72ffa4ac68df6ca1b2c330878526673052dcd54591c2844",
+    "bytes": 2123843,
+    "pageCount": 28
+  },
+  "renderProfile": {
+    "engine": "bundled LibreOffice + Poppler review-only",
+    "dpi": 120,
+    "sameRendererAsBaseline": true
+  },
+  "round": 0,
+  "status": "pass",
+  "verifier": {
+    "moduleId": "pptx-office",
+    "requestId": "aesthetic50-P11-verify",
+    "operation": "verify",
+    "result": {
+      "ok": true,
+      "partial": false,
+      "checks": [
+        {
+          "id": "pptx.slideCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Reopened slide count compared with expectation."
+        },
+        {
+          "id": "pptx.text.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        },
+        {
+          "id": "pptx.text.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        }
+      ],
+      "summary": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "verification": {
+      "ok": true,
+      "partial": false,
+      "checks": [
+        {
+          "id": "pptx.slideCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Reopened slide count compared with expectation."
+        },
+        {
+          "id": "pptx.text.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        },
+        {
+          "id": "pptx.text.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        }
+      ],
+      "summary": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "artifacts": [],
+    "warnings": []
+  },
+  "visualReview": {
+    "status": "reviewed",
+    "method": "every rendered page inspected in the complete contact sheet; full-resolution page images retained",
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\contact-01.png",
+    "pages": [
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-001.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-002.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-003.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-004.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-005.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-006.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-007.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-008.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-009.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-010.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-011.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-012.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-013.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-014.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-015.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-016.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-017.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-018.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-019.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-020.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-021.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-022.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-023.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-024.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-025.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-026.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-027.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P11\\dsh\\round-00\\rendered\\pages\\page-028.png"
+    ]
+  },
+  "repairsUsed": 0,
+  "repairLimit": 5,
+  "scores": {
+    "round": 0,
+    "hardGates": {
+      "fileIntegrity": true,
+      "completeRender": true,
+      "contentPreservation": true,
+      "noCriticalVisualDefect": true,
+      "intentComplete": true
+    },
+    "dimensions": {
+      "oneStep": 30,
+      "intent": 23,
+      "craft": 17,
+      "thoroughness": 15,
+      "strength": 8
+    },
+    "total": 93,
+    "threshold": 85,
+    "verdict": "PASS",
+    "failedGates": [],
+    "scoringNote": "Single typed DSH call completed, verifier passed and rendered visual review found no critical defect."
+  }
+}

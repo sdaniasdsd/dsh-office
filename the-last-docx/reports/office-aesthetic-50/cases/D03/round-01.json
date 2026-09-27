@@ -1,0 +1,229 @@
+{
+  "caseId": "D03",
+  "round": 1,
+  "primaryPrompt": "我想让这份asbestos management plan读起来松一点，不要每段都挤在一起。请调整开头几段的行距和段后距，并把章节题头做得更醒目；不要重写内容，也别把整份文件弄成花哨宣传册。",
+  "repairPrompt": "我想让这份asbestos management plan读起来松一点，不要每段都挤在一起。请调整开头几段的行距和段后距，并把章节题头做得更醒目；不要重写内容，也别把整份文件弄成花哨宣传册。\nRepair based on round-00 evidence: round-00 render gained an almost-empty page 10; reduce spacing on the same four opening/body paragraphs without changing text.",
+  "repairReason": "round-00 render gained an almost-empty page 10; reduce spacing on the same four opening/body paragraphs without changing text.",
+  "inputArtifactSha256": "a55366fc1544161649d87d3b8caa7bc18b28b5ee4d31952310d53fc1fc856797",
+  "plan": {
+    "edits": [
+      {
+        "kind": "formatParagraph",
+        "target": {
+          "semanticId": "60104411fea3db4d2944c39efab86425",
+          "anchor": {
+            "kind": "p",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:p[11]",
+            "ordinal": 10,
+            "paraId": "1A279214",
+            "quote": "This template includes instructions that will help you create your own asbestos management plan.",
+            "digest": "8c56f34d009961577997bd5b3af8eef0d0f953a26cf35b03098beedc7ea847fc"
+          }
+        },
+        "lineSpacing": 12,
+        "spaceAfter": 0
+      },
+      {
+        "kind": "formatParagraph",
+        "target": {
+          "semanticId": "9a399994b35eb94f749dd84afc3948e4",
+          "anchor": {
+            "kind": "p",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:p[13]",
+            "ordinal": 12,
+            "paraId": "721ED6F4",
+            "quote": "The information from any asbestos survey reports should be used to form your asbestos register, which is a key part of your asbestos management plan.",
+            "digest": "1fcc82d8e7eeb6137f7bc06b9d32457a040dd955bdacc443d915415f5aa55b03"
+          }
+        },
+        "lineSpacing": 12,
+        "spaceAfter": 0
+      },
+      {
+        "kind": "formatParagraph",
+        "target": {
+          "semanticId": "72fd60e509e009c03d15cdf1f829578e",
+          "anchor": {
+            "kind": "p",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:p[15]",
+            "ordinal": 14,
+            "paraId": "5B2DBAFB",
+            "quote": "You can add relevant documents, including the asbestos register and site plans, at the end of the management plan.",
+            "digest": "50b034b3c0053834335a09cff2e85606f1de0ba6d82d9c71d4d890413cd8e659"
+          }
+        },
+        "lineSpacing": 12,
+        "spaceAfter": 0
+      }
+    ]
+  },
+  "dshCall": {
+    "requestId": "aesthetic50-D03-repair-01",
+    "result": {
+      "artifact": {
+        "id": "sha256:4773cc38012f3daa1a50c121f5f1a33515650779236a5048c275a6ac52ac46cf",
+        "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/dsh-office-clone/the-last-docx/dist/office-aesthetic-50/store/objects/4773cc38012f3daa1a50c121f5f1a33515650779236a5048c275a6ac52ac46cf/artifact.docx",
+        "sha256": "4773cc38012f3daa1a50c121f5f1a33515650779236a5048c275a6ac52ac46cf",
+        "sizeBytes": 38800,
+        "label": "artifact.docx.edited.docx",
+        "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      },
+      "edits": [
+        {
+          "kind": "formatParagraph",
+          "semanticId": "60104411fea3db4d2944c39efab86425",
+          "changed": 2,
+          "details": {
+            "applied": "spaceAfter,lineSpacing"
+          }
+        },
+        {
+          "kind": "formatParagraph",
+          "semanticId": "9a399994b35eb94f749dd84afc3948e4",
+          "changed": 2,
+          "details": {
+            "applied": "spaceAfter,lineSpacing"
+          }
+        },
+        {
+          "kind": "formatParagraph",
+          "semanticId": "72fd60e509e009c03d15cdf1f829578e",
+          "changed": 2,
+          "details": {
+            "applied": "spaceAfter,lineSpacing"
+          }
+        }
+      ],
+      "verification": {
+        "ok": true,
+        "partial": false,
+        "checks": [
+          {
+            "id": "package.reopens",
+            "status": "pass",
+            "severity": "info",
+            "message": "The output reopens as a WordprocessingML package."
+          },
+          {
+            "id": "relationships.resolve",
+            "status": "pass",
+            "severity": "info",
+            "message": "All internal relationships resolve."
+          },
+          {
+            "id": "edit.paragraph.1",
+            "status": "pass",
+            "severity": "info",
+            "message": "The edited paragraph is present."
+          },
+          {
+            "id": "edit.paragraph.2",
+            "status": "pass",
+            "severity": "info",
+            "message": "The edited paragraph is present."
+          },
+          {
+            "id": "edit.paragraph.3",
+            "status": "pass",
+            "severity": "info",
+            "message": "The edited paragraph is present."
+          },
+          {
+            "id": "format.paragraph.1",
+            "status": "pass",
+            "severity": "info",
+            "message": "The requested paragraph formatting is present in the saved output."
+          },
+          {
+            "id": "format.paragraph.2",
+            "status": "pass",
+            "severity": "info",
+            "message": "The requested paragraph formatting is present in the saved output."
+          },
+          {
+            "id": "format.paragraph.3",
+            "status": "pass",
+            "severity": "info",
+            "message": "The requested paragraph formatting is present in the saved output."
+          }
+        ],
+        "summary": {
+          "total": 8,
+          "passed": 8,
+          "failed": 0,
+          "skipped": 0
+        }
+      }
+    }
+  },
+  "actionOk": true,
+  "candidate": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\artifact.docx",
+    "sha256": "4773cc38012f3daa1a50c121f5f1a33515650779236a5048c275a6ac52ac46cf",
+    "bytes": 38800
+  },
+  "render": {
+    "pageCount": 9,
+    "pagesDir": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages",
+    "pages": [
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-001.png",
+        "sha256": "4191f3813e7e2f967c1e65f64cb7b50faa75aac9bce76312552bedb6d9a26975"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-002.png",
+        "sha256": "c75370fe52c458d2a485c34f8c5df134335f88da8e37858ebc296da779b27594"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-003.png",
+        "sha256": "2cf16c2bde8ed2a587d62aba251e6ddc54aff6379bbea90d21e2cb0bc819abfb"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-004.png",
+        "sha256": "8e8b6b15504567c9505949a0ee24b8579c37d2bd0652a025c2bf335dc7a020eb"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-005.png",
+        "sha256": "869fdfae9989b685d5e21c9d6be52199f071d14e8949d6ed857a0c5edcbd4dd0"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-006.png",
+        "sha256": "8f116834e259f22b995964eb963ef1ea1ecb5489e0072c0eb7f336378033c730"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-007.png",
+        "sha256": "18a17d7faf7fdfe6d710cde5044ac225a8e8a8adca243f896d6af1d4e95c09f2"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-008.png",
+        "sha256": "23e894eda5f69d2e6ea13941aaa0fce25768ae9738df692c0b6b616a4b6262ba"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-009.png",
+        "sha256": "c9e1fbd8293146473558687e64cabf39da626fef839d6d7909bc47ade605d54e"
+      }
+    ]
+  },
+  "visualReview": {
+    "status": "reviewed",
+    "method": "all rendered pages inspected via complete contact sheet; each page image is retained at full resolution",
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\contact-01.png",
+    "pages": [
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-001.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-002.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-003.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-004.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-005.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-006.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-007.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-008.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\pages\\page-009.png"
+    ]
+  },
+  "sourceSha256": "ad7f12a9b9193362ebb9437afe9dcb373bb83a10c1d4a5d3056d9879cc2700ab",
+  "sourceUnchanged": true,
+  "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D03\\dsh\\round-01\\render\\contact-01.png"
+}

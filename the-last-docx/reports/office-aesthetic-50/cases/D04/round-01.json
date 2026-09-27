@@ -1,0 +1,548 @@
+{
+  "caseId": "D04",
+  "round": 1,
+  "primaryPrompt": "准备把asbestos management plan放进正式评审包，麻烦做一轮统一的轻量美化：标题、章节、小表格的视觉语言协调，正文仍然严肃易读；所有法律/安全/审批措辞、字段、数字和顺序保持不变。",
+  "repairPrompt": "准备把asbestos management plan放进正式评审包，麻烦做一轮统一的轻量美化：标题、章节、小表格的视觉语言协调，正文仍然严肃易读；所有法律/安全/审批措辞、字段、数字和顺序保持不变。\nRepair based on round-00 evidence: first call rejected table alignment value Center; omit optional table alignment while preserving borders and cell padding.",
+  "repairReason": "first call rejected table alignment value Center; omit optional table alignment while preserving borders and cell padding.",
+  "inputArtifactSha256": "ad7f12a9b9193362ebb9437afe9dcb373bb83a10c1d4a5d3056d9879cc2700ab",
+  "plan": {
+    "edits": [
+      {
+        "kind": "formatParagraph",
+        "target": {
+          "semanticId": "cc61a732047e84ba4f9c912738771f1e",
+          "anchor": {
+            "kind": "p",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:p[8]",
+            "ordinal": 7,
+            "paraId": "0968C764",
+            "quote": "Asbestos management plan – a template",
+            "digest": "2790266f8d414cca42e5bbb8e57cae6589cbaff6beb7e24f471f785fe80e8bf4"
+          }
+        },
+        "alignment": "Centered",
+        "spaceAfter": 12,
+        "font": {
+          "bold": true,
+          "size": 21,
+          "color": "#23415E",
+          "name": "Arial"
+        }
+      },
+      {
+        "kind": "formatTable",
+        "target": {
+          "semanticId": "b5d5fca2b6a5d801ac4220b83200e0ae",
+          "anchor": {
+            "kind": "tbl",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:tbl[1]",
+            "ordinal": 0,
+            "paraId": null,
+            "quote": "Asbestos management plan for [name of business/organisation] OverviewThis section can be used to:set out the purpose and scope of the documentsignpost to any ot",
+            "digest": "e8d8443d7ab45c78c2797276fbf521b5ca1b9237aca18b539436726b287df3ed"
+          }
+        },
+        "layout": "autofit",
+        "cellVerticalAlignment": "center",
+        "cellMargins": {
+          "top": 3,
+          "left": 4,
+          "bottom": 3,
+          "right": 4
+        },
+        "borders": {
+          "top": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "bottom": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "left": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "right": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "insideH": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          },
+          "insideV": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          }
+        }
+      },
+      {
+        "kind": "formatTable",
+        "target": {
+          "semanticId": "7a58873c3af1b6c0794a869127971405",
+          "anchor": {
+            "kind": "tbl",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:tbl[2]",
+            "ordinal": 1,
+            "paraId": null,
+            "quote": "Roles and responsibilities RoleName and contact details DutyholderThe person or organisation with the main responsibility for maintenance or repair Appointed pe",
+            "digest": "16cf3b90801b09f570ec255b1535e911204a0dacd87e2b48682257f6dea4b595"
+          }
+        },
+        "layout": "autofit",
+        "cellVerticalAlignment": "center",
+        "cellMargins": {
+          "top": 3,
+          "left": 4,
+          "bottom": 3,
+          "right": 4
+        },
+        "borders": {
+          "top": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "bottom": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "left": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "right": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "insideH": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          },
+          "insideV": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          }
+        }
+      },
+      {
+        "kind": "formatTable",
+        "target": {
+          "semanticId": "aedc240f78f289364450a07d5c9afbd3",
+          "anchor": {
+            "kind": "tbl",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:tbl[3]",
+            "ordinal": 2,
+            "paraId": null,
+            "quote": "Delivery of contractor site inductionsDeliver inductions once you are satisfied that information about the presence of asbestos has been understood to:verify pr",
+            "digest": "453d045285bb6d1636e26fdabf2ffcb635c2b71e11f607e652ecf2aaf98745f0"
+          }
+        },
+        "layout": "autofit",
+        "cellVerticalAlignment": "center",
+        "cellMargins": {
+          "top": 3,
+          "left": 4,
+          "bottom": 3,
+          "right": 4
+        },
+        "borders": {
+          "top": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "bottom": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "left": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "right": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "insideH": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          },
+          "insideV": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          }
+        }
+      },
+      {
+        "kind": "formatTable",
+        "target": {
+          "semanticId": "10a377aef628f7795a7c88108fa126a4",
+          "anchor": {
+            "kind": "tbl",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:tbl[4]",
+            "ordinal": 3,
+            "paraId": null,
+            "quote": "Maintenance tasks on ACMs that can be carried out by non-licensed, trained workers Some tasks, like cleaning vinyl floor tiles, can be done by workers who have ",
+            "digest": "3109fc9ebaf48ff64d27d9a7433fdc0a5792547b76004d4d2e80df9e76d2d65c"
+          }
+        },
+        "layout": "autofit",
+        "cellVerticalAlignment": "center",
+        "cellMargins": {
+          "top": 3,
+          "left": 4,
+          "bottom": 3,
+          "right": 4
+        },
+        "borders": {
+          "top": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "bottom": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "left": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "right": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "insideH": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          },
+          "insideV": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          }
+        }
+      },
+      {
+        "kind": "formatTable",
+        "target": {
+          "semanticId": "dd19da80865dfd02cec81f235d6c341f",
+          "anchor": {
+            "kind": "tbl",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:tbl[5]",
+            "ordinal": 4,
+            "paraId": null,
+            "quote": "Provide details Action plan for ACM removal, remediation or ongoing management When deciding on actions and priorities for ACMs in the asbestos register, take t",
+            "digest": "d964ebdbf75e6bf68a311ce33fb9312c5aeb2d4fd8326e523a88055e65883d2a"
+          }
+        },
+        "layout": "autofit",
+        "cellVerticalAlignment": "center",
+        "cellMargins": {
+          "top": 3,
+          "left": 4,
+          "bottom": 3,
+          "right": 4
+        },
+        "borders": {
+          "top": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "bottom": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "left": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "right": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "insideH": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          },
+          "insideV": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          }
+        }
+      },
+      {
+        "kind": "formatTable",
+        "target": {
+          "semanticId": "e6a96c9ac07caaed4163c3477fe3d637",
+          "anchor": {
+            "kind": "tbl",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:tbl[6]",
+            "ordinal": 5,
+            "paraId": null,
+            "quote": "Provide details Asbestos communication plan Everyone who needs to know about the ACMs at the site, for example maintenance workers, contractors and occupants, s",
+            "digest": "9ffc0e7bdca0e7e35cfe1f491daae37886d293bfe0d22f21d79c81e676a67f46"
+          }
+        },
+        "layout": "autofit",
+        "cellVerticalAlignment": "center",
+        "cellMargins": {
+          "top": 3,
+          "left": 4,
+          "bottom": 3,
+          "right": 4
+        },
+        "borders": {
+          "top": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "bottom": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "left": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "right": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "insideH": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          },
+          "insideV": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          }
+        }
+      },
+      {
+        "kind": "formatTable",
+        "target": {
+          "semanticId": "f9a2f39bc06cd5c931bfd208f028082b",
+          "anchor": {
+            "kind": "tbl",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:tbl[7]",
+            "ordinal": 6,
+            "paraId": null,
+            "quote": "Provide details PeopleTraining needDate training completed Incident procedureDetails of what to do and who to contact if asbestos is discovered or accidentally ",
+            "digest": "ccc97a35f5cb047b397e302eec7b2260d0de041d3d3eb021c32b7869ac831ecf"
+          }
+        },
+        "layout": "autofit",
+        "cellVerticalAlignment": "center",
+        "cellMargins": {
+          "top": 3,
+          "left": 4,
+          "bottom": 3,
+          "right": 4
+        },
+        "borders": {
+          "top": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "bottom": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "left": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "right": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "insideH": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          },
+          "insideV": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          }
+        }
+      },
+      {
+        "kind": "formatTable",
+        "target": {
+          "semanticId": "ea88d2c66c95d5d9169b0ded0a067484",
+          "anchor": {
+            "kind": "tbl",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:tbl[8]",
+            "ordinal": 7,
+            "paraId": null,
+            "quote": "Accidental damage and incident log DetailsAction requiredResponsible personCompletion date Review and updateAs a minimum, review this asbestos management plan, ",
+            "digest": "934de31c9fbac05d62757c9ce731e9777eb20374fc04f5811333aa8a9f5b92cd"
+          }
+        },
+        "layout": "autofit",
+        "cellVerticalAlignment": "center",
+        "cellMargins": {
+          "top": 3,
+          "left": 4,
+          "bottom": 3,
+          "right": 4
+        },
+        "borders": {
+          "top": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "bottom": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#C8D2DC"
+          },
+          "left": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "right": {
+            "style": "single",
+            "size": 0.5,
+            "color": "#D6DEE5"
+          },
+          "insideH": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          },
+          "insideV": {
+            "style": "single",
+            "size": 0.35,
+            "color": "#D6DEE5"
+          }
+        }
+      }
+    ]
+  },
+  "dshCall": {
+    "error": {
+      "code": "INVALID_INPUT",
+      "message": "Value is not lossless JSON."
+    }
+  },
+  "actionOk": false,
+  "candidate": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\artifact.docx",
+    "sha256": "ad7f12a9b9193362ebb9437afe9dcb373bb83a10c1d4a5d3056d9879cc2700ab",
+    "bytes": 49048
+  },
+  "render": {
+    "pageCount": 9,
+    "pagesDir": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages",
+    "pages": [
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-001.png",
+        "sha256": "b2d560eba7c5d29cae0cf3818fcae045283936a77db827cb00bbe2ea6066c70d"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-002.png",
+        "sha256": "c75370fe52c458d2a485c34f8c5df134335f88da8e37858ebc296da779b27594"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-003.png",
+        "sha256": "2cf16c2bde8ed2a587d62aba251e6ddc54aff6379bbea90d21e2cb0bc819abfb"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-004.png",
+        "sha256": "8e8b6b15504567c9505949a0ee24b8579c37d2bd0652a025c2bf335dc7a020eb"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-005.png",
+        "sha256": "869fdfae9989b685d5e21c9d6be52199f071d14e8949d6ed857a0c5edcbd4dd0"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-006.png",
+        "sha256": "8f116834e259f22b995964eb963ef1ea1ecb5489e0072c0eb7f336378033c730"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-007.png",
+        "sha256": "18a17d7faf7fdfe6d710cde5044ac225a8e8a8adca243f896d6af1d4e95c09f2"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-008.png",
+        "sha256": "23e894eda5f69d2e6ea13941aaa0fce25768ae9738df692c0b6b616a4b6262ba"
+      },
+      {
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-009.png",
+        "sha256": "c9e1fbd8293146473558687e64cabf39da626fef839d6d7909bc47ade605d54e"
+      }
+    ]
+  },
+  "visualReview": {
+    "status": "reviewed",
+    "method": "all rendered pages inspected via complete contact sheet; each page image is retained at full resolution",
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\contact-01.png",
+    "pages": [
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-001.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-002.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-003.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-004.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-005.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-006.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-007.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-008.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\pages\\page-009.png"
+    ]
+  },
+  "sourceSha256": "ad7f12a9b9193362ebb9437afe9dcb373bb83a10c1d4a5d3056d9879cc2700ab",
+  "sourceUnchanged": true,
+  "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D04\\dsh\\round-01\\render\\contact-01.png"
+}

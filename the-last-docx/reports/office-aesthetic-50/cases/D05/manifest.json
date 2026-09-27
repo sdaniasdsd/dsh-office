@@ -1,0 +1,25 @@
+{
+  "caseId": "D05",
+  "createdAt": "2026-09-27T10:10:50.655Z",
+  "format": "docx",
+  "primaryPromptSha256": "6bdf3acb30f40935a689eb9291c21aefd873b0cd0616530ba284b498612911f5",
+  "runner": "dsh",
+  "runnerRevision": "workspace source at run",
+  "status": "pass",
+  "rounds": 1,
+  "firstPassScore": 93,
+  "finalScore": 93,
+  "oneStepPass": true,
+  "converged": true,
+  "artifactChecksums": {
+    "round-00": "b0f806365ba2aabb03d8a23f107d5238a69580e1c1c0bdfdfc217b97ef91b0a6"
+  },
+  "renderImages": [
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D05\\dsh\\round-00\\render\\pages\\page-001.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D05\\dsh\\round-00\\render\\pages\\page-002.png",
+    "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D05\\dsh\\round-00\\render\\pages\\page-003.png"
+  ],
+  "verifierResults": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D05\\dsh\\round-00\\manifest.json",
+  "reportComplete": true,
+  "caseReport": "report.md"
+}

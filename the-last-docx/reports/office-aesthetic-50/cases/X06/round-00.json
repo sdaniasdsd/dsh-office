@@ -1,0 +1,120 @@
+{
+  "caseId": "X06",
+  "format": "xlsx",
+  "file": "green-book-appraisal-tables.xlsx",
+  "primaryPrompt": "能不能把Green Book appraisal tables的表头做成更清楚的深色底白字，加细边框和统一字体？只动工作表外观，任何数值、公式、链接、名称和分页内容都要原封不动。",
+  "operationFamily": "cell-visual-style",
+  "operationPlan": {
+    "action": "formatCells",
+    "changes": [
+      {
+        "sheet": "*",
+        "range": "A1:Z1",
+        "font": {
+          "bold": true,
+          "color": "#FFFFFF"
+        },
+        "fill": "#244A67",
+        "border": "thin"
+      }
+    ]
+  },
+  "dshCall": {
+    "moduleId": "xlsx-office",
+    "operation": "execute",
+    "requestId": "aesthetic50-X06-execute",
+    "error": {
+      "code": "INVALID_INPUT",
+      "message": "execute payload.action must be readRange, setCells, setPrintLayout, or createWorkbook."
+    },
+    "expectedCapabilityGap": true
+  },
+  "source": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-stress-20260927-visual-confirm-200\\workspace\\xlsx\\green-book-appraisal-tables.xlsx",
+    "sha256": "8c871e840c583577a8b617e4b244298dbdb08cc32233ec88b2916c2cba1601ad",
+    "unchanged": true
+  },
+  "baseline": {
+    "pdf": {
+      "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-appraisal-tables\\rendered\\artifact.pdf",
+      "sha256": "3385acc7a19e09ef083ab1982b7ee378b214b982fc8947dc1c3303e1c8efdab5"
+    },
+    "pageCount": 4,
+    "pages": [
+      {
+        "pageNumber": 1,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-appraisal-tables\\rendered\\pages\\page-001.png",
+        "sha256": "20a7dc3f5af7257b4341c1d418d71130e0f781ecea1a05bbfacf9e792941c4be"
+      },
+      {
+        "pageNumber": 2,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-appraisal-tables\\rendered\\pages\\page-002.png",
+        "sha256": "9e0de73a2274f3d1d17697dd4f97efa224eb1f57788d536e15fc281398fc5dcd"
+      },
+      {
+        "pageNumber": 3,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-appraisal-tables\\rendered\\pages\\page-003.png",
+        "sha256": "ca8f49bf5047fb6b0a1b8f02f011e96b9975c87bb2765de36704aedd797a5789"
+      },
+      {
+        "pageNumber": 4,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-appraisal-tables\\rendered\\pages\\page-004.png",
+        "sha256": "a9a80afb55fdede5ba0a55d234ad52fb6aec905b7c64d060c8ef65f2e1144d12"
+      }
+    ],
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-appraisal-tables\\rendered\\contact-01.png"
+  },
+  "candidate": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X06\\dsh\\round-00\\artifact.xlsx",
+    "sha256": "8c871e840c583577a8b617e4b244298dbdb08cc32233ec88b2916c2cba1601ad",
+    "bytes": 53133,
+    "pageCount": 4
+  },
+  "renderProfile": {
+    "engine": "bundled LibreOffice + Poppler review-only",
+    "dpi": 120,
+    "sameRendererAsBaseline": true
+  },
+  "round": 0,
+  "status": "fail",
+  "verifier": null,
+  "visualReview": {
+    "status": "reviewed",
+    "method": "every rendered page inspected in the complete contact sheet; full-resolution page images retained",
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X06\\dsh\\round-00\\rendered\\contact-01.png",
+    "pages": [
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X06\\dsh\\round-00\\rendered\\pages\\page-001.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X06\\dsh\\round-00\\rendered\\pages\\page-002.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X06\\dsh\\round-00\\rendered\\pages\\page-003.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X06\\dsh\\round-00\\rendered\\pages\\page-004.png"
+    ]
+  },
+  "repairsUsed": 0,
+  "repairLimit": 5,
+  "scores": {
+    "round": 0,
+    "hardGates": {
+      "fileIntegrity": false,
+      "completeRender": true,
+      "contentPreservation": false,
+      "noCriticalVisualDefect": true,
+      "intentComplete": false
+    },
+    "dimensions": {
+      "oneStep": 0,
+      "intent": 0,
+      "craft": 10,
+      "thoroughness": 10,
+      "strength": 0
+    },
+    "total": 20,
+    "threshold": 85,
+    "verdict": "FAIL",
+    "failedGates": [
+      "fileIntegrity",
+      "contentPreservation",
+      "intentComplete"
+    ],
+    "scoringNote": "The requested effect was not achieved in round 00 or a hard gate failed; craft points describe baseline/render quality only and do not change the fail verdict."
+  }
+}

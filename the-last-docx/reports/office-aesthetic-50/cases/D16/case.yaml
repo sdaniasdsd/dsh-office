@@ -1,0 +1,29 @@
+{
+  "case_id": "D16",
+  "format": "docx",
+  "mode": "first-pass-and-repair",
+  "source_artifact": "docx/pipl-law.docx",
+  "source_sha256": "3e154c3e3914ec5b210c8d76c274be0cac49e23854d62472d1b1d6ce42c09fa4",
+  "initial_content": "Personal Information Protection Law from the frozen official-source office corpus.",
+  "primary_prompt": "准备把Personal Information Protection Law放进正式评审包，麻烦做一轮统一的轻量美化：标题、章节、小表格的视觉语言协调，正文仍然严肃易读；所有法律/安全/审批措辞、字段、数字和顺序保持不变。",
+  "expected_effects": [
+    "Title and section hierarchy is visibly clearer.",
+    "Text, values, labels, legal/safety wording, and order remain unchanged."
+  ],
+  "invariants": [
+    "Preserve source wording, facts, fields, values, and order.",
+    "Keep all pages and page numbering; no clipping or new blank pages.",
+    "Use DSH in-place formatting only; do not rebuild the source from a plan."
+  ],
+  "acceptance": {
+    "score_minimum": 85,
+    "required_gates": [
+      "file_integrity",
+      "complete_render",
+      "content_preservation",
+      "no_critical_visual_defect",
+      "intent_complete"
+    ],
+    "repair_limit": 5
+  }
+}

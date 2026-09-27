@@ -1,0 +1,347 @@
+{
+  "caseId": "P04",
+  "format": "pptx",
+  "file": "civil-society-covenant.pptx",
+  "primaryPrompt": "这份Civil Society Covenant deck首页文字有点压画面，开场和封面能不能收紧一点？保留核心名称和必要信息，别碰政策/法律名称、数字、后面页面、配色或版式。",
+  "operationFamily": "cover-copy-trim",
+  "operationPlan": {
+    "action": "replaceText",
+    "changes": [
+      {
+        "slideNumber": 1,
+        "shapeId": 57,
+        "paragraphIndex": 3,
+        "runIndex": 0,
+        "expectedText": "This pack contains information about the Civil Society Covenant, including:",
+        "replaceWith": "Introducing the Civil Society Covenant:"
+      },
+      {
+        "slideNumber": 1,
+        "shapeId": 57,
+        "paragraphIndex": 7,
+        "runIndex": 0,
+        "expectedText": "Background",
+        "replaceWith": "Context"
+      }
+    ]
+  },
+  "dshCall": {
+    "moduleId": "pptx-office",
+    "operation": "execute",
+    "requestId": "aesthetic50-P04-execute",
+    "result": {
+      "artifactRef": {
+        "id": "sha256:89ca5c4da8731342264e49e79fbc480a761b10a5dc5909a146c8516f388d0a6a",
+        "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/dsh-office-clone/the-last-docx/dist/office-aesthetic-50/store/objects/89ca5c4da8731342264e49e79fbc480a761b10a5dc5909a146c8516f388d0a6a/artifact.pptx",
+        "sha256": "89ca5c4da8731342264e49e79fbc480a761b10a5dc5909a146c8516f388d0a6a",
+        "sizeBytes": 1727079,
+        "label": "edited.pptx",
+        "mediaType": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      },
+      "sources": [
+        {
+          "id": "sha256:fd68904f5315522a0335b767436d4acca5c8281aaa0854a020bfa240fd6dd0e7",
+          "sha256": "fd68904f5315522a0335b767436d4acca5c8281aaa0854a020bfa240fd6dd0e7"
+        }
+      ],
+      "changedRuns": 2,
+      "slideCount": 17,
+      "visualReview": "pending"
+    },
+    "verification": {
+      "moduleId": "pptx-office",
+      "requestId": "aesthetic50-P04-verify",
+      "operation": "verify",
+      "result": {
+        "ok": true,
+        "partial": false,
+        "checks": [
+          {
+            "id": "pptx.slideCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Reopened slide count compared with expectation."
+          },
+          {
+            "id": "pptx.text.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          },
+          {
+            "id": "pptx.text.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          }
+        ],
+        "summary": {
+          "total": 3,
+          "passed": 3,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "verification": {
+        "ok": true,
+        "partial": false,
+        "checks": [
+          {
+            "id": "pptx.slideCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Reopened slide count compared with expectation."
+          },
+          {
+            "id": "pptx.text.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          },
+          {
+            "id": "pptx.text.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          }
+        ],
+        "summary": {
+          "total": 3,
+          "passed": 3,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "artifacts": [],
+      "warnings": []
+    }
+  },
+  "source": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-stress-20260927-visual-confirm-200\\workspace\\pptx\\civil-society-covenant.pptx",
+    "sha256": "fd68904f5315522a0335b767436d4acca5c8281aaa0854a020bfa240fd6dd0e7",
+    "unchanged": true
+  },
+  "baseline": {
+    "pdf": {
+      "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\artifact.pdf",
+      "sha256": "6489ccda0c08a23efee3f76e0df2a178b9d250a10aba2fe235fb6e90f2f3fab5"
+    },
+    "pageCount": 17,
+    "pages": [
+      {
+        "pageNumber": 1,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-001.png",
+        "sha256": "f5fd2386016ea805c5bce035fdd7494822671ef36e40a458b146c52785df008b"
+      },
+      {
+        "pageNumber": 2,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-002.png",
+        "sha256": "8913c20560ec8e8cdc06eae23de07bf6abe4a731cb72789411f2ce7aa32d396f"
+      },
+      {
+        "pageNumber": 3,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-003.png",
+        "sha256": "b3c1738e228ca3803a1065b2651f18abcf4de3e880b7bd73e612048f3ae12071"
+      },
+      {
+        "pageNumber": 4,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-004.png",
+        "sha256": "8d7a535d1653f9ea0b1889990688fd5c7bb971a4080a358aa98b0a8fc20e7cdf"
+      },
+      {
+        "pageNumber": 5,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-005.png",
+        "sha256": "2cc227e7d2d368598533c19e7e74183107e1ce039e032b62e6e2bf1df3afc7e4"
+      },
+      {
+        "pageNumber": 6,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-006.png",
+        "sha256": "2df78f4d1e90c9ffaa268d0682d9fb93d2e88fc64111b489fe1e4a0a1750308f"
+      },
+      {
+        "pageNumber": 7,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-007.png",
+        "sha256": "50d89f7ddf9b5f1e2e4be3410e3a9c6d8368b7a92d3290993c943019260d7d49"
+      },
+      {
+        "pageNumber": 8,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-008.png",
+        "sha256": "1fc6c94b1321f53ab0aa4d7d4ad1680db9fddfc8360f4a7a01a1032c92542662"
+      },
+      {
+        "pageNumber": 9,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-009.png",
+        "sha256": "082522e5d28d168d6e61c93180e37277043c785ed3735e5f6f85ddaa62f6e3e5"
+      },
+      {
+        "pageNumber": 10,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-010.png",
+        "sha256": "0903e2ab4661bbd8d26fa6715c69b05a066d4dd9049629d4575eac0a8f799c2d"
+      },
+      {
+        "pageNumber": 11,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-011.png",
+        "sha256": "76918dd75095292d3727ba521885512e04c0f0e40acdf9ce90f22dba068ce0c6"
+      },
+      {
+        "pageNumber": 12,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-012.png",
+        "sha256": "ebeba5661d553aed715af2e44b7c884b2071bf0f5fa9822b7658148438171b31"
+      },
+      {
+        "pageNumber": 13,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-013.png",
+        "sha256": "2ee3e28160ab5ce466dbef786b85e19372165bcb9aba081d0a927135504956cb"
+      },
+      {
+        "pageNumber": 14,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-014.png",
+        "sha256": "a43608b5cde9d1d5089f0b475af3b1544577445ac4bf62b89dc748d09d2a4796"
+      },
+      {
+        "pageNumber": 15,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-015.png",
+        "sha256": "1df8bb72e332cad306472c4f821e9ced72493e433f8e21f2c5ceefd53974df33"
+      },
+      {
+        "pageNumber": 16,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-016.png",
+        "sha256": "1aa8f0025dcd87b2f26e6a3aaaea73a29d4e7a800f1e0b9d093eecd027a7926a"
+      },
+      {
+        "pageNumber": 17,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\pages\\page-017.png",
+        "sha256": "39f4ba5951016bb6ac07f0bc3e22e20ba089940fe2acf49f98830954ca161bac"
+      }
+    ],
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-society-covenant\\rendered\\contact-01.png"
+  },
+  "candidate": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\artifact.pptx",
+    "sha256": "89ca5c4da8731342264e49e79fbc480a761b10a5dc5909a146c8516f388d0a6a",
+    "bytes": 1727079,
+    "pageCount": 17
+  },
+  "renderProfile": {
+    "engine": "bundled LibreOffice + Poppler review-only",
+    "dpi": 120,
+    "sameRendererAsBaseline": true
+  },
+  "round": 0,
+  "status": "pass",
+  "verifier": {
+    "moduleId": "pptx-office",
+    "requestId": "aesthetic50-P04-verify",
+    "operation": "verify",
+    "result": {
+      "ok": true,
+      "partial": false,
+      "checks": [
+        {
+          "id": "pptx.slideCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Reopened slide count compared with expectation."
+        },
+        {
+          "id": "pptx.text.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        },
+        {
+          "id": "pptx.text.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        }
+      ],
+      "summary": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "verification": {
+      "ok": true,
+      "partial": false,
+      "checks": [
+        {
+          "id": "pptx.slideCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Reopened slide count compared with expectation."
+        },
+        {
+          "id": "pptx.text.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        },
+        {
+          "id": "pptx.text.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        }
+      ],
+      "summary": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "artifacts": [],
+    "warnings": []
+  },
+  "visualReview": {
+    "status": "reviewed",
+    "method": "every rendered page inspected in the complete contact sheet; full-resolution page images retained",
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\contact-01.png",
+    "pages": [
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-001.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-002.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-003.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-004.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-005.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-006.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-007.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-008.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-009.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-010.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-011.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-012.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-013.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-014.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-015.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-016.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P04\\dsh\\round-00\\rendered\\pages\\page-017.png"
+    ]
+  },
+  "repairsUsed": 0,
+  "repairLimit": 5,
+  "scores": {
+    "round": 0,
+    "hardGates": {
+      "fileIntegrity": true,
+      "completeRender": true,
+      "contentPreservation": true,
+      "noCriticalVisualDefect": true,
+      "intentComplete": true
+    },
+    "dimensions": {
+      "oneStep": 30,
+      "intent": 23,
+      "craft": 17,
+      "thoroughness": 15,
+      "strength": 8
+    },
+    "total": 93,
+    "threshold": 85,
+    "verdict": "PASS",
+    "failedGates": [],
+    "scoringNote": "Single typed DSH call completed, verifier passed and rendered visual review found no critical defect."
+  }
+}

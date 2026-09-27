@@ -1,0 +1,29 @@
+{
+  "case_id": "X02",
+  "format": "xlsx",
+  "mode": "first-pass-and-repair",
+  "source_artifact": "xlsx/condition-survey-template.xlsx",
+  "source_sha256": "7f731c5cee5b6af60e3ef3fb285d16a0836a98a027acf8fd72c5216a4c5e13ef",
+  "initial_content": "condition survey workbook from the frozen official-source office corpus.",
+  "primary_prompt": "同事打印condition survey workbook时嫌表格太挤。优先让关键工作表横向阅读、宽度最多两页，不要为了页数把纵向内容压成一页；保留原有数据和计算，封面和说明页不调整。",
+  "expected_effects": [
+    "Requested worksheets print in the requested landscape width with unlimited vertical pagination unless a two-page width is specified.",
+    "All cell content and unrelated worksheets remain unchanged."
+  ],
+  "invariants": [
+    "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+    "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+    "Produce a separate immutable candidate and visually inspect every printed page."
+  ],
+  "acceptance": {
+    "score_minimum": 85,
+    "required_gates": [
+      "file_integrity",
+      "complete_render",
+      "content_preservation",
+      "no_critical_visual_defect",
+      "intent_complete"
+    ],
+    "repair_limit": 5
+  }
+}

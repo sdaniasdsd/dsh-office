@@ -1,0 +1,472 @@
+{
+  "caseId": "D14",
+  "format": "docx",
+  "file": "pipl-law.docx",
+  "primaryPrompt": "同事说这份Personal Information Protection Law打印后不好扫读。请把已有表格的边线和单元格留白整理得轻一点、整齐一点；确实没有表格时就把字段标签和小标题层级拉开。空白栏位、原文和数字全部保留。",
+  "operationFamily": "table-or-label-polish",
+  "operationPlan": {
+    "edits": [
+      {
+        "kind": "formatParagraph",
+        "target": {
+          "semanticId": "c68682b4b35811b24fc50c72bbe3c2f6",
+          "anchor": {
+            "kind": "p",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:p[17]",
+            "ordinal": 16,
+            "paraId": null,
+            "quote": "来源：",
+            "digest": "3787b77651f8ff45ed147bd2a966e19f7a7bd9919cc1dea8a31ddaea2d6a6079"
+          }
+        },
+        "spaceBefore": 6,
+        "spaceAfter": 3,
+        "font": {
+          "bold": true,
+          "size": 11,
+          "color": "#176B67",
+          "name": "Arial"
+        }
+      },
+      {
+        "kind": "formatParagraph",
+        "target": {
+          "semanticId": "47ac6861ce2da18e2cc4975771b49d30",
+          "anchor": {
+            "kind": "p",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:p[38]",
+            "ordinal": 37,
+            "paraId": null,
+            "quote": "在中华人民共和国境外处理中华人民共和国境内自然人个人信息的活动，有下列情形之一的，也适用本法：",
+            "digest": "f714c7dc0ed9b0ed3b283f7afb6027723393decf4e4cf00f4eb2b0167be5fd1c"
+          }
+        },
+        "spaceBefore": 6,
+        "spaceAfter": 3,
+        "font": {
+          "bold": true,
+          "size": 11,
+          "color": "#176B67",
+          "name": "Arial"
+        }
+      },
+      {
+        "kind": "formatParagraph",
+        "target": {
+          "semanticId": "8bd31825c99d126cc6db6177fdb85e05",
+          "anchor": {
+            "kind": "p",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:p[55]",
+            "ordinal": 54,
+            "paraId": null,
+            "quote": "第十三条 符合下列情形之一的，个人信息处理者方可处理个人信息：",
+            "digest": "4bc72e84c4f3e05cdfe15802b5f8416a7aaa26270425ffa5645a7bdcd2a5cf79"
+          }
+        },
+        "spaceBefore": 6,
+        "spaceAfter": 3,
+        "font": {
+          "bold": true,
+          "size": 11,
+          "color": "#176B67",
+          "name": "Arial"
+        }
+      },
+      {
+        "kind": "formatParagraph",
+        "target": {
+          "semanticId": "1ddbcde02f57e970c188b49ba08542af",
+          "anchor": {
+            "kind": "p",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:p[69]",
+            "ordinal": 68,
+            "paraId": null,
+            "quote": "第十七条 个人信息处理者在处理个人信息前，应当以显著方式、清晰易懂的语言真实、准确、完整地向个人告知下列事项：",
+            "digest": "04e6189695bb7b7d034b8b1c86d63867acb464a48a0cb0509d7db2a229adc1ac"
+          }
+        },
+        "spaceBefore": 6,
+        "spaceAfter": 3,
+        "font": {
+          "bold": true,
+          "size": 11,
+          "color": "#176B67",
+          "name": "Arial"
+        }
+      },
+      {
+        "kind": "formatParagraph",
+        "target": {
+          "semanticId": "73ed204d4cc8fab180d812235dd74b7e",
+          "anchor": {
+            "kind": "p",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:p[107]",
+            "ordinal": 106,
+            "paraId": null,
+            "quote": "第三十八条 个人信息处理者因业务等需要，确需向中华人民共和国境外提供个人信息的，应当具备下列条件之一：",
+            "digest": "5790a7555268b19ab483cafc959dcf61b857c7f23eb9885cc4f541a20fe83bf6"
+          }
+        },
+        "spaceBefore": 6,
+        "spaceAfter": 3,
+        "font": {
+          "bold": true,
+          "size": 11,
+          "color": "#176B67",
+          "name": "Arial"
+        }
+      }
+    ]
+  },
+  "dshCall": {
+    "moduleId": "docx-edit",
+    "operation": "execute",
+    "requestId": "aesthetic50-D14-execute",
+    "edits": [
+      {
+        "kind": "formatParagraph",
+        "semanticId": "c68682b4b35811b24fc50c72bbe3c2f6",
+        "changed": 6,
+        "details": {
+          "applied": "spaceBefore,spaceAfter,font.bold,font.size,font.color,font.name"
+        }
+      },
+      {
+        "kind": "formatParagraph",
+        "semanticId": "47ac6861ce2da18e2cc4975771b49d30",
+        "changed": 6,
+        "details": {
+          "applied": "spaceBefore,spaceAfter,font.bold,font.size,font.color,font.name"
+        }
+      },
+      {
+        "kind": "formatParagraph",
+        "semanticId": "8bd31825c99d126cc6db6177fdb85e05",
+        "changed": 6,
+        "details": {
+          "applied": "spaceBefore,spaceAfter,font.bold,font.size,font.color,font.name"
+        }
+      },
+      {
+        "kind": "formatParagraph",
+        "semanticId": "1ddbcde02f57e970c188b49ba08542af",
+        "changed": 6,
+        "details": {
+          "applied": "spaceBefore,spaceAfter,font.bold,font.size,font.color,font.name"
+        }
+      },
+      {
+        "kind": "formatParagraph",
+        "semanticId": "73ed204d4cc8fab180d812235dd74b7e",
+        "changed": 6,
+        "details": {
+          "applied": "spaceBefore,spaceAfter,font.bold,font.size,font.color,font.name"
+        }
+      }
+    ],
+    "verification": {
+      "ok": true,
+      "partial": false,
+      "checks": [
+        {
+          "id": "package.reopens",
+          "status": "pass",
+          "severity": "info",
+          "message": "The output reopens as a WordprocessingML package."
+        },
+        {
+          "id": "relationships.resolve",
+          "status": "pass",
+          "severity": "info",
+          "message": "All internal relationships resolve."
+        },
+        {
+          "id": "edit.paragraph.1",
+          "status": "pass",
+          "severity": "info",
+          "message": "The edited paragraph is present."
+        },
+        {
+          "id": "edit.paragraph.2",
+          "status": "pass",
+          "severity": "info",
+          "message": "The edited paragraph is present."
+        },
+        {
+          "id": "edit.paragraph.3",
+          "status": "pass",
+          "severity": "info",
+          "message": "The edited paragraph is present."
+        },
+        {
+          "id": "edit.paragraph.4",
+          "status": "pass",
+          "severity": "info",
+          "message": "The edited paragraph is present."
+        },
+        {
+          "id": "edit.paragraph.5",
+          "status": "pass",
+          "severity": "info",
+          "message": "The edited paragraph is present."
+        },
+        {
+          "id": "format.paragraph.1",
+          "status": "pass",
+          "severity": "info",
+          "message": "The requested paragraph formatting is present in the saved output."
+        },
+        {
+          "id": "format.paragraph.2",
+          "status": "pass",
+          "severity": "info",
+          "message": "The requested paragraph formatting is present in the saved output."
+        },
+        {
+          "id": "format.paragraph.3",
+          "status": "pass",
+          "severity": "info",
+          "message": "The requested paragraph formatting is present in the saved output."
+        },
+        {
+          "id": "format.paragraph.4",
+          "status": "pass",
+          "severity": "info",
+          "message": "The requested paragraph formatting is present in the saved output."
+        },
+        {
+          "id": "format.paragraph.5",
+          "status": "pass",
+          "severity": "info",
+          "message": "The requested paragraph formatting is present in the saved output."
+        }
+      ],
+      "summary": {
+        "total": 12,
+        "passed": 12,
+        "failed": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "source": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-stress-20260927-visual-confirm-200\\workspace\\docx\\pipl-law.docx",
+    "sha256": "3e154c3e3914ec5b210c8d76c274be0cac49e23854d62472d1b1d6ce42c09fa4",
+    "unchanged": true
+  },
+  "baseline": {
+    "engine": "libreoffice-poppler",
+    "pageCount": 10,
+    "pages": [
+      {
+        "pageNumber": 1,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\pipl-law\\render\\pages\\page-001.png",
+        "sha256": "7786a237bb3bdef253f5b7ac5ab2756ae21635de06ada2e6731af43ada1c9c33",
+        "bytes": 153957
+      },
+      {
+        "pageNumber": 2,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\pipl-law\\render\\pages\\page-002.png",
+        "sha256": "4adccad98e9cd6f4134762e6878f02a05f9654e587cc6257b81b5e9c0ff72143",
+        "bytes": 347766
+      },
+      {
+        "pageNumber": 3,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\pipl-law\\render\\pages\\page-003.png",
+        "sha256": "66d2583510a3d40d33d65666986da278ad7e76c35f38d0414bd6de8666062f6f",
+        "bytes": 365891
+      },
+      {
+        "pageNumber": 4,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\pipl-law\\render\\pages\\page-004.png",
+        "sha256": "741333a05e39cfef91592d397ec0b72ec55e5b3e7315eb28c986f6300075f930",
+        "bytes": 406883
+      },
+      {
+        "pageNumber": 5,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\pipl-law\\render\\pages\\page-005.png",
+        "sha256": "b34ba10984d155035d97a082688d6567908c160849489dfbcb3ea91b383fe542",
+        "bytes": 405610
+      },
+      {
+        "pageNumber": 6,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\pipl-law\\render\\pages\\page-006.png",
+        "sha256": "98e20fc79155be335faf2d22ee48bfbe16a9901fe9e497d0fb3163bce424578b",
+        "bytes": 366378
+      },
+      {
+        "pageNumber": 7,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\pipl-law\\render\\pages\\page-007.png",
+        "sha256": "48c874ae30d339d79b8327a54aa53d8705ee4d06e023454aed8486f469b09708",
+        "bytes": 371665
+      },
+      {
+        "pageNumber": 8,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\pipl-law\\render\\pages\\page-008.png",
+        "sha256": "19d4067f3af9bf760b152a0cdabd9894b2234af0077c8d06a88d50fe069ed3c3",
+        "bytes": 404838
+      },
+      {
+        "pageNumber": 9,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\pipl-law\\render\\pages\\page-009.png",
+        "sha256": "5d1355bdd5db066922a41ab202e024a711137bfedcf3bea72e08c382b39d83e2",
+        "bytes": 391387
+      },
+      {
+        "pageNumber": 10,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\pipl-law\\render\\pages\\page-010.png",
+        "sha256": "d36e4921545eae8fd7c5ba3da5e5ff9a9a291b5996dde079d703dbffe172fda4",
+        "bytes": 129929
+      }
+    ],
+    "pdf": {
+      "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\pipl-law\\render\\artifact.pdf",
+      "sha256": "0642683bdf3ddf787613a82bdf3231320ce8dffaafa8c7a3e78a0e5f406a04b2",
+      "bytes": 268931
+    },
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\pipl-law\\render\\contact-01.png"
+  },
+  "candidate": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D14\\dsh\\round-00\\artifact.docx",
+    "sha256": "ec0be317562625a850906bb2f680de08629115a32e579e408f1b595211c3887f",
+    "bytes": 9945,
+    "pageCount": 10
+  },
+  "renderProfile": {
+    "engine": "DSH docx-render / bundled LibreOffice",
+    "dpi": 120,
+    "sameRendererAsBaseline": true
+  },
+  "round": 0,
+  "status": "pass",
+  "verifier": {
+    "ok": true,
+    "partial": false,
+    "checks": [
+      {
+        "id": "package.reopens",
+        "status": "pass",
+        "severity": "info",
+        "message": "The output reopens as a WordprocessingML package."
+      },
+      {
+        "id": "relationships.resolve",
+        "status": "pass",
+        "severity": "info",
+        "message": "All internal relationships resolve."
+      },
+      {
+        "id": "edit.paragraph.1",
+        "status": "pass",
+        "severity": "info",
+        "message": "The edited paragraph is present."
+      },
+      {
+        "id": "edit.paragraph.2",
+        "status": "pass",
+        "severity": "info",
+        "message": "The edited paragraph is present."
+      },
+      {
+        "id": "edit.paragraph.3",
+        "status": "pass",
+        "severity": "info",
+        "message": "The edited paragraph is present."
+      },
+      {
+        "id": "edit.paragraph.4",
+        "status": "pass",
+        "severity": "info",
+        "message": "The edited paragraph is present."
+      },
+      {
+        "id": "edit.paragraph.5",
+        "status": "pass",
+        "severity": "info",
+        "message": "The edited paragraph is present."
+      },
+      {
+        "id": "format.paragraph.1",
+        "status": "pass",
+        "severity": "info",
+        "message": "The requested paragraph formatting is present in the saved output."
+      },
+      {
+        "id": "format.paragraph.2",
+        "status": "pass",
+        "severity": "info",
+        "message": "The requested paragraph formatting is present in the saved output."
+      },
+      {
+        "id": "format.paragraph.3",
+        "status": "pass",
+        "severity": "info",
+        "message": "The requested paragraph formatting is present in the saved output."
+      },
+      {
+        "id": "format.paragraph.4",
+        "status": "pass",
+        "severity": "info",
+        "message": "The requested paragraph formatting is present in the saved output."
+      },
+      {
+        "id": "format.paragraph.5",
+        "status": "pass",
+        "severity": "info",
+        "message": "The requested paragraph formatting is present in the saved output."
+      }
+    ],
+    "summary": {
+      "total": 12,
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "visualReview": {
+    "status": "reviewed",
+    "method": "every rendered page inspected in the complete contact sheet; full-resolution page images retained",
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D14\\dsh\\round-00\\render\\contact-01.png",
+    "pages": [
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D14\\dsh\\round-00\\render\\pages\\page-001.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D14\\dsh\\round-00\\render\\pages\\page-002.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D14\\dsh\\round-00\\render\\pages\\page-003.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D14\\dsh\\round-00\\render\\pages\\page-004.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D14\\dsh\\round-00\\render\\pages\\page-005.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D14\\dsh\\round-00\\render\\pages\\page-006.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D14\\dsh\\round-00\\render\\pages\\page-007.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D14\\dsh\\round-00\\render\\pages\\page-008.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D14\\dsh\\round-00\\render\\pages\\page-009.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D14\\dsh\\round-00\\render\\pages\\page-010.png"
+    ]
+  },
+  "repairsUsed": 0,
+  "repairLimit": 5,
+  "scores": {
+    "round": 0,
+    "hardGates": {
+      "fileIntegrity": true,
+      "completeRender": true,
+      "contentPreservation": true,
+      "noCriticalVisualDefect": true,
+      "intentComplete": true
+    },
+    "dimensions": {
+      "oneStep": 30,
+      "intent": 23,
+      "craft": 17,
+      "thoroughness": 15,
+      "strength": 8
+    },
+    "total": 93,
+    "threshold": 85,
+    "verdict": "PASS",
+    "failedGates": [],
+    "scoringNote": "Single typed DSH call completed, verifier passed and rendered visual review found no critical defect."
+  }
+}

@@ -1,0 +1,310 @@
+{
+  "caseId": "X11",
+  "format": "xlsx",
+  "file": "qa-assumptions-log.xlsx",
+  "primaryPrompt": "同事打印assumptions log时嫌表格太挤。优先让关键工作表横向阅读、宽度最多两页，不要为了页数把纵向内容压成一页；保留原有数据和计算，封面和说明页不调整。",
+  "operationFamily": "multi-sheet-readability",
+  "operationPlan": {
+    "action": "setPrintLayout",
+    "sheets": [
+      {
+        "sheet": "Model inputs and assumptions",
+        "orientation": "landscape",
+        "fitToWidth": 2,
+        "fitToHeight": 0
+      }
+    ]
+  },
+  "dshCall": {
+    "moduleId": "xlsx-office",
+    "operation": "execute",
+    "requestId": "aesthetic50-X11-execute",
+    "result": {
+      "artifactRef": {
+        "id": "sha256:d57019f16147ee70eb3afbc5245fa29c5cf7032ccfd163df3e451f7d268402ea",
+        "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/dsh-office-clone/the-last-docx/dist/office-aesthetic-50/store/objects/d57019f16147ee70eb3afbc5245fa29c5cf7032ccfd163df3e451f7d268402ea/artifact.xlsx",
+        "sha256": "d57019f16147ee70eb3afbc5245fa29c5cf7032ccfd163df3e451f7d268402ea",
+        "sizeBytes": 438378,
+        "label": "print-layout.xlsx",
+        "mediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      },
+      "sources": [
+        {
+          "id": "sha256:d82d9e0ce5f9d58e98f5d877eb94d2e53de7c08c635994fb666a062c4de60dcf",
+          "sha256": "d82d9e0ce5f9d58e98f5d877eb94d2e53de7c08c635994fb666a062c4de60dcf"
+        }
+      ],
+      "worksheetCount": 2,
+      "populatedCellCount": 126,
+      "worksheets": [
+        {
+          "name": "Welcome",
+          "rowCount": 77,
+          "columnCount": 13,
+          "populatedCells": 74,
+          "formulaCount": 1,
+          "state": "visible"
+        },
+        {
+          "name": "Model inputs and assumptions",
+          "rowCount": 6,
+          "columnCount": 20,
+          "populatedCells": 52,
+          "formulaCount": 1,
+          "state": "visible"
+        }
+      ],
+      "changedPackageParts": [
+        {
+          "sheet": "Model inputs and assumptions",
+          "part": "xl/worksheets/sheet2.xml",
+          "afterBytes": 11670
+        }
+      ],
+      "packageScopedWrite": true,
+      "untouchedPackagePartsPreservedByteForByte": true,
+      "sheetContentPreserved": true,
+      "unsupportedFeatures": [
+        "customXml",
+        "drawings",
+        "externalLinks",
+        "threadedComments"
+      ],
+      "visualReview": "pending"
+    },
+    "verification": {
+      "moduleId": "xlsx-office",
+      "requestId": "aesthetic50-X11-verify",
+      "operation": "verify",
+      "result": {
+        "ok": true,
+        "checks": [
+          {
+            "id": "xlsx.reopened",
+            "status": "pass",
+            "severity": "error",
+            "message": "Workbook loaded and bounded structure extracted."
+          },
+          {
+            "id": "xlsx.worksheetCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet count compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Welcome existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Model inputs and assumptions existence compared with expectation."
+          }
+        ],
+        "summary": {
+          "total": 4,
+          "failed": 0
+        }
+      },
+      "verification": {
+        "ok": true,
+        "checks": [
+          {
+            "id": "xlsx.reopened",
+            "status": "pass",
+            "severity": "error",
+            "message": "Workbook loaded and bounded structure extracted."
+          },
+          {
+            "id": "xlsx.worksheetCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet count compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Welcome existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Model inputs and assumptions existence compared with expectation."
+          }
+        ],
+        "summary": {
+          "total": 4,
+          "failed": 0
+        }
+      },
+      "artifacts": [],
+      "warnings": []
+    }
+  },
+  "source": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-stress-20260927-visual-confirm-200\\workspace\\xlsx\\qa-assumptions-log.xlsx",
+    "sha256": "d82d9e0ce5f9d58e98f5d877eb94d2e53de7c08c635994fb666a062c4de60dcf",
+    "unchanged": true
+  },
+  "baseline": {
+    "pdf": {
+      "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\qa-assumptions-log\\rendered\\artifact.pdf",
+      "sha256": "95ab776b85d844471001d8f9ba5299cc51e67e25808eb6d2c8e83668058ba049"
+    },
+    "pageCount": 5,
+    "pages": [
+      {
+        "pageNumber": 1,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\qa-assumptions-log\\rendered\\pages\\page-001.png",
+        "sha256": "ecda2ca984cb762844446fedbd46a8415c5ec6a2516367a639bac8ba70444542"
+      },
+      {
+        "pageNumber": 2,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\qa-assumptions-log\\rendered\\pages\\page-002.png",
+        "sha256": "76897a9622915d00c6bbb12678e66e4aabc3f811070951b789dd68ffa3f16215"
+      },
+      {
+        "pageNumber": 3,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\qa-assumptions-log\\rendered\\pages\\page-003.png",
+        "sha256": "3e395132c9785e9d6c88d011e6582aa709f94185ddaa83fae51c6fc3fa530881"
+      },
+      {
+        "pageNumber": 4,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\qa-assumptions-log\\rendered\\pages\\page-004.png",
+        "sha256": "768233b4e724d30a3247652aaa58e9b5db22211b5647bb5d2110531a25b81e3a"
+      },
+      {
+        "pageNumber": 5,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\qa-assumptions-log\\rendered\\pages\\page-005.png",
+        "sha256": "2c05b73fc74e925f6f43f92ddb69c8bc2347e687fbf4fc19bdae927ffe81a296"
+      }
+    ],
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\qa-assumptions-log\\rendered\\contact-01.png"
+  },
+  "candidate": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X11\\dsh\\round-00\\artifact.xlsx",
+    "sha256": "d57019f16147ee70eb3afbc5245fa29c5cf7032ccfd163df3e451f7d268402ea",
+    "bytes": 438378,
+    "pageCount": 4
+  },
+  "renderProfile": {
+    "engine": "bundled LibreOffice + Poppler review-only",
+    "dpi": 120,
+    "sameRendererAsBaseline": true
+  },
+  "round": 0,
+  "status": "pass",
+  "verifier": {
+    "moduleId": "xlsx-office",
+    "requestId": "aesthetic50-X11-verify",
+    "operation": "verify",
+    "result": {
+      "ok": true,
+      "checks": [
+        {
+          "id": "xlsx.reopened",
+          "status": "pass",
+          "severity": "error",
+          "message": "Workbook loaded and bounded structure extracted."
+        },
+        {
+          "id": "xlsx.worksheetCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet count compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Welcome existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Model inputs and assumptions existence compared with expectation."
+        }
+      ],
+      "summary": {
+        "total": 4,
+        "failed": 0
+      }
+    },
+    "verification": {
+      "ok": true,
+      "checks": [
+        {
+          "id": "xlsx.reopened",
+          "status": "pass",
+          "severity": "error",
+          "message": "Workbook loaded and bounded structure extracted."
+        },
+        {
+          "id": "xlsx.worksheetCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet count compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Welcome existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Model inputs and assumptions existence compared with expectation."
+        }
+      ],
+      "summary": {
+        "total": 4,
+        "failed": 0
+      }
+    },
+    "artifacts": [],
+    "warnings": []
+  },
+  "visualReview": {
+    "status": "reviewed",
+    "method": "every rendered page inspected in the complete contact sheet; full-resolution page images retained",
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X11\\dsh\\round-00\\rendered\\contact-01.png",
+    "pages": [
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X11\\dsh\\round-00\\rendered\\pages\\page-001.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X11\\dsh\\round-00\\rendered\\pages\\page-002.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X11\\dsh\\round-00\\rendered\\pages\\page-003.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X11\\dsh\\round-00\\rendered\\pages\\page-004.png"
+    ]
+  },
+  "repairsUsed": 0,
+  "repairLimit": 5,
+  "scores": {
+    "round": 0,
+    "hardGates": {
+      "fileIntegrity": true,
+      "completeRender": true,
+      "contentPreservation": true,
+      "noCriticalVisualDefect": true,
+      "intentComplete": true
+    },
+    "dimensions": {
+      "oneStep": 30,
+      "intent": 23,
+      "craft": 17,
+      "thoroughness": 15,
+      "strength": 8
+    },
+    "total": 93,
+    "threshold": 85,
+    "verdict": "PASS",
+    "failedGates": [],
+    "scoringNote": "Single typed DSH call completed, verifier passed and rendered visual review found no critical defect."
+  }
+}

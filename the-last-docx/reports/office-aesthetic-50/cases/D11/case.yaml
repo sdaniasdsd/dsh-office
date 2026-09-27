@@ -1,0 +1,29 @@
+{
+  "case_id": "D11",
+  "format": "docx",
+  "mode": "first-pass-and-repair",
+  "source_artifact": "docx/mhra-applicant-response.docx",
+  "source_sha256": "53e04952c2c9b0b48063e70ad8f586b40e004a36957a0b898f2b4d0fefe43cff",
+  "initial_content": "MHRA applicant response from the frozen official-source office corpus.",
+  "primary_prompt": "我想让这份MHRA applicant response读起来松一点，不要每段都挤在一起。请调整开头几段的行距和段后距，并把章节题头做得更醒目；不要重写内容，也别把整份文件弄成花哨宣传册。",
+  "expected_effects": [
+    "Title and section hierarchy is visibly clearer.",
+    "Text, values, labels, legal/safety wording, and order remain unchanged."
+  ],
+  "invariants": [
+    "Preserve source wording, facts, fields, values, and order.",
+    "Keep all pages and page numbering; no clipping or new blank pages.",
+    "Use DSH in-place formatting only; do not rebuild the source from a plan."
+  ],
+  "acceptance": {
+    "score_minimum": 85,
+    "required_gates": [
+      "file_integrity",
+      "complete_render",
+      "content_preservation",
+      "no_critical_visual_defect",
+      "intent_complete"
+    ],
+    "repair_limit": 5
+  }
+}

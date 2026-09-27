@@ -1,0 +1,543 @@
+{
+  "caseId": "X01",
+  "format": "xlsx",
+  "file": "condition-survey-template.xlsx",
+  "primaryPrompt": "这份condition survey workbook要拿去会议上打印，宽表现在横向散成好几页。请把指定输入/汇总表设成横向、一页宽，纵向可多页；数据、公式、空白录入区和其余工作表都别动。",
+  "operationFamily": "print-width-layout",
+  "operationPlan": {
+    "action": "setPrintLayout",
+    "sheets": [
+      {
+        "sheet": "Full Elemental List",
+        "orientation": "landscape",
+        "fitToWidth": 1,
+        "fitToHeight": 0
+      },
+      {
+        "sheet": "Site Level",
+        "orientation": "landscape",
+        "fitToWidth": 1,
+        "fitToHeight": 0
+      },
+      {
+        "sheet": "Block Level",
+        "orientation": "landscape",
+        "fitToWidth": 1,
+        "fitToHeight": 0
+      },
+      {
+        "sheet": "Room Level",
+        "orientation": "landscape",
+        "fitToWidth": 1,
+        "fitToHeight": 0
+      }
+    ]
+  },
+  "dshCall": {
+    "moduleId": "xlsx-office",
+    "operation": "execute",
+    "requestId": "aesthetic50-X01-execute",
+    "result": {
+      "artifactRef": {
+        "id": "sha256:ca3e79cf92f3cbec4ecb512dc19d42bdd79d9a0d3f3057ef9e58d56efbbb65d8",
+        "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/dsh-office-clone/the-last-docx/dist/office-aesthetic-50/store/objects/ca3e79cf92f3cbec4ecb512dc19d42bdd79d9a0d3f3057ef9e58d56efbbb65d8/artifact.xlsx",
+        "sha256": "ca3e79cf92f3cbec4ecb512dc19d42bdd79d9a0d3f3057ef9e58d56efbbb65d8",
+        "sizeBytes": 59202,
+        "label": "print-layout.xlsx",
+        "mediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      },
+      "sources": [
+        {
+          "id": "sha256:7f731c5cee5b6af60e3ef3fb285d16a0836a98a027acf8fd72c5216a4c5e13ef",
+          "sha256": "7f731c5cee5b6af60e3ef3fb285d16a0836a98a027acf8fd72c5216a4c5e13ef"
+        }
+      ],
+      "worksheetCount": 5,
+      "populatedCellCount": 1532,
+      "worksheets": [
+        {
+          "name": "Document Control",
+          "rowCount": 18,
+          "columnCount": 4,
+          "populatedCells": 36,
+          "formulaCount": 0,
+          "state": "visible"
+        },
+        {
+          "name": "Full Elemental List",
+          "rowCount": 237,
+          "columnCount": 11,
+          "populatedCells": 1392,
+          "formulaCount": 0,
+          "state": "visible"
+        },
+        {
+          "name": "Site Level",
+          "rowCount": 57,
+          "columnCount": 15,
+          "populatedCells": 32,
+          "formulaCount": 0,
+          "state": "visible"
+        },
+        {
+          "name": "Block Level",
+          "rowCount": 278,
+          "columnCount": 21,
+          "populatedCells": 35,
+          "formulaCount": 0,
+          "state": "visible"
+        },
+        {
+          "name": "Room Level",
+          "rowCount": 111,
+          "columnCount": 22,
+          "populatedCells": 37,
+          "formulaCount": 0,
+          "state": "visible"
+        }
+      ],
+      "changedPackageParts": [
+        {
+          "sheet": "Full Elemental List",
+          "part": "xl/worksheets/sheet2.xml",
+          "afterBytes": 82047
+        },
+        {
+          "sheet": "Site Level",
+          "part": "xl/worksheets/sheet3.xml",
+          "afterBytes": 20396
+        },
+        {
+          "sheet": "Block Level",
+          "part": "xl/worksheets/sheet4.xml",
+          "afterBytes": 129669
+        },
+        {
+          "sheet": "Room Level",
+          "part": "xl/worksheets/sheet5.xml",
+          "afterBytes": 53563
+        }
+      ],
+      "packageScopedWrite": true,
+      "untouchedPackagePartsPreservedByteForByte": true,
+      "sheetContentPreserved": true,
+      "unsupportedFeatures": [
+        "customXml"
+      ],
+      "visualReview": "pending"
+    },
+    "verification": {
+      "moduleId": "xlsx-office",
+      "requestId": "aesthetic50-X01-verify",
+      "operation": "verify",
+      "result": {
+        "ok": true,
+        "checks": [
+          {
+            "id": "xlsx.reopened",
+            "status": "pass",
+            "severity": "error",
+            "message": "Workbook loaded and bounded structure extracted."
+          },
+          {
+            "id": "xlsx.worksheetCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet count compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Document Control existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Full Elemental List existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.2",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Site Level existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.3",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Block Level existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.4",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Room Level existence compared with expectation."
+          }
+        ],
+        "summary": {
+          "total": 7,
+          "failed": 0
+        }
+      },
+      "verification": {
+        "ok": true,
+        "checks": [
+          {
+            "id": "xlsx.reopened",
+            "status": "pass",
+            "severity": "error",
+            "message": "Workbook loaded and bounded structure extracted."
+          },
+          {
+            "id": "xlsx.worksheetCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet count compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Document Control existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Full Elemental List existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.2",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Site Level existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.3",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Block Level existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.4",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Room Level existence compared with expectation."
+          }
+        ],
+        "summary": {
+          "total": 7,
+          "failed": 0
+        }
+      },
+      "artifacts": [],
+      "warnings": []
+    }
+  },
+  "source": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-stress-20260927-visual-confirm-200\\workspace\\xlsx\\condition-survey-template.xlsx",
+    "sha256": "7f731c5cee5b6af60e3ef3fb285d16a0836a98a027acf8fd72c5216a4c5e13ef",
+    "unchanged": true
+  },
+  "baseline": {
+    "pdf": {
+      "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\artifact.pdf",
+      "sha256": "85f64c70ff7ed8ebbeb3fda28f5f01a787af9446e9c1530ad4cdf07cab19d744"
+    },
+    "pageCount": 24,
+    "pages": [
+      {
+        "pageNumber": 1,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-001.png",
+        "sha256": "e3e5fa3f6edb08c3fdd14b28d00b37c3921ac86c03cb7b17e30a6d7988c7392d"
+      },
+      {
+        "pageNumber": 2,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-002.png",
+        "sha256": "8dbc7210b54d57e1ec061ef0bccebe51f24fc27c413f1291b04936e482df7d6b"
+      },
+      {
+        "pageNumber": 3,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-003.png",
+        "sha256": "785c82f0480e6307be06c723f03c99dc0a89e2801e9de3be725661d59bdb3833"
+      },
+      {
+        "pageNumber": 4,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-004.png",
+        "sha256": "8300c5e2055afaa73a642ebd78e18a04a559fe435dbbdf0a94f4347330bb832e"
+      },
+      {
+        "pageNumber": 5,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-005.png",
+        "sha256": "8befd4da5ac9ac7aac06d096d7708b307907d5c04080319436cede504b57a989"
+      },
+      {
+        "pageNumber": 6,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-006.png",
+        "sha256": "fc2b11beba2332fd6e465f31c96803a548358d539091038172cc66b193f581ee"
+      },
+      {
+        "pageNumber": 7,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-007.png",
+        "sha256": "76495ee34fef84406a6ebd1158372bc27a51021fecfb6b98cb920cde41eb10c2"
+      },
+      {
+        "pageNumber": 8,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-008.png",
+        "sha256": "e241eea8173f017042e44c5d68d7a95e24aed16b8c351d258439dcf2baad0c34"
+      },
+      {
+        "pageNumber": 9,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-009.png",
+        "sha256": "d73cdac5dd0656e8d483174cf993ba1e74ac8b6c70a41484b886e9b0d5170903"
+      },
+      {
+        "pageNumber": 10,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-010.png",
+        "sha256": "a17574e44b273d5a1144ce380d944cc7630c534d8f3a0c2163f49111c752062f"
+      },
+      {
+        "pageNumber": 11,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-011.png",
+        "sha256": "73e8598d7d0abd16933ad7cd177fc44b11bf44bb56af491dcacfbb9d81679fb3"
+      },
+      {
+        "pageNumber": 12,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-012.png",
+        "sha256": "9179053e8b86a9637b43248b5dce9a378e5e47dbeaacac79c0e0d64211ce7386"
+      },
+      {
+        "pageNumber": 13,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-013.png",
+        "sha256": "7361c4c379b934aaaa0d12b82716836d07465a93d19305f77434b7e1c7ca0b6d"
+      },
+      {
+        "pageNumber": 14,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-014.png",
+        "sha256": "46b60ca96e90e32af54e753287d602cb37f124b3c2ebce781755059dec6166d3"
+      },
+      {
+        "pageNumber": 15,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-015.png",
+        "sha256": "af61d8775c067860b409d807ac2baa43edad5bb9fe8a9593a4bf14624c382e4f"
+      },
+      {
+        "pageNumber": 16,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-016.png",
+        "sha256": "21ab58d258eab84879549b5af204db9bdb2a3d33fd856b6958c2f31e6d0e8f6e"
+      },
+      {
+        "pageNumber": 17,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-017.png",
+        "sha256": "e3db22b5f3d17097c46abaab743281057805f651f1536b204e80697e64844c7c"
+      },
+      {
+        "pageNumber": 18,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-018.png",
+        "sha256": "9e660bea3c88a0cf86ae9ed637dd98d626005f81310b690dc3a043f5dcbc666e"
+      },
+      {
+        "pageNumber": 19,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-019.png",
+        "sha256": "3fafad490d25679441a001ad97f1b9f250dbca811422493ad8a80cd0051a2b92"
+      },
+      {
+        "pageNumber": 20,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-020.png",
+        "sha256": "fef24df9674186728a8bc85a1fe733188debabce775c554e2cb9ff2001571f79"
+      },
+      {
+        "pageNumber": 21,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-021.png",
+        "sha256": "a613a6e2f378607f3d7e3f43ec2deea148351efecfd4a65f9613128b2b0490fa"
+      },
+      {
+        "pageNumber": 22,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-022.png",
+        "sha256": "51fbbf1da7170dbf79663f1b323e479d9ace4e5ecd24ff76d378acf5c2d0c9fa"
+      },
+      {
+        "pageNumber": 23,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-023.png",
+        "sha256": "360b998a3a26d1c4e2414d16f071159e7e94bf25f61e9a2ac31df305106ff1e5"
+      },
+      {
+        "pageNumber": 24,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\pages\\page-024.png",
+        "sha256": "4d3114cfe646c5579c72a6ba2b2809bc20739b6a613692ed2ee7e8d1f8341b5a"
+      }
+    ],
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\condition-survey-template\\rendered\\contact-01.png"
+  },
+  "candidate": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\artifact.xlsx",
+    "sha256": "ca3e79cf92f3cbec4ecb512dc19d42bdd79d9a0d3f3057ef9e58d56efbbb65d8",
+    "bytes": 59202,
+    "pageCount": 16
+  },
+  "renderProfile": {
+    "engine": "bundled LibreOffice + Poppler review-only",
+    "dpi": 120,
+    "sameRendererAsBaseline": true
+  },
+  "round": 0,
+  "status": "pass",
+  "verifier": {
+    "moduleId": "xlsx-office",
+    "requestId": "aesthetic50-X01-verify",
+    "operation": "verify",
+    "result": {
+      "ok": true,
+      "checks": [
+        {
+          "id": "xlsx.reopened",
+          "status": "pass",
+          "severity": "error",
+          "message": "Workbook loaded and bounded structure extracted."
+        },
+        {
+          "id": "xlsx.worksheetCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet count compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Document Control existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Full Elemental List existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.2",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Site Level existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.3",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Block Level existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.4",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Room Level existence compared with expectation."
+        }
+      ],
+      "summary": {
+        "total": 7,
+        "failed": 0
+      }
+    },
+    "verification": {
+      "ok": true,
+      "checks": [
+        {
+          "id": "xlsx.reopened",
+          "status": "pass",
+          "severity": "error",
+          "message": "Workbook loaded and bounded structure extracted."
+        },
+        {
+          "id": "xlsx.worksheetCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet count compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Document Control existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Full Elemental List existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.2",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Site Level existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.3",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Block Level existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.4",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Room Level existence compared with expectation."
+        }
+      ],
+      "summary": {
+        "total": 7,
+        "failed": 0
+      }
+    },
+    "artifacts": [],
+    "warnings": []
+  },
+  "visualReview": {
+    "status": "reviewed",
+    "method": "every rendered page inspected in the complete contact sheet; full-resolution page images retained",
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\contact-01.png",
+    "pages": [
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-001.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-002.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-003.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-004.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-005.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-006.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-007.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-008.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-009.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-010.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-011.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-012.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-013.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-014.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-015.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X01\\dsh\\round-00\\rendered\\pages\\page-016.png"
+    ]
+  },
+  "repairsUsed": 0,
+  "repairLimit": 5,
+  "scores": {
+    "round": 0,
+    "hardGates": {
+      "fileIntegrity": true,
+      "completeRender": true,
+      "contentPreservation": true,
+      "noCriticalVisualDefect": true,
+      "intentComplete": true
+    },
+    "dimensions": {
+      "oneStep": 30,
+      "intent": 23,
+      "craft": 17,
+      "thoroughness": 15,
+      "strength": 8
+    },
+    "total": 93,
+    "threshold": 85,
+    "verdict": "PASS",
+    "failedGates": [],
+    "scoringNote": "Single typed DSH call completed, verifier passed and rendered visual review found no critical defect."
+  }
+}

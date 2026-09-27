@@ -1,0 +1,852 @@
+[
+  {
+    "id": "D01",
+    "format": "docx",
+    "file": "asbestos-management-plan.docx",
+    "variant": 0,
+    "prompt": "这份asbestos management plan下周要给主管过目，现在标题和章节看起来像一整块。帮我把主标题、主要小节做出清楚但克制的层级，留白舒服一点，用稳重的蓝灰色；正文、条文、页码和表格里的字一个都别改。",
+    "operationFamily": "heading-hierarchy",
+    "expectedEffects": [
+      "Title and section hierarchy is visibly clearer.",
+      "Text, values, labels, legal/safety wording, and order remain unchanged."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D02",
+    "format": "docx",
+    "file": "asbestos-management-plan.docx",
+    "variant": 1,
+    "prompt": "同事说这份asbestos management plan打印后不好扫读。请把已有表格的边线和单元格留白整理得轻一点、整齐一点；确实没有表格时就把字段标签和小标题层级拉开。空白栏位、原文和数字全部保留。",
+    "operationFamily": "table-or-label-polish",
+    "expectedEffects": [
+      "Table/field structure is easier to scan through restrained spacing and borders.",
+      "Blank input cells and labels remain present."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D03",
+    "format": "docx",
+    "file": "asbestos-management-plan.docx",
+    "variant": 2,
+    "prompt": "我想让这份asbestos management plan读起来松一点，不要每段都挤在一起。请调整开头几段的行距和段后距，并把章节题头做得更醒目；不要重写内容，也别把整份文件弄成花哨宣传册。",
+    "operationFamily": "opening-readability",
+    "expectedEffects": [
+      "Title and section hierarchy is visibly clearer.",
+      "Text, values, labels, legal/safety wording, and order remain unchanged."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D04",
+    "format": "docx",
+    "file": "asbestos-management-plan.docx",
+    "variant": 3,
+    "prompt": "准备把asbestos management plan放进正式评审包，麻烦做一轮统一的轻量美化：标题、章节、小表格的视觉语言协调，正文仍然严肃易读；所有法律/安全/审批措辞、字段、数字和顺序保持不变。",
+    "operationFamily": "combined-review-pack",
+    "expectedEffects": [
+      "Title and section hierarchy is visibly clearer.",
+      "Text, values, labels, legal/safety wording, and order remain unchanged."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D05",
+    "format": "docx",
+    "file": "flexible-working-form.docx",
+    "variant": 0,
+    "prompt": "这份flexible-working application form下周要给主管过目，现在标题和章节看起来像一整块。帮我把主标题、主要小节做出清楚但克制的层级，留白舒服一点，用稳重的蓝灰色；正文、条文、页码和表格里的字一个都别改。",
+    "operationFamily": "heading-hierarchy",
+    "expectedEffects": [
+      "Title and section hierarchy is visibly clearer.",
+      "Text, values, labels, legal/safety wording, and order remain unchanged."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D06",
+    "format": "docx",
+    "file": "flexible-working-form.docx",
+    "variant": 1,
+    "prompt": "同事说这份flexible-working application form打印后不好扫读。请把已有表格的边线和单元格留白整理得轻一点、整齐一点；确实没有表格时就把字段标签和小标题层级拉开。空白栏位、原文和数字全部保留。",
+    "operationFamily": "table-or-label-polish",
+    "expectedEffects": [
+      "Table/field structure is easier to scan through restrained spacing and borders.",
+      "Blank input cells and labels remain present."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D07",
+    "format": "docx",
+    "file": "flexible-working-form.docx",
+    "variant": 2,
+    "prompt": "我想让这份flexible-working application form读起来松一点，不要每段都挤在一起。请调整开头几段的行距和段后距，并把章节题头做得更醒目；不要重写内容，也别把整份文件弄成花哨宣传册。",
+    "operationFamily": "opening-readability",
+    "expectedEffects": [
+      "Title and section hierarchy is visibly clearer.",
+      "Text, values, labels, legal/safety wording, and order remain unchanged."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D08",
+    "format": "docx",
+    "file": "flexible-working-form.docx",
+    "variant": 3,
+    "prompt": "准备把flexible-working application form放进正式评审包，麻烦做一轮统一的轻量美化：标题、章节、小表格的视觉语言协调，正文仍然严肃易读；所有法律/安全/审批措辞、字段、数字和顺序保持不变。",
+    "operationFamily": "combined-review-pack",
+    "expectedEffects": [
+      "Title and section hierarchy is visibly clearer.",
+      "Text, values, labels, legal/safety wording, and order remain unchanged."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D09",
+    "format": "docx",
+    "file": "mhra-applicant-response.docx",
+    "variant": 0,
+    "prompt": "这份MHRA applicant response下周要给主管过目，现在标题和章节看起来像一整块。帮我把主标题、主要小节做出清楚但克制的层级，留白舒服一点，用稳重的蓝灰色；正文、条文、页码和表格里的字一个都别改。",
+    "operationFamily": "heading-hierarchy",
+    "expectedEffects": [
+      "Title and section hierarchy is visibly clearer.",
+      "Text, values, labels, legal/safety wording, and order remain unchanged."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D10",
+    "format": "docx",
+    "file": "mhra-applicant-response.docx",
+    "variant": 1,
+    "prompt": "同事说这份MHRA applicant response打印后不好扫读。请把已有表格的边线和单元格留白整理得轻一点、整齐一点；确实没有表格时就把字段标签和小标题层级拉开。空白栏位、原文和数字全部保留。",
+    "operationFamily": "table-or-label-polish",
+    "expectedEffects": [
+      "Table/field structure is easier to scan through restrained spacing and borders.",
+      "Blank input cells and labels remain present."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D11",
+    "format": "docx",
+    "file": "mhra-applicant-response.docx",
+    "variant": 2,
+    "prompt": "我想让这份MHRA applicant response读起来松一点，不要每段都挤在一起。请调整开头几段的行距和段后距，并把章节题头做得更醒目；不要重写内容，也别把整份文件弄成花哨宣传册。",
+    "operationFamily": "opening-readability",
+    "expectedEffects": [
+      "Title and section hierarchy is visibly clearer.",
+      "Text, values, labels, legal/safety wording, and order remain unchanged."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D12",
+    "format": "docx",
+    "file": "mhra-applicant-response.docx",
+    "variant": 3,
+    "prompt": "准备把MHRA applicant response放进正式评审包，麻烦做一轮统一的轻量美化：标题、章节、小表格的视觉语言协调，正文仍然严肃易读；所有法律/安全/审批措辞、字段、数字和顺序保持不变。",
+    "operationFamily": "combined-review-pack",
+    "expectedEffects": [
+      "Title and section hierarchy is visibly clearer.",
+      "Text, values, labels, legal/safety wording, and order remain unchanged."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D13",
+    "format": "docx",
+    "file": "pipl-law.docx",
+    "variant": 0,
+    "prompt": "这份Personal Information Protection Law下周要给主管过目，现在标题和章节看起来像一整块。帮我把主标题、主要小节做出清楚但克制的层级，留白舒服一点，用稳重的蓝灰色；正文、条文、页码和表格里的字一个都别改。",
+    "operationFamily": "heading-hierarchy",
+    "expectedEffects": [
+      "Title and section hierarchy is visibly clearer.",
+      "Text, values, labels, legal/safety wording, and order remain unchanged."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D14",
+    "format": "docx",
+    "file": "pipl-law.docx",
+    "variant": 1,
+    "prompt": "同事说这份Personal Information Protection Law打印后不好扫读。请把已有表格的边线和单元格留白整理得轻一点、整齐一点；确实没有表格时就把字段标签和小标题层级拉开。空白栏位、原文和数字全部保留。",
+    "operationFamily": "table-or-label-polish",
+    "expectedEffects": [
+      "Table/field structure is easier to scan through restrained spacing and borders.",
+      "Blank input cells and labels remain present."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D15",
+    "format": "docx",
+    "file": "pipl-law.docx",
+    "variant": 2,
+    "prompt": "我想让这份Personal Information Protection Law读起来松一点，不要每段都挤在一起。请调整开头几段的行距和段后距，并把章节题头做得更醒目；不要重写内容，也别把整份文件弄成花哨宣传册。",
+    "operationFamily": "opening-readability",
+    "expectedEffects": [
+      "Title and section hierarchy is visibly clearer.",
+      "Text, values, labels, legal/safety wording, and order remain unchanged."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D16",
+    "format": "docx",
+    "file": "pipl-law.docx",
+    "variant": 3,
+    "prompt": "准备把Personal Information Protection Law放进正式评审包，麻烦做一轮统一的轻量美化：标题、章节、小表格的视觉语言协调，正文仍然严肃易读；所有法律/安全/审批措辞、字段、数字和顺序保持不变。",
+    "operationFamily": "combined-review-pack",
+    "expectedEffects": [
+      "Title and section hierarchy is visibly clearer.",
+      "Text, values, labels, legal/safety wording, and order remain unchanged."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D17",
+    "format": "docx",
+    "file": "qa-evidence-report-template.docx",
+    "variant": 0,
+    "prompt": "这份QA evidence report下周要给主管过目，现在标题和章节看起来像一整块。帮我把主标题、主要小节做出清楚但克制的层级，留白舒服一点，用稳重的蓝灰色；正文、条文、页码和表格里的字一个都别改。",
+    "operationFamily": "heading-hierarchy",
+    "expectedEffects": [
+      "Title and section hierarchy is visibly clearer.",
+      "Text, values, labels, legal/safety wording, and order remain unchanged."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D18",
+    "format": "docx",
+    "file": "qa-evidence-report-template.docx",
+    "variant": 1,
+    "prompt": "同事说这份QA evidence report打印后不好扫读。请把已有表格的边线和单元格留白整理得轻一点、整齐一点；确实没有表格时就把字段标签和小标题层级拉开。空白栏位、原文和数字全部保留。",
+    "operationFamily": "table-or-label-polish",
+    "expectedEffects": [
+      "Table/field structure is easier to scan through restrained spacing and borders.",
+      "Blank input cells and labels remain present."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D19",
+    "format": "docx",
+    "file": "qa-evidence-report-template.docx",
+    "variant": 2,
+    "prompt": "我想让这份QA evidence report读起来松一点，不要每段都挤在一起。请调整开头几段的行距和段后距，并把章节题头做得更醒目；不要重写内容，也别把整份文件弄成花哨宣传册。",
+    "operationFamily": "opening-readability",
+    "expectedEffects": [
+      "Title and section hierarchy is visibly clearer.",
+      "Text, values, labels, legal/safety wording, and order remain unchanged."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "D20",
+    "format": "docx",
+    "file": "qa-evidence-report-template.docx",
+    "variant": 3,
+    "prompt": "准备把QA evidence report放进正式评审包，麻烦做一轮统一的轻量美化：标题、章节、小表格的视觉语言协调，正文仍然严肃易读；所有法律/安全/审批措辞、字段、数字和顺序保持不变。",
+    "operationFamily": "combined-review-pack",
+    "expectedEffects": [
+      "Title and section hierarchy is visibly clearer.",
+      "Text, values, labels, legal/safety wording, and order remain unchanged."
+    ],
+    "invariants": [
+      "Preserve source wording, facts, fields, values, and order.",
+      "Keep all pages and page numbering; no clipping or new blank pages.",
+      "Use DSH in-place formatting only; do not rebuild the source from a plan."
+    ]
+  },
+  {
+    "id": "P01",
+    "format": "pptx",
+    "file": "civil-service-line-management.pptx",
+    "variant": 0,
+    "prompt": "这份line management standards deck首页文字有点压画面，开场和封面能不能收紧一点？保留核心名称和必要信息，别碰政策/法律名称、数字、后面页面、配色或版式。",
+    "operationFamily": "cover-copy-trim",
+    "expectedEffects": [
+      "Requested cover/navigation labels become shorter and scan more cleanly.",
+      "Existing slide theme, layout, shapes, and unrequested wording are preserved."
+    ],
+    "invariants": [
+      "Do not alter legal/policy references, figures, charts, or slide order.",
+      "Keep all slides; no clipped or missing content.",
+      "Every replacement must use an exact source-revision run address."
+    ]
+  },
+  {
+    "id": "P02",
+    "format": "pptx",
+    "file": "civil-service-line-management.pptx",
+    "variant": 1,
+    "prompt": "这份line management standards deck目录页扫起来有点费劲，帮我把目录标题和一两个导航词改得短、直白一点；内容顺序、意思、字号和现有主题都保持原样。",
+    "operationFamily": "navigation-copy-trim",
+    "expectedEffects": [
+      "Requested cover/navigation labels become shorter and scan more cleanly.",
+      "Existing slide theme, layout, shapes, and unrequested wording are preserved."
+    ],
+    "invariants": [
+      "Do not alter legal/policy references, figures, charts, or slide order.",
+      "Keep all slides; no clipped or missing content.",
+      "Every replacement must use an exact source-revision run address."
+    ]
+  },
+  {
+    "id": "P03",
+    "format": "pptx",
+    "file": "civil-service-line-management.pptx",
+    "variant": 2,
+    "prompt": "这份line management standards deck要在会议室投屏，整体看着偏旧。请统一主题字体，拉开标题和正文的字号层次，增加重点的视觉对比；不要改任何文字、图表和政策信息。",
+    "operationFamily": "visual-theme-restyle",
+    "expectedEffects": [
+      "Theme font and title/body hierarchy visibly improve at presentation scale.",
+      "All slide text, chart/table contents, and policy facts remain unchanged."
+    ],
+    "invariants": [
+      "Do not alter legal/policy references, figures, charts, or slide order.",
+      "Keep all slides; no clipped or missing content.",
+      "Every replacement must use an exact source-revision run address."
+    ]
+  },
+  {
+    "id": "P04",
+    "format": "pptx",
+    "file": "civil-society-covenant.pptx",
+    "variant": 0,
+    "prompt": "这份Civil Society Covenant deck首页文字有点压画面，开场和封面能不能收紧一点？保留核心名称和必要信息，别碰政策/法律名称、数字、后面页面、配色或版式。",
+    "operationFamily": "cover-copy-trim",
+    "expectedEffects": [
+      "Requested cover/navigation labels become shorter and scan more cleanly.",
+      "Existing slide theme, layout, shapes, and unrequested wording are preserved."
+    ],
+    "invariants": [
+      "Do not alter legal/policy references, figures, charts, or slide order.",
+      "Keep all slides; no clipped or missing content.",
+      "Every replacement must use an exact source-revision run address."
+    ]
+  },
+  {
+    "id": "P05",
+    "format": "pptx",
+    "file": "civil-society-covenant.pptx",
+    "variant": 1,
+    "prompt": "这份Civil Society Covenant deck目录页扫起来有点费劲，帮我把目录标题和一两个导航词改得短、直白一点；内容顺序、意思、字号和现有主题都保持原样。",
+    "operationFamily": "navigation-copy-trim",
+    "expectedEffects": [
+      "Requested cover/navigation labels become shorter and scan more cleanly.",
+      "Existing slide theme, layout, shapes, and unrequested wording are preserved."
+    ],
+    "invariants": [
+      "Do not alter legal/policy references, figures, charts, or slide order.",
+      "Keep all slides; no clipped or missing content.",
+      "Every replacement must use an exact source-revision run address."
+    ]
+  },
+  {
+    "id": "P06",
+    "format": "pptx",
+    "file": "civil-society-covenant.pptx",
+    "variant": 2,
+    "prompt": "这份Civil Society Covenant deck要在会议室投屏，整体看着偏旧。请统一主题字体，拉开标题和正文的字号层次，增加重点的视觉对比；不要改任何文字、图表和政策信息。",
+    "operationFamily": "visual-theme-restyle",
+    "expectedEffects": [
+      "Theme font and title/body hierarchy visibly improve at presentation scale.",
+      "All slide text, chart/table contents, and policy facts remain unchanged."
+    ],
+    "invariants": [
+      "Do not alter legal/policy references, figures, charts, or slide order.",
+      "Keep all slides; no clipped or missing content.",
+      "Every replacement must use an exact source-revision run address."
+    ]
+  },
+  {
+    "id": "P07",
+    "format": "pptx",
+    "file": "prevent-duty-leadership.pptx",
+    "variant": 0,
+    "prompt": "这份Prevent Duty leadership deck首页文字有点压画面，开场和封面能不能收紧一点？保留核心名称和必要信息，别碰政策/法律名称、数字、后面页面、配色或版式。",
+    "operationFamily": "cover-copy-trim",
+    "expectedEffects": [
+      "Requested cover/navigation labels become shorter and scan more cleanly.",
+      "Existing slide theme, layout, shapes, and unrequested wording are preserved."
+    ],
+    "invariants": [
+      "Do not alter legal/policy references, figures, charts, or slide order.",
+      "Keep all slides; no clipped or missing content.",
+      "Every replacement must use an exact source-revision run address."
+    ]
+  },
+  {
+    "id": "P08",
+    "format": "pptx",
+    "file": "prevent-duty-leadership.pptx",
+    "variant": 1,
+    "prompt": "这份Prevent Duty leadership deck目录页扫起来有点费劲，帮我把目录标题和一两个导航词改得短、直白一点；内容顺序、意思、字号和现有主题都保持原样。",
+    "operationFamily": "navigation-copy-trim",
+    "expectedEffects": [
+      "Requested cover/navigation labels become shorter and scan more cleanly.",
+      "Existing slide theme, layout, shapes, and unrequested wording are preserved."
+    ],
+    "invariants": [
+      "Do not alter legal/policy references, figures, charts, or slide order.",
+      "Keep all slides; no clipped or missing content.",
+      "Every replacement must use an exact source-revision run address."
+    ]
+  },
+  {
+    "id": "P09",
+    "format": "pptx",
+    "file": "prevent-duty-leadership.pptx",
+    "variant": 2,
+    "prompt": "这份Prevent Duty leadership deck要在会议室投屏，整体看着偏旧。请统一主题字体，拉开标题和正文的字号层次，增加重点的视觉对比；不要改任何文字、图表和政策信息。",
+    "operationFamily": "visual-theme-restyle",
+    "expectedEffects": [
+      "Theme font and title/body hierarchy visibly improve at presentation scale.",
+      "All slide text, chart/table contents, and policy facts remain unchanged."
+    ],
+    "invariants": [
+      "Do not alter legal/policy references, figures, charts, or slide order.",
+      "Keep all slides; no clipped or missing content.",
+      "Every replacement must use an exact source-revision run address."
+    ]
+  },
+  {
+    "id": "P10",
+    "format": "pptx",
+    "file": "qualifications-reform.pptx",
+    "variant": 0,
+    "prompt": "这份qualifications reform deck首页文字有点压画面，开场和封面能不能收紧一点？保留核心名称和必要信息，别碰政策/法律名称、数字、后面页面、配色或版式。",
+    "operationFamily": "cover-copy-trim",
+    "expectedEffects": [
+      "Requested cover/navigation labels become shorter and scan more cleanly.",
+      "Existing slide theme, layout, shapes, and unrequested wording are preserved."
+    ],
+    "invariants": [
+      "Do not alter legal/policy references, figures, charts, or slide order.",
+      "Keep all slides; no clipped or missing content.",
+      "Every replacement must use an exact source-revision run address."
+    ]
+  },
+  {
+    "id": "P11",
+    "format": "pptx",
+    "file": "qualifications-reform.pptx",
+    "variant": 1,
+    "prompt": "这份qualifications reform deck目录页扫起来有点费劲，帮我把目录标题和一两个导航词改得短、直白一点；内容顺序、意思、字号和现有主题都保持原样。",
+    "operationFamily": "navigation-copy-trim",
+    "expectedEffects": [
+      "Requested cover/navigation labels become shorter and scan more cleanly.",
+      "Existing slide theme, layout, shapes, and unrequested wording are preserved."
+    ],
+    "invariants": [
+      "Do not alter legal/policy references, figures, charts, or slide order.",
+      "Keep all slides; no clipped or missing content.",
+      "Every replacement must use an exact source-revision run address."
+    ]
+  },
+  {
+    "id": "P12",
+    "format": "pptx",
+    "file": "qualifications-reform.pptx",
+    "variant": 2,
+    "prompt": "这份qualifications reform deck要在会议室投屏，整体看着偏旧。请统一主题字体，拉开标题和正文的字号层次，增加重点的视觉对比；不要改任何文字、图表和政策信息。",
+    "operationFamily": "visual-theme-restyle",
+    "expectedEffects": [
+      "Theme font and title/body hierarchy visibly improve at presentation scale.",
+      "All slide text, chart/table contents, and policy facts remain unchanged."
+    ],
+    "invariants": [
+      "Do not alter legal/policy references, figures, charts, or slide order.",
+      "Keep all slides; no clipped or missing content.",
+      "Every replacement must use an exact source-revision run address."
+    ]
+  },
+  {
+    "id": "P13",
+    "format": "pptx",
+    "file": "timms-workshop.pptx",
+    "variant": 0,
+    "prompt": "这份Timms Review workshop deck首页文字有点压画面，开场和封面能不能收紧一点？保留核心名称和必要信息，别碰政策/法律名称、数字、后面页面、配色或版式。",
+    "operationFamily": "cover-copy-trim",
+    "expectedEffects": [
+      "Requested cover/navigation labels become shorter and scan more cleanly.",
+      "Existing slide theme, layout, shapes, and unrequested wording are preserved."
+    ],
+    "invariants": [
+      "Do not alter legal/policy references, figures, charts, or slide order.",
+      "Keep all slides; no clipped or missing content.",
+      "Every replacement must use an exact source-revision run address."
+    ]
+  },
+  {
+    "id": "P14",
+    "format": "pptx",
+    "file": "timms-workshop.pptx",
+    "variant": 1,
+    "prompt": "这份Timms Review workshop deck目录页扫起来有点费劲，帮我把目录标题和一两个导航词改得短、直白一点；内容顺序、意思、字号和现有主题都保持原样。",
+    "operationFamily": "navigation-copy-trim",
+    "expectedEffects": [
+      "Requested cover/navigation labels become shorter and scan more cleanly.",
+      "Existing slide theme, layout, shapes, and unrequested wording are preserved."
+    ],
+    "invariants": [
+      "Do not alter legal/policy references, figures, charts, or slide order.",
+      "Keep all slides; no clipped or missing content.",
+      "Every replacement must use an exact source-revision run address."
+    ]
+  },
+  {
+    "id": "P15",
+    "format": "pptx",
+    "file": "timms-workshop.pptx",
+    "variant": 2,
+    "prompt": "这份Timms Review workshop deck要在会议室投屏，整体看着偏旧。请统一主题字体，拉开标题和正文的字号层次，增加重点的视觉对比；不要改任何文字、图表和政策信息。",
+    "operationFamily": "visual-theme-restyle",
+    "expectedEffects": [
+      "Theme font and title/body hierarchy visibly improve at presentation scale.",
+      "All slide text, chart/table contents, and policy facts remain unchanged."
+    ],
+    "invariants": [
+      "Do not alter legal/policy references, figures, charts, or slide order.",
+      "Keep all slides; no clipped or missing content.",
+      "Every replacement must use an exact source-revision run address."
+    ]
+  },
+  {
+    "id": "X01",
+    "format": "xlsx",
+    "file": "condition-survey-template.xlsx",
+    "variant": 0,
+    "prompt": "这份condition survey workbook要拿去会议上打印，宽表现在横向散成好几页。请把指定输入/汇总表设成横向、一页宽，纵向可多页；数据、公式、空白录入区和其余工作表都别动。",
+    "operationFamily": "print-width-layout",
+    "expectedEffects": [
+      "Requested worksheets print in the requested landscape width with unlimited vertical pagination unless a two-page width is specified.",
+      "All cell content and unrelated worksheets remain unchanged."
+    ],
+    "invariants": [
+      "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+      "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+      "Produce a separate immutable candidate and visually inspect every printed page."
+    ]
+  },
+  {
+    "id": "X02",
+    "format": "xlsx",
+    "file": "condition-survey-template.xlsx",
+    "variant": 1,
+    "prompt": "同事打印condition survey workbook时嫌表格太挤。优先让关键工作表横向阅读、宽度最多两页，不要为了页数把纵向内容压成一页；保留原有数据和计算，封面和说明页不调整。",
+    "operationFamily": "multi-sheet-readability",
+    "expectedEffects": [
+      "Requested worksheets print in the requested landscape width with unlimited vertical pagination unless a two-page width is specified.",
+      "All cell content and unrelated worksheets remain unchanged."
+    ],
+    "invariants": [
+      "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+      "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+      "Produce a separate immutable candidate and visually inspect every printed page."
+    ]
+  },
+  {
+    "id": "X03",
+    "format": "xlsx",
+    "file": "condition-survey-template.xlsx",
+    "variant": 2,
+    "prompt": "能不能把condition survey workbook的表头做成更清楚的深色底白字，加细边框和统一字体？只动工作表外观，任何数值、公式、链接、名称和分页内容都要原封不动。",
+    "operationFamily": "cell-visual-style",
+    "expectedEffects": [
+      "Headers gain a coherent high-contrast font/fill/border treatment.",
+      "All values, formulas, links, names, and print content remain unchanged."
+    ],
+    "invariants": [
+      "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+      "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+      "Produce a separate immutable candidate and visually inspect every printed page."
+    ]
+  },
+  {
+    "id": "X04",
+    "format": "xlsx",
+    "file": "green-book-appraisal-tables.xlsx",
+    "variant": 0,
+    "prompt": "这份Green Book appraisal tables要拿去会议上打印，宽表现在横向散成好几页。请把指定输入/汇总表设成横向、一页宽，纵向可多页；数据、公式、空白录入区和其余工作表都别动。",
+    "operationFamily": "print-width-layout",
+    "expectedEffects": [
+      "Requested worksheets print in the requested landscape width with unlimited vertical pagination unless a two-page width is specified.",
+      "All cell content and unrelated worksheets remain unchanged."
+    ],
+    "invariants": [
+      "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+      "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+      "Produce a separate immutable candidate and visually inspect every printed page."
+    ]
+  },
+  {
+    "id": "X05",
+    "format": "xlsx",
+    "file": "green-book-appraisal-tables.xlsx",
+    "variant": 1,
+    "prompt": "同事打印Green Book appraisal tables时嫌表格太挤。优先让关键工作表横向阅读、宽度最多两页，不要为了页数把纵向内容压成一页；保留原有数据和计算，封面和说明页不调整。",
+    "operationFamily": "multi-sheet-readability",
+    "expectedEffects": [
+      "Requested worksheets print in the requested landscape width with unlimited vertical pagination unless a two-page width is specified.",
+      "All cell content and unrelated worksheets remain unchanged."
+    ],
+    "invariants": [
+      "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+      "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+      "Produce a separate immutable candidate and visually inspect every printed page."
+    ]
+  },
+  {
+    "id": "X06",
+    "format": "xlsx",
+    "file": "green-book-appraisal-tables.xlsx",
+    "variant": 2,
+    "prompt": "能不能把Green Book appraisal tables的表头做成更清楚的深色底白字，加细边框和统一字体？只动工作表外观，任何数值、公式、链接、名称和分页内容都要原封不动。",
+    "operationFamily": "cell-visual-style",
+    "expectedEffects": [
+      "Headers gain a coherent high-contrast font/fill/border treatment.",
+      "All values, formulas, links, names, and print content remain unchanged."
+    ],
+    "invariants": [
+      "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+      "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+      "Produce a separate immutable candidate and visually inspect every printed page."
+    ]
+  },
+  {
+    "id": "X07",
+    "format": "xlsx",
+    "file": "green-book-discount-factors.xlsx",
+    "variant": 0,
+    "prompt": "这份discount factors workbook要拿去会议上打印，宽表现在横向散成好几页。请把指定输入/汇总表设成横向、一页宽，纵向可多页；数据、公式、空白录入区和其余工作表都别动。",
+    "operationFamily": "print-width-layout",
+    "expectedEffects": [
+      "Requested worksheets print in the requested landscape width with unlimited vertical pagination unless a two-page width is specified.",
+      "All cell content and unrelated worksheets remain unchanged."
+    ],
+    "invariants": [
+      "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+      "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+      "Produce a separate immutable candidate and visually inspect every printed page."
+    ]
+  },
+  {
+    "id": "X08",
+    "format": "xlsx",
+    "file": "green-book-discount-factors.xlsx",
+    "variant": 1,
+    "prompt": "同事打印discount factors workbook时嫌表格太挤。优先让关键工作表横向阅读、宽度最多两页，不要为了页数把纵向内容压成一页；保留原有数据和计算，封面和说明页不调整。",
+    "operationFamily": "multi-sheet-readability",
+    "expectedEffects": [
+      "Requested worksheets print in the requested landscape width with unlimited vertical pagination unless a two-page width is specified.",
+      "All cell content and unrelated worksheets remain unchanged."
+    ],
+    "invariants": [
+      "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+      "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+      "Produce a separate immutable candidate and visually inspect every printed page."
+    ]
+  },
+  {
+    "id": "X09",
+    "format": "xlsx",
+    "file": "green-book-discount-factors.xlsx",
+    "variant": 2,
+    "prompt": "能不能把discount factors workbook的表头做成更清楚的深色底白字，加细边框和统一字体？只动工作表外观，任何数值、公式、链接、名称和分页内容都要原封不动。",
+    "operationFamily": "cell-visual-style",
+    "expectedEffects": [
+      "Headers gain a coherent high-contrast font/fill/border treatment.",
+      "All values, formulas, links, names, and print content remain unchanged."
+    ],
+    "invariants": [
+      "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+      "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+      "Produce a separate immutable candidate and visually inspect every printed page."
+    ]
+  },
+  {
+    "id": "X10",
+    "format": "xlsx",
+    "file": "qa-assumptions-log.xlsx",
+    "variant": 0,
+    "prompt": "这份assumptions log要拿去会议上打印，宽表现在横向散成好几页。请把指定输入/汇总表设成横向、一页宽，纵向可多页；数据、公式、空白录入区和其余工作表都别动。",
+    "operationFamily": "print-width-layout",
+    "expectedEffects": [
+      "Requested worksheets print in the requested landscape width with unlimited vertical pagination unless a two-page width is specified.",
+      "All cell content and unrelated worksheets remain unchanged."
+    ],
+    "invariants": [
+      "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+      "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+      "Produce a separate immutable candidate and visually inspect every printed page."
+    ]
+  },
+  {
+    "id": "X11",
+    "format": "xlsx",
+    "file": "qa-assumptions-log.xlsx",
+    "variant": 1,
+    "prompt": "同事打印assumptions log时嫌表格太挤。优先让关键工作表横向阅读、宽度最多两页，不要为了页数把纵向内容压成一页；保留原有数据和计算，封面和说明页不调整。",
+    "operationFamily": "multi-sheet-readability",
+    "expectedEffects": [
+      "Requested worksheets print in the requested landscape width with unlimited vertical pagination unless a two-page width is specified.",
+      "All cell content and unrelated worksheets remain unchanged."
+    ],
+    "invariants": [
+      "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+      "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+      "Produce a separate immutable candidate and visually inspect every printed page."
+    ]
+  },
+  {
+    "id": "X12",
+    "format": "xlsx",
+    "file": "qa-assumptions-log.xlsx",
+    "variant": 2,
+    "prompt": "能不能把assumptions log的表头做成更清楚的深色底白字，加细边框和统一字体？只动工作表外观，任何数值、公式、链接、名称和分页内容都要原封不动。",
+    "operationFamily": "cell-visual-style",
+    "expectedEffects": [
+      "Headers gain a coherent high-contrast font/fill/border treatment.",
+      "All values, formulas, links, names, and print content remain unchanged."
+    ],
+    "invariants": [
+      "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+      "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+      "Produce a separate immutable candidate and visually inspect every printed page."
+    ]
+  },
+  {
+    "id": "X13",
+    "format": "xlsx",
+    "file": "qa-modelling-template.xlsx",
+    "variant": 0,
+    "prompt": "这份modelling QA workbook要拿去会议上打印，宽表现在横向散成好几页。请把指定输入/汇总表设成横向、一页宽，纵向可多页；数据、公式、空白录入区和其余工作表都别动。",
+    "operationFamily": "print-width-layout",
+    "expectedEffects": [
+      "Requested worksheets print in the requested landscape width with unlimited vertical pagination unless a two-page width is specified.",
+      "All cell content and unrelated worksheets remain unchanged."
+    ],
+    "invariants": [
+      "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+      "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+      "Produce a separate immutable candidate and visually inspect every printed page."
+    ]
+  },
+  {
+    "id": "X14",
+    "format": "xlsx",
+    "file": "qa-modelling-template.xlsx",
+    "variant": 1,
+    "prompt": "同事打印modelling QA workbook时嫌表格太挤。优先让关键工作表横向阅读、宽度最多两页，不要为了页数把纵向内容压成一页；保留原有数据和计算，封面和说明页不调整。",
+    "operationFamily": "multi-sheet-readability",
+    "expectedEffects": [
+      "Requested worksheets print in the requested landscape width with unlimited vertical pagination unless a two-page width is specified.",
+      "All cell content and unrelated worksheets remain unchanged."
+    ],
+    "invariants": [
+      "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+      "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+      "Produce a separate immutable candidate and visually inspect every printed page."
+    ]
+  },
+  {
+    "id": "X15",
+    "format": "xlsx",
+    "file": "qa-modelling-template.xlsx",
+    "variant": 2,
+    "prompt": "能不能把modelling QA workbook的表头做成更清楚的深色底白字，加细边框和统一字体？只动工作表外观，任何数值、公式、链接、名称和分页内容都要原封不动。",
+    "operationFamily": "cell-visual-style",
+    "expectedEffects": [
+      "Headers gain a coherent high-contrast font/fill/border treatment.",
+      "All values, formulas, links, names, and print content remain unchanged."
+    ],
+    "invariants": [
+      "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+      "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+      "Produce a separate immutable candidate and visually inspect every printed page."
+    ]
+  }
+]

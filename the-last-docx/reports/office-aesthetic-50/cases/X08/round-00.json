@@ -1,0 +1,354 @@
+{
+  "caseId": "X08",
+  "format": "xlsx",
+  "file": "green-book-discount-factors.xlsx",
+  "primaryPrompt": "同事打印discount factors workbook时嫌表格太挤。优先让关键工作表横向阅读、宽度最多两页，不要为了页数把纵向内容压成一页；保留原有数据和计算，封面和说明页不调整。",
+  "operationFamily": "multi-sheet-readability",
+  "operationPlan": {
+    "action": "setPrintLayout",
+    "sheets": [
+      {
+        "sheet": "Standard Discount Factors",
+        "orientation": "landscape",
+        "fitToWidth": 2,
+        "fitToHeight": 0
+      }
+    ]
+  },
+  "dshCall": {
+    "moduleId": "xlsx-office",
+    "operation": "execute",
+    "requestId": "aesthetic50-X08-execute",
+    "result": {
+      "artifactRef": {
+        "id": "sha256:a457edd0c676a3f75836473d07828694397c8be020281f83859b10a3e1681e63",
+        "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/dsh-office-clone/the-last-docx/dist/office-aesthetic-50/store/objects/a457edd0c676a3f75836473d07828694397c8be020281f83859b10a3e1681e63/artifact.xlsx",
+        "sha256": "a457edd0c676a3f75836473d07828694397c8be020281f83859b10a3e1681e63",
+        "sizeBytes": 51899,
+        "label": "print-layout.xlsx",
+        "mediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      },
+      "sources": [
+        {
+          "id": "sha256:4da7e0be919ee7332fba39e0a52087e865ea48d6ea3f3706f8b3ad4363a43fa0",
+          "sha256": "4da7e0be919ee7332fba39e0a52087e865ea48d6ea3f3706f8b3ad4363a43fa0"
+        }
+      ],
+      "worksheetCount": 3,
+      "populatedCellCount": 780,
+      "worksheets": [
+        {
+          "name": "Cover",
+          "rowCount": 23,
+          "columnCount": 3,
+          "populatedCells": 16,
+          "formulaCount": 0,
+          "state": "visible"
+        },
+        {
+          "name": "Standard Discount Factors",
+          "rowCount": 136,
+          "columnCount": 4,
+          "populatedCells": 382,
+          "formulaCount": 0,
+          "state": "visible"
+        },
+        {
+          "name": "Health Discount Factors",
+          "rowCount": 136,
+          "columnCount": 6,
+          "populatedCells": 382,
+          "formulaCount": 0,
+          "state": "visible"
+        }
+      ],
+      "changedPackageParts": [
+        {
+          "sheet": "Standard Discount Factors",
+          "part": "xl/worksheets/sheet2.xml",
+          "afterBytes": 24074
+        }
+      ],
+      "packageScopedWrite": true,
+      "untouchedPackagePartsPreservedByteForByte": true,
+      "sheetContentPreserved": true,
+      "unsupportedFeatures": [
+        "customXml",
+        "drawings"
+      ],
+      "visualReview": "pending"
+    },
+    "verification": {
+      "moduleId": "xlsx-office",
+      "requestId": "aesthetic50-X08-verify",
+      "operation": "verify",
+      "result": {
+        "ok": true,
+        "checks": [
+          {
+            "id": "xlsx.reopened",
+            "status": "pass",
+            "severity": "error",
+            "message": "Workbook loaded and bounded structure extracted."
+          },
+          {
+            "id": "xlsx.worksheetCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet count compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Cover existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Standard Discount Factors existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.2",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Health Discount Factors existence compared with expectation."
+          }
+        ],
+        "summary": {
+          "total": 5,
+          "failed": 0
+        }
+      },
+      "verification": {
+        "ok": true,
+        "checks": [
+          {
+            "id": "xlsx.reopened",
+            "status": "pass",
+            "severity": "error",
+            "message": "Workbook loaded and bounded structure extracted."
+          },
+          {
+            "id": "xlsx.worksheetCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet count compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Cover existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Standard Discount Factors existence compared with expectation."
+          },
+          {
+            "id": "xlsx.sheet.2",
+            "status": "pass",
+            "severity": "error",
+            "message": "Worksheet Health Discount Factors existence compared with expectation."
+          }
+        ],
+        "summary": {
+          "total": 5,
+          "failed": 0
+        }
+      },
+      "artifacts": [],
+      "warnings": []
+    }
+  },
+  "source": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-stress-20260927-visual-confirm-200\\workspace\\xlsx\\green-book-discount-factors.xlsx",
+    "sha256": "4da7e0be919ee7332fba39e0a52087e865ea48d6ea3f3706f8b3ad4363a43fa0",
+    "unchanged": true
+  },
+  "baseline": {
+    "pdf": {
+      "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-discount-factors\\rendered\\artifact.pdf",
+      "sha256": "e401662751047c89fa1c8fb52969dfdfa9f9610f478c535bdacf21b5aa0696e4"
+    },
+    "pageCount": 7,
+    "pages": [
+      {
+        "pageNumber": 1,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-discount-factors\\rendered\\pages\\page-001.png",
+        "sha256": "fb2976ec1780b7604428c83bdb2c00129c50335a0df52ef0abc309a96e6a1896"
+      },
+      {
+        "pageNumber": 2,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-discount-factors\\rendered\\pages\\page-002.png",
+        "sha256": "b9eca76533ddf8f521b78f1a8c89e0867d61bacc9d72da943870bfeb540173b2"
+      },
+      {
+        "pageNumber": 3,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-discount-factors\\rendered\\pages\\page-003.png",
+        "sha256": "44a3f7bf126b2d3f834a9e755501e5525c873857143c6ee99bdd914cf275435f"
+      },
+      {
+        "pageNumber": 4,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-discount-factors\\rendered\\pages\\page-004.png",
+        "sha256": "3bcd1c22d22dbde24c5ba1222485f44011b1adba5513bfe83a8608887df8844a"
+      },
+      {
+        "pageNumber": 5,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-discount-factors\\rendered\\pages\\page-005.png",
+        "sha256": "f26b4300ab8406c8211d4fcd888427e81971c65bda7c429feb434d7985edbb31"
+      },
+      {
+        "pageNumber": 6,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-discount-factors\\rendered\\pages\\page-006.png",
+        "sha256": "329ac3985dc134195557afa26999626cc4bd7825632e2720619a9db3355157e1"
+      },
+      {
+        "pageNumber": 7,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-discount-factors\\rendered\\pages\\page-007.png",
+        "sha256": "db8f4d658e7bf96e2ab74c7c24231f2b07681abbef2eeaf5a789f21fc5707e2d"
+      }
+    ],
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\xlsx\\green-book-discount-factors\\rendered\\contact-01.png"
+  },
+  "candidate": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X08\\dsh\\round-00\\artifact.xlsx",
+    "sha256": "a457edd0c676a3f75836473d07828694397c8be020281f83859b10a3e1681e63",
+    "bytes": 51899,
+    "pageCount": 8
+  },
+  "renderProfile": {
+    "engine": "bundled LibreOffice + Poppler review-only",
+    "dpi": 120,
+    "sameRendererAsBaseline": true
+  },
+  "round": 0,
+  "status": "pass",
+  "verifier": {
+    "moduleId": "xlsx-office",
+    "requestId": "aesthetic50-X08-verify",
+    "operation": "verify",
+    "result": {
+      "ok": true,
+      "checks": [
+        {
+          "id": "xlsx.reopened",
+          "status": "pass",
+          "severity": "error",
+          "message": "Workbook loaded and bounded structure extracted."
+        },
+        {
+          "id": "xlsx.worksheetCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet count compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Cover existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Standard Discount Factors existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.2",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Health Discount Factors existence compared with expectation."
+        }
+      ],
+      "summary": {
+        "total": 5,
+        "failed": 0
+      }
+    },
+    "verification": {
+      "ok": true,
+      "checks": [
+        {
+          "id": "xlsx.reopened",
+          "status": "pass",
+          "severity": "error",
+          "message": "Workbook loaded and bounded structure extracted."
+        },
+        {
+          "id": "xlsx.worksheetCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet count compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Cover existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Standard Discount Factors existence compared with expectation."
+        },
+        {
+          "id": "xlsx.sheet.2",
+          "status": "pass",
+          "severity": "error",
+          "message": "Worksheet Health Discount Factors existence compared with expectation."
+        }
+      ],
+      "summary": {
+        "total": 5,
+        "failed": 0
+      }
+    },
+    "artifacts": [],
+    "warnings": []
+  },
+  "visualReview": {
+    "status": "reviewed",
+    "method": "every rendered page inspected in the complete contact sheet; full-resolution page images retained",
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X08\\dsh\\round-00\\rendered\\contact-01.png",
+    "pages": [
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X08\\dsh\\round-00\\rendered\\pages\\page-001.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X08\\dsh\\round-00\\rendered\\pages\\page-002.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X08\\dsh\\round-00\\rendered\\pages\\page-003.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X08\\dsh\\round-00\\rendered\\pages\\page-004.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X08\\dsh\\round-00\\rendered\\pages\\page-005.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X08\\dsh\\round-00\\rendered\\pages\\page-006.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X08\\dsh\\round-00\\rendered\\pages\\page-007.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\X08\\dsh\\round-00\\rendered\\pages\\page-008.png"
+    ]
+  },
+  "repairsUsed": 0,
+  "repairLimit": 5,
+  "scores": {
+    "round": 0,
+    "hardGates": {
+      "fileIntegrity": true,
+      "completeRender": true,
+      "contentPreservation": true,
+      "noCriticalVisualDefect": true,
+      "intentComplete": true
+    },
+    "dimensions": {
+      "oneStep": 30,
+      "intent": 23,
+      "craft": 17,
+      "thoroughness": 15,
+      "strength": 8
+    },
+    "total": 93,
+    "threshold": 85,
+    "verdict": "PASS",
+    "failedGates": [],
+    "scoringNote": "Single typed DSH call completed, verifier passed and rendered visual review found no critical defect."
+  }
+}

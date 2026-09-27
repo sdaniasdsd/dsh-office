@@ -1,0 +1,449 @@
+{
+  "caseId": "P13",
+  "format": "pptx",
+  "file": "timms-workshop.pptx",
+  "primaryPrompt": "这份Timms Review workshop deck首页文字有点压画面，开场和封面能不能收紧一点？保留核心名称和必要信息，别碰政策/法律名称、数字、后面页面、配色或版式。",
+  "operationFamily": "cover-copy-trim",
+  "operationPlan": {
+    "action": "replaceText",
+    "changes": [
+      {
+        "slideNumber": 1,
+        "shapeId": 2,
+        "paragraphIndex": 0,
+        "runIndex": 0,
+        "expectedText": "Facilitator note: Before you begin",
+        "replaceWith": "Facilitator checklist"
+      },
+      {
+        "slideNumber": 1,
+        "shapeId": 3,
+        "paragraphIndex": 2,
+        "runIndex": 0,
+        "expectedText": "Before you begin, please make sure you have:",
+        "replaceWith": "Before the workshop:"
+      }
+    ]
+  },
+  "dshCall": {
+    "moduleId": "pptx-office",
+    "operation": "execute",
+    "requestId": "aesthetic50-P13-execute",
+    "result": {
+      "artifactRef": {
+        "id": "sha256:ac3c1baa6af4cef1f91e4cee58760bef9fd8f55b2361d737677a653bd24f87c1",
+        "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/dsh-office-clone/the-last-docx/dist/office-aesthetic-50/store/objects/ac3c1baa6af4cef1f91e4cee58760bef9fd8f55b2361d737677a653bd24f87c1/artifact.pptx",
+        "sha256": "ac3c1baa6af4cef1f91e4cee58760bef9fd8f55b2361d737677a653bd24f87c1",
+        "sizeBytes": 170434,
+        "label": "edited.pptx",
+        "mediaType": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      },
+      "sources": [
+        {
+          "id": "sha256:c315e2db44d202b0541aa230eaee281612ed452ae1295e9fa9b042a4821c78bd",
+          "sha256": "c315e2db44d202b0541aa230eaee281612ed452ae1295e9fa9b042a4821c78bd"
+        }
+      ],
+      "changedRuns": 2,
+      "slideCount": 34,
+      "visualReview": "pending"
+    },
+    "verification": {
+      "moduleId": "pptx-office",
+      "requestId": "aesthetic50-P13-verify",
+      "operation": "verify",
+      "result": {
+        "ok": true,
+        "partial": false,
+        "checks": [
+          {
+            "id": "pptx.slideCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Reopened slide count compared with expectation."
+          },
+          {
+            "id": "pptx.text.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          },
+          {
+            "id": "pptx.text.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          }
+        ],
+        "summary": {
+          "total": 3,
+          "passed": 3,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "verification": {
+        "ok": true,
+        "partial": false,
+        "checks": [
+          {
+            "id": "pptx.slideCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Reopened slide count compared with expectation."
+          },
+          {
+            "id": "pptx.text.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          },
+          {
+            "id": "pptx.text.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          }
+        ],
+        "summary": {
+          "total": 3,
+          "passed": 3,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "artifacts": [],
+      "warnings": []
+    }
+  },
+  "source": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-stress-20260927-visual-confirm-200\\workspace\\pptx\\timms-workshop.pptx",
+    "sha256": "c315e2db44d202b0541aa230eaee281612ed452ae1295e9fa9b042a4821c78bd",
+    "unchanged": true
+  },
+  "baseline": {
+    "pdf": {
+      "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\artifact.pdf",
+      "sha256": "2397e0b2c5ffe9f21877db5a17bfa1e6b505589fe33ed9d42ca37daad67d9722"
+    },
+    "pageCount": 34,
+    "pages": [
+      {
+        "pageNumber": 1,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-001.png",
+        "sha256": "52325b4a8a32ff3d26f5dfe2bf6e9a9ebdc027ebb0f7922faa2579455d580aa4"
+      },
+      {
+        "pageNumber": 2,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-002.png",
+        "sha256": "ec508ecceea7e1f4f0d0bac9c7e2b2371c8ce1be92a7851f370e94a42801e005"
+      },
+      {
+        "pageNumber": 3,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-003.png",
+        "sha256": "6e02a45891f2bac5a046ab2c75bfa100967ca3d79a1ed41b133629dfd43b0eff"
+      },
+      {
+        "pageNumber": 4,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-004.png",
+        "sha256": "f995fa4081b13d6bc5cb1ff2d1b916e9e5e8a805b494e59c87a74c7400656960"
+      },
+      {
+        "pageNumber": 5,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-005.png",
+        "sha256": "507d564eeaf9d58888e9564a84ad26d5b6a38a77e61b029f5617c84ad4747c5f"
+      },
+      {
+        "pageNumber": 6,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-006.png",
+        "sha256": "ba1626f44870a403adfd0b5033c2fb00aeb4d33d798fb8d7327cc55d2e7632d8"
+      },
+      {
+        "pageNumber": 7,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-007.png",
+        "sha256": "20728d5a5a39e26b4a4069b9cbae372c2f030a7e0aa7260da1ddee98439898ee"
+      },
+      {
+        "pageNumber": 8,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-008.png",
+        "sha256": "11427b3c52182d2ed2a53180035808fb8c4df4c74990e001554f7ba9cd176b4d"
+      },
+      {
+        "pageNumber": 9,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-009.png",
+        "sha256": "19538da4ecf97b4ca27769f3b7e6908e797e65c01d8c94514625f55476706f2d"
+      },
+      {
+        "pageNumber": 10,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-010.png",
+        "sha256": "ee66d55dff7312fbb00d1f41c597ac7938c34a11a46efb37a167af75d75867ef"
+      },
+      {
+        "pageNumber": 11,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-011.png",
+        "sha256": "362f36646e55fd58d4f5d13302da378668d575c4f33047c03120becd303024ca"
+      },
+      {
+        "pageNumber": 12,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-012.png",
+        "sha256": "6a44b36689b7dd9480cb85b5859d025468953fdc97fc8c8ca52a71c0df3fcffb"
+      },
+      {
+        "pageNumber": 13,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-013.png",
+        "sha256": "beda5e193b7db173a6bf4584a21b434b9e3ae6940eef1c01d06a5b60bc7892cc"
+      },
+      {
+        "pageNumber": 14,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-014.png",
+        "sha256": "5c2f29bbf6a51fb65b58fab6ae464f773b0e7cad6f8a479d4dce22f0d870619c"
+      },
+      {
+        "pageNumber": 15,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-015.png",
+        "sha256": "36a2e4609a5e003fb73ed82651897acff0f81bbe3b75045ea0f2e10ea3b22099"
+      },
+      {
+        "pageNumber": 16,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-016.png",
+        "sha256": "df895cc8c7ee46a1a46c00a92d1064ccf29cd3cb801ef564aac13d73d4858cf7"
+      },
+      {
+        "pageNumber": 17,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-017.png",
+        "sha256": "2c67ac1754c991aa48b45206aebe45355be73b8192c871bb85cb63c95585d763"
+      },
+      {
+        "pageNumber": 18,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-018.png",
+        "sha256": "8b10524760478b4386f98b1967f2e2649c60d7b82e3ff80c7f3fb227c40ae0bd"
+      },
+      {
+        "pageNumber": 19,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-019.png",
+        "sha256": "f579fbdacf534bcce0183e78cbfd20412ca361af2b2516280bd4c134619e7dbf"
+      },
+      {
+        "pageNumber": 20,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-020.png",
+        "sha256": "ebcebb9af850c273c5d318ffcce5ac063be82bf8d4aa299d4ef344f8f6ac8262"
+      },
+      {
+        "pageNumber": 21,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-021.png",
+        "sha256": "8aa11f4802629d7b277431cfd6a9c74d289bc5c461153a1710716b815ad122be"
+      },
+      {
+        "pageNumber": 22,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-022.png",
+        "sha256": "a9dee62a0e0e405a21bc35c180bed8bac6840c9e7136859de1230fa01bda3ceb"
+      },
+      {
+        "pageNumber": 23,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-023.png",
+        "sha256": "4d7995ad6686beebf548894ae8d7f6d3c60d8ec1d1f0df2377a3c1758230efaf"
+      },
+      {
+        "pageNumber": 24,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-024.png",
+        "sha256": "596ddd3babb6ef8f7dd825b4aa8e90d5270e86d4fb5846acd1d4b884d0028ffc"
+      },
+      {
+        "pageNumber": 25,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-025.png",
+        "sha256": "2c2f398dd060da74b2bbae7258e5c4ecd49b7a9b82450c5fe52355af1bb2db2c"
+      },
+      {
+        "pageNumber": 26,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-026.png",
+        "sha256": "c52c3d05ce97b6740d1ac404d20e0ed884677d8c3cf6cae3d4a0e2832ff916fb"
+      },
+      {
+        "pageNumber": 27,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-027.png",
+        "sha256": "7a0df2bc73b3dccaa8c41237cdf6da293d65aeb383b0aba26cd46541d519f7f2"
+      },
+      {
+        "pageNumber": 28,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-028.png",
+        "sha256": "08eb62bc628ff00fdc3bb7ad7d834d4091c0cd7c6e9a406ec3cea0ab0e7c482b"
+      },
+      {
+        "pageNumber": 29,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-029.png",
+        "sha256": "fe3df7bc6b0ebb77010f250c30c512485cb92b0a3e7730eb30c7b1f30df8ac6c"
+      },
+      {
+        "pageNumber": 30,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-030.png",
+        "sha256": "7d0fcc5f82dfafa37417707405ab775becb7b970439f5c2379ac54abd32acf71"
+      },
+      {
+        "pageNumber": 31,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-031.png",
+        "sha256": "32bbfce6fb759ee6dcdd5466e0d38549312299d8cd50bd85bfde5783c09f2e46"
+      },
+      {
+        "pageNumber": 32,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-032.png",
+        "sha256": "69aeda726b2e4cf04c85e2e0aea1fe192d76f563c5621086812f4b9a1282b67b"
+      },
+      {
+        "pageNumber": 33,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-033.png",
+        "sha256": "763db4a7f8d603931f238351786d5f3a062fa6cb377626435eec37c9a9a3d8d5"
+      },
+      {
+        "pageNumber": 34,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\pages\\page-034.png",
+        "sha256": "bb7ed5ab959a9b1edb6f8e5035d7c5a30b3e0d94088f78db768edd4a4fa12789"
+      }
+    ],
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\timms-workshop\\rendered\\contact-01.png"
+  },
+  "candidate": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\artifact.pptx",
+    "sha256": "ac3c1baa6af4cef1f91e4cee58760bef9fd8f55b2361d737677a653bd24f87c1",
+    "bytes": 170434,
+    "pageCount": 34
+  },
+  "renderProfile": {
+    "engine": "bundled LibreOffice + Poppler review-only",
+    "dpi": 120,
+    "sameRendererAsBaseline": true
+  },
+  "round": 0,
+  "status": "pass",
+  "verifier": {
+    "moduleId": "pptx-office",
+    "requestId": "aesthetic50-P13-verify",
+    "operation": "verify",
+    "result": {
+      "ok": true,
+      "partial": false,
+      "checks": [
+        {
+          "id": "pptx.slideCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Reopened slide count compared with expectation."
+        },
+        {
+          "id": "pptx.text.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        },
+        {
+          "id": "pptx.text.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        }
+      ],
+      "summary": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "verification": {
+      "ok": true,
+      "partial": false,
+      "checks": [
+        {
+          "id": "pptx.slideCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Reopened slide count compared with expectation."
+        },
+        {
+          "id": "pptx.text.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        },
+        {
+          "id": "pptx.text.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        }
+      ],
+      "summary": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "artifacts": [],
+    "warnings": []
+  },
+  "visualReview": {
+    "status": "reviewed",
+    "method": "every rendered page inspected in the complete contact sheet; full-resolution page images retained",
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\contact-01.png",
+    "pages": [
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-001.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-002.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-003.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-004.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-005.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-006.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-007.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-008.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-009.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-010.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-011.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-012.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-013.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-014.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-015.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-016.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-017.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-018.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-019.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-020.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-021.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-022.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-023.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-024.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-025.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-026.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-027.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-028.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-029.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-030.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-031.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-032.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-033.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P13\\dsh\\round-00\\rendered\\pages\\page-034.png"
+    ]
+  },
+  "repairsUsed": 0,
+  "repairLimit": 5,
+  "scores": {
+    "round": 0,
+    "hardGates": {
+      "fileIntegrity": true,
+      "completeRender": true,
+      "contentPreservation": true,
+      "noCriticalVisualDefect": true,
+      "intentComplete": true
+    },
+    "dimensions": {
+      "oneStep": 30,
+      "intent": 23,
+      "craft": 17,
+      "thoroughness": 15,
+      "strength": 8
+    },
+    "total": 93,
+    "threshold": 85,
+    "verdict": "PASS",
+    "failedGates": [],
+    "scoringNote": "Single typed DSH call completed, verifier passed and rendered visual review found no critical defect."
+  }
+}

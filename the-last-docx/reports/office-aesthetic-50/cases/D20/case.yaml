@@ -1,0 +1,29 @@
+{
+  "case_id": "D20",
+  "format": "docx",
+  "mode": "first-pass-and-repair",
+  "source_artifact": "docx/qa-evidence-report-template.docx",
+  "source_sha256": "f9774c99c1310122a059035ffd527333313b53734337dc03a4a114337c075090",
+  "initial_content": "QA evidence report from the frozen official-source office corpus.",
+  "primary_prompt": "准备把QA evidence report放进正式评审包，麻烦做一轮统一的轻量美化：标题、章节、小表格的视觉语言协调，正文仍然严肃易读；所有法律/安全/审批措辞、字段、数字和顺序保持不变。",
+  "expected_effects": [
+    "Title and section hierarchy is visibly clearer.",
+    "Text, values, labels, legal/safety wording, and order remain unchanged."
+  ],
+  "invariants": [
+    "Preserve source wording, facts, fields, values, and order.",
+    "Keep all pages and page numbering; no clipping or new blank pages.",
+    "Use DSH in-place formatting only; do not rebuild the source from a plan."
+  ],
+  "acceptance": {
+    "score_minimum": 85,
+    "required_gates": [
+      "file_integrity",
+      "complete_render",
+      "content_preservation",
+      "no_critical_visual_defect",
+      "intent_complete"
+    ],
+    "repair_limit": 5
+  }
+}

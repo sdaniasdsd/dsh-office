@@ -1,0 +1,371 @@
+{
+  "caseId": "P02",
+  "format": "pptx",
+  "file": "civil-service-line-management.pptx",
+  "primaryPrompt": "这份line management standards deck目录页扫起来有点费劲，帮我把目录标题和一两个导航词改得短、直白一点；内容顺序、意思、字号和现有主题都保持原样。",
+  "operationFamily": "navigation-copy-trim",
+  "operationPlan": {
+    "action": "replaceText",
+    "changes": [
+      {
+        "slideNumber": 3,
+        "shapeId": 224,
+        "paragraphIndex": 0,
+        "runIndex": 0,
+        "expectedText": "Contents",
+        "replaceWith": "At a glance"
+      },
+      {
+        "slideNumber": 3,
+        "shapeId": 6,
+        "paragraphIndex": 0,
+        "runIndex": 0,
+        "expectedText": "What’s next?",
+        "replaceWith": "Next steps"
+      }
+    ]
+  },
+  "dshCall": {
+    "moduleId": "pptx-office",
+    "operation": "execute",
+    "requestId": "aesthetic50-P02-execute",
+    "result": {
+      "artifactRef": {
+        "id": "sha256:83f323de486ae251bb17ba8c7f1581d07c76be47728a528d01e9bc34e7c56853",
+        "uri": "file:///D:/%E5%BC%80%E6%BA%90%E5%9B%A2%E9%98%9F%E4%BD%9C%E5%93%81/dsh-office-clone/the-last-docx/dist/office-aesthetic-50/store/objects/83f323de486ae251bb17ba8c7f1581d07c76be47728a528d01e9bc34e7c56853/artifact.pptx",
+        "sha256": "83f323de486ae251bb17ba8c7f1581d07c76be47728a528d01e9bc34e7c56853",
+        "sizeBytes": 5149176,
+        "label": "edited.pptx",
+        "mediaType": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      },
+      "sources": [
+        {
+          "id": "sha256:139d2201569c39b84fb5299208e944809566dda33d6e4128623eb990430eece8",
+          "sha256": "139d2201569c39b84fb5299208e944809566dda33d6e4128623eb990430eece8"
+        }
+      ],
+      "changedRuns": 2,
+      "slideCount": 21,
+      "visualReview": "pending"
+    },
+    "verification": {
+      "moduleId": "pptx-office",
+      "requestId": "aesthetic50-P02-verify",
+      "operation": "verify",
+      "result": {
+        "ok": true,
+        "partial": false,
+        "checks": [
+          {
+            "id": "pptx.slideCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Reopened slide count compared with expectation."
+          },
+          {
+            "id": "pptx.text.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          },
+          {
+            "id": "pptx.text.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          }
+        ],
+        "summary": {
+          "total": 3,
+          "passed": 3,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "verification": {
+        "ok": true,
+        "partial": false,
+        "checks": [
+          {
+            "id": "pptx.slideCount",
+            "status": "pass",
+            "severity": "error",
+            "message": "Reopened slide count compared with expectation."
+          },
+          {
+            "id": "pptx.text.0",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          },
+          {
+            "id": "pptx.text.1",
+            "status": "pass",
+            "severity": "error",
+            "message": "Expected text compared with extracted slide text."
+          }
+        ],
+        "summary": {
+          "total": 3,
+          "passed": 3,
+          "failed": 0,
+          "skipped": 0
+        }
+      },
+      "artifacts": [],
+      "warnings": []
+    }
+  },
+  "source": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-stress-20260927-visual-confirm-200\\workspace\\pptx\\civil-service-line-management.pptx",
+    "sha256": "139d2201569c39b84fb5299208e944809566dda33d6e4128623eb990430eece8",
+    "unchanged": true
+  },
+  "baseline": {
+    "pdf": {
+      "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\artifact.pdf",
+      "sha256": "9142d1633b4679951e8e752c715c5d3ff63de21be6cbd19fe9789727975f470a"
+    },
+    "pageCount": 21,
+    "pages": [
+      {
+        "pageNumber": 1,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-001.png",
+        "sha256": "f1a20a447854ab3ed075162a948c29eb19fd5da651aeb492e25600afc4e90e19"
+      },
+      {
+        "pageNumber": 2,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-002.png",
+        "sha256": "f48b2b25f48401e59271e011a7482e51795f72fa8d16f273b86aab163e301cea"
+      },
+      {
+        "pageNumber": 3,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-003.png",
+        "sha256": "bc9b0de2757bfda98d944cbb4dac99dbdef9970b94f93e5173a37a4672691d44"
+      },
+      {
+        "pageNumber": 4,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-004.png",
+        "sha256": "138ea4643d7d089febd185772910268a7b0de653a882507ff8159ac7e15115a7"
+      },
+      {
+        "pageNumber": 5,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-005.png",
+        "sha256": "976739211908670e2d25b6d94810bec69a2256bbd49814193ae62f0cce23437b"
+      },
+      {
+        "pageNumber": 6,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-006.png",
+        "sha256": "e449e902ea3edc4c053cd15bd158a9cff500fd49948e38765b4a05dd5e41acd4"
+      },
+      {
+        "pageNumber": 7,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-007.png",
+        "sha256": "5e0f175a38c503f5dad51675c47e700ab1184a062b493eb5556335925b141048"
+      },
+      {
+        "pageNumber": 8,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-008.png",
+        "sha256": "db03825477a95bac2fe794426edb4d0bf292538110b3f521a3be9b8be083f732"
+      },
+      {
+        "pageNumber": 9,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-009.png",
+        "sha256": "ef4f175dbfd2b2db071f077eeb779c2db8e0146ddc3e65278a5e6e1c098dc8e6"
+      },
+      {
+        "pageNumber": 10,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-010.png",
+        "sha256": "1f93a571de38c32ca4eb641964d1955157be8536f3a52ea777a01cdf271f6dc2"
+      },
+      {
+        "pageNumber": 11,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-011.png",
+        "sha256": "02d53dc4f6fd090d75c8e198e067abc6f92b64e5fc651cc70c641cc088f3e76c"
+      },
+      {
+        "pageNumber": 12,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-012.png",
+        "sha256": "b51e9e5ec24b24cc216c4e6ebdac5c2a2c01066f0f9579de003df529ffae4937"
+      },
+      {
+        "pageNumber": 13,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-013.png",
+        "sha256": "61da50cf8a297ca3be28258bc413abb8716bd939d75f437c2232d66e8a7058f1"
+      },
+      {
+        "pageNumber": 14,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-014.png",
+        "sha256": "5b6a84375d6de5b127a6e2d2e17c85c559ba3791201facd18c6f4ecdec7c9d6c"
+      },
+      {
+        "pageNumber": 15,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-015.png",
+        "sha256": "45f97ed6f0c202113988a0141b6912e630258568160a63f7ff037a42502fd927"
+      },
+      {
+        "pageNumber": 16,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-016.png",
+        "sha256": "bac7649d1e8d10ae8a845cb04b69b0f577272b181ff5c42f1056975660e16f00"
+      },
+      {
+        "pageNumber": 17,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-017.png",
+        "sha256": "a0ca3c19d2c8b88f91cafe24cbc3939def96700bbed5cc1df2646097b41f1ef6"
+      },
+      {
+        "pageNumber": 18,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-018.png",
+        "sha256": "61c00faceea68afad9b3c688fde87c72eb9b345bc1e137924d8c7486328111ee"
+      },
+      {
+        "pageNumber": 19,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-019.png",
+        "sha256": "edde805970b6cc50babb3d3122369f777090f06330235803e2ddad217290b2a8"
+      },
+      {
+        "pageNumber": 20,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-020.png",
+        "sha256": "44817a14b320f11cb3369a4eae681596daefcf6063c24a4940b0eed545586fa9"
+      },
+      {
+        "pageNumber": 21,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\pages\\page-021.png",
+        "sha256": "d5a895d97179f62f5042f3c3c4f5fffaa6fa0862141237f4e099775c435f5f8b"
+      }
+    ],
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\pptx\\civil-service-line-management\\rendered\\contact-01.png"
+  },
+  "candidate": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\artifact.pptx",
+    "sha256": "83f323de486ae251bb17ba8c7f1581d07c76be47728a528d01e9bc34e7c56853",
+    "bytes": 5149176,
+    "pageCount": 21
+  },
+  "renderProfile": {
+    "engine": "bundled LibreOffice + Poppler review-only",
+    "dpi": 120,
+    "sameRendererAsBaseline": true
+  },
+  "round": 0,
+  "status": "pass",
+  "verifier": {
+    "moduleId": "pptx-office",
+    "requestId": "aesthetic50-P02-verify",
+    "operation": "verify",
+    "result": {
+      "ok": true,
+      "partial": false,
+      "checks": [
+        {
+          "id": "pptx.slideCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Reopened slide count compared with expectation."
+        },
+        {
+          "id": "pptx.text.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        },
+        {
+          "id": "pptx.text.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        }
+      ],
+      "summary": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "verification": {
+      "ok": true,
+      "partial": false,
+      "checks": [
+        {
+          "id": "pptx.slideCount",
+          "status": "pass",
+          "severity": "error",
+          "message": "Reopened slide count compared with expectation."
+        },
+        {
+          "id": "pptx.text.0",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        },
+        {
+          "id": "pptx.text.1",
+          "status": "pass",
+          "severity": "error",
+          "message": "Expected text compared with extracted slide text."
+        }
+      ],
+      "summary": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "artifacts": [],
+    "warnings": []
+  },
+  "visualReview": {
+    "status": "reviewed",
+    "method": "every rendered page inspected in the complete contact sheet; full-resolution page images retained",
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\contact-01.png",
+    "pages": [
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-001.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-002.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-003.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-004.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-005.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-006.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-007.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-008.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-009.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-010.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-011.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-012.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-013.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-014.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-015.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-016.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-017.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-018.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-019.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-020.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\P02\\dsh\\round-00\\rendered\\pages\\page-021.png"
+    ]
+  },
+  "repairsUsed": 0,
+  "repairLimit": 5,
+  "scores": {
+    "round": 0,
+    "hardGates": {
+      "fileIntegrity": true,
+      "completeRender": true,
+      "contentPreservation": true,
+      "noCriticalVisualDefect": true,
+      "intentComplete": true
+    },
+    "dimensions": {
+      "oneStep": 30,
+      "intent": 23,
+      "craft": 17,
+      "thoroughness": 15,
+      "strength": 8
+    },
+    "total": 93,
+    "threshold": 85,
+    "verdict": "PASS",
+    "failedGates": [],
+    "scoringNote": "Single typed DSH call completed, verifier passed and rendered visual review found no critical defect."
+  }
+}

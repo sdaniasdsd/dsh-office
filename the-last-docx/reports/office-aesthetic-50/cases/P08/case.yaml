@@ -1,0 +1,29 @@
+{
+  "case_id": "P08",
+  "format": "pptx",
+  "mode": "first-pass-and-repair",
+  "source_artifact": "pptx/prevent-duty-leadership.pptx",
+  "source_sha256": "988791ca33fd6a3db180096f17929813e8265d96133466123c633ce157a21e62",
+  "initial_content": "Prevent Duty leadership deck from the frozen official-source office corpus.",
+  "primary_prompt": "这份Prevent Duty leadership deck目录页扫起来有点费劲，帮我把目录标题和一两个导航词改得短、直白一点；内容顺序、意思、字号和现有主题都保持原样。",
+  "expected_effects": [
+    "Requested cover/navigation labels become shorter and scan more cleanly.",
+    "Existing slide theme, layout, shapes, and unrequested wording are preserved."
+  ],
+  "invariants": [
+    "Do not alter legal/policy references, figures, charts, or slide order.",
+    "Keep all slides; no clipped or missing content.",
+    "Every replacement must use an exact source-revision run address."
+  ],
+  "acceptance": {
+    "score_minimum": 85,
+    "required_gates": [
+      "file_integrity",
+      "complete_render",
+      "content_preservation",
+      "no_critical_visual_defect",
+      "intent_complete"
+    ],
+    "repair_limit": 5
+  }
+}

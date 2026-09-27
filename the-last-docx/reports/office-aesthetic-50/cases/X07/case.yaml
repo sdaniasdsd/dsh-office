@@ -1,0 +1,29 @@
+{
+  "case_id": "X07",
+  "format": "xlsx",
+  "mode": "first-pass-and-repair",
+  "source_artifact": "xlsx/green-book-discount-factors.xlsx",
+  "source_sha256": "4da7e0be919ee7332fba39e0a52087e865ea48d6ea3f3706f8b3ad4363a43fa0",
+  "initial_content": "discount factors workbook from the frozen official-source office corpus.",
+  "primary_prompt": "这份discount factors workbook要拿去会议上打印，宽表现在横向散成好几页。请把指定输入/汇总表设成横向、一页宽，纵向可多页；数据、公式、空白录入区和其余工作表都别动。",
+  "expected_effects": [
+    "Requested worksheets print in the requested landscape width with unlimited vertical pagination unless a two-page width is specified.",
+    "All cell content and unrelated worksheets remain unchanged."
+  ],
+  "invariants": [
+    "Preserve formulas, cached values, styles, names, external relationships, and populated cells.",
+    "Do not invent a print area, hide cells, or remove blank form-entry regions.",
+    "Produce a separate immutable candidate and visually inspect every printed page."
+  ],
+  "acceptance": {
+    "score_minimum": 85,
+    "required_gates": [
+      "file_integrity",
+      "complete_render",
+      "content_preservation",
+      "no_critical_visual_defect",
+      "intent_complete"
+    ],
+    "repair_limit": 5
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "case_id": "D14",
+  "format": "docx",
+  "mode": "first-pass-and-repair",
+  "source_artifact": "docx/pipl-law.docx",
+  "source_sha256": "3e154c3e3914ec5b210c8d76c274be0cac49e23854d62472d1b1d6ce42c09fa4",
+  "initial_content": "Personal Information Protection Law from the frozen official-source office corpus.",
+  "primary_prompt": "同事说这份Personal Information Protection Law打印后不好扫读。请把已有表格的边线和单元格留白整理得轻一点、整齐一点；确实没有表格时就把字段标签和小标题层级拉开。空白栏位、原文和数字全部保留。",
+  "expected_effects": [
+    "Table/field structure is easier to scan through restrained spacing and borders.",
+    "Blank input cells and labels remain present."
+  ],
+  "invariants": [
+    "Preserve source wording, facts, fields, values, and order.",
+    "Keep all pages and page numbering; no clipping or new blank pages.",
+    "Use DSH in-place formatting only; do not rebuild the source from a plan."
+  ],
+  "acceptance": {
+    "score_minimum": 85,
+    "required_gates": [
+      "file_integrity",
+      "complete_render",
+      "content_preservation",
+      "no_critical_visual_defect",
+      "intent_complete"
+    ],
+    "repair_limit": 5
+  }
+}

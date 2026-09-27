@@ -1,0 +1,29 @@
+{
+  "case_id": "D09",
+  "format": "docx",
+  "mode": "first-pass-and-repair",
+  "source_artifact": "docx/mhra-applicant-response.docx",
+  "source_sha256": "53e04952c2c9b0b48063e70ad8f586b40e004a36957a0b898f2b4d0fefe43cff",
+  "initial_content": "MHRA applicant response from the frozen official-source office corpus.",
+  "primary_prompt": "这份MHRA applicant response下周要给主管过目，现在标题和章节看起来像一整块。帮我把主标题、主要小节做出清楚但克制的层级，留白舒服一点，用稳重的蓝灰色；正文、条文、页码和表格里的字一个都别改。",
+  "expected_effects": [
+    "Title and section hierarchy is visibly clearer.",
+    "Text, values, labels, legal/safety wording, and order remain unchanged."
+  ],
+  "invariants": [
+    "Preserve source wording, facts, fields, values, and order.",
+    "Keep all pages and page numbering; no clipping or new blank pages.",
+    "Use DSH in-place formatting only; do not rebuild the source from a plan."
+  ],
+  "acceptance": {
+    "score_minimum": 85,
+    "required_gates": [
+      "file_integrity",
+      "complete_render",
+      "content_preservation",
+      "no_critical_visual_defect",
+      "intent_complete"
+    ],
+    "repair_limit": 5
+  }
+}

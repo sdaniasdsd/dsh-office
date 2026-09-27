@@ -1,0 +1,196 @@
+{
+  "caseId": "D17",
+  "format": "docx",
+  "file": "qa-evidence-report-template.docx",
+  "primaryPrompt": "这份QA evidence report下周要给主管过目，现在标题和章节看起来像一整块。帮我把主标题、主要小节做出清楚但克制的层级，留白舒服一点，用稳重的蓝灰色；正文、条文、页码和表格里的字一个都别改。",
+  "operationFamily": "heading-hierarchy",
+  "operationPlan": {
+    "edits": [
+      {
+        "kind": "formatParagraph",
+        "target": {
+          "semanticId": "2723cd539f5e45b4646e9f4fb2340959",
+          "anchor": {
+            "kind": "p",
+            "part": "word/document.xml",
+            "structuralPath": "/w:document/w:body/w:p[1]",
+            "ordinal": 0,
+            "paraId": "157A3DD5",
+            "quote": "Analysis and Evidence Quality Assurance (QA) Report",
+            "digest": "029f02619a2223fe049871bbe73062eb93161a24d3677c1d3a4bea8952b18228"
+          }
+        },
+        "alignment": "Centered",
+        "spaceAfter": 12,
+        "font": {
+          "bold": true,
+          "size": 21,
+          "color": "#244A67",
+          "name": "Arial"
+        }
+      }
+    ]
+  },
+  "dshCall": {
+    "moduleId": "docx-edit",
+    "operation": "execute",
+    "requestId": "aesthetic50-D17-execute",
+    "edits": [
+      {
+        "kind": "formatParagraph",
+        "semanticId": "2723cd539f5e45b4646e9f4fb2340959",
+        "changed": 6,
+        "details": {
+          "applied": "alignment,spaceAfter,font.bold,font.size,font.color,font.name"
+        }
+      }
+    ],
+    "verification": {
+      "ok": true,
+      "partial": false,
+      "checks": [
+        {
+          "id": "package.reopens",
+          "status": "pass",
+          "severity": "info",
+          "message": "The output reopens as a WordprocessingML package."
+        },
+        {
+          "id": "relationships.resolve",
+          "status": "pass",
+          "severity": "info",
+          "message": "All internal relationships resolve."
+        },
+        {
+          "id": "edit.paragraph.1",
+          "status": "pass",
+          "severity": "info",
+          "message": "The edited paragraph is present."
+        },
+        {
+          "id": "format.paragraph.1",
+          "status": "pass",
+          "severity": "info",
+          "message": "The requested paragraph formatting is present in the saved output."
+        }
+      ],
+      "summary": {
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "source": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-stress-20260927-visual-confirm-200\\workspace\\docx\\qa-evidence-report-template.docx",
+    "sha256": "f9774c99c1310122a059035ffd527333313b53734337dc03a4a114337c075090",
+    "unchanged": true
+  },
+  "baseline": {
+    "engine": "libreoffice-poppler",
+    "pageCount": 2,
+    "pages": [
+      {
+        "pageNumber": 1,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\qa-evidence-report-template\\render\\pages\\page-001.png",
+        "sha256": "5433d76e2205766505f6804af8394e0fcad5630d8aad8757d56be434734f2a05",
+        "bytes": 204754
+      },
+      {
+        "pageNumber": 2,
+        "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\qa-evidence-report-template\\render\\pages\\page-002.png",
+        "sha256": "87eba0fe1e0fc47a5213baa2f7bedb75243dce432e2bcaf70993a0dadea1f619",
+        "bytes": 227091
+      }
+    ],
+    "pdf": {
+      "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\qa-evidence-report-template\\render\\artifact.pdf",
+      "sha256": "3a68b151d64d904d3e21cbc53dec4c33ac9bdac0ae93ef2e89c8d8b54dbfa6c0",
+      "bytes": 217852
+    },
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\shared-baselines\\docx\\qa-evidence-report-template\\render\\contact-01.png"
+  },
+  "candidate": {
+    "path": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D17\\dsh\\round-00\\artifact.docx",
+    "sha256": "0cbd79b8b0a5f93b21ed62ae47a390a832d5e703511f9fcee4c33776bbf98ce2",
+    "bytes": 37587,
+    "pageCount": 2
+  },
+  "renderProfile": {
+    "engine": "DSH docx-render / bundled LibreOffice",
+    "dpi": 120,
+    "sameRendererAsBaseline": true
+  },
+  "round": 0,
+  "status": "pass",
+  "verifier": {
+    "ok": true,
+    "partial": false,
+    "checks": [
+      {
+        "id": "package.reopens",
+        "status": "pass",
+        "severity": "info",
+        "message": "The output reopens as a WordprocessingML package."
+      },
+      {
+        "id": "relationships.resolve",
+        "status": "pass",
+        "severity": "info",
+        "message": "All internal relationships resolve."
+      },
+      {
+        "id": "edit.paragraph.1",
+        "status": "pass",
+        "severity": "info",
+        "message": "The edited paragraph is present."
+      },
+      {
+        "id": "format.paragraph.1",
+        "status": "pass",
+        "severity": "info",
+        "message": "The requested paragraph formatting is present in the saved output."
+      }
+    ],
+    "summary": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "visualReview": {
+    "status": "reviewed",
+    "method": "every rendered page inspected in the complete contact sheet; full-resolution page images retained",
+    "contactSheet": "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D17\\dsh\\round-00\\render\\contact-01.png",
+    "pages": [
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D17\\dsh\\round-00\\render\\pages\\page-001.png",
+      "D:\\开源团队作品\\dsh-office-clone\\the-last-docx\\dist\\office-aesthetic-50\\cases\\D17\\dsh\\round-00\\render\\pages\\page-002.png"
+    ]
+  },
+  "repairsUsed": 0,
+  "repairLimit": 5,
+  "scores": {
+    "round": 0,
+    "hardGates": {
+      "fileIntegrity": true,
+      "completeRender": true,
+      "contentPreservation": true,
+      "noCriticalVisualDefect": true,
+      "intentComplete": true
+    },
+    "dimensions": {
+      "oneStep": 30,
+      "intent": 23,
+      "craft": 17,
+      "thoroughness": 15,
+      "strength": 8
+    },
+    "total": 93,
+    "threshold": 85,
+    "verdict": "PASS",
+    "failedGates": [],
+    "scoringNote": "Single typed DSH call completed, verifier passed and rendered visual review found no critical defect."
+  }
+}
