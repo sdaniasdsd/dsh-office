@@ -3,7 +3,7 @@ import { readFile,writeFile,mkdir,cp,readdir,rm,rename,stat,access } from 'node:
 import { resolve,join,relative,dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root=fileURLToPath(new URL('..',import.meta.url));
-const VERSION='0.9.1';
+const VERSION='0.9.2';
 // 工具链（运行时）的产地与版本：运行时不再是本仓库的产物，见 toolchain.lock.json。
 const toolchainPin=JSON.parse(await readFile(join(root,'toolchain.lock.json'),'utf8'));
 const platformDir='win32-x64';
@@ -66,6 +66,15 @@ for(const [packageName,packageRoot] of bundledPackages){
   for(const license of licenseFiles)await cp(join(packageRoot,license.name),join(destination,license.name));
 }
 await Promise.all(['server','index'].map(entry=>rm(join(coreOut,'lib',`${entry}.build.json`),{force:true})));
+// 记下"哪些 npm 包被打进了 bundle"。doctor 用它来判断某个能力是否真的可用：
+// exceljs 这类包是 inlined 的，磁盘上没有单独安装，从子进程 import 探测必然失败（假阴性）。
+const bundledVersions={};
+for(const [packageName,packageRoot] of bundledPackages){
+  try{bundledVersions[packageName]=JSON.parse(await readFile(join(packageRoot,'package.json'),'utf8')).version??'unknown';}
+  catch{bundledVersions[packageName]='unknown';}
+}
+await writeFile(join(coreOut,'lib','bundled.json'),JSON.stringify({schema:'dsh-office-bundled/v1',note:'这些 npm 包被 esbuild 打进了 lib/server.mjs，磁盘上没有单独安装；doctor 据此判断能力可用性。',packages:bundledVersions},null,2)+'\n');
+console.log(`bundled packages recorded: ${Object.keys(bundledVersions).length}`);
 await cp(join(root,'dsh'),join(coreOut,'dsh'),{recursive:true});
 await cp(join(root,'dsh','cordis.patch.yml'),join(coreOut,'cordis.patch.yml'));
 for(const name of ['ARCHITECTURE.md','OFFICE_ENGINE_DECISIONS.md','THIRD_PARTY.md','modules.lock.json'])await cp(join(root,name),join(coreOut,name));

@@ -81,9 +81,14 @@ if (extract.status !== 0 || !existsSync(join(runtimeRoot, 'python', 'python.exe'
   console.error(`tar 解包失败（exit ${extract.status}）或解出来的目录结构不符（缺 ${join(runtimeRoot, 'python', 'python.exe')}）`);
   process.exit(extract.status ?? 1);
 }
-console.log(`解包完成：${runtimeRoot}`);
+// 同时把包根那份 runtime.json 落到 <root>/runtime.json：解出来的运行时自描述，
+// 工具链的 verify-runtime.mjs 也按这个位置找清单（同目录 / 上一级 / 上两级）。
+const manifest = spawnSync('tar', ['-xzf', tarball, '-C', root, '--strip-components=1', 'package/runtime.json'], { stdio: 'inherit', windowsHide: true });
+const hasManifest = manifest.status === 0 && existsSync(join(root, 'runtime.json'));
+console.log(`解包完成：${runtimeRoot}${hasManifest ? '（含 runtime.json）' : '（runtime.json 未取出）'}`);
 
+// 自检用工具链那份验收脚本的口径：三件二进制 + 插件真正 import 的 5 个 Python 包 + 清单。
 console.log('\n自检：');
-const ok = selfCheck();
+const ok = selfCheck() && hasManifest;
 console.log(ok ? '\n运行时就绪：可以跑 npm run build:dsh / pack:dsh 了' : '\n运行时自检未全部通过，先别打包');
 process.exit(ok ? 0 : 1);
