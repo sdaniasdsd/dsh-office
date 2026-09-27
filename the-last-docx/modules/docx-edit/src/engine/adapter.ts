@@ -285,7 +285,11 @@ export class Docx4jCoreTsEngine {
         }
         // What the caller asked for, recorded so verify() can read the saved
         // package back. Recording the intent is not evidence that it landed.
-        const expected: ExpectedParagraphFormat = { text: paragraph.text, semanticId: edit.target.semanticId };
+        const expected: ExpectedParagraphFormat = {
+          text: paragraph.text,
+          semanticId: edit.target.semanticId,
+          ...(edit.target.anchor.structuralPath ? { structuralPath: edit.target.anchor.structuralPath } : {}),
+        };
         if (edit.styleId !== undefined) expected.styleId = edit.styleId;
         if (edit.outlineLevel !== undefined) expected.outlineLevel = edit.outlineLevel;
         if (edit.alignment !== undefined) expected.alignment = edit.alignment;
@@ -369,6 +373,7 @@ export class Docx4jCoreTsEngine {
         if (edit.styleId !== undefined) expected.styleId = edit.styleId;
         if (edit.width !== undefined) expected.widthPt = edit.width;
         if (edit.layout !== undefined) expected.layout = edit.layout;
+        if (edit.alignment !== undefined) expected.alignment = edit.alignment;
         if (edit.columnWidths !== undefined) expected.columnWidthsPt = edit.columnWidths;
         if (edit.headerRow !== undefined) expected.headerRow = edit.headerRow;
         if (edit.rowPagination !== undefined) expected.rowPagination = edit.rowPagination;
@@ -447,7 +452,7 @@ export class Docx4jCoreTsEngine {
         ok: commentTexts.includes(text),
         message: commentTexts.includes(text) ? 'The comment is present.' : 'The expected comment was not found.',
       }))),
-      ...formatChecks(paragraphViews, expectations?.formats ?? []),
+      ...formatChecks(body, expectations?.formats ?? []),
       ...tableChecks(mainXml, expectations?.tables ?? []),
       ...insertionChecks(mainXml, expectations?.insertions ?? []),
     ];
@@ -672,12 +677,33 @@ function approximately(actual: number, expected: number): boolean {
  * still be reported as a successful `execute`.
  */
 function formatChecks(
-  paragraphs: readonly ParagraphView[],
+  body: BodyView,
   formats: readonly ExpectedParagraphFormat[],
 ): { id: string; ok: boolean; message: string }[] {
   return formats.map((format, index) => {
     const id = `format.paragraph.${index + 1}`;
-    const matches = paragraphs.filter((paragraph) => paragraph.text === format.text);
+    let matches: ParagraphView[];
+    if (format.structuralPath) {
+      const exact = resolveByStructuralPath(body, format.structuralPath);
+      if (exact?.text === format.text) {
+        matches = [exact];
+      } else {
+        // If intervening edits shifted the ordinal, recover only inside the
+        // containers named by the original address. Never widen to a global
+        // text search: legal documents commonly repeat headings in a TOC.
+        const scopes = structuralScopes(body, format.structuralPath);
+        matches = [];
+        for (const scope of scopes ?? []) {
+          const recovered = scope.paragraphs.filter((paragraph) => paragraph.text === format.text);
+          if (recovered.length > 0) {
+            matches = recovered;
+            break;
+          }
+        }
+      }
+    } else {
+      matches = body.paragraphs.filter((paragraph) => paragraph.text === format.text);
+    }
     if (matches.length !== 1) {
       return {
         id,
@@ -790,6 +816,7 @@ function tableChecks(
     if (expected.styleId !== undefined && reading.styleId !== expected.styleId) missing.push('styleId');
     if (expected.widthPt !== undefined && reading.widthTwips !== twipsOf(expected.widthPt)) missing.push('width');
     if (expected.layout !== undefined && reading.layout !== expected.layout) missing.push('layout');
+    if (expected.alignment !== undefined && reading.alignment !== expected.alignment.toLowerCase()) missing.push('alignment');
     if (expected.headerRow !== undefined && reading.headerRow !== expected.headerRow) missing.push('headerRow');
     for (const row of expected.rowPagination ?? []) {
       if (reading.rowCantSplit[row.rowIndex] !== row.cantSplit) missing.push(`rowPagination[${row.rowIndex}]`);

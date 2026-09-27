@@ -12,7 +12,7 @@ export const PPTX_OFFICE_MODULE_ID = 'pptx-office' as const;
 export const PPTX_OFFICE_CAPABILITIES = ['inspect', 'execute', 'verify'] as const;
 export const PPTX_OFFICE_DEFINITION = Object.freeze({
   id: PPTX_OFFICE_MODULE_ID, version: '0.1.0', profileGroup: 'PPTX', capabilities: PPTX_OFFICE_CAPABILITIES,
-  summary: 'Inspect and extract PPTX slide shapes/text; replace explicitly addressed text runs without rebuilding slides.',
+  summary: 'Inspect/extract PPTX text, replace addressed runs, and apply a guarded title/body typography hierarchy without changing slide text.',
   dependencies: [{ name: 'python-pptx', kind: 'runtime' }, { name: 'office-core', kind: 'module' },
     { name: 'office-files', kind: 'module' }, { name: 'office-safety', kind: 'module' }],
   configSchema: { type: 'object', properties: { engine: { type: 'object', properties: { pythonPath: { type: 'string', default: 'python' } } } } },
@@ -25,6 +25,10 @@ const artifactSchema = z.object({ id: z.string().min(1), uri: z.string().min(1),
   sizeBytes: z.number().int().nonnegative().optional(), mediaType: z.string().optional(), label: z.string().optional() }).passthrough();
 const changeSchema = z.object({ slideNumber: z.number().int().min(1), shapeId: z.number().int().min(0), paragraphIndex: z.number().int().min(0),
   runIndex: z.number().int().min(0), expectedText: z.string().min(1).max(100_000), replaceWith: z.string().max(100_000) }).strict();
+const formatTextSchema = z.object({ action: z.literal('formatText'), changes: z.array(z.object({
+  scope: z.literal('allSlides'), titleFontSize: z.number().min(8).max(96), bodyFontSize: z.number().min(8).max(72),
+  accentColor: z.string().regex(/^#[0-9a-fA-F]{6}$/),
+}).strict()).min(1).max(1) }).strict();
 const requestSchema = z.object({ requestId: z.string().min(1), operation: z.enum(PPTX_OFFICE_CAPABILITIES), artifactRef: artifactSchema,
   policy: z.object({ id: z.string().min(1) }).passthrough().optional(), payload: z.record(z.unknown()).optional() }).passthrough();
 const checkSchema = z.object({ id: z.string().min(1), status: z.enum(['pass', 'fail', 'skip']), severity: z.enum(['info', 'warn', 'error']), message: z.string() }).strict();
@@ -98,12 +102,17 @@ export function createPptxOfficeModule(options: PptxOfficeOptions) {
       await writeFile(inputPath, bytes);
       const payload = input.payload ?? {};
       const action = operation === 'inspect' ? 'inspect' : operation === 'verify' ? 'verify' : (payload as Record<string, unknown>).action;
-      if (operation === 'execute' && !['extract', 'replaceText'].includes(String(action))) throw new PptxOfficeError('INVALID_INPUT', 'execute payload.action must be extract or replaceText.');
+      if (operation === 'execute' && !['extract', 'replaceText', 'formatText'].includes(String(action))) throw new PptxOfficeError('INVALID_INPUT', 'execute payload.action must be extract, replaceText, or formatText.');
       if (action === 'replaceText') {
         const check = z.object({ action: z.literal('replaceText'), changes: z.array(changeSchema).min(1).max(LIMITS.maxChanges) }).strict().safeParse(payload);
         if (!check.success) throw new PptxOfficeError('INVALID_INPUT', check.error.message);
       }
-      const request = operation === 'execute' && action === 'replaceText' ? { changes: (payload as { changes: unknown }).changes } : payload;
+      if (action === 'formatText') {
+        const check = formatTextSchema.safeParse(payload);
+        if (!check.success) throw new PptxOfficeError('INVALID_INPUT', check.error.message);
+      }
+      const request = operation === 'execute' && ['replaceText', 'formatText'].includes(String(action))
+        ? { changes: (payload as { changes: unknown }).changes } : payload;
       const result = await runPython(options.pythonPath ?? 'python', fileURLToPath(new URL('./engine/pptx_bridge.py', import.meta.url)),
         String(action), inputPath, outputPath, request, 60_000);
       if (result.code !== 0) {
@@ -126,15 +135,20 @@ export function createPptxOfficeModule(options: PptxOfficeOptions) {
           summary: { total: checks.data.length, passed: checks.data.length - failed - skipped, failed, skipped } };
         return { moduleId: PPTX_OFFICE_MODULE_ID, requestId: input.requestId, operation, result: report, verification: report, artifacts: [], warnings: [] as Warning[] };
       }
-      if (action === 'replaceText') {
+      if (action === 'replaceText' || action === 'formatText') {
         const outputBytes = new Uint8Array(await readFile(outputPath));
         if (!outputBytes.length || outputBytes.length > LIMITS.maxOutputBytes) throw new PptxOfficeError('LIMIT_EXCEEDED', 'Generated PPTX is empty or exceeds the output byte budget.');
         const source = { ...input.artifactRef, sha256: digest, sizeBytes: bytes.length };
         const artifactRef = await options.artifactStore.write({ bytes: outputBytes, requestId: input.requestId, sources: [source], suggestedName: 'edited.pptx' });
         return { moduleId: PPTX_OFFICE_MODULE_ID, requestId: input.requestId, operation,
-          result: { artifactRef, sources: [{ id: input.artifactRef.id, sha256: digest }], changedRuns: data.changedRuns,
+          result: { artifactRef, sources: [{ id: input.artifactRef.id, sha256: digest }],
+            ...(action === 'replaceText' ? { changedRuns: data.changedRuns } : {
+              formattedRuns: data.formattedRuns, formattedSlides: data.formattedSlides,
+              verifiedFormattingRuns: data.verifiedFormattingRuns, contrastAdjustedSlides: data.contrastAdjustedSlides,
+              titleColorPreservedSlides: data.titleColorPreservedSlides,
+            }),
             slideCount: data.slideCount, visualReview: 'pending' }, artifacts: [artifactRef],
-          warnings: [{ code: 'VISUAL_REVIEW_PENDING', severity: 'info', message: 'Text replacement was reopened and structurally checked; render and visually review the deck before delivery.' }] };
+          warnings: [{ code: 'VISUAL_REVIEW_PENDING', severity: 'info', message: 'The deck was reopened and text preservation was checked; render and visually review every slide before delivery. formatText applies direct run formatting, not theme/master or chart styles.' }] };
       }
       return { moduleId: PPTX_OFFICE_MODULE_ID, requestId: input.requestId, operation,
         result: { source: { id: input.artifactRef.id, sha256: digest }, ...data, visualReview: 'pending' }, artifacts: [],

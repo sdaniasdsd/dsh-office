@@ -185,9 +185,11 @@ export interface AppliedEdit {
  * intent is not evidence that it landed.
  */
 export interface ExpectedParagraphFormat {
-  /** The paragraph's text, used to find it again in the saved output. */
+  /** The paragraph's text, used to confirm its identity in the saved output. */
   text: string;
   semanticId: SemanticId;
+  /** Preserve the edit's structural address: legal documents often repeat headings in a table of contents. */
+  structuralPath?: string;
   styleId?: string;
   outlineLevel?: number;
   alignment?: ParagraphAlignment;
@@ -214,6 +216,7 @@ export interface ExpectedTableFormat {
   styleId?: string;
   widthPt?: number;
   layout?: 'fixed' | 'autofit';
+  alignment?: TableAlignment;
   columnWidthsPt?: number[];
   headerRow?: boolean;
   rowPagination?: Array<{ rowIndex: number; cantSplit: boolean }>;

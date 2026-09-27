@@ -132,7 +132,10 @@ export function applyTableGeometry(mainXml: string, index: number, geometry: Tab
     applied.push('width');
   }
   if (geometry.alignment !== undefined) {
-    wanted.jc = `<w:jc w:val="${escapeAttr(geometry.alignment)}"/>`;
+    // The public API uses title-cased values, but OOXML's ST_Jc tokens are
+    // lower-case. docx4j rejects values such as `Center` when it reloads the
+    // package, even though the XML is well-formed.
+    wanted.jc = `<w:jc w:val="${geometry.alignment.toLowerCase()}"/>`;
     applied.push('alignment');
   }
   if (geometry.borders !== undefined) {
@@ -256,6 +259,7 @@ export interface TableGeometryReading {
   styleId?: string;
   widthTwips?: number;
   layout?: string;
+  alignment?: string;
   /** One entry per column; 0 means the grid column declared no preferred width. */
   gridWidthsTwips: number[];
   hasCellMargins: boolean;
@@ -310,6 +314,9 @@ export function readTableGeometry(mainXml: string, index: number): TableGeometry
   const layout = tblPr ? childNamed(tblPr, 'tblLayout') : undefined;
   const layoutType = layout?.getAttribute('w:type');
   if (layoutType) reading.layout = layoutType;
+  const alignment = tblPr ? childNamed(tblPr, 'jc') : undefined;
+  const alignmentValue = alignment?.getAttribute('w:val');
+  if (alignmentValue) reading.alignment = alignmentValue;
   return reading;
 }
 

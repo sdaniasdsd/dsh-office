@@ -144,6 +144,43 @@ function hasPart(bytes: Uint8Array, name: string): boolean {
 }
 
 describe('docx-edit in-place paragraph formatting', () => {
+  it('verifies the addressed paragraph when its text is repeated elsewhere in the document', async () => {
+    const { parser, content, blocks } = await richBlocks();
+    const chapter = blocks.find((block) => block.kind === 'heading' && block.text === 'Chapter One');
+    const intro = blocks.find((block) => block.kind === 'paragraph' && block.text === 'Intro text');
+    if (!chapter || !intro) throw new Error('Expected the rich fixture blocks.');
+
+    const engine = new Docx4jCoreTsEngine();
+    const result = await engine.execute(await richFixture(), {
+      edits: [
+        { kind: 'replaceText', target: targetFromDualIR(content, chapter.id), find: 'Chapter One', replace: 'Intro text' },
+        { kind: 'formatParagraph', target: targetFromDualIR(content, intro.id), font: { bold: true } },
+      ],
+    }, DEFAULT_LIMITS);
+    const verification = await engine.verify(result.bytes, DEFAULT_LIMITS, { formats: result.expectedFormats });
+    expect(verification.checks.find((check) => check.id === 'format.paragraph.1')).toMatchObject({ ok: true });
+    await parser.dispose();
+  });
+
+  it('recovers a formatted table-cell paragraph within its cell after an earlier insertion shifts the path', async () => {
+    const { parser, content, blocks } = await richBlocks();
+    const table = blocks.find((block) => block.kind === 'table');
+    const cellParagraph = table?.kind === 'table' ? table.rows[0]?.cells[0]?.paragraphs[0] : undefined;
+    if (!table || !cellParagraph) throw new Error('Expected a paragraph in the rich fixture table.');
+
+    const target = targetFromDualIR(content, cellParagraph.id);
+    const engine = new Docx4jCoreTsEngine();
+    const result = await engine.execute(await richFixture(), {
+      edits: [
+        { kind: 'insertParagraph', target, text: 'Inserted before A1', position: 'Before' },
+        { kind: 'formatParagraph', target, font: { bold: true } },
+      ],
+    }, DEFAULT_LIMITS);
+    const verification = await engine.verify(result.bytes, DEFAULT_LIMITS, { formats: result.expectedFormats });
+    expect(verification.checks.find((check) => check.id === 'format.paragraph.1')).toMatchObject({ ok: true });
+    await parser.dispose();
+  });
+
   it('restyles paragraphs and leaves the comments and footnotes parts intact', async () => {
     const { parser, content, blocks } = await richBlocks();
     const chapter = blocks.find((block) => block.kind === 'heading' && block.text === 'Chapter One');
@@ -264,6 +301,31 @@ async function mainPartOf(bytes: Uint8Array): Promise<string> {
 }
 
 describe('docx-edit table instance geometry', () => {
+  it('writes a valid table alignment and verifies it after saving', async () => {
+    const { parser, content, blocks } = await richBlocks();
+    const table = blocks.find((block) => block.kind === 'table');
+    if (!table) throw new Error('Expected the rich fixture table.');
+
+    const engine = new Docx4jCoreTsEngine();
+    const result = await engine.execute(await richFixture(), {
+      edits: [{
+        kind: 'formatTable',
+        target: tableTargetFromDualIR(content, table.id),
+        alignment: 'Center',
+        width: 451,
+        layout: 'fixed',
+        columnWidths: [225.5, 225.5],
+      }],
+    }, DEFAULT_LIMITS);
+
+    const verification = await engine.verify(result.bytes, DEFAULT_LIMITS, {
+      tables: result.expectedTableFormats,
+    });
+    expect(verification.ok).toBe(true);
+    expect(verification.checks.find((check) => check.id === 'table.1.geometry')?.ok).toBe(true);
+    await parser.dispose();
+  });
+
   it('gives a table with no preferred widths a fixed grid, so its cells stop wrapping', async () => {
     const { parser, content, blocks } = await richBlocks();
     const table = blocks.find((block) => block.kind === 'table');

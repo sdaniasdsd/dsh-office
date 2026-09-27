@@ -4,6 +4,7 @@ import math
 import os
 import sys
 import zipfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
@@ -65,8 +66,13 @@ def extract(prs, limits):
                             raise ValueError("PPTX text exceeds the Profile character limit")
                         font = run.font
                         size = font.size.pt if font.size is not None else None
+                        try:
+                            color = font.color
+                            font_color = ("#" + str(color.rgb)) if color.type is not None and color.rgb is not None else None
+                        except (AttributeError, TypeError, ValueError):
+                            font_color = None
                         runs.append({"runIndex": r_no, "text": text, "bold": font.bold, "italic": font.italic,
-                                     "fontName": font.name, "fontSizePt": size})
+                                     "fontName": font.name, "fontSizePt": size, "fontColor": font_color})
                     paragraphs.append({"paragraphIndex": p_no, "text": paragraph.text,
                                        "alignment": str(paragraph.alignment) if paragraph.alignment is not None else None,
                                        "runs": runs})
@@ -90,6 +96,69 @@ def all_text(slides):
             for row in shape.get("rows", []):
                 values.extend(row)
     return "\n".join(values)
+
+
+def theme_scheme_rgb(slide, scheme_name):
+    master_part = slide.slide_layout.slide_master.part
+    theme_rel = next((rel for rel in master_part.rels.values() if rel.reltype.endswith("/theme")), None)
+    if theme_rel is None:
+        return None
+    root = ET.fromstring(theme_rel.target_part.blob)
+    local_name = scheme_name.lower().replace("_", "")
+    for element in root.iter():
+        if element.tag.rsplit("}", 1)[-1] != local_name:
+            continue
+        color = next(iter(element), None)
+        if color is None:
+            return None
+        value = color.attrib.get("val") or color.attrib.get("lastClr")
+        if value and len(value) == 6:
+            try:
+                return tuple(int(value[index:index + 2], 16) for index in (0, 2, 4))
+            except ValueError:
+                return None
+    return None
+
+
+def solid_background_rgb(slide):
+    try:
+        fill = slide.background.fill
+        if fill.type is None or "SOLID" not in str(fill.type):
+            return None
+        color = fill.fore_color
+        if color.type is not None and "RGB" in str(color.type):
+            return tuple(color.rgb)
+        if color.type is not None and "SCHEME" in str(color.type):
+            theme_color = color.theme_color
+            return theme_scheme_rgb(slide, getattr(theme_color, "name", str(theme_color)))
+    except (AttributeError, TypeError, ValueError, KeyError):
+        return None
+    return None
+
+
+def contrast_ratio(first, second):
+    def luminance(rgb):
+        channels = []
+        for value in rgb:
+            channel = value / 255.0
+            channels.append(channel / 12.92 if channel <= 0.04045 else ((channel + 0.055) / 1.055) ** 2.4)
+        return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2]
+    high, low = sorted((luminance(first), luminance(second)), reverse=True)
+    return (high + 0.05) / (low + 0.05)
+
+
+def title_size_fits(shape, size_pt):
+    # Conservative geometry guard: python-pptx writes direct run sizes and
+    # thereby overrides PowerPoint's existing text autofit behavior. Do not
+    # write a requested size when the fixed placeholder cannot contain it.
+    width_pt = shape.width / 914400 * 72
+    height_pt = shape.height / 914400 * 72
+    text = "\n".join(paragraph.text for paragraph in shape.text_frame.paragraphs)
+    explicit_lines = max(1, sum(max(1, len(part.splitlines())) for part in text.split("\v")))
+    chars_per_line = max(1, int(width_pt / (size_pt * 0.55)))
+    estimated_lines = max(explicit_lines, math.ceil(max(1, len(text.replace("\v", ""))) / chars_per_line))
+    required_height = estimated_lines * size_pt * 1.2 + 8
+    return height_pt >= required_height
 
 
 def main():
@@ -150,6 +219,108 @@ def main():
         new_slides = extract(reopened, limits)
         result = {"action": "replaceText", "slideCount": len(reopened.slides), "changedRuns": changed,
                   "engine": f"python-pptx-{version('python-pptx')}", "textSnapshot": all_text(new_slides)}
+    elif operation == "formatText":
+        from pptx.dml.color import RGBColor
+        from pptx.enum.shapes import PP_PLACEHOLDER
+        from pptx.util import Pt
+        slides = extract(prs, limits)
+        before = all_text(slides)
+        changes = request.get("changes", [])
+        if len(changes) != 1 or changes[0].get("scope") != "allSlides":
+            raise ValueError("formatText requires one allSlides change")
+        change = changes[0]
+        title_size = float(change["titleFontSize"])
+        body_size = float(change["bodyFontSize"])
+        color_text = change["accentColor"]
+        if not math.isfinite(title_size) or not math.isfinite(body_size) or not color_text.startswith("#") or len(color_text) != 7:
+            raise ValueError("formatText contains invalid sizes or accentColor")
+        accent = RGBColor.from_string(color_text[1:])
+        formatted = 0
+        formatted_slides = set()
+        contrast_adjusted_slides = set()
+        color_preserved_slides = set()
+        expected_formats = {}
+        title_types = {PP_PLACEHOLDER.TITLE, PP_PLACEHOLDER.CENTER_TITLE, PP_PLACEHOLDER.VERTICAL_TITLE}
+        body_types = {PP_PLACEHOLDER.BODY, PP_PLACEHOLDER.OBJECT, PP_PLACEHOLDER.SUBTITLE, PP_PLACEHOLDER.VERTICAL_BODY, PP_PLACEHOLDER.VERTICAL_OBJECT}
+        for slide_no, slide in enumerate(prs.slides, 1):
+            background = solid_background_rgb(slide)
+            title_color = None
+            if background is not None:
+                title_color = accent
+                if contrast_ratio(tuple(accent), background) < 4.5:
+                    alternatives = [(255, 255, 255), (0, 0, 0)]
+                    title_color = max(alternatives, key=lambda candidate: contrast_ratio(candidate, background))
+                    contrast_adjusted_slides.add(slide_no)
+            for shape in slide.shapes:
+                if not getattr(shape, "has_text_frame", False) or getattr(shape, "has_table", False):
+                    continue
+                placeholder_type = None
+                if getattr(shape, "is_placeholder", False):
+                    try:
+                        placeholder_type = shape.placeholder_format.type
+                    except (AttributeError, ValueError):
+                        placeholder_type = None
+                is_title = placeholder_type in title_types
+                is_body = placeholder_type in body_types
+                if not is_title and not is_body:
+                    continue
+                title_runs = [run for paragraph in shape.text_frame.paragraphs for run in paragraph.runs]
+                title_sizes = [min(title_size, run.font.size.pt) for run in title_runs if run.font.size is not None]
+                fit_title_size = is_title and bool(title_runs) and len(title_sizes) == len(title_runs) and title_size_fits(shape, max(title_sizes))
+                for paragraph_no, paragraph in enumerate(shape.text_frame.paragraphs):
+                    for run_no, run in enumerate(paragraph.runs):
+                        changed_run = False
+                        expected = {}
+                        if is_title:
+                            if fit_title_size and run.font.size is not None:
+                                wanted_size = min(title_size, run.font.size.pt)
+                                run.font.size = Pt(wanted_size)
+                                expected["fontSizePt"] = wanted_size
+                                changed_run = True
+                            if title_color is not None:
+                                run.font.color.rgb = RGBColor(*title_color)
+                                expected["fontColor"] = "#" + "".join(f"{value:02X}" for value in title_color)
+                                changed_run = True
+                            else:
+                                color_preserved_slides.add(slide_no)
+                        elif run.font.size is not None and run.font.size.pt > body_size:
+                            # Never enlarge body copy: doing so can overrun the
+                            # fixed text boxes used by dense office templates.
+                            run.font.size = Pt(body_size)
+                            expected["fontSizePt"] = body_size
+                            changed_run = True
+                        if changed_run:
+                            formatted += 1
+                            formatted_slides.add(slide_no)
+                            expected_formats[(slide_no, int(shape.shape_id), paragraph_no, run_no)] = expected
+        if formatted == 0:
+            raise ValueError("formatText found no text runs to format")
+        Path(output_name).parent.mkdir(parents=True, exist_ok=True)
+        prs.save(output_name)
+        with redirect_stdout(sink):
+            reopened = Presentation(output_name)
+        new_slides = extract(reopened, limits)
+        after = all_text(new_slides)
+        if before != after:
+            raise ValueError("formatText changed text while applying presentation formatting")
+        observed = {}
+        for slide in new_slides:
+            for shape in slide["shapes"]:
+                for paragraph in shape.get("paragraphs", []):
+                    for run in paragraph.get("runs", []):
+                        observed[(slide["slideNumber"], shape["shapeId"], paragraph["paragraphIndex"], run["runIndex"])] = run
+        for key, expected in expected_formats.items():
+            actual = observed.get(key)
+            if actual is None:
+                raise ValueError("formatText could not re-read a formatted run after saving")
+            if "fontSizePt" in expected and (actual["fontSizePt"] is None or abs(actual["fontSizePt"] - expected["fontSizePt"]) > 0.05):
+                raise ValueError("formatText font size did not survive the save/reopen check")
+            if "fontColor" in expected and actual["fontColor"] != expected["fontColor"]:
+                raise ValueError("formatText title color did not survive the save/reopen check")
+        result = {"action": "formatText", "slideCount": len(reopened.slides), "formattedRuns": formatted,
+                  "formattedSlides": len(formatted_slides), "contrastAdjustedSlides": len(contrast_adjusted_slides),
+                  "titleColorPreservedSlides": len(color_preserved_slides), "verifiedFormattingRuns": len(expected_formats), "textPreserved": True,
+                  "engine": f"python-pptx-{version('python-pptx')}"}
     elif operation == "verify":
         slides = extract(prs, limits)
         text = all_text(slides)

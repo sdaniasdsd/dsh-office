@@ -21,6 +21,20 @@ function store() {
   };
 }
 
+type FormattedExtraction = {
+  result: {
+    slides: Array<{
+      shapes: Array<{
+        name: string;
+        paragraphs: Array<{
+          text: string;
+          runs: Array<{ fontSizePt: number | null; fontColor: string | null }>;
+        }>;
+      }>;
+    }>;
+  };
+};
+
 describe('pptx-office', () => {
   it.skipIf(!available)('writes Unicode JSON as UTF-8 regardless of the inherited Windows Python encoding', async () => {
     const dir = await mkdtemp(join(tmpdir(), 'dsh-pptx-unicode-')), path = join(dir, 'unicode.pptx');
@@ -64,6 +78,40 @@ describe('pptx-office', () => {
       expect(artifacts.objects.has(edited.result.artifactRef.uri)).toBe(true);
       const verification = await module.handlers.verify({ requestId: 'verify-test', operation: 'verify', artifactRef: edited.result.artifactRef, payload: { expectedSlideCount: 1, textIncludes: ['After'] } }) as { result: { ok: boolean } };
       expect(verification.result.ok).toBe(true);
+    } finally { await rm(dir, { recursive: true, force: true }); }
+  });
+
+  it.skipIf(!available)('formats slide title/body hierarchy without changing text', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'dsh-pptx-format-')), path = join(dir, 'source.pptx');
+    try {
+      const code = `from pptx import Presentation; from pptx.dml.color import RGBColor; from pptx.util import Inches, Pt; p=Presentation(); s=p.slides.add_slide(p.slide_layouts[1]); s.background.fill.solid(); s.background.fill.fore_color.rgb=RGBColor(255,255,255); s.shapes.title.text="Quarterly review"; s.shapes.title.text_frame.paragraphs[0].runs[0].font.size=Pt(40); s.placeholders[1].text="Revenue and risk"; s.placeholders[1].text_frame.paragraphs[0].runs[0].font.size=Pt(24); t=p.slides.add_slide(p.slide_layouts[1]); t.background.fill.solid(); t.background.fill.fore_color.rgb=RGBColor(100,20,100); t.shapes.title.text="Dark-background title"; t.shapes.title.height=Inches(0.3); t.shapes.title.text_frame.paragraphs[0].runs[0].font.size=Pt(40); t.placeholders[1].text="Body on colored slide"; t.placeholders[1].text_frame.paragraphs[0].runs[0].font.size=Pt(24); p.save(${JSON.stringify(path)})`;
+      const generated = spawnSync(python, ['-c', code], { windowsHide: true, encoding: 'utf8' });
+      expect(generated.status, generated.stderr).toBe(0);
+      const bytes = new Uint8Array(await readFile(path)), hash = createHash('sha256').update(bytes).digest('hex');
+      const source = { id: `sha256:${hash}`, uri: `file:///managed/${hash}/source.pptx`, sha256: hash, sizeBytes: bytes.length, label: 'source.pptx' };
+      const artifacts = store(); artifacts.objects.set(source.uri, bytes);
+      const module = createPptxOfficeModule({ artifactStore: artifacts, pythonPath: python });
+      const output = await module.handlers.execute({ requestId: 'format-test', operation: 'execute', artifactRef: source, payload: {
+        action: 'formatText', changes: [{ scope: 'allSlides', titleFontSize: 30, bodyFontSize: 18, accentColor: '#244A67' }],
+      } }) as { result: { artifactRef: { uri: string }; formattedRuns: number; verifiedFormattingRuns: number } };
+      const edited = artifacts.objects.get(output.result.artifactRef.uri)!;
+      const extracted = await module.handlers.execute({ requestId: 'extract-formatted', operation: 'execute', artifactRef: output.result.artifactRef, payload: { action: 'extract' } }) as unknown as FormattedExtraction;
+      const texts = extracted.result.slides.flatMap(slide => slide.shapes.flatMap(shape => shape.paragraphs.map(paragraph => paragraph.text)));
+      expect(texts).toContain('Quarterly review');
+      expect(texts).toContain('Revenue and risk');
+      expect(texts).toContain('Dark-background title');
+      const firstSlide = extracted.result.slides[0]!;
+      const secondSlide = extracted.result.slides[1]!;
+      const title = firstSlide.shapes.find(shape => shape.name === 'Title 1');
+      const body = firstSlide.shapes.find(shape => shape.name === 'Content Placeholder 2');
+      const darkTitle = secondSlide.shapes.find(shape => shape.name === 'Title 1');
+      if (!title || !body || !darkTitle) throw new Error('Expected title and body placeholders in both slides.');
+      expect(title.paragraphs[0]!.runs[0]!).toMatchObject({ fontSizePt: 30, fontColor: '#244A67' });
+      expect(body.paragraphs[0]!.runs[0]!.fontSizePt).toBe(18);
+      expect(darkTitle.paragraphs[0]!.runs[0]!).toMatchObject({ fontSizePt: 40, fontColor: '#FFFFFF' });
+      expect(output.result.verifiedFormattingRuns).toBeGreaterThan(0);
+      expect(output.result.formattedRuns).toBeGreaterThan(0);
+      expect(edited.length).toBeGreaterThan(0);
     } finally { await rm(dir, { recursive: true, force: true }); }
   });
 });

@@ -14,7 +14,7 @@ export const XLSX_OFFICE_MODULE_ID = 'xlsx-office' as const;
 export const XLSX_OFFICE_CAPABILITIES = ['inspect', 'execute', 'verify'] as const;
 export const XLSX_OFFICE_DEFINITION = Object.freeze({
   id: XLSX_OFFICE_MODULE_ID, version: '0.1.0', profileGroup: 'XLSX', capabilities: XLSX_OFFICE_CAPABILITIES,
-  summary: 'Inspect XLSX workbooks, read ranges, write guarded literal cells, set print layout with package-scoped OOXML edits, and create workbooks.',
+  summary: 'Inspect XLSX workbooks, read/write guarded ranges and literal cells, format bounded cell ranges, set print layout, and create workbooks.',
   dependencies: [{ name: '@xmldom/xmldom', kind: 'runtime' }, { name: 'exceljs', kind: 'runtime' }, { name: 'fflate', kind: 'runtime' }, { name: 'office-core', kind: 'module' }, { name: 'office-files', kind: 'module' }, { name: 'office-safety', kind: 'module' }],
   configSchema: { type: 'object', properties: { engine: { type: 'object', properties: { pythonPath: { type: 'string', default: 'python' } } } } },
 });
@@ -24,6 +24,17 @@ const artifactSchema = z.object({ id: z.string().min(1), uri: z.string().min(1),
   sizeBytes: z.number().int().nonnegative().optional(), mediaType: z.string().optional(), label: z.string().optional() }).passthrough();
 const literalSchema = z.union([z.string().max(100_000), z.number().finite(), z.boolean(), z.null()]);
 const cellChangeSchema = z.object({ sheet: z.string().min(1).max(255), address: z.string().regex(/^[A-Z]{1,3}[1-9]\d{0,6}$/i), value: literalSchema }).strict();
+const rangeSchema = z.string().regex(/^[A-Z]{1,3}[1-9]\d{0,6}(?::[A-Z]{1,3}[1-9]\d{0,6})?$/i);
+const formatFontSchema = z.object({
+  bold: z.boolean().optional(), italic: z.boolean().optional(), size: z.number().min(6).max(72).optional(),
+  name: z.string().min(1).max(128).optional(), color: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
+}).strict().refine(value => Object.values(value).some(property => property !== undefined), 'font must specify at least one property.');
+const formatChangeSchema = z.object({
+  sheet: z.string().min(1).max(255), range: rangeSchema,
+  font: formatFontSchema.optional(), fill: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
+  border: z.enum(['thin', 'medium', 'thick']).optional(),
+}).strict().refine(value => value.font !== undefined || value.fill !== undefined || value.border !== undefined,
+  'A formatCells change must specify font, fill, or border.');
 const requestSchema = z.object({ requestId: z.string().min(1), operation: z.enum(XLSX_OFFICE_CAPABILITIES), artifactRef: artifactSchema.optional(),
   policy: z.object({ id: z.string().min(1) }).passthrough().optional(), payload: z.record(z.unknown()).optional() }).passthrough();
 const sha256 = (bytes: Uint8Array) => createHash('sha256').update(bytes).digest('hex');
@@ -102,7 +113,7 @@ export function createXlsxOfficeModule(options: XlsxOfficeOptions) {
     const input = parsed.data, payload = input.payload ?? {};
     if (disposed) throw new XlsxOfficeError('MODULE_DISPOSED', 'XLSX module has been disposed.');
     const action = operation === 'inspect' ? 'inspect' : operation === 'verify' ? 'verify' : String(payload.action ?? '');
-    if (operation === 'execute' && !['readRange', 'setCells', 'setPrintLayout', 'createWorkbook'].includes(action)) throw new XlsxOfficeError('INVALID_INPUT', 'execute payload.action must be readRange, setCells, setPrintLayout, or createWorkbook.');
+    if (operation === 'execute' && !['readRange', 'setCells', 'formatCells', 'setPrintLayout', 'createWorkbook'].includes(action)) throw new XlsxOfficeError('INVALID_INPUT', 'execute payload.action must be readRange, setCells, formatCells, setPrintLayout, or createWorkbook.');
     const create = action === 'createWorkbook';
     if (!create && !input.artifactRef) throw new XlsxOfficeError('INVALID_INPUT', 'artifactRef is required for this XLSX operation.');
     if (input.artifactRef) assertRef(input.artifactRef);
@@ -133,7 +144,7 @@ export function createXlsxOfficeModule(options: XlsxOfficeOptions) {
         }
         try { unsupportedFeatures = z.object({ unsupportedFeatures: z.array(z.string()) }).parse(JSON.parse(probe.stdout)).unsupportedFeatures; }
         catch { throw new XlsxOfficeError('ENGINE_PROTOCOL_ERROR', 'XLSX preflight returned invalid feature metadata.'); }
-        if (action === 'setCells' && unsupportedFeatures.length) throw new XlsxOfficeError('UNSUPPORTED_OPERATION', `ExcelJS may not preserve workbook features on write: ${unsupportedFeatures.join(', ')}.`);
+        if (['setCells', 'formatCells'].includes(action) && unsupportedFeatures.length) throw new XlsxOfficeError('UNSUPPORTED_OPERATION', `ExcelJS may not preserve workbook features on write: ${unsupportedFeatures.join(', ')}.`);
       }
       if (action === 'setPrintLayout') {
         const request = z.object({
@@ -193,6 +204,9 @@ export function createXlsxOfficeModule(options: XlsxOfficeOptions) {
       } else workbook = await loadWorkbook(bytes);
       const summary = workbookSummary(workbook);
       const featureWarnings: Warning[] = unsupportedFeatures.map(feature => ({ code: 'UNSUPPORTED_WORKBOOK_FEATURE', severity: 'warn', message: `Workbook contains ${feature}; ExcelJS may not preserve it if saved. Cell edits are denied.` }));
+      let formatTargets: Array<{ sheet: string; row: number; col: number; change: z.infer<typeof formatChangeSchema> }> = [];
+      let formattedCellCount = 0;
+      let visitedCellCount = 0;
       if (operation === 'inspect') return { moduleId: XLSX_OFFICE_MODULE_ID, requestId: input.requestId, operation, result: { format: 'xlsx', ...summary, unsupportedFeatures, engine: 'ExcelJS 4.4.0' }, artifacts: [], warnings: [...featureWarnings, { code: 'FORMULA_CACHE_NOT_CALCULATED', severity: 'info', message: 'ExcelJS reads formula text and cached values but does not calculate formulas.' }] as Warning[] };
       if (operation === 'verify') {
         const expects = z.object({ expectedWorksheetCount: z.number().int().nonnegative().optional(), sheetNamesInclude: z.array(z.string()).optional() }).passthrough().safeParse(payload);
@@ -236,12 +250,84 @@ export function createXlsxOfficeModule(options: XlsxOfficeOptions) {
           const sheet = workbook.getWorksheet(change.sheet); if (!sheet) throw new XlsxOfficeError('INVALID_INPUT', `Worksheet ${change.sheet} does not exist.`);
           sheet.getCell(change.address).value = change.value;
         }
+      } else if (action === 'formatCells') {
+        const request = z.object({ action: z.literal('formatCells'), changes: z.array(formatChangeSchema).min(1).max(LIMITS.maxChanges) }).strict().safeParse(payload);
+        if (!request.success) throw new XlsxOfficeError('INVALID_INPUT', request.error.message);
+        const decode = (address: string) => {
+          const match = /^([A-Z]+)([1-9]\d*)$/i.exec(address)!;
+          let col = 0;
+          for (const char of match[1]!.toUpperCase()) col = col * 26 + char.charCodeAt(0) - 64;
+          return { row: Number(match[2]), col };
+        };
+        const targets = new Set<string>();
+        const visitedCells = new Set<string>();
+        for (const change of request.data.changes) {
+          const parts = change.range.toUpperCase().split(':');
+          const start = decode(parts[0]!);
+          const end = decode(parts[1] ?? parts[0]!);
+          if (start.row > LIMITS.maxRows || end.row > LIMITS.maxRows || start.col > LIMITS.maxColumns || end.col > LIMITS.maxColumns || end.row < start.row || end.col < start.col) {
+            throw new XlsxOfficeError('LIMIT_EXCEEDED', `Range ${change.range} is reversed or outside worksheet limits.`);
+          }
+          const area = (end.row - start.row + 1) * (end.col - start.col + 1);
+          if (area > LIMITS.maxCells) throw new XlsxOfficeError('LIMIT_EXCEEDED', 'A formatCells range exceeds the cell limit.');
+          const sheets = change.sheet === '*' ? workbook.worksheets : [workbook.getWorksheet(change.sheet)].filter((sheet): sheet is ExcelJS.Worksheet => sheet !== undefined);
+          if (sheets.length === 0) throw new XlsxOfficeError('INVALID_INPUT', `Worksheet ${change.sheet} does not exist.`);
+          if (area * sheets.length + visitedCellCount > LIMITS.maxCells) throw new XlsxOfficeError('LIMIT_EXCEEDED', 'formatCells would visit more than the configured cell limit.');
+          const rangeKey = `${change.sheet}!${change.range.toUpperCase()}`;
+          if (targets.has(rangeKey)) throw new XlsxOfficeError('INVALID_INPUT', `Range ${rangeKey} may only be formatted once.`);
+          targets.add(rangeKey);
+          const argb = (hex: string) => `FF${hex.slice(1).toUpperCase()}`;
+          const font = change.font ? {
+            ...(change.font.bold === undefined ? {} : { bold: change.font.bold }),
+            ...(change.font.italic === undefined ? {} : { italic: change.font.italic }),
+            ...(change.font.size === undefined ? {} : { size: change.font.size }),
+            ...(change.font.name === undefined ? {} : { name: change.font.name }),
+            ...(change.font.color === undefined ? {} : { color: { argb: argb(change.font.color) } }),
+          } : undefined;
+          for (const sheet of sheets) {
+            for (let row = start.row; row <= end.row; row++) for (let col = start.col; col <= end.col; col++) {
+              const cell = sheet.getCell(row, col);
+              visitedCellCount++;
+              const cellKey = `${sheet.name}!${cell.address.toUpperCase()}`;
+              if (visitedCells.has(cellKey)) throw new XlsxOfficeError('INVALID_INPUT', `Cell ${cellKey} is covered by overlapping formatCells ranges.`);
+              visitedCells.add(cellKey);
+              if (cell.value === null || cell.value === undefined) continue;
+              if (font) cell.font = { ...cell.font, ...font };
+              if (change.fill) cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: argb(change.fill) } };
+              if (change.border) {
+                const edge = { style: change.border } as const;
+                cell.border = { top: edge, right: edge, bottom: edge, left: edge };
+              }
+              formattedCellCount++;
+              formatTargets.push({ sheet: sheet.name, row, col, change });
+            }
+          }
+        }
+        if (formattedCellCount === 0) throw new XlsxOfficeError('INVALID_INPUT', 'formatCells did not select any populated cells.');
       }
       const outputBytes = new Uint8Array(await workbook.xlsx.writeBuffer());
       if (!outputBytes.length || outputBytes.length > LIMITS.maxOutputBytes) throw new XlsxOfficeError('LIMIT_EXCEEDED', 'Generated XLSX is empty or exceeds the output byte budget.');
       const reopened = await loadWorkbook(outputBytes);
+      let formatVerification: { ok: boolean; formattedCells: number } | undefined;
+      if (action === 'formatCells') {
+        const colorArgb = (hex: string) => `FF${hex.slice(1).toUpperCase()}`;
+        const checks = formatTargets.map(({ sheet, row, col, change }) => {
+          const cell = reopened.getWorksheet(sheet)?.getCell(row, col);
+          if (!cell) return false;
+          if (change.font?.bold !== undefined && cell.font.bold !== change.font.bold) return false;
+          if (change.font?.italic !== undefined && cell.font.italic !== change.font.italic) return false;
+          if (change.font?.size !== undefined && cell.font.size !== change.font.size) return false;
+          if (change.font?.name !== undefined && cell.font.name !== change.font.name) return false;
+          if (change.font?.color !== undefined && cell.font.color?.argb?.toUpperCase() !== colorArgb(change.font.color)) return false;
+          if (change.fill !== undefined && (cell.fill?.type !== 'pattern' || cell.fill.fgColor?.argb?.toUpperCase() !== colorArgb(change.fill))) return false;
+          if (change.border !== undefined && !(['top', 'right', 'bottom', 'left'] as const).every(edge => cell.border[edge]?.style === change.border)) return false;
+          return true;
+        });
+        formatVerification = { ok: checks.length === formatTargets.length && checks.every(Boolean), formattedCells: formatTargets.length };
+        if (!formatVerification.ok) throw new XlsxOfficeError('ENGINE_FAILED', 'Saved workbook formatting did not match the requested styles after reopening.');
+      }
       const artifactRef = await options.artifactStore.write({ bytes: outputBytes, requestId: input.requestId, ...(input.artifactRef ? { sources: [{ ...input.artifactRef, sha256: digest, sizeBytes: bytes.length }] } : {}), suggestedName: create ? 'created.xlsx' : 'edited.xlsx' });
-      return { moduleId: XLSX_OFFICE_MODULE_ID, requestId: input.requestId, operation, result: { artifactRef, sources: input.artifactRef ? [{ id: input.artifactRef.id, sha256: digest }] : [], ...workbookSummary(reopened), formulaPolicy: 'cached-values-only-no-recalculation', visualReview: 'pending' }, artifacts: [artifactRef], warnings: [...featureWarnings, { code: 'VISUAL_REVIEW_PENDING', severity: 'info', message: 'Workbook was reopened and structurally checked; review in Excel or LibreOffice when visual appearance matters.' }, { code: 'FORMULA_CACHE_NOT_CALCULATED', severity: 'info', message: 'ExcelJS does not calculate formulas; formula caches may be stale.' }] as Warning[] };
+      return { moduleId: XLSX_OFFICE_MODULE_ID, requestId: input.requestId, operation, result: { artifactRef, sources: input.artifactRef ? [{ id: input.artifactRef.id, sha256: digest }] : [], ...workbookSummary(reopened), ...(formatVerification ? { formattedCells: formatVerification.formattedCells, styleVerification: formatVerification } : {}), formulaPolicy: 'cached-values-only-no-recalculation', visualReview: 'pending' }, artifacts: [artifactRef], warnings: [...featureWarnings, { code: 'VISUAL_REVIEW_PENDING', severity: 'info', message: 'Workbook was reopened and structurally checked; review in Excel or LibreOffice when visual appearance matters.' }, { code: 'FORMULA_CACHE_NOT_CALCULATED', severity: 'info', message: 'ExcelJS does not calculate formulas; formula caches may be stale.' }] as Warning[] };
     } finally { await rm(temp, { recursive: true, force: true }); }
   };
   return { definition: XLSX_OFFICE_DEFINITION, handlers: { inspect: (input: unknown) => invoke(input, 'inspect'), execute: (input: unknown) => invoke(input, 'execute'), verify: (input: unknown) => invoke(input, 'verify') }, async dispose() { disposed = true; } };

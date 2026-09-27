@@ -74,4 +74,45 @@ describe('xlsx-office', () => {
     expect(out.getWorksheet('Data')!.getCell('A1').value).toBe('kept');
     expect(out.getWorksheet('Other')!.getCell('A1').value).toBe('untouched');
   });
+
+  it('formats bounded header ranges while preserving cell values and formulas', async () => {
+    const artifacts = store(), wb = new ExcelJS.Workbook(), ws = wb.addWorksheet('Data');
+    ws.getCell('A1').value = 'Quarter'; ws.getCell('B1').value = 'Revenue'; ws.getCell('A2').value = 'Q1';
+    ws.getCell('B2').value = { formula: 'SUM(1,2)', result: 3 };
+    const other = wb.addWorksheet('Other'); other.getCell('A1').value = 'Keep';
+    const bytes = new Uint8Array(await wb.xlsx.writeBuffer());
+    const hash = createHash('sha256').update(bytes).digest('hex');
+    const source = { id: `sha256:${hash}`, uri: `file:///managed/${hash}/source.xlsx`, sha256: hash, sizeBytes: bytes.length, label: 'source.xlsx' };
+    artifacts.objects.set(source.uri, bytes);
+    const module = createXlsxOfficeModule({ artifactStore: artifacts, pythonPath: 'python' });
+    const edited = await module.handlers.execute({ requestId: 'format-cells-test', operation: 'execute', artifactRef: source, payload: {
+      action: 'formatCells', changes: [{ sheet: '*', range: 'A1:Z1', font: { bold: true, color: '#FFFFFF' }, fill: '#244A67', border: 'thin' }],
+    } }) as { result: { artifactRef: { uri: string }; formattedCells: number } };
+    const out = new ExcelJS.Workbook();
+    await out.xlsx.load(Buffer.from(artifacts.objects.get(edited.result.artifactRef.uri)!) as unknown as Parameters<typeof out.xlsx.load>[0]);
+    expect(out.getWorksheet('Data')!.getCell('A1').value).toBe('Quarter');
+    expect(out.getWorksheet('Data')!.getCell('B2').value).toMatchObject({ formula: 'SUM(1,2)', result: 3 });
+    expect(out.getWorksheet('Data')!.getCell('A1').font.bold).toBe(true);
+    expect(out.getWorksheet('Data')!.getCell('A1').fill).toMatchObject({ fgColor: { argb: 'FF244A67' } });
+    expect(out.getWorksheet('Other')!.getCell('A1').value).toBe('Keep');
+    expect(edited.result.formattedCells).toBe(3);
+  });
+
+  it('rejects empty styles and overlapping format ranges', async () => {
+    const artifacts = store(), wb = new ExcelJS.Workbook(), ws = wb.addWorksheet('Data');
+    ws.getCell('A1').value = 'Name'; ws.getCell('B1').value = 'Amount'; ws.getCell('C1').value = 'Status';
+    const bytes = new Uint8Array(await wb.xlsx.writeBuffer()), hash = createHash('sha256').update(bytes).digest('hex');
+    const source = { id: `sha256:${hash}`, uri: `file:///managed/${hash}/overlap.xlsx`, sha256: hash, sizeBytes: bytes.length, label: 'overlap.xlsx' };
+    artifacts.objects.set(source.uri, bytes);
+    const module = createXlsxOfficeModule({ artifactStore: artifacts, pythonPath: 'python' });
+    await expect(module.handlers.execute({ requestId: 'empty-style', operation: 'execute', artifactRef: source, payload: {
+      action: 'formatCells', changes: [{ sheet: 'Data', range: 'A1:B1', font: {} }],
+    } })).rejects.toMatchObject({ code: 'INVALID_INPUT' });
+    await expect(module.handlers.execute({ requestId: 'overlap-style', operation: 'execute', artifactRef: source, payload: {
+      action: 'formatCells', changes: [
+        { sheet: 'Data', range: 'A1:B1', font: { bold: true } },
+        { sheet: 'Data', range: 'B1:C1', fill: '#244A67' },
+      ],
+    } })).rejects.toMatchObject({ code: 'INVALID_INPUT' });
+  });
 });
