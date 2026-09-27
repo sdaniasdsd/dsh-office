@@ -16,6 +16,9 @@ import {
   type LimitConfig,
   type ModuleConfig,
 } from './contract';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { resolveRuntime } from '@dsh-office-profile/docx-runtime';
 import { DocxParseError } from './errors';
 
 /**
@@ -68,6 +71,8 @@ export const DEFAULT_ENGINE: EngineConfig = {
 function freezeConfig(config: ModuleConfig): ModuleConfig {
   const frozen: ModuleConfig = {
     engine: Object.freeze({ ...config.engine }),
+    runtimeRoot: config.runtimeRoot,
+    runtimePackageNames: config.runtimePackageNames === undefined ? undefined : Object.freeze([...config.runtimePackageNames]),
     limits: Object.freeze({ ...config.limits }),
     timeoutMs: config.timeoutMs,
     featureFlags: Object.freeze({ ...config.featureFlags }),
@@ -78,6 +83,8 @@ function freezeConfig(config: ModuleConfig): ModuleConfig {
 /** 配置覆盖项：允许 Profile 只提供它关心的增量。 */
 export interface ConfigOverrides {
   engine?: Partial<EngineConfig>;
+  runtimeRoot?: string;
+  runtimePackageNames?: readonly string[];
   limits?: Partial<LimitConfig>;
   timeoutMs?: number;
   featureFlags?: Partial<FeatureFlags>;
@@ -123,6 +130,17 @@ export function resolveConfig(overrides: ConfigOverrides = {}): ModuleConfig {
     ...DEFAULT_ENGINE,
     ...overrides.engine,
   };
+  const callerPath = fileURLToPath(import.meta.url);
+  const runtime = resolveRuntime({
+    runtimeRoot: overrides.runtimeRoot,
+    runtimePackageNames: overrides.runtimePackageNames,
+    callerPath,
+    bundledRuntimeRoot: join(dirname(callerPath), '..', 'runtime', 'win32-x64'),
+    components: [{ id: 'python', envVar: 'DOCX_PYTHON', defaultEntry: 'python/python.exe' }],
+  });
+  if (overrides.engine?.pythonPath === undefined && runtime.components.python?.path !== undefined) {
+    engine.pythonPath = runtime.components.python.path;
+  }
   if (engine.driver !== 'python') {
     throw new DocxParseError('INVALID_INPUT', 'Unsupported engine driver', {
       details: { driver: String(engine.driver), supported: ['python'] },
@@ -141,6 +159,8 @@ export function resolveConfig(overrides: ConfigOverrides = {}): ModuleConfig {
 
   return freezeConfig({
     engine,
+    runtimeRoot: overrides.runtimeRoot,
+    runtimePackageNames: overrides.runtimePackageNames,
     limits: validateLimits({ ...DEFAULT_LIMITS, ...overrides.limits }),
     timeoutMs,
     featureFlags: { ...DEFAULT_FEATURE_FLAGS, ...overrides.featureFlags },
@@ -158,6 +178,8 @@ export function withCallOverrides(
 ): ModuleConfig {
   const merged: ConfigOverrides = {
     engine: { ...base.engine, ...overrides.engine },
+    runtimeRoot: overrides.runtimeRoot ?? base.runtimeRoot,
+    runtimePackageNames: overrides.runtimePackageNames ?? base.runtimePackageNames,
     limits: { ...base.limits, ...overrides.limits },
     featureFlags: { ...base.featureFlags, ...overrides.featureFlags },
   };
@@ -180,6 +202,8 @@ export function configSchema(): JsonObject {
     type: 'object',
     additionalProperties: false,
     properties: {
+      runtimeRoot: { type: 'string' },
+      runtimePackageNames: { type: 'array', items: { type: 'string' } },
       engine: {
         type: 'object',
         additionalProperties: false,

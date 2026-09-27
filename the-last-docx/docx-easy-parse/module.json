@@ -30,6 +30,8 @@
     "type": "object",
     "additionalProperties": false,
     "properties": {
+      "runtimeRoot": { "type": "string" },
+      "runtimePackageNames": { "type": "array", "items": { "type": "string" } },
       "engine": {
         "type": "object",
         "additionalProperties": false,
