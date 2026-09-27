@@ -1,0 +1,12 @@
+{
+  "id": "pptx-office",
+  "name": "pptx-office",
+  "version": "0.1.0",
+  "profileGroup": "PPTX",
+  "entry": "src/index.ts",
+  "summary": "Inspect, extract slide structure, and make guarded run-level text replacements in PPTX.",
+  "capabilities": ["inspect", "execute", "verify"],
+  "implementation": "implemented",
+  "engineSelection": "user-approved",
+  "decisionIds": ["PPTX-PYTHON-PPTX"]
+}

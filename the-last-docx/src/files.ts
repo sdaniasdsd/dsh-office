@@ -7,7 +7,7 @@ import { DocxArtifactError } from '@dsh-office-profile/docx-artifact';
 export const sha256=(bytes:Uint8Array)=>createHash('sha256').update(bytes).digest('hex');
 const isWithin=(parent:string,path:string)=>{const r=relative(parent,path);return r===''||(!r.startsWith('..')&&!isAbsolute(r));};
 function cancelled(signal?:AbortSignal){if(signal?.aborted)throw new DocxArtifactError('ENGINE_TIMEOUT','Operation cancelled before commit.');}
-const mime=(name:string)=>({'.docx':'application/vnd.openxmlformats-officedocument.wordprocessingml.document','.pdf':'application/pdf','.png':'image/png','.json':'application/json'}[extname(name).toLowerCase()]??'application/octet-stream');
+const mime=(name:string)=>({'.docx':'application/vnd.openxmlformats-officedocument.wordprocessingml.document','.pptx':'application/vnd.openxmlformats-officedocument.presentationml.presentation','.xlsx':'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','.pdf':'application/pdf','.png':'image/png','.json':'application/json'}[extname(name).toLowerCase()]??'application/octet-stream');
 /** One host adapter accepts all EXISTING source / sources writer shapes without modifying them. */
 export class LocalArtifactFiles {
   private constructor(readonly root:string,readonly inputRoots:string[]){}

@@ -1,5 +1,13 @@
 # 验收记录
 
+## 2026-09-27 增量验收
+
+PPTX/XLSX 插件化增量及 DSH v0.8.0 本地包验证：`npm run typecheck`、`npm test`（32 项）、`npm run test:modules`（全部模块退出码 0）、`npm run provenance`（108 个文件，`changedSources: []`）均通过。PPTX 与 XLSX 的 DSH 打包后 bridge 冒烟测试通过；随包 Python 的 python-pptx 1.0.2、lxml 6.1.0、Pillow 12.3.0、XlsxWriter 3.2.9 可导入，LibreOffice 26.8.0.3、Poppler 26.09.0 可启动。使用真实 DOCX 完成 LO→PDF 和 Poppler 第 1 页 PNG 转换（A4、1 页）。
+
+本次转换包在含中文字符的源码路径下运行，Poppler 对三份非 CJK Unicode 名称映射文件有路径编码告警，但 PDF 信息读取与 PNG 输出成功；应在 DSH 实际安装目录再复测完整中文字体映射。离线运行时解包约 1.75 GB，公开上传二进制包前需完成 `THIRD_PARTY.md` 所列再分发许可证核查；本轮只计划推送源码和可复现构建配置，不发布含二进制运行时的 release asset。
+
+下方为 2026-09-26 基线记录，旧模块数与测试总数按当时状态保留。
+
 日期：2026-09-26，Windows 本地环境。结论：**结构能力和交付链整合测试通过；真实页面渲染、深度解析与生产规模验收未完成。** 不能把下列总数解释为所有 Word 功能已经覆盖。
 
 ## 可重复执行的检查

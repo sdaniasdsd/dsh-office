@@ -13,17 +13,24 @@
 | tsx | 4.23.15 | MIT | 本地 TypeScript 启动 |
 | zod | 3.25.76 | MIT | 输入与配置校验 |
 | zod-to-json-schema | 3.25.0 | ISC | 公共 schema |
+| exceljs | 4.4.0 | MIT | XLSX workbook/range/cell operations (`xlsx-office`) |
 
 精确传递依赖以 package-lock.json 为准。构建脚本会从实际打入 JS bundle 的 Node 包中收集顶层 LICENSE、LICENCE、NOTICE 与 COPYING 文件至 `third-party-licenses/`；仍需结合本表核对传递依赖和许可证。类型检查与测试另外使用 TypeScript、Vitest 和 Node 类型声明。npm audit 的零漏洞结果只代表查询时数据库未报告已知项，不是供应链或运行安全保证。
 
 ## 随包运行时
+
+PPTX 模块通过 `python-pptx` 读取/改写 OOXML，并在 `modules/pptx-office/requirements.txt` 固定为 1.0.2（MIT）。安装在 Profile 配置的 Python 环境中；基础 Word 离线交付包是否捆绑此额外依赖需由发布目标明确，不会在首次运行时自动安装。
 
 本 Windows x64 DSH 交付包计划随包提供以下运行时；用户无需单独安装、配置 PATH 或在首次运行时联网下载：
 
 | 组件 | 固定版本 | 用途 | 许可/分发说明 |
 | --- | --- | --- | --- |
 | Python embeddable | 3.13.15 | 隔离运行 DOCX Python 引擎 | PSF-2.0；随包保留原始许可文件 |
+| python-pptx | 1.0.2 | PPTX 检查与 run 级文本编辑 | MIT；随包保留 wheel 元数据与许可 |
 | lxml | 6.1.0 | OOXML/XML 解析与桥接 | BSD-3-Clause；wheel 元数据与许可随包保留 |
+| Pillow | 12.3.0 | python-pptx 图像依赖 | MIT-CMU；随包保留 wheel 元数据与许可 |
+| XlsxWriter | 3.2.9 | python-pptx 兼容依赖 | BSD-2-Clause；随包保留 wheel 元数据与许可 |
+| typing-extensions | 4.16.0 | python-pptx 类型兼容依赖 | PSF-2.0；随包保留 wheel 元数据与许可 |
 | Poppler for Windows | 26.09.0-0 | PDF 页图转换 | 上游 GPL 条款；保留发行包中的 COPYING/NOTICE |
 | LibreOffice (The Document Foundation MSI) | 26.8.0 | DOCX 转 PDF 排版 | 通过 Windows Installer 管理式抽取到插件目录；随包保留 LGPL 与其他许可/NOTICE |
 | Microsoft Visual C++ Runtime | 14.x (由上述 MSI 附带) | LibreOffice 原生 DLL 运行依赖 | 原 DLL 不修改；分发受 Microsoft Visual Studio 许可条款约束，正式对外分发前单独核对 |

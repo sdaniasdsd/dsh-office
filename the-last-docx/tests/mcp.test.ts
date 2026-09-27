@@ -22,7 +22,7 @@ describe('MCP plugin protocol',()=>{
       // Asserted as names, not a count: a bare `toHaveLength(6)` went stale the
       // moment a tool was added, and said nothing about which tool was missing.
       const tools=(await client.listTools()).tools.map(t=>t.name).sort();
-      expect(tools).toEqual(['docx_analyze','docx_call','docx_doctor','docx_from_reference','docx_import','docx_modules','docx_read_artifact']);
+      expect(tools).toEqual(['docx_analyze','docx_call','docx_doctor','docx_from_reference','docx_import','docx_modules','docx_read_artifact','pptx_call','xlsx_call']);
     }finally{await client.close();await c.close();}
   });
 });

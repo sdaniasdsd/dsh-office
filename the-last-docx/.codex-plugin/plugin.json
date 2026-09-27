@@ -1,18 +1,18 @@
 {
   "name": "the-last-docx",
   "version": "0.1.0",
-  "description": "Integrated DOCX inspect, dual-IR parse, complex analysis, creation, editing, rendering and versioned artifact delivery.",
+  "description": "Integrated DOCX, PPTX, and XLSX inspection and editing modules with explicit artifact verification.",
   "author": {
     "name": "dsh-office-profile team"
   },
   "interface": {
-    "displayName": "The Last Docx",
-    "shortDescription": "DOCX 创建、解析、编辑、预览与版本化交付。",
-    "longDescription": "Preserves all eight module contracts and dual IR, using an immutable artifact store and explicit optional layout engines.",
+    "displayName": "DSH Office Profile",
+    "shortDescription": "DOCX、PPTX、XLSX 检查、编辑与交付。",
+    "longDescription": "Preserves the DOCX module contracts and adds mature open-source-backed PPTX and XLSX modules using an immutable artifact store and bounded operations.",
     "developerName": "dsh-office-profile team",
     "category": "Productivity",
     "capabilities": ["Read", "Write"],
-    "defaultPrompt": ["检查 DOCX 运行环境和模块能力。", "解析文档并保留可编辑的双 IR 锚点。", "生成文档并制作带校验清单的交付版本。"]
+    "defaultPrompt": ["检查 Office 运行环境及 DOCX、PPTX、XLSX 模块能力。", "解析 DOCX 并保留可编辑的双 IR 锚点。", "检查或编辑 PPTX / XLSX，并校验新产物。"]
   },
   "mcpServers": "./.mcp.json"
 }

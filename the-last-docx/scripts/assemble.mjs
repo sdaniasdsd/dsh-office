@@ -2,7 +2,7 @@ import { cp, mkdir, readFile, writeFile, readdir } from 'node:fs/promises';
 import { resolve, join, basename, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
-const source=resolve(process.argv[2]??join(root,'..','docx分区'));
+const source=resolve(process.argv[2]??join(root,'..','..','docx分区'));
 const names=['docx-inspect','docx-easy-parse','docx-parse','docx-complex-parse','docx-create','docx-styles','docx-edit','docx-render','docx-artifact'];
 for(const name of names){
   const destination=join(root,'modules',name);

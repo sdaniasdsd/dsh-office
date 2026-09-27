@@ -1,7 +1,11 @@
 {
   "schema": "docx-module-provenance/v1",
-  "sourceRootHint": "../docx分区",
-  "scope": "Module src files only; package names and tsconfig changes are integration adapters.",
+  "sourceRootHint": "../../docx分区",
+  "scope": "DOCX module src files are compared to sourceRootHint; local DSH Office adapters are hashed but intentionally have no mirrored upstream module.",
+  "localExtensionModules": [
+    "modules/pptx-office",
+    "modules/xlsx-office"
+  ],
   "allModuleSourcesMatch": true,
   "changedSources": [],
   "sha256": {
@@ -108,6 +112,10 @@
     "modules/docx-styles/src/engine/xml.ts": "54eb807f00b8088a0d1690099d4c9c8571bb389ee1ca6437bfb5e45bc30e5248",
     "modules/docx-styles/src/errors.ts": "b83838181efaab92345450b5f97a772636958371ef9e8378959ed5ed7bb6b159",
     "modules/docx-styles/src/index.ts": "0ea0d127852cef571e7216d779559e5236159b76a742efc91f2fa9293d271593",
-    "modules/docx-styles/src/verifier.ts": "b226f013c0d40a4372ea6153f61a845e81985ab1bd3e88250d3fb28b77187d5c"
+    "modules/docx-styles/src/verifier.ts": "b226f013c0d40a4372ea6153f61a845e81985ab1bd3e88250d3fb28b77187d5c",
+    "modules/pptx-office/src/engine/pptx_bridge.py": "fc952007a732fed07522140b8f92bcbc1fbf8be1c8814d3d95f539941833706f",
+    "modules/pptx-office/src/index.ts": "6fe2ddd664d04220a940a0fd0f25227ed7c2146317dcca274dd7635255ac7fe3",
+    "modules/xlsx-office/src/engine/zip_probe.py": "e3451bc268134d4bc8beefc8f7dcd92492a5a07c9f4de6532d688510059bc12d",
+    "modules/xlsx-office/src/index.ts": "0038507035c874ceebb85cbd966c761c19a123a71f09d261a381b6235f2ae22c"
   }
 }

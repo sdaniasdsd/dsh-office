@@ -13,3 +13,5 @@ export * as docxCreate from '@dsh-office-profile/docx-create';
 export * as docxEdit from '@dsh-office-profile/docx-edit';
 export * as docxRender from '@dsh-office-profile/docx-render';
 export * as docxArtifact from '@dsh-office-profile/docx-artifact';
+export * as pptxOffice from '@dsh-office-profile/pptx-office';
+export * as xlsxOffice from '@dsh-office-profile/xlsx-office';
