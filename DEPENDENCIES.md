@@ -98,7 +98,7 @@ esbuild 的平台二进制由可选依赖 `@esbuild/win32-x64` 提供（实测�
 
 ---
 
-## 三、外部运行时（随包分发，不需要单独安装）
+## 三、外部运行时（单独一个包，不再是硬依赖）
 
 由 `dsh-office/scripts/fetch-dsh-runtime.ps1` 下载并校验，装到 `runtime/win32-x64/`：
 
@@ -108,11 +108,19 @@ esbuild 的平台二进制由可选依赖 `@esbuild/win32-x64` 提供（实测�
 | LibreOffice | 26.8.0 | 官方 MSI，管理式解包取 `program/soffice.com` |
 | poppler | 26.09.0 | `oschwartz10612/poppler-windows` release（取 `pdftoppm`） |
 
-- 发布包 tgz 里已经带上这三样（解压后约 1.8 GB）。
-- **仓库里的 `dsh-office/runtime/win32-x64` 是空的**（实测只有 1 个条目）——新克隆必须先跑一次 fetch 脚本，
-  否则 `npm run build:dsh` 会在最后一步报 `ENOENT: … lstat '…/runtime'`。
-- 这三个是**插件内部使用**的：LibreOffice 用于 `docx-render` 出 PDF/图片，poppler 出页面图，
-  Python 跑各引擎。宿主机上不需要另外安装它们。
+**发布形态已经从"一个包"拆成三个**（`npm run build:dsh` + `npm run pack:dsh` 一次产出）：
+
+| 包 | 内容 | 体积（实测 0.9.0） |
+| --- | --- | --- |
+| `@deepseek-ai/dsh-docx` | 核心：`dsh/`、`lib/`（bundle）、第三方许可、文档 | tarball **2.2 MB**（解压 14 MB） |
+| `@deepseek-ai/dsh-docx-runtime` | `runtime/win32-x64/**` + `runtime.json` 清单 | tarball **546 MB**（解压 1.67 GB） |
+| `@deepseek-ai/dsh-docx-full` | 只写依赖的元包（核心 + 运行时，同版本） | tarball **651 B** |
+
+核心包找运行时的顺序（`dsh/runtime-config.mjs`）：插件配置 `runtimeRoot` → 环境变量 `DSH_OFFICE_RUNTIME_ROOT`（或 `DOCX_PYTHON/DOCX_SOFFICE/DOCX_PDFTOPPM`）→ **兄弟运行时包**（向上找 `node_modules/@deepseek-ai/dsh-docx-runtime`，读 `runtime.json`）→ 自带 `runtime/win32-x64`。
+缺运行时**不再是启动失败**：只把存在的路径注入子进程，缺什么写进 stderr 与 `DSH_DOCX_RUNTIME_MISSING`，相关能力在调用时返回 `ENGINE_UNAVAILABLE`，`docx_doctor` 逐项给结论。
+
+- 发布包解压后约 1.7 GB，其中 LibreOffice 占 1504 MB、poppler 121 MB、python 47 MB（实测）。
+- **仓库里的 `dsh-office/runtime/win32-x64` 是空的**（实测只有 1 个条目）——新克隆必须先跑一次 fetch 脚本，否则 `build:dsh` 会**跳过**运行时包并打印原因（不再像旧版那样在最后一步 `ENOENT` 崩掉）。
 
 ---
 

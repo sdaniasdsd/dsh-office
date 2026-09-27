@@ -35,9 +35,21 @@ npm run provenance     # 校验 modules/ 与家族源码逐文件一致
 npm run typecheck
 npm test               # 外壳的 profile / MCP / 文件层测试
 npm run test:modules   # 12 个模块逐个 typecheck + 测试
-npm run build:dsh      # 打出 DSH 插件包到 dist/dsh-docx
-npm run pack:dsh       # 打包成 dist/deepseek-ai-dsh-docx-<版本>.tgz
+npm run build:dsh      # 一次产出三个包到 dist/：核心 / 运行时 / 元包
+npm run pack:dsh       # 打成三个 tgz（运行时不存在的构建只打核心包，并打印原因）
 ```
+
+## 三个包（运行时是单独的包）
+
+| 包 | 内容 | 体积（0.9.0 实测） |
+| --- | --- | --- |
+| `@deepseek-ai/dsh-docx` | 核心：JS bundle + dsh 清单 + 文档，**不含运行时** | tarball 2.2 MB |
+| `@deepseek-ai/dsh-docx-runtime` | Windows x64 运行时：私有 Python 3.13 + LibreOffice + Poppler，带 `runtime.json` 清单 | tarball 546 MB |
+| `@deepseek-ai/dsh-docx-full` | 只写依赖的元包（核心 + 运行时），想一步装好就用它 | tarball 651 B |
+
+核心包按「插件配置 → 环境变量 → 兄弟运行时包 → 自带 runtime/」的顺序找运行时；**缺运行时不致命**：
+插件照常启动，只有依赖运行时的能力会在调用时明确报不可用，`docx_doctor` 逐项给结论。
+想复用宿主已装的 LibreOffice/Python，用 `runtimeRoot` 或 `DSH_OFFICE_RUNTIME_ROOT` 指过去即可。
 
 只在某个家族里干活时，也可以先装配、再从 `dsh-office/modules/<name>` 跑那个模块的测试；
 家族目录自身不放依赖（依赖由外壳统一安装）。

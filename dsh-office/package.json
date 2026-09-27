@@ -25,7 +25,7 @@
     "configure": "node scripts/configure.mjs",
     "build": "tsc --noEmit",
     "build:dsh": "node scripts/build-dsh.mjs",
-    "pack:dsh": "npm pack ./dist/dsh-docx --pack-destination ./dist",
+    "pack:dsh": "node scripts/pack-dsh.mjs",
     "demo": "tsx scripts/demo.ts",
     "provenance": "node scripts/provenance.mjs",
     "assemble:docx-partition": "node scripts/assemble.mjs --source docx=../../docx分区"

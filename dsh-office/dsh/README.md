@@ -1,13 +1,26 @@
 # DSH Office 插件
 
-单个 `@deepseek-ai/dsh-docx` bundle，包含 DOCX、PPTX、XLSX 和原生 PDF 模块：检查、轻量/双 IR/复杂解析、创建、样式、编辑、DOCX 渲染、版本交付、幻灯片提取与文本编辑、工作簿读取/编辑，以及 PDF.js 元数据与原生文字抽取。用户只安装一个 profile 包。使用 DSH 原生 MCP bridge 注册工具、审批及管理生命周期，不修改 DSH 主程序。
+`@deepseek-ai/dsh-docx` bundle，包含 DOCX、PPTX、XLSX 和原生 PDF 模块：检查、轻量/双 IR/复杂解析、创建、样式、编辑、DOCX 渲染、版本交付、幻灯片提取与文本编辑、工作簿读取/编辑，以及 PDF.js 元数据与原生文字抽取。使用 DSH 原生 MCP bridge 注册工具、审批及管理生命周期，不修改 DSH 主程序。
 
-目标平台：Windows x64。DSH 已运行的 Node 作为子进程运行时，不要求另外安装 Node。私有 Python、LibreOffice、Poppler 随包携带；无需配置 PATH，不执行安装脚本，不在运行时下载依赖。Docling 深度模型和 rdocx 页坐标后端仍属于额外能力，不在本基础离线包中；原接口保留，不冒充可用。
+**运行时是单独的包**：核心包 `@deepseek-ai/dsh-docx`（约 15 MB，纯 JS/npm）＋ 运行时包 `@deepseek-ai/dsh-docx-runtime`（Windows x64：私有 Python 3.13、LibreOffice、Poppler）。元包 `@deepseek-ai/dsh-docx-full` 只写依赖，一步装好两个。
+
+DSH 已运行的 Node 作为子进程运行时，不要求另外安装 Node。运行时不配置 PATH、不执行安装脚本、不在运行时下载依赖；但它**不是硬依赖**——见下面的解析顺序与降级行为。Docling 深度模型和 rdocx 页坐标后端仍属于额外能力，不在运行时包里；原接口保留，不冒充可用。
+
+## 运行时怎么找（解析顺序）
+
+`dsh/runtime-config.mjs` 按以下顺序取运行时根目录，命中即止：
+
+1. 插件配置里的 `runtimeRoot`（也可分别给 `pythonPath` / `sofficePath` / `pdftoppmPath`）；
+2. 环境变量 `DSH_OFFICE_RUNTIME_ROOT`（也可用 `DOCX_PYTHON` / `DOCX_SOFFICE` / `DOCX_PDFTOPPM` 单独指定）；
+3. **兄弟运行时包**：从核心包目录向上逐层找 `node_modules/@deepseek-ai/dsh-docx-runtime`，读它的 `runtime.json`；
+4. 核心包自带的 `runtime/win32-x64/`（旧布局，兼容用）。
+
+**缺运行时不再是启动错误**：只有核心包自己的 `lib/server.mjs` 缺失才算包不完整。运行时不全时，插件照常启动，只把存在的路径注入子进程，并在 stderr 明确列出缺了什么（同时写入 `DSH_DOCX_RUNTIME_MISSING`）；依赖运行时的能力（解析、PPTX、渲染等）会在调用时返回 `ENGINE_UNAVAILABLE`，`docx_doctor` 会给出逐项结论。创建、样式、编辑、交付清单等纯 Node 能力不受影响。
 
 通过 DSH 正常安装插件（不是手工配置引擎）：
 
 ```powershell
-dsh plugin --profile web add 'D:\交付目录\deepseek-ai-dsh-docx-0.8.0.tgz'
+dsh plugin --profile web add 'D:\交付目录\deepseek-ai-dsh-docx-full-0.9.0.tgz'
 ```
 
 维护者从源码构建安装包：先在工程根目录运行 `npm run build:dsh`，再运行 `pwsh -NoProfile -File scripts/fetch-dsh-runtime.ps1` 获取并校验固定版本的离线运行时，最后运行 `npm run pack:dsh`。产物为 `dist/deepseek-ai-dsh-docx-0.8.0.tgz`。公开发布二进制前，先完成 `THIRD_PARTY.md` 要求的许可证与再分发义务审核。
