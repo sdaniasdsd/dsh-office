@@ -1,0 +1,22 @@
+归档本轮验证脚本与营销素材
+
+按用户指示，把两处此前未上传的内容原样入库：
+
+1. `.docx-smoke/`（2160 个文件 / 459 个目录 / 42.85 MiB）
+   本轮 dsh-office 拆包、工具链适配、0.9.0–0.9.3 发布过程中用到的全部验证驱动、
+   提交信息草稿、发布说明与夹具数据。含脚本里写死的本机绝对路径
+   （C:\Users\AA\... / D:\开源团队作品\...）与 data*/ 夹具，均为"原样"的一部分。
+
+   唯一没有进来的东西是 `split-check/node_modules/` 下的 3 个 NTFS 目录联接：
+   其中一条指向构建出的运行时整棵树（约 1.67 GB / 约 2 万文件），跟进仓库会把
+   归档从 42.85 MiB 撑到 GB 级。三条联接的路径与目标逐字记在
+   `.docx-smoke/JUNCTIONS.md` 里，可照原样重建，不是悄悄丢的。
+
+   规模回执（robocopy /L /XJ）：源 2160 文件 / 462 目录 / 42.85 MiB；
+   目标 2160 文件 / 459 目录 / 42.85 MiB；差 3 个目录 = 那 3 条联接。
+
+2. `marketing-assets/dsh-office-launch-poster.png`（1.54 MB）：此前一直 untracked。
+
+注意：本仓库需要 `git config core.longpaths true` 才能索引这份归档——
+LibreOffice 临时 profile 的路径超过 Windows MAX_PATH，不加这条会直接
+`fatal: adding files failed`。
