@@ -7,5 +7,6 @@ modules/**/__pycache__/
 coverage/
 .mcp.json
 dist/
-# 运行时（约 1.67 GB）：由 `npm run fetch:toolchain` 按 toolchain.lock.json 取回，不进版本库。
+# 运行时（约 1.67 GB）与它带回来的清单：由 `npm run fetch:toolchain` 按 toolchain.lock.json 取回，不进版本库。
 runtime/
+runtime.json
