@@ -217,6 +217,99 @@ def apply_indigo_paperlight_cover(prs, art_word):
             "styledTitlePlaceholders": styled_titles}
 
 
+def apply_cool_corporate_field_cover(prs, art_word):
+    """Apply an editable, restrained editorial cover composition.
+
+    The profile follows a deliberately small design-system contract: one dark
+    field, one small accent, generous light-space for the source title, and a
+    single dominant native art word.  Every addition is a PowerPoint shape so
+    downstream users can still edit it in PowerPoint.
+    """
+    from pptx.dml.color import RGBColor
+    from pptx.enum.shapes import MSO_SHAPE, PP_PLACEHOLDER
+    from pptx.util import Pt
+    if not prs.slides:
+        raise ValueError("Cannot apply an art style to an empty presentation")
+    slide = prs.slides[0]
+
+    def field(shape, rgb, insertion_index):
+        shape.fill.solid()
+        shape.fill.fore_color.rgb = RGBColor(*rgb)
+        shape.line.fill.background()
+        tree = slide.shapes._spTree
+        tree.remove(shape._element)
+        tree.insert(insertion_index, shape._element)
+
+    # The background, field and dot are kept below source content. The compact
+    # dark field and small accent remain subordinate to source title content.
+    background = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, prs.slide_width, prs.slide_height)
+    field(background, (248, 249, 250), 2)
+
+    # Existing title/subtitle placeholders belong to the source deck.  Do not
+    # rewrite their geometry: python-pptx can flatten inherited placeholder
+    # bounds. Instead select decorative zones that do not overlap source text.
+    def bounds(shape):
+        return (shape.left / prs.slide_width, shape.top / prs.slide_height,
+                shape.width / prs.slide_width, shape.height / prs.slide_height)
+
+    def intersects(first, second):
+        return not (first[0] + first[2] <= second[0] or second[0] + second[2] <= first[0]
+                    or first[1] + first[3] <= second[1] or second[1] + second[3] <= first[1])
+
+    text_bounds = [bounds(shape) for shape in slide.shapes
+                   if getattr(shape, "has_text_frame", False) and shape.text.strip()]
+
+    def free(candidates, reserved=()):
+        for candidate in candidates:
+            if not any(intersects(candidate, occupied) for occupied in [*text_bounds, *reserved]):
+                return candidate
+        raise ValueError("The cover has no collision-free zone for this design profile")
+
+    # All coordinates are relative so the profile works on 4:3, 16:9, and
+    # custom canvases. The preferred corner zone avoids common centered cover
+    # placeholders; alternatives keep the profile fail-closed when it cannot.
+    visual_zone = free([(0.73, 0.04, 0.23, 0.18), (0.73, 0.78, 0.23, 0.18), (0.04, 0.04, 0.23, 0.18)])
+    navy_field = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, int(prs.slide_width * visual_zone[0]), int(prs.slide_height * visual_zone[1]), int(prs.slide_width * visual_zone[2]), int(prs.slide_height * visual_zone[3]))
+    field(navy_field, (30, 58, 95), 3)
+    accent_size = int(min(prs.slide_width, prs.slide_height) * 0.045)
+    gold_dot = slide.shapes.add_shape(MSO_SHAPE.OVAL, int(prs.slide_width * (visual_zone[0] + visual_zone[2] * 0.56)), int(prs.slide_height * (visual_zone[1] + visual_zone[3] * 0.28)), accent_size, accent_size)
+    field(gold_dot, (212, 175, 55), 4)
+
+    art_zone = free([(0.055, 0.055, 0.34, 0.12), (0.055, 0.84, 0.34, 0.10), (0.55, 0.055, 0.16, 0.12)], [visual_zone])
+    art = slide.shapes.add_textbox(int(prs.slide_width * art_zone[0]), int(prs.slide_height * art_zone[1]), int(prs.slide_width * art_zone[2]), int(prs.slide_height * art_zone[3]))
+    art.name = "DSH design profile art word"
+    art_paragraph = art.text_frame.paragraphs[0]
+    art_run = art_paragraph.add_run()
+    art_run.text = art_word
+    art_run.font.name = "Aptos Display"
+    art_run.font.size = Pt(max(34, min(60, int(prs.slide_height / 914400 * 72 * 0.095))))
+    art_run.font.bold = True
+    art_run.font.color.rgb = RGBColor(30, 58, 95)
+
+    title_types = {PP_PLACEHOLDER.TITLE, PP_PLACEHOLDER.CENTER_TITLE, PP_PLACEHOLDER.VERTICAL_TITLE}
+    subtitle_types = {PP_PLACEHOLDER.SUBTITLE}
+    styled_titles = 0
+    for shape in slide.shapes:
+        if not getattr(shape, "has_text_frame", False) or not getattr(shape, "is_placeholder", False):
+            continue
+        try:
+            placeholder_type = shape.placeholder_format.type
+        except (AttributeError, ValueError):
+            continue
+        for paragraph in shape.text_frame.paragraphs:
+            for run in paragraph.runs:
+                if placeholder_type in title_types:
+                    run.font.name = "Aptos Display"
+                    run.font.color.rgb = RGBColor(30, 58, 95)
+                    run.font.bold = True
+                elif placeholder_type in subtitle_types:
+                    run.font.color.rgb = RGBColor(66, 84, 102)
+        if placeholder_type in title_types:
+            styled_titles += 1
+    return {"styleId": "cool-corporate-field-v1", "styledSlides": 1, "artWord": art_word,
+            "styledTitlePlaceholders": styled_titles, "nativeObjects": 4}
+
+
 def main():
     if len(sys.argv) != 4:
         raise RuntimeError("Expected operation, input path, and output path arguments")
@@ -236,7 +329,8 @@ def main():
                   "slideCount": len(prs.slides), "shapeCount": sum(len(s["shapes"]) for s in slides),
                   "widthEmu": int(prs.slide_width), "heightEmu": int(prs.slide_height), "engine": f"python-pptx-{version('python-pptx')}"}
     elif operation == "extract":
-        result = {"action": "extract", "slideCount": len(prs.slides), "slides": extract(prs, limits),
+        result = {"action": "extract", "slideCount": len(prs.slides), "widthEmu": int(prs.slide_width),
+                  "heightEmu": int(prs.slide_height), "slides": extract(prs, limits),
                   "engine": f"python-pptx-{version('python-pptx')}"}
     elif operation == "replaceText":
         slides = extract(prs, limits)
@@ -378,14 +472,19 @@ def main():
                   "titleColorPreservedSlides": len(color_preserved_slides), "verifiedFormattingRuns": len(expected_formats), "textPreserved": True,
                   "engine": f"python-pptx-{version('python-pptx')}"}
     elif operation == "applyArtStyle":
-        if request.get("styleId") != "indigo-paperlight-v1":
+        style_id = request.get("styleId")
+        styles = {
+            "indigo-paperlight-v1": apply_indigo_paperlight_cover,
+            "cool-corporate-field-v1": apply_cool_corporate_field_cover,
+        }
+        if style_id not in styles:
             raise ValueError("Unsupported art style")
         art_word = request.get("artWord", "DSH")
         if not isinstance(art_word, str) or not art_word or len(art_word) > 24:
             raise ValueError("artWord must be a short non-empty string")
         before = [paragraph["text"] for slide in extract(prs, limits) for shape in slide["shapes"]
                   for paragraph in shape.get("paragraphs", [])]
-        result = apply_indigo_paperlight_cover(prs, art_word)
+        result = styles[style_id](prs, art_word)
         Path(output_name).parent.mkdir(parents=True, exist_ok=True)
         prs.save(output_name)
         with redirect_stdout(sink):

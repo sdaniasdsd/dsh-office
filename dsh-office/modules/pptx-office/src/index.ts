@@ -10,9 +10,21 @@ import { z } from 'zod';
 
 export const PPTX_OFFICE_MODULE_ID = 'pptx-office' as const;
 export const PPTX_OFFICE_CAPABILITIES = ['inspect', 'execute', 'verify'] as const;
+/**
+ * Versioned, application-owned visual profiles.  The editing engine only
+ * executes these allow-listed IDs; it never accepts arbitrary artwork, theme
+ * mutations, or style instructions from a document request.
+ */
+export const PPTX_ART_STYLE_IDS = ['indigo-paperlight-v1', 'cool-corporate-field-v1'] as const;
+export const PPTX_DESIGN_SYSTEM = Object.freeze({
+  version: '1.0.0',
+  principles: ['one dominant cover composition', 'restrained three-color palette', 'editable native objects', 'rendered visual review'],
+  inspiration: { project: 'ppt-master', repository: 'https://github.com/hugohe3/ppt-master', license: 'MIT' },
+  boundary: 'Profiles decorate the first slide only; they do not change masters, layouts, charts, tables, or source text.',
+});
 export const PPTX_OFFICE_DEFINITION = Object.freeze({
   id: PPTX_OFFICE_MODULE_ID, version: '0.1.0', profileGroup: 'PPTX', capabilities: PPTX_OFFICE_CAPABILITIES,
-  summary: 'Inspect/extract PPTX text, replace addressed runs, apply guarded typography, and apply a cover-only artistic style without changing slide text.',
+  summary: 'Inspect/extract PPTX text, replace addressed runs, apply guarded typography, and apply a versioned cover-only design profile without changing slide text.',
   dependencies: [{ name: 'python-pptx', kind: 'runtime' }, { name: 'office-core', kind: 'module' },
     { name: 'office-files', kind: 'module' }, { name: 'office-safety', kind: 'module' }],
   configSchema: { type: 'object', properties: { engine: { type: 'object', properties: { pythonPath: { type: 'string', default: 'python' } } } } },
@@ -29,7 +41,7 @@ const formatTextSchema = z.object({ action: z.literal('formatText'), changes: z.
   scope: z.literal('allSlides'), titleFontSize: z.number().min(8).max(96), bodyFontSize: z.number().min(8).max(72),
   accentColor: z.string().regex(/^#[0-9a-fA-F]{6}$/),
 }).strict()).min(1).max(1) }).strict();
-const artStyleSchema = z.object({ action: z.literal('applyArtStyle'), styleId: z.literal('indigo-paperlight-v1'),
+const artStyleSchema = z.object({ action: z.literal('applyArtStyle'), styleId: z.enum(PPTX_ART_STYLE_IDS),
   artWord: z.string().min(1).max(24).regex(/^[\p{L}\p{N} ._-]+$/u).optional() }).strict();
 const requestSchema = z.object({ requestId: z.string().min(1), operation: z.enum(PPTX_OFFICE_CAPABILITIES), artifactRef: artifactSchema,
   policy: z.object({ id: z.string().min(1) }).passthrough().optional(), payload: z.record(z.unknown()).optional() }).passthrough();
@@ -156,7 +168,7 @@ export function createPptxOfficeModule(options: PptxOfficeOptions) {
               titleColorPreservedSlides: data.titleColorPreservedSlides,
             }),
             slideCount: data.slideCount, visualReview: 'pending' }, artifacts: [artifactRef],
-          warnings: [{ code: 'VISUAL_REVIEW_PENDING', severity: 'info', message: 'The deck was reopened and text preservation was checked; render and visually review every slide before delivery. Artistic styles are limited to the cover slide and do not alter themes, masters, charts, tables, or slide text.' }] };
+          warnings: [{ code: 'VISUAL_REVIEW_PENDING', severity: 'info', message: 'The deck was reopened and text preservation was checked; render and visually review every slide before delivery. Design profiles are limited to the cover slide and do not alter themes, masters, charts, tables, or slide text.' }] };
       }
       return { moduleId: PPTX_OFFICE_MODULE_ID, requestId: input.requestId, operation,
         result: { source: { id: input.artifactRef.id, sha256: digest }, ...data, visualReview: 'pending' }, artifacts: [],

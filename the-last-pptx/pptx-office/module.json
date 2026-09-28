@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "profileGroup": "PPTX",
   "entry": "src/index.ts",
-  "summary": "Inspect/extract PPTX, replace addressed text runs, apply bounded typography, and apply a cover-only artistic style.",
+  "summary": "Inspect/extract PPTX, replace addressed text runs, apply bounded typography, and apply a versioned cover-only design profile.",
   "capabilities": ["inspect", "execute", "verify"],
   "implementation": "implemented",
   "engineSelection": "user-approved",

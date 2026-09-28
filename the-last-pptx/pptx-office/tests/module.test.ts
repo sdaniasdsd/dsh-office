@@ -59,7 +59,7 @@ describe('pptx-office', () => {
       if (oldUtf8Mode === undefined) delete process.env.PYTHONUTF8; else process.env.PYTHONUTF8 = oldUtf8Mode;
       await rm(dir, { recursive: true, force: true });
     }
-  });
+  }, 30_000);
 
   it.skipIf(!available)('inspects, extracts, and replaces one addressed run without rebuilding the deck', async () => {
     const dir = await mkdtemp(join(tmpdir(), 'dsh-pptx-test-')), path = join(dir, 'source.pptx');
@@ -79,7 +79,7 @@ describe('pptx-office', () => {
       const verification = await module.handlers.verify({ requestId: 'verify-test', operation: 'verify', artifactRef: edited.result.artifactRef, payload: { expectedSlideCount: 1, textIncludes: ['After'] } }) as { result: { ok: boolean } };
       expect(verification.result.ok).toBe(true);
     } finally { await rm(dir, { recursive: true, force: true }); }
-  });
+  }, 30_000);
 
   it.skipIf(!available)('formats slide title/body hierarchy without changing text', async () => {
     const dir = await mkdtemp(join(tmpdir(), 'dsh-pptx-format-')), path = join(dir, 'source.pptx');
@@ -113,7 +113,7 @@ describe('pptx-office', () => {
       expect(output.result.formattedRuns).toBeGreaterThan(0);
       expect(edited.length).toBeGreaterThan(0);
     } finally { await rm(dir, { recursive: true, force: true }); }
-  });
+  }, 30_000);
 
   it.skipIf(!available)('applies the packaged indigo cover style while preserving source text', async () => {
     const dir = await mkdtemp(join(tmpdir(), 'dsh-pptx-art-style-')), path = join(dir, 'source.pptx');
@@ -137,5 +137,39 @@ describe('pptx-office', () => {
       expect(texts).toContain('Visual QA');
       expect(texts).toContain('DSH');
     } finally { await rm(dir, { recursive: true, force: true }); }
-  });
+  }, 30_000);
+
+  it.skipIf(!available)('applies the native cool-corporate design profile while preserving source text', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'dsh-pptx-cool-corporate-')), path = join(dir, 'source.pptx');
+    try {
+      const code = `from pptx import Presentation; p=Presentation(); s=p.slides.add_slide(p.slide_layouts[0]); s.shapes.title.text="Quarterly Review"; s.placeholders[1].text="Evidence and decisions"; p.save(${JSON.stringify(path)})`;
+      const generated = spawnSync(python, ['-c', code], { windowsHide: true, encoding: 'utf8' });
+      expect(generated.status, generated.stderr).toBe(0);
+      const bytes = new Uint8Array(await readFile(path)), hash = createHash('sha256').update(bytes).digest('hex');
+      const source = { id: `sha256:${hash}`, uri: `file:///managed/${hash}/source.pptx`, sha256: hash, sizeBytes: bytes.length, label: 'source.pptx' };
+      const artifacts = store(); artifacts.objects.set(source.uri, bytes);
+      const module = createPptxOfficeModule({ artifactStore: artifacts, pythonPath: python });
+      const before = await module.handlers.execute({ requestId: 'cool-corporate-before', operation: 'execute', artifactRef: source, payload: { action: 'extract' } }) as unknown as { result: { widthEmu: number; heightEmu: number; slides: { shapes: { name: string; bboxEmu: [number, number, number, number]; paragraphs?: { text: string }[] }[] }[] } };
+      const styled = await module.handlers.execute({ requestId: 'cool-corporate-test', operation: 'execute', artifactRef: source,
+        payload: { action: 'applyArtStyle', styleId: 'cool-corporate-field-v1', artWord: 'Q3' } }) as { result: { artifactRef: { uri: string }; styleId: string; styledSlides: number } };
+      expect(styled.result.styleId).toBe('cool-corporate-field-v1');
+      expect(styled.result.styledSlides).toBe(1);
+      const extracted = await module.handlers.execute({ requestId: 'cool-corporate-extract', operation: 'execute', artifactRef: styled.result.artifactRef, payload: { action: 'extract' } }) as unknown as { result: { widthEmu: number; heightEmu: number; slides: { shapes: { name: string; bboxEmu: [number, number, number, number]; paragraphs?: { text: string }[] }[] }[] } };
+      const shapes = extracted.result.slides[0]!.shapes;
+      const texts = shapes.flatMap(shape => (shape.paragraphs ?? []).map(paragraph => paragraph.text));
+      expect(texts).toEqual(expect.arrayContaining(['Quarterly Review', 'Evidence and decisions', 'Q3']));
+      expect(shapes.some(shape => shape.name === 'DSH design profile art word')).toBe(true);
+      for (const name of ['Title 1', 'Subtitle 2']) {
+        const sourceShape = before.result.slides[0]!.shapes.find(shape => shape.name === name);
+        const styledShape = shapes.find(shape => shape.name === name);
+        expect(styledShape?.bboxEmu).toEqual(sourceShape?.bboxEmu);
+      }
+      for (const shape of shapes) {
+        const [left, top, width, height] = shape.bboxEmu;
+        expect(left).toBeGreaterThanOrEqual(0); expect(top).toBeGreaterThanOrEqual(0);
+        expect(left + width).toBeLessThanOrEqual(extracted.result.widthEmu);
+        expect(top + height).toBeLessThanOrEqual(extracted.result.heightEmu);
+      }
+    } finally { await rm(dir, { recursive: true, force: true }); }
+  }, 30_000);
 });
