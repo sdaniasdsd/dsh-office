@@ -163,6 +163,8 @@ describe('contract: configuration', () => {
       'engine',
       'featureFlags',
       'limits',
+      'runtimePackageNames',
+      'runtimeRoot',
       'timeoutMs',
     ]);
   });

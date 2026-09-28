@@ -6,5 +6,10 @@ export async function createHost(){
   const workspace=resolve(process.env.THE_LAST_DOCX_WORKSPACE??process.cwd());
   const data=resolve(process.env.THE_LAST_DOCX_DATA??resolve(workspace,'.docx-data'));
   const files=await LocalArtifactFiles.create(data,[workspace]);
-  return new DocxProfile({files,pythonPath:process.env.DOCX_PYTHON??'python',sofficePath:process.env.DOCX_SOFFICE??'soffice',pdftoppmPath:process.env.DOCX_PDFTOPPM??'pdftoppm'});
+  // Do not inject bare `python` / `soffice` / `pdftoppm` defaults here. A
+  // defined engine path is an explicit override in each partition and would
+  // hide its manifest-driven runtime-package resolver. Direct DOCX_* paths
+  // remain supported by the resolver itself.
+  const packageNames=process.env.DSH_OFFICE_RUNTIME_PACKAGES?.split(',').map(value=>value.trim()).filter(Boolean);
+  return new DocxProfile({files,runtimeRoot:process.env.DSH_OFFICE_RUNTIME_ROOT,runtimePackageNames:packageNames});
 }

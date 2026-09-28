@@ -1,6 +1,8 @@
 import { spawn } from 'node:child_process';
 import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { resolveRuntime } from '@dsh-office-profile/docx-runtime';
 /** 插件包根目录：跑 node 探测时用它做 cwd，让包自己的依赖能被解析到。 */
 const packageRoot=fileURLToPath(new URL('../',import.meta.url));
 /**
@@ -22,12 +24,20 @@ export async function probe(command:string,args:string[],timeout=5000,cwd?:strin
     child.once('error',()=>finish(false,'not found or cannot start'));child.once('close',code=>finish(code===0,output.trim()||`exit ${code}`));
   });
 }
-export async function doctor(config:{pythonPath?:string;sofficePath?:string;pdftoppmPath?:string}={}){
-  const python=config.pythonPath??'python';
+export async function doctor(config:{pythonPath?:string;sofficePath?:string;pdftoppmPath?:string;javaPath?:string;runtimeRoot?:string;runtimePackageNames?:readonly string[]}={}){
+  const callerPath=fileURLToPath(import.meta.url);
+  const runtimeResolution=resolveRuntime({runtimeRoot:config.runtimeRoot,runtimePackageNames:config.runtimePackageNames,callerPath,
+    components:[
+      {id:'python',envVar:'DOCX_PYTHON',defaultEntry:'python/python.exe'},
+      {id:'libreoffice',envVar:'DOCX_SOFFICE',defaultEntry:'libreoffice/program/soffice.com'},
+      {id:'poppler',envVar:'DOCX_PDFTOPPM',defaultEntry:'poppler/poppler-26.09.0/Library/bin/pdftoppm.exe'},
+    ]});
+  const python=config.pythonPath??runtimeResolution.components.python?.path??'python';
+  const java=config.javaPath??process.env.DSH_OFFICE_JAVA??(process.env.JAVA_HOME?join(process.env.JAVA_HOME,'bin',process.platform==='win32'?'java.exe':'java'):'java');
   const bundled=bundledPackages();
   // python 侧探测给 15 秒：这八条探测是并发起的，而 `import pptx`（连带 PIL/lxml）在冷启动
   // 加并发时会超过 5 秒——5 秒预算会把可用报成不可用（实测过一次 pptx:false 的假阴性）。
-  const [runtime,xml,pptx,rdocx,docling,exceljsProbe,pdfjs,libreoffice,poppler]=await Promise.all([
+  const [runtime,xml,pptx,rdocx,docling,exceljsProbe,pdfjs,libreoffice,poppler,javaProbe]=await Promise.all([
     probe(python,['--version'],15000),probe(python,['-c','import lxml; print(lxml.__version__)'],15000),
     probe(python,['-c','import pptx; print(pptx.__version__)'],15000),
     probe(python,['-c','import importlib.util; print("rdocx found" if importlib.util.find_spec("rdocx") else "missing"); raise SystemExit(0 if importlib.util.find_spec("rdocx") else 1)'],15000),
@@ -36,14 +46,18 @@ export async function doctor(config:{pythonPath?:string;sofficePath?:string;pdft
     probe(process.execPath,['-e','import("exceljs").then(m=>console.log(m.default?.Workbook ? "ExcelJS available" : "ExcelJS unavailable")).catch(()=>process.exit(1))'],5000,packageRoot),
     probe(process.execPath,['-e','import("pdfjs-dist/legacy/build/pdf.mjs").then(m=>console.log(m.version ? `PDF.js ${m.version}` : "PDF.js unavailable")).catch(()=>process.exit(1))'],5000,packageRoot),
     // soffice 首次启动（建用户 profile）常常超过 5 秒，5 秒预算会把可用报成不可用。
-    probe(config.sofficePath??'soffice',['--version'],20000),probe(config.pdftoppmPath??'pdftoppm',['-v'],20000),
+    probe(config.sofficePath??runtimeResolution.components.libreoffice?.path??'soffice',['--version'],20000),
+    probe(config.pdftoppmPath??runtimeResolution.components.poppler?.path??'pdftoppm',['-v'],20000),
+    // Java is host-owned and optional. Reporting it here gives future Java
+    // partitions a stable discovery surface without gating current modules.
+    probe(java,['-version'],10000),
   ]);
   // exceljs 被 inline 进 bundle 时，探测失败不代表能力缺失；detail 里写明它的来路。
   const exceljsBundled=bundled['exceljs'];
   const exceljs={available:exceljsProbe.available||Boolean(exceljsBundled),
     detail:exceljsProbe.available?exceljsProbe.detail:`bundled into the server bundle${exceljsBundled?` (exceljs ${exceljsBundled})`:''}; not installed separately, so a child-process import cannot see it`};
-  return {node:process.version,python:runtime,lxml:xml,pythonPptx:pptx,rdocx,docling,exceljs,pdfjs,libreoffice,poppler,
+  return {node:process.version,runtimeResolution,python:runtime,lxml:xml,pythonPptx:pptx,rdocx,docling,exceljs,pdfjs,libreoffice,poppler,java:javaProbe,
     bundledPackages:Object.keys(bundled),
-    capabilities:{create:true,edit:true,artifact:runtime.available,parse:runtime.available,complexStructure:runtime.available,complexLayout:runtime.available&&rdocx.available,deepEasyParse:runtime.available&&docling.available,pptx:runtime.available&&pptx.available,xlsx:runtime.available&&exceljs.available,nativePdf:pdfjs.available,render:libreoffice.available&&poppler.available},
+    capabilities:{create:true,edit:true,artifact:runtime.available,parse:runtime.available,complexStructure:runtime.available,complexLayout:runtime.available&&rdocx.available,deepEasyParse:runtime.available&&docling.available,pptx:runtime.available&&pptx.available,xlsx:runtime.available&&exceljs.available,nativePdf:pdfjs.available,render:libreoffice.available&&poppler.available,java:javaProbe.available},
     note:'Availability is not an accuracy benchmark. Optional layout engines are never silently substituted. A bundled npm package is reported available with its provenance in "detail".'};
 }

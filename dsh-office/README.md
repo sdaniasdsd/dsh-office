@@ -46,7 +46,13 @@ npm run cli -- import 'D:\你的文档工作目录\报告.docx'
 npm run cli -- call docx-parse execute 'D:\请求文件\parse.json'
 ```
 
-请求 JSON 使用 import 返回的完整 `artifactRef`，并包含 `requestId`。不要直接把磁盘路径塞进伪造引用。默认产物放在工作目录下 `.docx-data`；`THE_LAST_DOCX_DATA` 可指定其他存储目录。`DOCX_PYTHON`、`DOCX_SOFFICE`、`DOCX_PDFTOPPM` 可指定程序路径。环境变量只在宿主层读取；能力模块仍只接受 Profile 注入配置。
+请求 JSON 使用 import 返回的完整 `artifactRef`，并包含 `requestId`。不要直接把磁盘路径塞进伪造引用。默认产物放在工作目录下 `.docx-data`；`THE_LAST_DOCX_DATA` 可指定其他存储目录。
+
+### 运行时发现契约
+
+宿主可用 `DSH_OFFICE_RUNTIME_ROOT` 指向一个符合 `dsh-office-runtime/v1` 的交付包根目录（也可以是其 `runtime/` 或平台目录），用 `DSH_OFFICE_RUNTIME_PACKAGES` 传入逗号分隔、由宿主信任的额外运行时包名。该配置只在 Profile 构造时读取和注入，工具请求不能覆盖它。模块仍保留 `DOCX_PYTHON`、`DOCX_SOFFICE`、`DOCX_PDFTOPPM` 作为每个组件的显式环境覆盖；未提供显式路径时，Profile **不得**注入 `python`、`soffice` 或 `pdftoppm` 这样的裸命令，以免遮蔽模块自己的清单/包解析器。
+
+`docx_doctor` 会返回 `runtimeResolution`（解析来源、缺失组件）和可选的 `java` 探测。Java 不属于当前 DOCX 运行时的必装项，也不影响现有能力；它是未来 Java 分区的稳定诊断接口，可通过 `DSH_OFFICE_JAVA`、`JAVA_HOME` 或 PATH 提供。
 
 MCP 公开 `docx_modules`（所有 Office 模块契约）、`docx_doctor`（依赖检查）、`docx_import`（导入快照）、`docx_call`（原 DOCX/通用模块接口）、`pptx_call`、`xlsx_call`、`pdf_call`（原生 PDF 只读解析）、`docx_analyze`（显式 DOCX 组合解析）、`docx_read_artifact`（读取证据/页面图片）。大结果保存成 JSON 引用，不截断 IR。
 

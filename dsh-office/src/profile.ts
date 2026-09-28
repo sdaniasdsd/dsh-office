@@ -39,12 +39,23 @@ export const DEFAULT_EXECUTE_POLICIES:Record<PolicyGatedModuleId,Record<string,u
 };
 export interface ProfileOptions {
   files:LocalArtifactFiles; pythonPath?:string; sofficePath?:string; pdftoppmPath?:string;
+  /** Trusted host-level runtime discovery inputs; never accepted from tool calls. */
+  runtimeRoot?:string; runtimePackageNames?:readonly string[];
   /** Trusted Profile-level configuration only; never accepted from a document or tool request. */
   modules?:Partial<Record<ModuleId,Record<string,unknown>>>;
   /** Trusted override of {@link DEFAULT_EXECUTE_POLICIES}, per gated module. */
   safetyPolicy?:Partial<Record<PolicyGatedModuleId,Record<string,unknown>>>;
 }
 type JsonRecord=Record<string,unknown>;
+/** Merge only trusted Profile runtime discovery settings into a partition config. */
+export function injectRuntimeConfig(config:JsonRecord,profile:Pick<ProfileOptions,'runtimeRoot'|'runtimePackageNames'>):JsonRecord{
+  const merged:JsonRecord={...config};
+  // Schema-bearing modules reject unknown keys, so do not manufacture an
+  // `undefined` runtime field for modules that do not opt into this contract.
+  if (merged.runtimeRoot===undefined&&profile.runtimeRoot!==undefined) merged.runtimeRoot=profile.runtimeRoot;
+  if (merged.runtimePackageNames===undefined&&profile.runtimePackageNames!==undefined) merged.runtimePackageNames=profile.runtimePackageNames;
+  return merged;
+}
 type ModulePort={definition:{id:string;[key:string]:unknown};handlers:Record<string,(input:JsonRecord)=>Promise<JsonRecord>>;dispose?:()=>Promise<void>};
 export interface RegisteredDocxModule {
   definition:ModulePort['definition'];
@@ -58,8 +69,8 @@ export class DocxProfile {
   private get(id:ModuleId):ModulePort{
     if(this.closed)throw new DocxArtifactError('MODULE_DISPOSED','Profile is closed.');
     const found=this.instances.get(id);if(found)return found;
-    const python={pythonPath:this.options.pythonPath??'python'};
-    const config=this.options.modules?.[id]??{};
+    const python=this.options.pythonPath===undefined?{}:{pythonPath:this.options.pythonPath};
+    const config=injectRuntimeConfig(this.options.modules?.[id]??{},this.options);
     let instance:unknown;
     switch(id){
       case 'docx-inspect':instance=createDocxInspectModule({config:{...config,engine:{...python,...(config.engine as object??{})}}});break;
@@ -69,7 +80,10 @@ export class DocxProfile {
       case 'docx-create':instance=createDocxCreateModule({artifactStore:this.files,config});break;
       case 'docx-styles':instance=createDocxStylesModule({artifactStore:this.files,config});break;
       case 'docx-edit':instance=createDocxEditModule({artifactStore:this.files,config});break;
-      case 'docx-render':instance=createDocxRenderModule({artifactStore:this.files,config:{...config,engine:{sofficePath:this.options.sofficePath??'soffice',pdftoppmPath:this.options.pdftoppmPath??'pdftoppm',...(config.engine as object??{})}}});break;
+      case 'docx-render':instance=createDocxRenderModule({artifactStore:this.files,config:{...config,engine:{
+        ...(this.options.sofficePath===undefined?{}:{sofficePath:this.options.sofficePath}),
+        ...(this.options.pdftoppmPath===undefined?{}:{pdftoppmPath:this.options.pdftoppmPath}),
+        ...(config.engine as object??{})}}});break;
       case 'docx-artifact':instance=createDocxArtifactModule({files:this.files,config,inspector:{inspect:async ref=>{
         const result=await this.call('docx-inspect','inspect',{artifactRef:ref,requestId:'delivery-inspection'});return result.result as import('office-core').FormatProfile;
       }}});break;

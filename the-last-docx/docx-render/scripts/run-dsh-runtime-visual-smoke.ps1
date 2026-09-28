@@ -24,9 +24,12 @@ if ($null -eq $fixtureDir) { throw "No generated docx-create fixtures at $create
 $sources = @(
     (Join-Path $fixtureDir.FullName 'technical-sample.docx'),
     (Join-Path $fixtureDir.FullName 'report-sample.docx'),
-    (Join-Path $fixtureDir.FullName 'chinese-long-sample.docx'),
-    (Join-Path $workspace 'DSH-Office办公室文件强度测试与分批修复报告.docx')
+    (Join-Path $fixtureDir.FullName 'chinese-long-sample.docx')
 )
+$report = Join-Path $workspace 'DSH-Office办公室文件强度测试与分批修复报告.docx'
+# The external field report is valuable when supplied, but clean checkouts must
+# still execute the deterministic generated-document visual suite.
+if (Test-Path -LiteralPath $report -PathType Leaf) { $sources += $report }
 foreach ($source in $sources) {
     if (-not (Test-Path -LiteralPath $source -PathType Leaf)) { throw "Visual smoke source is missing: $source" }
 }
@@ -86,4 +89,3 @@ $ledgerPath = Join-Path $runRoot 'manifest.json'
 } | ConvertTo-Json -Depth 6) | Set-Content -LiteralPath $ledgerPath -Encoding utf8
 Write-Output "Visual smoke complete: $runRoot"
 Write-Output "Manifest: $ledgerPath"
-
