@@ -26,6 +26,7 @@
     "configure": "node scripts/configure.mjs",
     "build": "tsc --noEmit",
     "build:dsh": "node scripts/build-dsh.mjs",
+    "test:dsh-package-closure": "node scripts/check-dsh-package-closure.mjs",
     "pack:dsh": "node scripts/pack-dsh.mjs",
     "demo": "tsx scripts/demo.ts",
     "provenance": "node scripts/provenance.mjs",

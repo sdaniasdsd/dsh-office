@@ -31,7 +31,7 @@ dsh plugin --profile web add 'D:\交付目录\deepseek-ai-dsh-docx-full-0.9.0.tg
 
 `docx-edit` 写的是 `w:pStyle` 这类**引用**，**定义**由 `docx-styles` 负责——它按成熟 OOXML 工具链的部件划分独立成模块（对照 docx4j 的 `StyleDefinitionsPart`、Apache POI 的 `XWPFStyles`、Open XML SDK 的 `StyleDefinitionsPart`），只拥有 `styles.xml`，不碰内容。用 `plan.styles` 写入具名样式定义，**已存在的其它样式一字节不改**（重写整个部件会静默丢掉文档原有的每一条样式）。`verify` 把引用分成三档：`defined` / 内置但本文档未定义（Word 会自行合成，属渲染器依赖，不是断链）/ 真正的悬空引用。**顺序：先 `docx-styles` 定义、后 `docx-edit` 引用**；中间态只含尚未被引用的样式，合法且无悬空。另外 `styles.order.valid` 会校验子元素顺序——`w:pPr` 里 `w:pBdr` 必须早于 `w:spacing`、`w:outlineLvl` 必须晚于它，顺序不对 Word 会提议"修复"文件。
 
-`@deepseek-ai/dsh-mcp-client` 会随 DSH 插件自动安装；Cordis 复用 DSH 宿主的 `@deepseek-ai/cordis`，不私带第二套宿主核心。适配基于 DSH 0.1.0-rc.8 源码，并兼容当前 DSH Desktop 0.1.1-rc.2 中的桥接接口；不宣称兼容所有历史 DSH 版本。
+`@deepseek-ai/dsh-mcp-client` 的启动期依赖（attachment、timeout、subprocess、tools）与它固定为同一兼容版本，随核心插件显式交付；不能依赖开发机 npm 缓存或宿主的偶然提升版本。构建后的 `npm run test:dsh-package-closure` 会在打包前验证这个冷启动闭包。Cordis 仍复用 DSH 宿主的 `@deepseek-ai/cordis`，不私带第二套宿主核心。适配基于 DSH 0.1.0-rc.8 源码，并兼容当前 DSH Desktop 0.1.1-rc.2 中的桥接接口；不宣称兼容所有历史 DSH 版本。
 
 `./core` 导出模块命名空间，包括双 IR 修订记录、治理规则与摘要，以及 PPTX / XLSX 模块接口。PPTX run 替换和 XLSX 单元格写入都生成新 artifact。ExcelJS 不计算公式，且含图表、外链、透视表等可能无法保真的工作簿会被拒绝修改。MCP 工具只是交互入口，不替代这些代码接口。视觉 findings 由实际页面检查后提供，渲染成功不自动等于视觉 reviewed。
 
