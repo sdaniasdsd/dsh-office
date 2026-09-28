@@ -114,4 +114,28 @@ describe('pptx-office', () => {
       expect(edited.length).toBeGreaterThan(0);
     } finally { await rm(dir, { recursive: true, force: true }); }
   });
+
+  it.skipIf(!available)('applies the packaged indigo cover style while preserving source text', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'dsh-pptx-art-style-')), path = join(dir, 'source.pptx');
+    try {
+      const code = `from pptx import Presentation; p=Presentation(); s=p.slides.add_slide(p.slide_layouts[0]); s.shapes.title.text="DSH Office"; s.placeholders[1].text="Visual QA"; p.save(${JSON.stringify(path)})`;
+      const generated = spawnSync(python, ['-c', code], { windowsHide: true, encoding: 'utf8' });
+      expect(generated.status, generated.stderr).toBe(0);
+      const bytes = new Uint8Array(await readFile(path)), hash = createHash('sha256').update(bytes).digest('hex');
+      const source = { id: `sha256:${hash}`, uri: `file:///managed/${hash}/source.pptx`, sha256: hash, sizeBytes: bytes.length, label: 'source.pptx' };
+      const artifacts = store(); artifacts.objects.set(source.uri, bytes);
+      const module = createPptxOfficeModule({ artifactStore: artifacts, pythonPath: python });
+      const styled = await module.handlers.execute({ requestId: 'art-style-test', operation: 'execute', artifactRef: source,
+        payload: { action: 'applyArtStyle', styleId: 'indigo-paperlight-v1', artWord: 'DSH' } }) as { result: { artifactRef: { uri: string }; styleId: string; styledSlides: number } };
+      expect(styled.result.styleId).toBe('indigo-paperlight-v1');
+      expect(styled.result.styledSlides).toBe(1);
+      const extracted = await module.handlers.execute({ requestId: 'art-style-extract', operation: 'execute', artifactRef: styled.result.artifactRef, payload: { action: 'extract' } }) as unknown as { result: { slides: { shapes: { paragraphs: { text: string }[] }[] }[] } };
+      const texts = extracted.result.slides[0]!.shapes.flatMap(shape =>
+        (shape.paragraphs ?? []).map(paragraph => paragraph.text),
+      );
+      expect(texts).toContain('DSH Office');
+      expect(texts).toContain('Visual QA');
+      expect(texts).toContain('DSH');
+    } finally { await rm(dir, { recursive: true, force: true }); }
+  });
 });

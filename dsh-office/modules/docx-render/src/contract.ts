@@ -46,12 +46,18 @@ export interface RenderEngineConfig {
 }
 export interface ModuleConfig {
   engine: RenderEngineConfig;
+  /** Optional DSH runtime root; resolved before falling back to PATH commands. */
+  runtimeRoot?: string;
+  /** Additional sibling runtime packages for a host-specific deployment. */
+  runtimePackageNames?: readonly string[];
   limits: RenderLimits;
   timeoutMs: number;
   featureFlags: RenderFeatureFlags;
 }
 export interface ConfigOverrides {
   engine?: Partial<RenderEngineConfig>;
+  runtimeRoot?: string;
+  runtimePackageNames?: readonly string[];
   limits?: Partial<RenderLimits>;
   timeoutMs?: number;
   featureFlags?: Partial<RenderFeatureFlags>;

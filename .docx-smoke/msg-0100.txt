@@ -1,0 +1,47 @@
+外壳适配分区新模块（插件 0.10.0）
+
+上游两个分区提交（the-last-docx 的 docx-runtime 解析器、the-last-pptx 的封面样式）到达后，
+外壳这边必须跟着动的地方都动完了。只改插件（dsh-office/），分区与他人的适配器未改。
+
+改了什么（全在 dsh-office/）：
+- scripts/assemble.mjs：装配新分区模块 docx-runtime（现在是 13 个模块）。它是共享库，
+  没有 module.json、不注册 MCP 能力，所以 MODULE_IDS 保持 12 个不变。
+- scripts/check-modules.mjs：把 docx-runtime 纳入 tsc + vitest——它是别的模块的编译依赖，
+  不纳入的话它的类型错误只会在别人 typecheck 时才暴露。
+- scripts/build-dsh.mjs：
+  * 打包布局跟随分区的资源约定。分区里引擎在 <模块根>/src/engine/、资源在 <模块根>/assets/，
+    引擎脚本用 Path(__file__).resolve().parents[2] 回推模块根。旧打包把引擎摊平到
+    lib/engines/<name>/engine/，parents[2] 会指到 lib/engines —— pptx 的封面位图取不到，
+    而且是到生成产物那一刻才 FileNotFoundError。现在 pptx/xlsx 保留 src/engine 深度并复制
+    assets，索引/资源两侧一起改，所以 parents[2] 重新落在模块根上。
+  * 每次构建先清 lib/engines。上一版的落点残留会被一起打进包里（实测过一次：
+    pptx-office/engine/ 与新的 src/engine/ 同时存在，旧那份还带着过时的资源回推逻辑）。
+  * 版本 0.10.0。
+- 回到仓库自己声明的包管理器：README 写的是 npm install，package-lock.json 也在版本库里，
+  而 pnpm-workspace.yaml 是我上一轮加进去的偏离物。它的存在让 pnpm 认为 lockfile 已最新、
+  直接跳过重新解析，新模块根本不会被 link。删掉它（以及未入库的 pnpm-lock.yaml），
+  装配产物里的 workspace 依赖回到 "*"，用 npm install 装配。
+
+实测回执：
+- npm install：13 个 @dsh-office-profile/* 链接 + 5 个 office-* 链接全部建立（此前被我的
+  pnpm 流程弄丢过）。
+- node scripts/check-modules.mjs：13 个模块 tsc 全过；仅 1 条测试失败，属分区自身
+  （见下），非本次改动引入。
+- node scripts/build-dsh.mjs：退出码 0；核心包 0.10.0 = 4171664 B
+  sha256 a7ae5fb6dd89a7d75db106200cbb9820881c40dd86333230593a4e70fde841d1。
+- 装进 DSH profile 后：握手 the-last-docx 0.10.0；运行时 source=runtime-package、无缺失、
+  三条路径全部注入；capabilities 里 xlsx 转 true（0.9.2 的 doctor 修正生效）。
+- pptx applyArtStyle（新能力）：styleId=indigo-paperlight-v1、styledSlides=1、artWord=DSH、
+  slideCount=12，产出 edited.pptx 1876774 B sha256 3f6ab0f9...；改写后 verify 1/1 pass。
+  这条同时验证了上面那个资源布局改动是对的。
+- docx_analyze(complex=structure)：✓ bridges=4。
+- docx-render（rev-v1.docx）：✓ 1 页 PDF 36771 B + 页面 PNG 21345 B + 缩略图 5275 B，
+  engine=libreoffice-poppler —— 新 resolver 解析出的 soffice/pdftoppm 路径端到端可用。
+
+明确没改、属他人的（已在报告里上报）：
+- 分区 the-last-docx/docx-inspect 的 tests/contract.test.ts 期望配置键恰好 4 个，而同一次提交的
+  module.json 已经声明了 6 个（多了 runtimeRoot / runtimePackageNames）→ 1 条测试失败。
+  装配件与分区原件 SHA256 逐字相同、provenance 0 changedSources，可证不是装配引入的。
+- 适配器 dsh-toolchain 的验收闸门自相矛盾：锁文件写 "python/python.exe"（正斜杠），
+  verify-runtime.mjs 第 66 行按逐字相等比较，而 fetch-runtime.ps1 写的是反斜杠、
+  CONTRACT.md 第 4 节也按反斜杠记。结果是 verify:runtime 永远过不了（我的和他们那份都 3 项 ✗）。

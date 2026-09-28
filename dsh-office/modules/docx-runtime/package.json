@@ -1,8 +1,8 @@
 {
-  "name": "@dsh-office-profile/docx-parse",
+  "name": "@dsh-office-profile/docx-runtime",
   "version": "0.1.0",
   "private": true,
-  "description": "dsh-office-profile module: DOCX structural parsing with a dual (semantic + physical) IR and a stable source map.",
+  "description": "Shared, manifest-driven external runtime discovery for DSH Office modules.",
   "license": "MIT",
   "type": "module",
   "engines": {
@@ -14,16 +14,16 @@
   },
   "files": [
     "src",
-    "types",
-    "module.json"
+    "README.md"
   ],
   "scripts": {
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run",
-    "test:contract": "vitest run tests/contract.test.ts",
-    "test:edge": "vitest run tests/edge-cases.test.ts",
-    "test:regression": "vitest run tests/regression.test.ts",
-    "fixtures:build": "python fixtures/generate_fixtures.py --out fixtures/_generated"
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
   },
   "peerDependencies": {
     "office-core": "*",
@@ -44,11 +44,5 @@
     "office-test-kit": {
       "optional": true
     }
-  },
-  "devDependencies": {
-    "@types/node": "^22.10.2",
-    "typescript": "^5.7.2",
-    "vitest": "^2.1.8",
-    "@dsh-office-profile/docx-runtime": "*"
   }
 }

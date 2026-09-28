@@ -226,6 +226,8 @@ export interface FeatureFlags {
 /** 模块配置：由 Profile 注入，模块不读取全局配置。 */
 export interface ModuleConfig {
   engine: EngineConfig;
+  runtimeRoot?: string;
+  runtimePackageNames?: readonly string[];
   limits: LimitConfig;
   timeoutMs: number;
   featureFlags: FeatureFlags;

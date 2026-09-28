@@ -12,7 +12,7 @@ for (const raw of process.argv.slice(2)) {
 }
 
 const FAMILIES = [
-  { family: 'docx', source: join(root, '..', 'the-last-docx'), modules: ['docx-inspect', 'docx-easy-parse', 'docx-parse', 'docx-complex-parse', 'docx-create', 'docx-styles', 'docx-edit', 'docx-render', 'docx-artifact'] },
+  { family: 'docx', source: join(root, '..', 'the-last-docx'), modules: ['docx-runtime', 'docx-inspect', 'docx-easy-parse', 'docx-parse', 'docx-complex-parse', 'docx-create', 'docx-styles', 'docx-edit', 'docx-render', 'docx-artifact'] },
   { family: 'pptx', source: join(root, '..', 'the-last-pptx'), modules: ['pptx-office'] },
   { family: 'xlsx', source: join(root, '..', 'the-last-xlsx'), modules: ['xlsx-office'] },
   { family: 'pdf', source: join(root, '..', 'the-last-pdf'), modules: ['pdf-office'] },

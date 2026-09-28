@@ -3,7 +3,7 @@ import { readFile,writeFile,mkdir,cp,readdir,rm,rename,stat,access } from 'node:
 import { resolve,join,relative,dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root=fileURLToPath(new URL('..',import.meta.url));
-const VERSION='0.9.3';
+const VERSION='0.10.0';
 // 工具链（运行时）的产地与版本：运行时不再是本仓库的产物，见 toolchain.lock.json。
 const toolchainPin=JSON.parse(await readFile(join(root,'toolchain.lock.json'),'utf8'));
 const platformDir='win32-x64';
@@ -18,6 +18,10 @@ const explicitRuntime=parsed.get('runtime');
 // 1. 核心包：JS bundle + dsh 清单 + 文档，**不含运行时**（运行时是另一个包）
 // ---------------------------------------------------------------------------
 await mkdir(join(coreOut,'lib'),{recursive:true});
+// 每次构建先清掉 lib/engines：它是上一版按当时的落点复制出来的，不清就会把旧落点的
+// 脚本一起打进包里（实测过一次：pptx-office/engine/ 与新的 src/engine/ 同时存在，
+// 旧的那份还带着过时的资源回推逻辑）。发布产物里只允许有当前布局。
+await rm(join(coreOut,'lib','engines'),{recursive:true,force:true});
 const bundledPackages=new Map();
 // Preserve each Python adapter's sibling-script lookup after bundling. Source files stay untouched.
 const engines={name:'python-engine-assets',setup(builder){
@@ -35,9 +39,16 @@ const engines={name:'python-engine-assets',setup(builder){
   builder.onLoad({filter:/[\\/]modules[\\/](pptx-office|xlsx-office)[\\/]src[\\/]index\.ts$/},async args=>{
     const match=args.path.replaceAll('\\','/').match(/\/modules\/(pptx-office|xlsx-office)\/src\/index\.ts$/);
     if(!match)return;
-    const name=match[1],engineDir=join(dirname(args.path),'engine');
-    const contents=(await readFile(args.path,'utf8')).replaceAll('import.meta.url',`new URL('./engines/${name}/index.js', import.meta.url).href`);
-    await cp(engineDir,join(coreOut,'lib','engines',name,'engine'),{recursive:true});
+    const name=match[1],moduleRoot=resolve(dirname(args.path),'..');
+    // 分区里引擎在 <模块根>/src/engine/、资源在 <模块根>/assets/，而引擎脚本用
+    // Path(__file__).resolve().parents[2] 回推模块根找资源。所以 lib/engines/<name>/ 之下
+    // 必须**照原样保留这个深度**（src/engine + assets），摊平会让 parents[2] 指到别处，
+    // 表现是引擎在生成产物那一刻才 FileNotFoundError。文档模块没有相对资源，维持原样。
+    const contents=(await readFile(args.path,'utf8'))
+      .replaceAll('import.meta.url',`new URL('./engines/${name}/index.js', import.meta.url).href`)
+      .replaceAll("'./engine/","'./src/engine/");
+    await cp(join(moduleRoot,'src','engine'),join(coreOut,'lib','engines',name,'src','engine'),{recursive:true});
+    if(await exists(join(moduleRoot,'assets')))await cp(join(moduleRoot,'assets'),join(coreOut,'lib','engines',name,'assets'),{recursive:true});
     return {contents,loader:'ts',resolveDir:dirname(args.path)};
   });
 }};

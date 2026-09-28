@@ -20,7 +20,9 @@
   "scripts": {
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
-    "test:contract": "vitest run tests/contract.test.ts"
+    "test:contract": "vitest run tests/contract.test.ts",
+    "test:runtime-visual": "pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/run-dsh-runtime-visual-smoke.ps1",
+    "test:runtime-live": "vitest run tests/live-runtime.integration.test.ts"
   },
   "peerDependencies": {
     "office-core": "*",
@@ -43,7 +45,8 @@
     }
   },
   "dependencies": {
-    "@dsh-office-profile/docx-parse": "*"
+    "@dsh-office-profile/docx-parse": "*",
+    "@dsh-office-profile/docx-runtime": "*"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

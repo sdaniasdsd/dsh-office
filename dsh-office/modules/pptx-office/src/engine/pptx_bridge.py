@@ -161,6 +161,62 @@ def title_size_fits(shape, size_pt):
     return height_pt >= required_height
 
 
+def apply_indigo_paperlight_cover(prs, art_word):
+    """Apply a packaged bitmap background to the cover only.
+
+    The style registry is deliberately small and allow-listed. It keeps visual
+    assets separate from the generic PPTX editing engine and avoids changing
+    masters, layouts, tables, charts, or any existing text content.
+    """
+    from pptx.dml.color import RGBColor
+    from pptx.enum.shapes import PP_PLACEHOLDER
+    from pptx.util import Inches, Pt
+    asset = Path(__file__).resolve().parents[2] / "assets" / "indigo-paperlight-v1.png"
+    if not asset.is_file():
+        raise ValueError("Art style asset is missing from the installed module")
+    if not prs.slides:
+        raise ValueError("Cannot apply an art style to an empty presentation")
+    slide = prs.slides[0]
+    picture = slide.shapes.add_picture(str(asset), 0, 0, width=prs.slide_width, height=prs.slide_height)
+    # Keep the bitmap below every existing placeholder and text shape.
+    tree = slide.shapes._spTree
+    tree.remove(picture._element)
+    tree.insert(2, picture._element)
+    watermark = slide.shapes.add_textbox(Inches(0.72), Inches(4.72), Inches(6.4), Inches(1.5))
+    paragraph = watermark.text_frame.paragraphs[0]
+    run = paragraph.add_run()
+    run.text = art_word
+    run.font.name = "Aptos Display"
+    run.font.size = Pt(72)
+    run.font.bold = True
+    run.font.color.rgb = RGBColor(18, 104, 172)
+    title_types = {PP_PLACEHOLDER.TITLE, PP_PLACEHOLDER.CENTER_TITLE, PP_PLACEHOLDER.VERTICAL_TITLE}
+    subtitle_types = {PP_PLACEHOLDER.SUBTITLE}
+    styled_titles = 0
+    for shape in slide.shapes:
+        if not getattr(shape, "has_text_frame", False) or not getattr(shape, "is_placeholder", False):
+            continue
+        try:
+            is_title = shape.placeholder_format.type in title_types
+        except (AttributeError, ValueError):
+            is_title = False
+        is_subtitle = shape.placeholder_format.type in subtitle_types
+        if not is_title and not is_subtitle:
+            continue
+        for paragraph in shape.text_frame.paragraphs:
+            for run in paragraph.runs:
+                if is_title:
+                    run.font.name = "Aptos Display"
+                    run.font.color.rgb = RGBColor(255, 255, 255)
+                    run.font.bold = True
+                else:
+                    run.font.color.rgb = RGBColor(191, 221, 245)
+        if is_title:
+            styled_titles += 1
+    return {"styleId": "indigo-paperlight-v1", "styledSlides": 1, "artWord": art_word,
+            "styledTitlePlaceholders": styled_titles}
+
+
 def main():
     if len(sys.argv) != 4:
         raise RuntimeError("Expected operation, input path, and output path arguments")
@@ -321,6 +377,25 @@ def main():
                   "formattedSlides": len(formatted_slides), "contrastAdjustedSlides": len(contrast_adjusted_slides),
                   "titleColorPreservedSlides": len(color_preserved_slides), "verifiedFormattingRuns": len(expected_formats), "textPreserved": True,
                   "engine": f"python-pptx-{version('python-pptx')}"}
+    elif operation == "applyArtStyle":
+        if request.get("styleId") != "indigo-paperlight-v1":
+            raise ValueError("Unsupported art style")
+        art_word = request.get("artWord", "DSH")
+        if not isinstance(art_word, str) or not art_word or len(art_word) > 24:
+            raise ValueError("artWord must be a short non-empty string")
+        before = [paragraph["text"] for slide in extract(prs, limits) for shape in slide["shapes"]
+                  for paragraph in shape.get("paragraphs", [])]
+        result = apply_indigo_paperlight_cover(prs, art_word)
+        Path(output_name).parent.mkdir(parents=True, exist_ok=True)
+        prs.save(output_name)
+        with redirect_stdout(sink):
+            reopened = Presentation(output_name)
+        after = {paragraph["text"] for slide in extract(reopened, limits) for shape in slide["shapes"]
+                 for paragraph in shape.get("paragraphs", [])}
+        if not set(before).issubset(after):
+            raise ValueError("applyArtStyle did not preserve all existing text content")
+        result.update({"action": "applyArtStyle", "slideCount": len(reopened.slides), "textPreserved": True,
+                       "engine": f"python-pptx-{version('python-pptx')}"})
     elif operation == "verify":
         slides = extract(prs, limits)
         text = all_text(slides)
