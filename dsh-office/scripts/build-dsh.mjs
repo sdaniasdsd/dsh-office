@@ -3,13 +3,18 @@ import { readFile,writeFile,mkdir,cp,readdir,rm,rename,stat,access } from 'node:
 import { resolve,join,relative,dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root=fileURLToPath(new URL('..',import.meta.url));
-const VERSION='0.10.2';
-// `dsh-mcp-client` loads this peer set while evaluating the DSH plugin entry.
-// Pin the family together so a profile install never falls back to an unrelated
-// copy in npm's cache (which can make the harness crash-loop during startup).
-const DSH_MCP_VERSION='0.1.0-rc.8';
-const DSH_MCP_STARTUP_DEPENDENCIES=Object.freeze([
+const VERSION='0.11.0';
+// DSH owns this runtime family.  Shipping a second copy in a Profile makes
+// ESM resolve different module identities in one host process and lets an old
+// extension import symbols that the current host no longer exports.  Keep the
+// contract explicit, but express it as peers so the loader resolves the one
+// copy bundled by the Desktop host.
+const DSH_HOST_RANGE='>=0.2.0-rc.1 <0.3.0';
+const DSH_HOST_RUNTIME=Object.freeze([
+  '@deepseek-ai/dsh-mcp-client',
   '@deepseek-ai/dsh-attachment',
+  '@deepseek-ai/dsh-llm',
+  '@deepseek-ai/dsh-scope',
   '@deepseek-ai/dsh-subprocess',
   '@deepseek-ai/dsh-timeout',
   '@deepseek-ai/dsh-tools',
@@ -103,13 +108,15 @@ await writeFile(join(coreOut,'lib','bundled.json'),JSON.stringify({schema:'dsh-o
 console.log(`bundled packages recorded: ${Object.keys(bundledVersions).length}`);
 await cp(join(root,'dsh'),join(coreOut,'dsh'),{recursive:true});
 await cp(join(root,'dsh','cordis.patch.yml'),join(coreOut,'cordis.patch.yml'));
+await cp(join(root,'dsh','host-compatibility.json'),join(coreOut,'host-compatibility.json'));
 for(const name of ['ARCHITECTURE.md','OFFICE_ENGINE_DECISIONS.md','THIRD_PARTY.md','modules.lock.json'])await cp(join(root,name),join(coreOut,name));
 // 核心包不再携带运行时，也不再限定平台：Windows 运行时是另一个包的事。
-const coreManifest={name:'@deepseek-ai/dsh-docx',version:VERSION,type:'module',license:'UNLICENSED',description:'DOCX, PPTX, XLSX and native PDF modules with parsing, editing, rendering and versioned delivery for DSH. Runtime (Python/LibreOffice/Poppler) ships separately as @deepseek-ai/dsh-docx-runtime; without it the runtime-dependent capabilities report themselves unavailable instead of failing startup.',main:'dsh/index.mjs',exports:{'.':'./dsh/index.mjs','./core':'./lib/index.mjs','./package.json':'./package.json'},files:['dsh','lib','third-party-licenses','cordis.patch.yml','README.md','ARCHITECTURE.md','OFFICE_ENGINE_DECISIONS.md','THIRD_PARTY.md','modules.lock.json'],engines:{node:'^22.19.0 || >=24.0.0'},dsh:{bundle:{patch:'./cordis.patch.yml'}},dependencies:{
-  '@deepseek-ai/dsh-mcp-client':DSH_MCP_VERSION,
-  ...Object.fromEntries(DSH_MCP_STARTUP_DEPENDENCIES.map((name)=>[name,DSH_MCP_VERSION])),
+const coreManifest={name:'@deepseek-ai/dsh-docx',version:VERSION,type:'module',license:'UNLICENSED',description:'DOCX, PPTX, XLSX and native PDF modules with parsing, editing, rendering and versioned delivery for DSH. The DSH bridge is resolved from the compatible host, never duplicated inside the Profile. Runtime (Python/LibreOffice/Poppler) ships separately as @deepseek-ai/dsh-docx-runtime; without it the runtime-dependent capabilities report themselves unavailable instead of failing startup.',main:'dsh/index.mjs',exports:{'.':'./dsh/index.mjs','./core':'./lib/index.mjs','./package.json':'./package.json'},files:['dsh','lib','third-party-licenses','cordis.patch.yml','host-compatibility.json','README.md','ARCHITECTURE.md','OFFICE_ENGINE_DECISIONS.md','THIRD_PARTY.md','modules.lock.json'],engines:{node:'^22.19.0 || >=24.0.0'},dsh:{bundle:{patch:'./cordis.patch.yml'}},dependencies:{
   'pdfjs-dist':'6.3.289',
-},peerDependencies:{'@deepseek-ai/cordis':'^4.0.1'}};
+},peerDependencies:{
+  '@deepseek-ai/cordis':'^4.0.1',
+  ...Object.fromEntries(DSH_HOST_RUNTIME.map((name)=>[name,DSH_HOST_RANGE])),
+}};
 await writeFile(join(coreOut,'package.json'),JSON.stringify(coreManifest,null,2)+'\n');
 await cp(join(root,'dsh','README.md'),join(coreOut,'README.md'));
 console.log(`core package built:    ${coreOut}`);

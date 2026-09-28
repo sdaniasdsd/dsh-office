@@ -1,0 +1,34 @@
+{
+  "schema": "dsh-office-host-compatibility/v1",
+  "plugin": {
+    "name": "@deepseek-ai/dsh-docx",
+    "version": "0.11.0"
+  },
+  "host": {
+    "dshVersionRange": ">=0.2.0-rc.1 <0.3.0",
+    "nodeVersionRange": "^22.19.0 || >=24.0.0"
+  },
+  "ownership": {
+    "plugin": [
+      "office MCP server",
+      "office module bundle",
+      "pdfjs-dist",
+      "optional @deepseek-ai/dsh-docx-runtime"
+    ],
+    "host": [
+      "@deepseek-ai/cordis",
+      "@deepseek-ai/dsh-mcp-client",
+      "@deepseek-ai/dsh-attachment",
+      "@deepseek-ai/dsh-llm",
+      "@deepseek-ai/dsh-scope",
+      "@deepseek-ai/dsh-subprocess",
+      "@deepseek-ai/dsh-timeout",
+      "@deepseek-ai/dsh-tools"
+    ]
+  },
+  "rules": [
+    "Host-owned packages must be peerDependencies, never dependencies.",
+    "A profile must resolve exactly one host-owned DSH module graph.",
+    "The package closure gate rejects a release that bundles a host-owned DSH package."
+  ]
+}
