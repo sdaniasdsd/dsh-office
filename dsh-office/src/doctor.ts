@@ -24,6 +24,24 @@ export async function probe(command:string,args:string[],timeout=5000,cwd?:strin
     child.once('error',()=>finish(false,'not found or cannot start'));child.once('close',code=>finish(code===0,output.trim()||`exit ${code}`));
   });
 }
+/**
+ * MCP 边界用的是「不可丢失」序列化（docx-artifact 的 jsonValue），它**拒绝 undefined**：
+ * `typeof undefined !== 'object'` 直接判失败，整份报告会被回成
+ * `INVALID_INPUT: Value is not lossless JSON.`。
+ *
+ * 为什么需要这一步：`resolveRuntime` 只在运行时来自兄弟包清单时才给 `schema`，走
+ * runtimeRoot / DSH_OFFICE_RUNTIME_ROOT 解析时它必然是 undefined（实测：那是整份报告里
+ * 唯一被拒的值）。可选而此刻不存在的字段一律以 null 过边界，别让一个可选字段把整份
+ * doctor 结论打没。
+ */
+function jsonSafe<T>(value:T):T{
+  if(value===undefined)return null as T;
+  if(value===null||typeof value!=='object')return value;
+  if(Array.isArray(value))return value.map(item=>jsonSafe(item)) as T;
+  const out:Record<string,unknown>={};
+  for(const [key,child] of Object.entries(value as Record<string,unknown>))out[key]=jsonSafe(child);
+  return out as T;
+}
 export async function doctor(config:{pythonPath?:string;sofficePath?:string;pdftoppmPath?:string;javaPath?:string;runtimeRoot?:string;runtimePackageNames?:readonly string[]}={}){
   const callerPath=fileURLToPath(import.meta.url);
   const runtimeResolution=resolveRuntime({runtimeRoot:config.runtimeRoot,runtimePackageNames:config.runtimePackageNames,callerPath,
@@ -56,8 +74,8 @@ export async function doctor(config:{pythonPath?:string;sofficePath?:string;pdft
   const exceljsBundled=bundled['exceljs'];
   const exceljs={available:exceljsProbe.available||Boolean(exceljsBundled),
     detail:exceljsProbe.available?exceljsProbe.detail:`bundled into the server bundle${exceljsBundled?` (exceljs ${exceljsBundled})`:''}; not installed separately, so a child-process import cannot see it`};
-  return {node:process.version,runtimeResolution,python:runtime,lxml:xml,pythonPptx:pptx,rdocx,docling,exceljs,pdfjs,libreoffice,poppler,java:javaProbe,
+  return jsonSafe({node:process.version,runtimeResolution,python:runtime,lxml:xml,pythonPptx:pptx,rdocx,docling,exceljs,pdfjs,libreoffice,poppler,java:javaProbe,
     bundledPackages:Object.keys(bundled),
     capabilities:{create:true,edit:true,artifact:runtime.available,parse:runtime.available,complexStructure:runtime.available,complexLayout:runtime.available&&rdocx.available,deepEasyParse:runtime.available&&docling.available,pptx:runtime.available&&pptx.available,xlsx:runtime.available&&exceljs.available,nativePdf:pdfjs.available,render:libreoffice.available&&poppler.available,java:javaProbe.available},
-    note:'Availability is not an accuracy benchmark. Optional layout engines are never silently substituted. A bundled npm package is reported available with its provenance in "detail".'};
+    note:'Availability is not an accuracy benchmark. Optional layout engines are never silently substituted. A bundled npm package is reported available with its provenance in "detail".'});
 }

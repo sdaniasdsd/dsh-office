@@ -1,0 +1,43 @@
+构建验证：修掉两个让新推送构建不可用的问题
+
+按「构建尝试一下有没有问题」跑了一遍（assemble → npm install → 外壳 typecheck →
+13 模块 check → build-dsh → 对 dist 产物直接验证）。构建本身退出码 0，但查出两个问题，
+都在插件侧，都已修并复验。
+
+一、构建脚本的缺陷：从仓库目录之外调用时 bundled.json 记成 0 个包
+   scripts/build-dsh.mjs
+- 现象：构建日志 `bundled packages recorded: 0`（同一脚本在仓库目录里跑是 85）。
+- 根因（A/B/C 对照，每个进程只跑一次以避开 esbuild service 复用）：
+  esbuild 的 metafile 输入键是相对**工作目录**的，默认取 process.cwd()。
+  * cwd=仓库：键 `node_modules/zod/...` → 记录 85 个包
+  * cwd=别处：键 `../开源团队作品/dsh-office-clone/dsh-office/node_modules/zod/...`
+    → resolve(root,key) 拼出不存在的路径 → 记录 **0** 个包
+  * cwd=别处 + absWorkingDir:root：键回到仓库相对路径 → 记录 85 个包
+- 后果不是"少一行日志"：lib/bundled.json 一空，doctor 的 exceljs 出处判断失效，
+  xlsx 会退回 0.9.2 修掉的那个假阴性。
+- 修法：给两个 build() 都钉上 `absWorkingDir:root`，键的基准不再随调用位置变化。
+
+二、新 doctor 的报告过不了 MCP 的 JSON 边界
+  src/doctor.ts
+- 现象：对 dist 产物调 docx_doctor 直接回
+  `{"code":"INVALID_INPUT","message":"Value is not lossless JSON."}`，整份结论拿不到。
+- 根因：MCP 边界的判据是 docx-artifact 的 jsonValue()，它**拒绝 undefined**
+  （typeof undefined !== 'object' 即失败）。新加的 `runtimeResolution` 里 `schema`
+  只在运行时来自兄弟包清单时才有值，走 runtimeRoot / DSH_OFFICE_RUNTIME_ROOT 解析时
+  必然 undefined。绕开边界直接调 doctor() 复刻该判据，报告里**唯一**被拒的值就是
+  `report.runtimeResolution.schema = undefined`。
+- 修法：doctor 返回前过一层 jsonSafe()，把"可选而此刻不存在"的字段一律写成 null。
+  不让一个可选字段把整份 doctor 结论打没。
+
+复验回执（全部针对 dist 产物，未装进 profile、未重启 DSH）：
+- npm run typecheck：退出码 0
+- node scripts/check-modules.mjs：退出码 0（13 模块；docx-inspect 由 1 failed/64 passed
+  变为 65 passed，上游那条过期契约测试已修好）
+- node scripts/build-dsh.mjs（cwd 在仓库外）：退出码 0，`bundled packages recorded: 85`
+- dist/api 结构：lib/server.mjs、lib/bundled.json（85 个包，exceljs 4.4.0）、
+  lib/engines/pptx-office/{src/engine/pptx_bridge.py, assets/indigo-paperlight-v1.png}、
+  lib/engines/docx-complex-parse/docx_complex_parse.py 全在
+- dist 产物 docx_doctor：完整报告回来了，capabilities.xlsx=true、pptx=true、render=true、
+  java=true；java 探测到本机 Java 21.0.8；runtimeResolution.source=config-root，
+  三件组件均为 config-root
+- dist 产物 docx-render：1 页，engine=libreoffice-poppler，PDF 36771 B

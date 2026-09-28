@@ -52,7 +52,12 @@ const engines={name:'python-engine-assets',setup(builder){
     return {contents,loader:'ts',resolveDir:dirname(args.path)};
   });
 }};
-for(const entry of ['server','index'])await build({entryPoints:[join(root,'src',`${entry}.ts`)],outfile:join(coreOut,'lib',`${entry}.mjs`),bundle:true,platform:'node',format:'esm',target:'node22',external:['pdfjs-dist'],plugins:[engines],define:{__DSH_DOCX_VERSION__:JSON.stringify(VERSION)},banner:{js:"import { createRequire as __createRequire } from 'node:module'; const require = __createRequire(import.meta.url);"},metafile:true}).then(async result=>{
+// absWorkingDir 必须钉成 root：esbuild 的 metafile 输入键是相对**工作目录**的，默认取
+// process.cwd()。从仓库目录之外调本脚本时，键会变成 "../开源团队作品/.../node_modules/..."
+// 这种带 .. 的相对路径，下面那段 bundled 包统计用 resolve(root,key) 就一条都命中不到——
+// 实测从 85 个包掉到 0，而 lib/bundled.json 一空，docx_doctor 的 exceljs 出处判断就失效、
+// xlsx 退回假阴性。钉住之后键恒为仓库相对路径，与调用时的工作目录无关。
+for(const entry of ['server','index'])await build({absWorkingDir:root,entryPoints:[join(root,'src',`${entry}.ts`)],outfile:join(coreOut,'lib',`${entry}.mjs`),bundle:true,platform:'node',format:'esm',target:'node22',external:['pdfjs-dist'],plugins:[engines],define:{__DSH_DOCX_VERSION__:JSON.stringify(VERSION)},banner:{js:"import { createRequire as __createRequire } from 'node:module'; const require = __createRequire(import.meta.url);"},metafile:true}).then(async result=>{
   await writeFile(join(coreOut,'lib',`${entry}.build.json`),JSON.stringify(result.metafile,null,2));
   for(const input of Object.keys(result.metafile.inputs)){
     let directory=dirname(resolve(root,input));
